@@ -2,7 +2,7 @@
 # Main File for the Dopplegaenger Detection Program
 # Execute: pyhon3 main.py
 from create_db import *
-# from scrape_guardian import *
+from scrape_guardian import *
 
 def main():
 	database = r'database/dopplegaenger.db'
@@ -11,7 +11,7 @@ def main():
 
 	if conn is not None:
 		create_guardian_table(conn)
-		# spider()
+		runSpider()
 		close_connection(conn)
 	else:
 		print("Error! Database Tables Not Created.")
