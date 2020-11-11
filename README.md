@@ -7,6 +7,7 @@ Script scans the index/main page of the news website The Guardian for new articl
 Python3
 Scrapy
 ```pip3 install scrapy```
+```pip3 install Twisted```
 
 ## Execute: 
 
