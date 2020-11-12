@@ -31,12 +31,12 @@ class guardianSpider(scrapy.Spider):
         }
 
 
-    def runSpider(self):
-        configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-        runner = CrawlerRunner()
+def runSpider():
+    configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+    runner = CrawlerRunner()
 
-        d = runner.crawl(guardianSpider)
-        d.addBoth(lambda _: reactor.stop())
-        reactor.run()  # the script will block here until the crawling is finished
+    d = runner.crawl(guardianSpider)
+    d.addBoth(lambda _: reactor.stop())
+    reactor.run()  # the script will block here until the crawling is finished
 
 
