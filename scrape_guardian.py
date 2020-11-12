@@ -20,6 +20,10 @@ class guardianSpider(scrapy.Spider):
             title = url.css("span.js-headline-text::text").extract_first()
             link = url.css("a::attr(href)").extract_first()
             yield scrapy.Request(url=link, callback=self.parse_article, meta={'title': title, 'url': link})
+        for url in response.css("h4.fc-sublink__title"):
+            title = url.css("span.js-headline-text::text").extract_first()
+            link = url.css("a::attr(href)").extract_first()
+            yield scrapy.Request(url=link, callback=self.parse_article, meta={'title': title, 'url': link})
 
     def parse_article(self, response):
         yield {
@@ -38,5 +42,7 @@ def runSpider():
     d = runner.crawl(guardianSpider)
     d.addBoth(lambda _: reactor.stop())
     reactor.run()  # the script will block here until the crawling is finished
+
+runSpider()
 
 
