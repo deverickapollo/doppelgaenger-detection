@@ -28,14 +28,15 @@ def create_guardian_table(conn):
                                     title text NOT NULL,
                                     url text NOT NULL,
                                     author text,
-                                    publish_date text
+                                    publish_date text,
+                                    publish_time text
                                 ); """
 
 	create_table_template(conn, sql_create_guardian_table)
 
 def insert_into_guardian(conn,website):
-	conn.execute("INSERT INTO guardian (ID,TITLE,URL,AUTHOR,PUBLISH_DATE) \
-      VALUES (website.id, website.title, website.url, website.author, website.publish_date)");
+	conn.execute("INSERT INTO guardian (ID,TITLE,URL,AUTHOR,PUBLISH_DATE,PUBLISH_TIME) \
+      VALUES (website.id, website.title, website.url, website.author, website.publish_date, website.publish_time)");
 
 
 def close_connection(conn):

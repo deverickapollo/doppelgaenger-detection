@@ -18,8 +18,9 @@ def parse(self, response):
 			'title': url.css("span.js-headline-text::text").extract_first(),
     		'url': url.css("a::attr(href)").extract()
             #Must be extracted by following URL
-            # 'author': url.css("").extract_first(),
-            # 'publish_date': url.css("").extract()	
+            # 'author': url.css("p.byline::text").extract_first()
+            # 'publish_date': url.css("time.content__dateline-wpd::text").extract_first()
+			# 'publish_time': url.css("span.content__dateline-time::text").extract_first()
 		}
 
 def runSpider():
