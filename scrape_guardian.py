@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # Helper functions to crawl Guardian News Website
+from urllib.request import Request
 
 from twisted.internet import reactor
 import scrapy
@@ -16,14 +17,15 @@ class guardianSpider(scrapy.Spider):
 
 def parse(self, response):
     for url in response.css("h3.fc-item__title"):
-        yield {
-            'title': url.css("span.js-headline-text::text").extract_first(),
-            'url': url.css("a::attr(href)").extract()
-        }
+        title = url.css("span.js-headline-text::text").extract_first(),
+        link = url.css("a::attr(href)").extract()
+        yield Request(link, callback='parse_article', meta={'title': title, 'url': link})
 
 
 def parse_article(self, response):
     yield {
+        'title': response.meta.get('title'),
+        'url': response.meta.get('url'),
         'author': response.css("p.byline span span::text").extract_first(),
         'publish_date': response.css("time.content__dateline-wpd::text").extract_first(),
         'publish_time': response.css("span.content__dateline-time::text").extract_first()
