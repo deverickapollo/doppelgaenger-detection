@@ -12,17 +12,15 @@ class guardianSpider(scrapy.Spider):
         'https://www.theguardian.com/international',
     ]
 
-    def parse(self, response):
-        for url in response.css("h3.fc-item__title"):
-            yield {
-                'title': url.css("span.js-headline-text::text").extract_first(),
-                'url': url.css("a::attr(href)").extract(),
-                #Must be extracted by following URL
-                # 'author': url.css("").extract_first(),
-                # 'publish_date': url.css("").extract()
-           		
-            }
-         
+def parse(self, response):
+	for url in response.css("h3.fc-item__title"):
+		yield {
+			'title': url.css("span.js-headline-text::text").extract_first(),
+    		'url': url.css("a::attr(href)").extract()
+            #Must be extracted by following URL
+            # 'author': url.css("").extract_first(),
+            # 'publish_date': url.css("").extract()	
+		}
 
 def runSpider():
 	configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
