@@ -10,11 +10,11 @@ Script scans the index/main page of the news website The Guardian for new articl
 `pip3 install scrapy`
 
 `pip3 install Twisted`
-
+`pip3 install flask`
 ---
 ## Execute: 
 
-`python3 guardianbot.py`
+`python3 webserver.py`
 
 ---
 ## Notes: 

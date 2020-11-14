@@ -1,8 +1,8 @@
-
 import sqlite3
 from flask import Flask, render_template, request
 from flask import g
 import sqlite3 as sql
+import os
 app = Flask(__name__)
 
 DATABASE = r'database/dopplegaenger.db'
@@ -22,18 +22,20 @@ def close_connection(exception):
 
 @app.route('/list')
 def list():
-   con = get_db()
-   con.row_factory = sql.Row
+    con = get_db()
+    con.row_factory = sql.Row
    
-   cur = con.cursor()
-   cur.execute("select * from guardian")
+    cur = con.cursor()
+    cur.execute("select * from guardian")
    
-   rows = cur.fetchall(); 
-   return render_template("list.html",rows = rows)
+    rows = cur.fetchall(); 
+    return render_template("list.html",rows = rows)
 
 @app.route('/')
 def home():
-   return render_template('home.html')
+    return render_template('home.html')
 
 if __name__ == '__main__':
-   app.run()
+    ## I don't like this method but it works
+    os.system("python3 guardianbot.py")
+    app.run()
