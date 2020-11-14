@@ -20,7 +20,7 @@ class guardianSpider(scrapy.Spider):
         super(guardianSpider, self).__init__(*args, **kwargs)
         conn = kwargs.get('connection')
         if not conn:
-            raise ValueError('No connection available')
+            raise ValueError('No connection argument available')
         self.start_urls = ['https://www.theguardian.com/international']
 
     def parse(self, response):
