@@ -24,7 +24,7 @@ class sqLitePipeline(object):
         else:
             # insert_into_guardian(conn,item)
 
-            cursorObj.execute("INSERT INTO guardian (url, author, title) VALUES (?, ?, ?)", (url,author,title))
+            cursorObj.execute("INSERT INTO guardian (url, author, title, publish_date, publish_time) VALUES (?, ?, ?, ?, ?)", (url,author,title,publish_date, publish_time))
             conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)
         return item
