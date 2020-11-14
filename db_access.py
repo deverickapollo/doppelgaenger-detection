@@ -2,7 +2,7 @@
 # Helper Functions to communicate with local database
 import sqlite3
 from sqlite3 import Error
-
+import logging
 
 def create_connection(db_file):
 	conn = None
@@ -10,7 +10,8 @@ def create_connection(db_file):
 		conn = sqlite3.connect(db_file)
 		return conn
 	except Error as e:
-		print(e)
+		logging.error('%s raised an error', e)
+
 	return conn
 
 def execute_sql(conn, f):
@@ -18,22 +19,25 @@ def execute_sql(conn, f):
 		c = conn.cursor()
 		c.execute(f)
 	except Error as e:
-		print(e)
+		logging.error('%s raised an error', e)
 
 def create_guardian_table(conn):
 	sql_create_guardian_table = """ CREATE TABLE IF NOT EXISTS guardian (
-                                    id integer PRIMARY KEY,
+                                    url text PRIMARY KEY,
                                     title text NOT NULL,
-                                    url text NOT NULL,
                                     author text,
                                     publish_date text,
                                     publish_time text
                                 ); """
+	sql_set_unique_index = """ CREATE UNIQUE INDEX url_idx 
+									ON guardian (url)
+                                ); """
 	execute_sql(conn, sql_create_guardian_table)
+	execute_sql(conn, sql_set_unique_index)
 
-def insert_into_guardian(conn,article):
-	sql_insert_guardian_table = """ INSERT INTO guardian (ID,TITLE,URL,AUTHOR,PUBLISH_DATE,PUBLISH_TIME)
-									VALUES (article.id, article.title, article.url, article.author, article.publish_date, article.publish_time)");
+def insert_into_guardian(conn,item):
+	sql_insert_guardian_table = """ INSERT INTO guardian (TITLE,URL,AUTHOR,PUBLISH_DATE,PUBLISH_TIME)
+									VALUES (item.title, item.url, item.author, item.publish_date, item.publish_time)");
                                 ); """
 	execute_sql(conn, sql_insert_guardian_table)
 
@@ -51,4 +55,4 @@ def close_connection(conn):
 	try:
 		conn.close()
 	except Error as e:
-		print(e)
+		logging.error('%s raised an error', e)

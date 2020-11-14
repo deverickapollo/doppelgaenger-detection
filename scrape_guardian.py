@@ -10,13 +10,17 @@ from scrapy.utils.project import get_project_settings
 from scrapy.settings import Settings
 import os
 from db_access import *
+import logging
 
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
 
-    def __init__(self, category=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(guardianSpider, self).__init__(*args, **kwargs)
+        conn = kwargs.get('connection')
+        if not conn:
+            raise ValueError('No connection available')
         self.start_urls = ['https://www.theguardian.com/international']
 
     def parse(self, response):
@@ -43,23 +47,20 @@ def runSpider():
     settings = Settings()
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
     settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
-    settings.setmodule(settings_module_path, priority='project')
+    settings.setmodule(settings_module_path, priority='default')
     runner = CrawlerRunner(settings)
-
     database = r'database/dopplegaenger.db'
     conn = create_connection(database)
-
+    
     if conn is not None:
-		# purge_db(conn)
         create_guardian_table(conn)
-        d = runner.crawl(guardianSpider)
+        
+        d = runner.crawl(guardianSpider,connection=conn)
         d.addBoth(lambda _: reactor.stop())
         reactor.run()  # the script will block here until the crawling is finished
     else:
-        print("Error! Database Tables Not Created.")
+        logging.log(logging.ERROR, "Error! Database Tables Not Created.")
+
     close_connection(conn)
-
-
-
 
 runSpider()

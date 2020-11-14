@@ -1,4 +1,5 @@
 import scrapy
+
 class guardianbotItem(scrapy.Item):
     id = scrapy.Field(default"null")
     title = scrapy.Field(default="null")
