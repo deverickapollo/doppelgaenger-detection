@@ -22,17 +22,10 @@ class sqLitePipeline(object):
         if result:
             logging.log(logging.WARNING, "Item already in database: %s", item)
         else:
-            insert_into_guardian(conn,item)
-            
-            # cursorObj.execute(
-            #     "insert into guardian (url, author) values (?, ?)",
-            #         ([url], [author])
-            # )
-            cursorObj.execute("insert into guardian (url, author, title) values (?, ?, ?)", (url,author,title))
-            # cursorObj.execute("INSERT INTO guardian (TITLE,URL,AUTHOR) VALUES ('yes','no','why');")
-            conn.commit()
-            # log.msg("Item stored : " % item, level=log.DEBUG)
+            # insert_into_guardian(conn,item)
 
+            cursorObj.execute("INSERT INTO guardian (url, author, title) VALUES (?, ?, ?)", (url,author,title))
+            conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)
         return item
 
