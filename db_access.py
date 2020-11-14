@@ -1,9 +1,7 @@
 #!/usr/bin/python
 # Helper Functions to communicate with local database
-
 import sqlite3
 from sqlite3 import Error
-import json
 
 
 def create_connection(db_file):
@@ -15,10 +13,10 @@ def create_connection(db_file):
 		print(e)
 	return conn
 
-def create_table_template(conn, create_table_sql):
+def execute_sql(conn, f):
 	try:
 		c = conn.cursor()
-		c.execute(create_table_sql)
+		c.execute(f)
 	except Error as e:
 		print(e)
 
@@ -31,13 +29,23 @@ def create_guardian_table(conn):
                                     publish_date text,
                                     publish_time text
                                 ); """
+	execute_sql(conn, sql_create_guardian_table)
 
-	create_table_template(conn, sql_create_guardian_table)
+def insert_into_guardian(conn,article):
+	sql_insert_guardian_table = """ INSERT INTO guardian (ID,TITLE,URL,AUTHOR,PUBLISH_DATE,PUBLISH_TIME)
+									VALUES (article.id, article.title, article.url, article.author, article.publish_date, article.publish_time)");
+                                ); """
+	execute_sql(conn, sql_insert_guardian_table)
 
-def insert_into_guardian(conn,website):
-	conn.execute("INSERT INTO guardian (ID,TITLE,URL,AUTHOR,PUBLISH_DATE,PUBLISH_TIME) \
-      VALUES (website.id, website.title, website.url, website.author, website.publish_date, website.publish_time)");
+def purge_db(conn):
+	sql_purge_guardian_table = """ DROP TABLE IF EXISTS guardian;
+                                ); """
+	execute_sql(conn, sql_purge_guardian_table)
 
+def select_url(conn):
+	sql_select_url = """ SELECT * FROM guardian;
+                                ); """
+	execute_sql(conn, sql_select_url)
 
 def close_connection(conn):
 	try:

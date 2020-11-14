@@ -6,14 +6,18 @@ from twisted.internet import reactor
 import scrapy
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
+from scrapy.utils.project import get_project_settings
+from scrapy.settings import Settings
+import os
+from db_access import *
 
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
-    start_urls = [
-        'https://www.theguardian.com/international',
-    ]
 
+    def __init__(self, category=None, *args, **kwargs):
+        super(guardianSpider, self).__init__(*args, **kwargs)
+        self.start_urls = ['https://www.theguardian.com/international']
 
     def parse(self, response):
         for url in response.css("h3.fc-item__title"):
@@ -34,15 +38,28 @@ class guardianSpider(scrapy.Spider):
             'publish_time': response.css("span.content__dateline-time::text").extract_first()
         }
 
-
 def runSpider():
     configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-    runner = CrawlerRunner()
+    settings = Settings()
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
+    settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
+    settings.setmodule(settings_module_path, priority='project')
+    runner = CrawlerRunner(settings)
 
-    d = runner.crawl(guardianSpider)
-    d.addBoth(lambda _: reactor.stop())
-    reactor.run()  # the script will block here until the crawling is finished
+    database = r'database/dopplegaenger.db'
+    conn = create_connection(database)
+
+    if conn is not None:
+		# purge_db(conn)
+        create_guardian_table(conn)
+        d = runner.crawl(guardianSpider)
+        d.addBoth(lambda _: reactor.stop())
+        reactor.run()  # the script will block here until the crawling is finished
+    else:
+        print("Error! Database Tables Not Created.")
+    close_connection(conn)
+
+
+
 
 runSpider()
-
-
