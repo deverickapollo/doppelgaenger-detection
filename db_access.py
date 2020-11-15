@@ -20,7 +20,7 @@ def execute_sql(conn, f):
 		c.execute(f)
 		conn.commit()
 	except Error as e:
-		logging.error('%s raised an error', e)
+		logging.log(logging.ERROR, '%s raised an error', e)
 
 def create_guardian_table(conn):
 	sql_create_guardian_table = """ CREATE TABLE IF NOT EXISTS guardian (

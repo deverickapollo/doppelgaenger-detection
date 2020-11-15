@@ -1,0 +1,491 @@
+INFO: Overridden settings:
+{'BOT_NAME': 'guardianbot', 'ROBOTSTXT_OBEY': True}
+INFO: Telnet Password: 636534bb4389c2e6
+INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+INFO: Enabled item pipelines:
+['db-pipeline.sqLitePipeline']
+INFO: Spider opened
+INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+INFO: Telnet console listening on 127.0.0.1:6023
+DEBUG: Crawled (200) <GET https://www.theguardian.com/robots.txt> (referer: None)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/international> (referer: None)
+DEBUG: Filtered duplicate request: <GET https://www.theguardian.com/world/2020/nov/15/will-scotland-become-the-new-ski-destination> - no more duplicates will be shown (see DUPEFILTER_DEBUG to show all duplicates)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/donald-trump-joe-biden-rally-us-elections> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/15/sage-expertflip-flopping-on-covid-restrictions-unwise> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "Arrests in Washington as president's supporters gather, rejecting Biden victory", 'url': 'https://www.theguardian.com/us-news/2020/nov/14/donald-trump-joe-biden-rally-us-elections', 'author': 'Oliver Milman', 'publish_date': '\nSun 15 Nov 2020 ', 'publish_time': '04.52\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/donald-trump-joe-biden-rally-us-elections>
+{'title': "Arrests in Washington as president's supporters gather, rejecting Biden victory", 'url': 'https://www.theguardian.com/us-news/2020/nov/14/donald-trump-joe-biden-rally-us-elections', 'author': 'Oliver Milman', 'publish_date': '\nSun 15 Nov 2020 ', 'publish_time': '04.52\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/news/2020/nov/14/super-rich-downton-abbey-estates-england-country-coronavirus> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "UK government's 'flip-flopping' on Covid restrictions unwise", 'url': 'https://www.theguardian.com/world/2020/nov/15/sage-expertflip-flopping-on-covid-restrictions-unwise', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/15/sage-expertflip-flopping-on-covid-restrictions-unwise>
+{'title': "UK government's 'flip-flopping' on Covid restrictions unwise", 'url': 'https://www.theguardian.com/world/2020/nov/15/sage-expertflip-flopping-on-covid-restrictions-unwise', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/14/blind-date-junior-lizzi> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/business/2020/nov/15/even-with-hope-of-a-vaccine-in-the-air-life-isnt-simple-for-easyjet> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "Super-rich buying up England's 'Downton Abbey estates' to escape pandemic", 'url': 'https://www.theguardian.com/news/2020/nov/14/super-rich-downton-abbey-estates-england-country-coronavirus', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/news/2020/nov/14/super-rich-downton-abbey-estates-england-country-coronavirus>
+{'title': "Super-rich buying up England's 'Downton Abbey estates' to escape pandemic", 'url': 'https://www.theguardian.com/news/2020/nov/14/super-rich-downton-abbey-estates-england-country-coronavirus', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/music/2020/nov/14/james-blunt-life-on-a-plate-body-temple-painful-experiences> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/15/i-feel-bullied-and-hopeless-how-can-i-find-happiness-mariella-frostrup> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/republicans-election-donald-trump-fire> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/15/packed-crowds-and-euphoric-leaders-australia-revels-in-covid-free-days> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'We realised we have matching tattoos', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/blind-date-junior-lizzi', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/14/blind-date-junior-lizzi>
+{'title': 'We realised we have matching tattoos', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/blind-date-junior-lizzi', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/joe-biden-president-republicans-democrats> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/15/will-scotland-become-the-new-ski-destination> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "Even with hope of a vaccine in the air, life isn't simple for easyJet", 'url': 'https://www.theguardian.com/business/2020/nov/15/even-with-hope-of-a-vaccine-in-the-air-life-isnt-simple-for-easyjet', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/business/2020/nov/15/even-with-hope-of-a-vaccine-in-the-air-life-isnt-simple-for-easyjet>
+{'title': "Even with hope of a vaccine in the air, life isn't simple for easyJet", 'url': 'https://www.theguardian.com/business/2020/nov/15/even-with-hope-of-a-vaccine-in-the-air-life-isnt-simple-for-easyjet', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/14/a-bath-with-a-view-in-an-attic-conversion> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/politics/2020/nov/14/barnard-castle-residents-dominic-cummings-eye-test> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'My body has not been a temple. I’ve put it through painful experiences', 'url': 'https://www.theguardian.com/music/2020/nov/14/james-blunt-life-on-a-plate-body-temple-painful-experiences', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/music/2020/nov/14/james-blunt-life-on-a-plate-body-temple-painful-experiences>
+{'title': 'My body has not been a temple. I’ve put it through painful experiences', 'url': 'https://www.theguardian.com/music/2020/nov/14/james-blunt-life-on-a-plate-body-temple-painful-experiences', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/donald-trump-concede-election-republican-donors-covid> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/14/when-rearranging-a-drawer-is-restful-the-magic-of-pottering> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'I feel bullied and hopeless. How can I find happiness?', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/15/i-feel-bullied-and-hopeless-how-can-i-find-happiness-mariella-frostrup', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/15/i-feel-bullied-and-hopeless-how-can-i-find-happiness-mariella-frostrup>
+{'title': 'I feel bullied and hopeless. How can I find happiness?', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/15/i-feel-bullied-and-hopeless-how-can-i-find-happiness-mariella-frostrup', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Republicans are playing with fire. And we all risk getting burned', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/republicans-election-donald-trump-fire', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/republicans-election-donald-trump-fire>
+{'title': 'Republicans are playing with fire. And we all risk getting burned', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/republicans-election-donald-trump-fire', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Australia revels in Covid-free days', 'url': 'https://www.theguardian.com/world/2020/nov/15/packed-crowds-and-euphoric-leaders-australia-revels-in-covid-free-days', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/15/packed-crowds-and-euphoric-leaders-australia-revels-in-covid-free-days>
+{'title': 'Australia revels in Covid-free days', 'url': 'https://www.theguardian.com/world/2020/nov/15/packed-crowds-and-euphoric-leaders-australia-revels-in-covid-free-days', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/football/2020/nov/14/eric-dier-jan-vertonghen-toby-alderweireld-england-belgium> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Biden plans to reach across the aisle – but is he walking into a Republican trap?', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/joe-biden-president-republicans-democrats', 'author': 'David Smith', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '08.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/joe-biden-president-republicans-democrats>
+{'title': 'Biden plans to reach across the aisle – but is he walking into a Republican trap?', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/joe-biden-president-republicans-democrats', 'author': 'David Smith', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '08.00\xa0GMT'}
+INFO: Item stored: {'title': 'Will the pandemic make Scotland the new ski destination?', 'url': 'https://www.theguardian.com/world/2020/nov/15/will-scotland-become-the-new-ski-destination', 'author': 'Jamie Doward', 'publish_date': '\nSun 15 Nov 2020 ', 'publish_time': '06.20\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/15/will-scotland-become-the-new-ski-destination>
+{'title': 'Will the pandemic make Scotland the new ski destination?', 'url': 'https://www.theguardian.com/world/2020/nov/15/will-scotland-become-the-new-ski-destination', 'author': 'Jamie Doward', 'publish_date': '\nSun 15 Nov 2020 ', 'publish_time': '06.20\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/2017/may/15/the-recap-sign-up-for-the-best-of-the-guardians-sport-coverage> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/joe-biden-administration-cabinet-susan-rice-michele-flournoy> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'A bath with a view in an attic conversion', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/a-bath-with-a-view-in-an-attic-conversion', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/14/a-bath-with-a-view-in-an-attic-conversion>
+{'title': 'A bath with a view in an attic conversion', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/a-bath-with-a-view-in-an-attic-conversion', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/politics/2020/nov/14/barnard-castle-residents-dominic-cummings-eye-test', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/politics/2020/nov/14/barnard-castle-residents-dominic-cummings-eye-test>
+{'title': None, 'url': 'https://www.theguardian.com/politics/2020/nov/14/barnard-castle-residents-dominic-cummings-eye-test', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "Trump's refusal to concede is just the latest gambit to please Republican donors", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/donald-trump-concede-election-republican-donors-covid', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/donald-trump-concede-election-republican-donors-covid>
+{'title': "Trump's refusal to concede is just the latest gambit to please Republican donors", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/donald-trump-concede-election-republican-donors-covid', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'When rearranging a drawer is restful', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/when-rearranging-a-drawer-is-restful-the-magic-of-pottering', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/14/when-rearranging-a-drawer-is-restful-the-magic-of-pottering>
+{'title': 'When rearranging a drawer is restful', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/when-rearranging-a-drawer-is-restful-the-magic-of-pottering', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/donald-trump-motorcade-washington-march-protest-golf> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/15/million-maga-march-trump-supporters> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/football/2020/nov/14/eric-dier-jan-vertonghen-toby-alderweireld-england-belgium', 'author': 'Paul Wilson', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '22.30\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/football/2020/nov/14/eric-dier-jan-vertonghen-toby-alderweireld-england-belgium>
+{'title': None, 'url': 'https://www.theguardian.com/football/2020/nov/14/eric-dier-jan-vertonghen-toby-alderweireld-england-belgium', 'author': 'Paul Wilson', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '22.30\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/13/can-donald-trump-stay-in-office-second-term-president-coup> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/media/2020/nov/14/fox-news-criticized-for-echoing-baseless-trump-claims-about-election> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/live/2020/nov/14/the-masters-2020-round-three-after-second-round-conclusion-live> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/sport/2017/may/15/the-recap-sign-up-for-the-best-of-the-guardians-sport-coverage', 'author': None, 'publish_date': '\nMon 15 May 2017 ', 'publish_time': '12.00\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/2017/may/15/the-recap-sign-up-for-the-best-of-the-guardians-sport-coverage>
+{'title': None, 'url': 'https://www.theguardian.com/sport/2017/may/15/the-recap-sign-up-for-the-best-of-the-guardians-sport-coverage', 'author': None, 'publish_date': '\nMon 15 May 2017 ', 'publish_time': '12.00\xa0BST'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/2020/nov/11/masters-2020-tommy-fleetwood-hole-by-hole-guide-to-augusta-golf> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/13/peru-protests-impeachment-president-martin-vizcarra> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'President-elect assembles a diverse cabinet', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/joe-biden-administration-cabinet-susan-rice-michele-flournoy', 'author': 'Oliver Milman', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '21.50\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/joe-biden-administration-cabinet-susan-rice-michele-flournoy>
+{'title': 'President-elect assembles a diverse cabinet', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/joe-biden-administration-cabinet-susan-rice-michele-flournoy', 'author': 'Oliver Milman', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '21.50\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/us-record-184000-new-covid-cases-trump-vaccine-biden> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/covid-uk-government-requests-guidance-on-vitamin-d-use> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/us-news/2020/nov/14/donald-trump-motorcade-washington-march-protest-golf', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/donald-trump-motorcade-washington-march-protest-golf>
+{'title': None, 'url': 'https://www.theguardian.com/us-news/2020/nov/14/donald-trump-motorcade-washington-march-protest-golf', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/us-news/2020/nov/15/million-maga-march-trump-supporters', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/15/million-maga-march-trump-supporters>
+{'title': None, 'url': 'https://www.theguardian.com/us-news/2020/nov/15/million-maga-march-trump-supporters', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/society/gallery/2020/nov/13/it-came-in-a-locked-box-uk-covid-vaccine-volunteers-in-pictures> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Can Trump actually stage a coup and stay in office for a second term?', 'url': 'https://www.theguardian.com/us-news/2020/nov/13/can-donald-trump-stay-in-office-second-term-president-coup', 'author': 'Sam Levine', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '21.38\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/13/can-donald-trump-stay-in-office-second-term-president-coup>
+{'title': 'Can Trump actually stage a coup and stay in office for a second term?', 'url': 'https://www.theguardian.com/us-news/2020/nov/13/can-donald-trump-stay-in-office-second-term-president-coup', 'author': 'Sam Levine', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '21.38\xa0GMT'}
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/media/2020/nov/14/fox-news-criticized-for-echoing-baseless-trump-claims-about-election', 'author': 'Martin Pengelly', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '16.08\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/media/2020/nov/14/fox-news-criticized-for-echoing-baseless-trump-claims-about-election>
+{'title': None, 'url': 'https://www.theguardian.com/media/2020/nov/14/fox-news-criticized-for-echoing-baseless-trump-claims-about-election', 'author': 'Martin Pengelly', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '16.08\xa0GMT'}
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/sport/live/2020/nov/14/the-masters-2020-round-three-after-second-round-conclusion-live', 'author': 'Scott Murray', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '22.22\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/live/2020/nov/14/the-masters-2020-round-three-after-second-round-conclusion-live>
+{'title': None, 'url': 'https://www.theguardian.com/sport/live/2020/nov/14/the-masters-2020-round-three-after-second-round-conclusion-live', 'author': 'Scott Murray', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '22.22\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/gallery/2020/nov/13/the-week-in-wildlife-in-pictures> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/stage/gallery/2020/nov/13/the-royal-ballet-live-within-the-golden-hour-in-pictures> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': None, 'url': 'https://www.theguardian.com/sport/2020/nov/11/masters-2020-tommy-fleetwood-hole-by-hole-guide-to-augusta-golf', 'author': None, 'publish_date': '\nWed 11 Nov 2020 ', 'publish_time': '11.06\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/2020/nov/11/masters-2020-tommy-fleetwood-hole-by-hole-guide-to-augusta-golf>
+{'title': None, 'url': 'https://www.theguardian.com/sport/2020/nov/11/masters-2020-tommy-fleetwood-hole-by-hole-guide-to-augusta-golf', 'author': None, 'publish_date': '\nWed 11 Nov 2020 ', 'publish_time': '11.06\xa0GMT'}
+INFO: Item stored: {'title': "'All of Peru is fired up': protesters fill streets after ousting of president", 'url': 'https://www.theguardian.com/world/2020/nov/13/peru-protests-impeachment-president-martin-vizcarra', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/13/peru-protests-impeachment-president-martin-vizcarra>
+{'title': "'All of Peru is fired up': protesters fill streets after ousting of president", 'url': 'https://www.theguardian.com/world/2020/nov/13/peru-protests-impeachment-president-martin-vizcarra', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/gallery/2020/nov/13/tangled-sharks-and-reefs-under-nets-2020s-most-powerful-ocean-photos> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/gallery/2020/nov/14/2021-lavazza-calendar-the-new-humanity-in-pictures> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/artanddesign/gallery/2020/nov/14/20-photographs-of-the-week> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/05/stop-the-vote-count-the-vote-trump-supporters> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/05/cori-bush-missouri-congress-victory-speech-this-is-our-moment> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'US sees record 184,000 new daily Covid cases as Trump politicises vaccine effort', 'url': 'https://www.theguardian.com/world/2020/nov/14/us-record-184000-new-covid-cases-trump-vaccine-biden', 'author': 'Martin Pengelly', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '15.45\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/us-record-184000-new-covid-cases-trump-vaccine-biden>
+{'title': 'US sees record 184,000 new daily Covid cases as Trump politicises vaccine effort', 'url': 'https://www.theguardian.com/world/2020/nov/14/us-record-184000-new-covid-cases-trump-vaccine-biden', 'author': 'Martin Pengelly', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '15.45\xa0GMT'}
+INFO: Item stored: {'title': 'Covid: UK government requests guidance on vitamin D use', 'url': 'https://www.theguardian.com/world/2020/nov/14/covid-uk-government-requests-guidance-on-vitamin-d-use', 'author': 'Mattha Busby', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '16.07\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/covid-uk-government-requests-guidance-on-vitamin-d-use>
+{'title': 'Covid: UK government requests guidance on vitamin D use', 'url': 'https://www.theguardian.com/world/2020/nov/14/covid-uk-government-requests-guidance-on-vitamin-d-use', 'author': 'Mattha Busby', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '16.07\xa0GMT'}
+INFO: Item stored: {'title': 'UK Covid vaccine volunteers – in pictures', 'url': 'https://www.theguardian.com/society/gallery/2020/nov/13/it-came-in-a-locked-box-uk-covid-vaccine-volunteers-in-pictures', 'author': None, 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '06.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/society/gallery/2020/nov/13/it-came-in-a-locked-box-uk-covid-vaccine-volunteers-in-pictures>
+{'title': 'UK Covid vaccine volunteers – in pictures', 'url': 'https://www.theguardian.com/society/gallery/2020/nov/13/it-came-in-a-locked-box-uk-covid-vaccine-volunteers-in-pictures', 'author': None, 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '06.00\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/07/senator-lindsey-graham-backs-trump-echoing-baseless-claims-of-election-video> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'The week in wildlife ', 'url': 'https://www.theguardian.com/environment/gallery/2020/nov/13/the-week-in-wildlife-in-pictures', 'author': None, 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '18.26\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/gallery/2020/nov/13/the-week-in-wildlife-in-pictures>
+{'title': 'The week in wildlife ', 'url': 'https://www.theguardian.com/environment/gallery/2020/nov/13/the-week-in-wildlife-in-pictures', 'author': None, 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '18.26\xa0GMT'}
+INFO: Item stored: {'title': 'The Royal Ballet on stage', 'url': 'https://www.theguardian.com/stage/gallery/2020/nov/13/the-royal-ballet-live-within-the-golden-hour-in-pictures', 'author': 'Tristram Kenton', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '14.01\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/stage/gallery/2020/nov/13/the-royal-ballet-live-within-the-golden-hour-in-pictures>
+{'title': 'The Royal Ballet on stage', 'url': 'https://www.theguardian.com/stage/gallery/2020/nov/13/the-royal-ballet-live-within-the-golden-hour-in-pictures', 'author': 'Tristram Kenton', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '14.01\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/07/armed-trump-supporters-gather-outside-vote-count-centre-in-arizona-video> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/culture/video/2020/oct/01/anime-has-a-race-problem-heres-how-black-fans-are-fixing-it-video> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Tangled sharks and reefs under nets', 'url': 'https://www.theguardian.com/environment/gallery/2020/nov/13/tangled-sharks-and-reefs-under-nets-2020s-most-powerful-ocean-photos', 'author': None, 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '09.30\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/gallery/2020/nov/13/tangled-sharks-and-reefs-under-nets-2020s-most-powerful-ocean-photos>
+{'title': 'Tangled sharks and reefs under nets', 'url': 'https://www.theguardian.com/environment/gallery/2020/nov/13/tangled-sharks-and-reefs-under-nets-2020s-most-powerful-ocean-photos', 'author': None, 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '09.30\xa0GMT'}
+INFO: Item stored: {'title': '2021 Lavazza calendar', 'url': 'https://www.theguardian.com/world/gallery/2020/nov/14/2021-lavazza-calendar-the-new-humanity-in-pictures', 'author': 'Arnel Hecimovic', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '13.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/gallery/2020/nov/14/2021-lavazza-calendar-the-new-humanity-in-pictures>
+{'title': '2021 Lavazza calendar', 'url': 'https://www.theguardian.com/world/gallery/2020/nov/14/2021-lavazza-calendar-the-new-humanity-in-pictures', 'author': 'Arnel Hecimovic', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '13.00\xa0GMT'}
+INFO: Item stored: {'title': '20 photographs of the week', 'url': 'https://www.theguardian.com/artanddesign/gallery/2020/nov/14/20-photographs-of-the-week', 'author': 'Jim Powell', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '06.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/artanddesign/gallery/2020/nov/14/20-photographs-of-the-week>
+{'title': '20 photographs of the week', 'url': 'https://www.theguardian.com/artanddesign/gallery/2020/nov/14/20-photographs-of-the-week', 'author': 'Jim Powell', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '06.00\xa0GMT'}
+INFO: Item stored: {'title': '‘Stop the vote’ and ‘count the votes’, say protesting Trump supporters ', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/05/stop-the-vote-count-the-vote-trump-supporters', 'author': None, 'publish_date': '\nThu 5 Nov 2020 ', 'publish_time': '19.30\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/05/stop-the-vote-count-the-vote-trump-supporters>
+{'title': '‘Stop the vote’ and ‘count the votes’, say protesting Trump supporters ', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/05/stop-the-vote-count-the-vote-trump-supporters', 'author': None, 'publish_date': '\nThu 5 Nov 2020 ', 'publish_time': '19.30\xa0GMT'}
+INFO: Item stored: {'title': 'Cori Bush delivers electrifying victory speech', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/05/cori-bush-missouri-congress-victory-speech-this-is-our-moment', 'author': None, 'publish_date': '\nThu 5 Nov 2020 ', 'publish_time': '21.06\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/05/cori-bush-missouri-congress-victory-speech-this-is-our-moment>
+{'title': 'Cori Bush delivers electrifying victory speech', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/05/cori-bush-missouri-congress-victory-speech-this-is-our-moment', 'author': None, 'publish_date': '\nThu 5 Nov 2020 ', 'publish_time': '21.06\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/07/biden-harris-supporters-celebrate-election-victory> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/culture/video/2020/oct/15/why-horror-keeps-creeping-into-black-drama> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/may/14/how-trump-has-berated-insulted-and-demeaned-female-reporters-video> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Lindsey Graham echoes baseless claims of election fraud', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/07/senator-lindsey-graham-backs-trump-echoing-baseless-claims-of-election-video', 'author': None, 'publish_date': '\nSat 7 Nov 2020 ', 'publish_time': '00.49\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/07/senator-lindsey-graham-backs-trump-echoing-baseless-claims-of-election-video>
+{'title': 'Lindsey Graham echoes baseless claims of election fraud', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/07/senator-lindsey-graham-backs-trump-echoing-baseless-claims-of-election-video', 'author': None, 'publish_date': '\nSat 7 Nov 2020 ', 'publish_time': '00.49\xa0GMT'}
+INFO: Item stored: {'title': 'Armed Trump supporters gather outside vote count centre', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/07/armed-trump-supporters-gather-outside-vote-count-centre-in-arizona-video', 'author': None, 'publish_date': '\nSat 7 Nov 2020 ', 'publish_time': '02.51\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/07/armed-trump-supporters-gather-outside-vote-count-centre-in-arizona-video>
+{'title': 'Armed Trump supporters gather outside vote count centre', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/07/armed-trump-supporters-gather-outside-vote-count-centre-in-arizona-video', 'author': None, 'publish_date': '\nSat 7 Nov 2020 ', 'publish_time': '02.51\xa0GMT'}
+INFO: Item stored: {'title': "Anime has a race problem, here's how black fans are fixing it", 'url': 'https://www.theguardian.com/culture/video/2020/oct/01/anime-has-a-race-problem-heres-how-black-fans-are-fixing-it-video', 'author': 'Josh Toussaint-Strauss', 'publish_date': '\nThu 1 Oct 2020 ', 'publish_time': '11.47\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/culture/video/2020/oct/01/anime-has-a-race-problem-heres-how-black-fans-are-fixing-it-video>
+{'title': "Anime has a race problem, here's how black fans are fixing it", 'url': 'https://www.theguardian.com/culture/video/2020/oct/01/anime-has-a-race-problem-heres-how-black-fans-are-fixing-it-video', 'author': 'Josh Toussaint-Strauss', 'publish_date': '\nThu 1 Oct 2020 ', 'publish_time': '11.47\xa0BST'}
+INFO: Item stored: {'title': 'Biden and Harris supporters celebrate election triumph', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/07/biden-harris-supporters-celebrate-election-victory', 'author': None, 'publish_date': '\nSat 7 Nov 2020 ', 'publish_time': '23.55\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/07/biden-harris-supporters-celebrate-election-victory>
+{'title': 'Biden and Harris supporters celebrate election triumph', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/07/biden-harris-supporters-celebrate-election-victory', 'author': None, 'publish_date': '\nSat 7 Nov 2020 ', 'publish_time': '23.55\xa0GMT'}
+INFO: Item stored: {'title': 'Why horror keeps creeping into black drama ', 'url': 'https://www.theguardian.com/culture/video/2020/oct/15/why-horror-keeps-creeping-into-black-drama', 'author': 'Josh Toussaint-Strauss', 'publish_date': '\nThu 15 Oct 2020 ', 'publish_time': '12.06\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/culture/video/2020/oct/15/why-horror-keeps-creeping-into-black-drama>
+{'title': 'Why horror keeps creeping into black drama ', 'url': 'https://www.theguardian.com/culture/video/2020/oct/15/why-horror-keeps-creeping-into-black-drama', 'author': 'Josh Toussaint-Strauss', 'publish_date': '\nThu 15 Oct 2020 ', 'publish_time': '12.06\xa0BST'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/society/video/2020/nov/13/is-the-new-covid-vaccine-our-way-back-to-normality-video-explainer> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'How Trump has berated female reporters', 'url': 'https://www.theguardian.com/us-news/video/2020/may/14/how-trump-has-berated-insulted-and-demeaned-female-reporters-video', 'author': 'Elena Morresi', 'publish_date': '\nThu 14 May 2020 ', 'publish_time': '13.53\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/may/14/how-trump-has-berated-insulted-and-demeaned-female-reporters-video>
+{'title': 'How Trump has berated female reporters', 'url': 'https://www.theguardian.com/us-news/video/2020/may/14/how-trump-has-berated-insulted-and-demeaned-female-reporters-video', 'author': 'Elena Morresi', 'publish_date': '\nThu 14 May 2020 ', 'publish_time': '13.53\xa0BST'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/10/joe-biden-kamala-harris-after-trump-america-unity-video-explainer> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/culture/video/2020/nov/12/burna-boy-to-beyonce-how-black-culture-is-embracing-its-african-roots> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/video/2020/nov/13/sex-is-not-a-the-women-protesting-polands-new-abortion-law> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/14/donald-trump-motorcade-drives-by-supporters-protesting-us-election-results-video> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/community/2015/sep/02/guardianwitness-send-us-a-story> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/video/2020/oct/16/coronavirus-what-has-changed-covid-19-video-explainer> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/video/2020/nov/08/shes-made-us-proud-kamala-harriss-ancestral-village-celebrates-election-win-video> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Is the new Covid vaccine our way back to normality?', 'url': 'https://www.theguardian.com/society/video/2020/nov/13/is-the-new-covid-vaccine-our-way-back-to-normality-video-explainer', 'author': 'Sarah Boseley', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '10.09\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/society/video/2020/nov/13/is-the-new-covid-vaccine-our-way-back-to-normality-video-explainer>
+{'title': 'Is the new Covid vaccine our way back to normality?', 'url': 'https://www.theguardian.com/society/video/2020/nov/13/is-the-new-covid-vaccine-our-way-back-to-normality-video-explainer', 'author': 'Sarah Boseley', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '10.09\xa0GMT'}
+INFO: Item stored: {'title': 'Can Joe Biden and Kamala Harris unite America after Trump', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/10/joe-biden-kamala-harris-after-trump-america-unity-video-explainer', 'author': 'Lauren Gambino', 'publish_date': '\nTue 10 Nov 2020 ', 'publish_time': '17.25\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/10/joe-biden-kamala-harris-after-trump-america-unity-video-explainer>
+{'title': 'Can Joe Biden and Kamala Harris unite America after Trump', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/10/joe-biden-kamala-harris-after-trump-america-unity-video-explainer', 'author': 'Lauren Gambino', 'publish_date': '\nTue 10 Nov 2020 ', 'publish_time': '17.25\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/08/joe-biden-wins-election-share-your-views> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'How black culture is embracing its African roots ', 'url': 'https://www.theguardian.com/culture/video/2020/nov/12/burna-boy-to-beyonce-how-black-culture-is-embracing-its-african-roots', 'author': 'Grace Shutti', 'publish_date': '\nThu 12 Nov 2020 ', 'publish_time': '15.35\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/culture/video/2020/nov/12/burna-boy-to-beyonce-how-black-culture-is-embracing-its-african-roots>
+{'title': 'How black culture is embracing its African roots ', 'url': 'https://www.theguardian.com/culture/video/2020/nov/12/burna-boy-to-beyonce-how-black-culture-is-embracing-its-african-roots', 'author': 'Grace Shutti', 'publish_date': '\nThu 12 Nov 2020 ', 'publish_time': '15.35\xa0GMT'}
+INFO: Item stored: {'title': "The women protesting Poland's new abortion law", 'url': 'https://www.theguardian.com/world/video/2020/nov/13/sex-is-not-a-the-women-protesting-polands-new-abortion-law', 'author': 'Christopher Cherry', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '10.08\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/video/2020/nov/13/sex-is-not-a-the-women-protesting-polands-new-abortion-law>
+{'title': "The women protesting Poland's new abortion law", 'url': 'https://www.theguardian.com/world/video/2020/nov/13/sex-is-not-a-the-women-protesting-polands-new-abortion-law', 'author': 'Christopher Cherry', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '10.08\xa0GMT'}
+INFO: Item stored: {'title': 'President motorcade drives by supporters protesting US election results ', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/14/donald-trump-motorcade-drives-by-supporters-protesting-us-election-results-video', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '17.30\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/14/donald-trump-motorcade-drives-by-supporters-protesting-us-election-results-video>
+{'title': 'President motorcade drives by supporters protesting US election results ', 'url': 'https://www.theguardian.com/us-news/video/2020/nov/14/donald-trump-motorcade-drives-by-supporters-protesting-us-election-results-video', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '17.30\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/aug/24/tell-us-about-your-return-to-the-uk-from-countries-on-the-quarantine-list> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/2020/nov/14/how-to-get-good-at-chess-the-queens-gambit> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Share a story with the Guardian', 'url': 'https://www.theguardian.com/community/2015/sep/02/guardianwitness-send-us-a-story', 'author': 'The Guardian', 'publish_date': '\nWed 2 Sep 2015 ', 'publish_time': '15.21\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/community/2015/sep/02/guardianwitness-send-us-a-story>
+{'title': 'Share a story with the Guardian', 'url': 'https://www.theguardian.com/community/2015/sep/02/guardianwitness-send-us-a-story', 'author': 'The Guardian', 'publish_date': '\nWed 2 Sep 2015 ', 'publish_time': '15.21\xa0BST'}
+INFO: Item stored: {'title': 'What has changed about what we know?', 'url': 'https://www.theguardian.com/world/video/2020/oct/16/coronavirus-what-has-changed-covid-19-video-explainer', 'author': 'Sarah Boseley', 'publish_date': '\nFri 16 Oct 2020 ', 'publish_time': '08.00\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/video/2020/oct/16/coronavirus-what-has-changed-covid-19-video-explainer>
+{'title': 'What has changed about what we know?', 'url': 'https://www.theguardian.com/world/video/2020/oct/16/coronavirus-what-has-changed-covid-19-video-explainer', 'author': 'Sarah Boseley', 'publish_date': '\nFri 16 Oct 2020 ', 'publish_time': '08.00\xa0BST'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/14/i-want-to-give-my-child-the-best-the-race-to-grow-human-breast-milk-in-a-lab> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/apr/13/lost-on-the-frontline-us-healthcare-coronavirus-deaths> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/politics/2020/nov/14/nightmare-on-downing-street> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/food/2020/nov/14/meera-sodha-vegan-recipe-for-kadhi-with-fried-chickpeas> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "Kamala Harris's ancestral village celebrates election win ", 'url': 'https://www.theguardian.com/us-news/video/2020/nov/08/shes-made-us-proud-kamala-harriss-ancestral-village-celebrates-election-win-video', 'author': None, 'publish_date': '\nSun 8 Nov 2020 ', 'publish_time': '18.46\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/video/2020/nov/08/shes-made-us-proud-kamala-harriss-ancestral-village-celebrates-election-win-video>
+{'title': "Kamala Harris's ancestral village celebrates election win ", 'url': 'https://www.theguardian.com/us-news/video/2020/nov/08/shes-made-us-proud-kamala-harriss-ancestral-village-celebrates-election-win-video', 'author': None, 'publish_date': '\nSun 8 Nov 2020 ', 'publish_time': '18.46\xa0GMT'}
+INFO: Item stored: {'title': 'Share your reaction to Joe Biden winning', 'url': 'https://www.theguardian.com/us-news/2020/nov/08/joe-biden-wins-election-share-your-views', 'author': 'Guardian community team', 'publish_date': '\nSun 8 Nov 2020 ', 'publish_time': '11.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/08/joe-biden-wins-election-share-your-views>
+{'title': 'Share your reaction to Joe Biden winning', 'url': 'https://www.theguardian.com/us-news/2020/nov/08/joe-biden-wins-election-share-your-views', 'author': 'Guardian community team', 'publish_date': '\nSun 8 Nov 2020 ', 'publish_time': '11.00\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/marijuana-legalization-us-elections-2020> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/13/is-the-vaccine-safe-do-i-need-it-if-ive-had-covid-readers-questions-answered> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Tell us about your return to the UK from countries on the quarantine list', 'url': 'https://www.theguardian.com/world/2020/aug/24/tell-us-about-your-return-to-the-uk-from-countries-on-the-quarantine-list', 'author': 'Guardian community team', 'publish_date': '\nMon 24 Aug 2020 ', 'publish_time': '14.10\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/aug/24/tell-us-about-your-return-to-the-uk-from-countries-on-the-quarantine-list>
+{'title': 'Tell us about your return to the UK from countries on the quarantine list', 'url': 'https://www.theguardian.com/world/2020/aug/24/tell-us-about-your-return-to-the-uk-from-countries-on-the-quarantine-list', 'author': 'Guardian community team', 'publish_date': '\nMon 24 Aug 2020 ', 'publish_time': '14.10\xa0BST'}
+INFO: Item stored: {'title': 'How to get good at chess', 'url': 'https://www.theguardian.com/sport/2020/nov/14/how-to-get-good-at-chess-the-queens-gambit', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/2020/nov/14/how-to-get-good-at-chess-the-queens-gambit>
+{'title': 'How to get good at chess', 'url': 'https://www.theguardian.com/sport/2020/nov/14/how-to-get-good-at-chess-the-queens-gambit', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/travel/2020/nov/14/ghostly-midnight-ramble-the-city-of-london-barbara-nadel> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'The race to grow human breast milk in a lab', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/i-want-to-give-my-child-the-best-the-race-to-grow-human-breast-milk-in-a-lab', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/14/i-want-to-give-my-child-the-best-the-race-to-grow-human-breast-milk-in-a-lab>
+{'title': 'The race to grow human breast milk in a lab', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/i-want-to-give-my-child-the-best-the-race-to-grow-human-breast-milk-in-a-lab', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/15/how-we-stay-together-we-had-to-share-the-workload> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Help us document those who have died fighting coronavirus', 'url': 'https://www.theguardian.com/us-news/2020/apr/13/lost-on-the-frontline-us-healthcare-coronavirus-deaths', 'author': 'Guardian community team', 'publish_date': '\nWed 27 May 2020 ', 'publish_time': '16.04\xa0BST'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/apr/13/lost-on-the-frontline-us-healthcare-coronavirus-deaths>
+{'title': 'Help us document those who have died fighting coronavirus', 'url': 'https://www.theguardian.com/us-news/2020/apr/13/lost-on-the-frontline-us-healthcare-coronavirus-deaths', 'author': 'Guardian community team', 'publish_date': '\nWed 27 May 2020 ', 'publish_time': '16.04\xa0BST'}
+INFO: Item stored: {'title': 'How the divisions at the heart of the UK government came to crisis point', 'url': 'https://www.theguardian.com/politics/2020/nov/14/nightmare-on-downing-street', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/politics/2020/nov/14/nightmare-on-downing-street>
+{'title': 'How the divisions at the heart of the UK government came to crisis point', 'url': 'https://www.theguardian.com/politics/2020/nov/14/nightmare-on-downing-street', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "Meera Sodha's recipe for kadhi with fried chickpeas", 'url': 'https://www.theguardian.com/food/2020/nov/14/meera-sodha-vegan-recipe-for-kadhi-with-fried-chickpeas', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/food/2020/nov/14/meera-sodha-vegan-recipe-for-kadhi-with-fried-chickpeas>
+{'title': "Meera Sodha's recipe for kadhi with fried chickpeas", 'url': 'https://www.theguardian.com/food/2020/nov/14/meera-sodha-vegan-recipe-for-kadhi-with-fried-chickpeas', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/music/2020/nov/14/dave-brubeck-lullabies-review> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/food/2020/nov/15/french-wines-from-less-well-known-regions> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/food/2020/nov/14/tahini-chicken-and-sausage-with-fritters-easy-midweek-dinner-recipes-brussel-sprout-galette-cavolo-nero-polenta-soup> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'How legalisation made strides across the US in this election', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/marijuana-legalization-us-elections-2020', 'author': 'Richard Luscombe', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '11.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/marijuana-legalization-us-elections-2020>
+{'title': 'How legalisation made strides across the US in this election', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/marijuana-legalization-us-elections-2020', 'author': 'Richard Luscombe', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '11.00\xa0GMT'}
+INFO: Item stored: {'title': 'Your questions answered', 'url': 'https://www.theguardian.com/world/2020/nov/13/is-the-vaccine-safe-do-i-need-it-if-ive-had-covid-readers-questions-answered', 'author': 'Linda Geddes', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '15.20\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/13/is-the-vaccine-safe-do-i-need-it-if-ive-had-covid-readers-questions-answered>
+{'title': 'Your questions answered', 'url': 'https://www.theguardian.com/world/2020/nov/13/is-the-vaccine-safe-do-i-need-it-if-ive-had-covid-readers-questions-answered', 'author': 'Linda Geddes', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '15.20\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/tv-and-radio/2020/nov/14/netflix-the-crown-joel-golby-gillian-anderson-thatcher> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/tv-and-radio/2020/nov/15/blessing-chitapa-18-is-crowned-itvs-the-voice-uk-winner> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/lifeandstyle/2020/nov/14/joan-jett-interview-brush-with-the-law-got-arrested-on-tour> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/books/2020/nov/14/chimamanda-ngozi-adichie-america-under-trump-felt-like-a-personal-loss> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "I walk around London at midnight – with my father's ghost for company", 'url': 'https://www.theguardian.com/travel/2020/nov/14/ghostly-midnight-ramble-the-city-of-london-barbara-nadel', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/travel/2020/nov/14/ghostly-midnight-ramble-the-city-of-london-barbara-nadel>
+{'title': "I walk around London at midnight – with my father's ghost for company", 'url': 'https://www.theguardian.com/travel/2020/nov/14/ghostly-midnight-ramble-the-city-of-london-barbara-nadel', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/2020/nov/12/reaching-uk-net-zero-target-cheaper-than-we-thought-says-climate-adviser> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/music/2020/nov/14/acdc-power-up-review-last-crank-up-to-11> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'We had to share the workload', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/15/how-we-stay-together-we-had-to-share-the-workload', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/15/how-we-stay-together-we-had-to-share-the-workload>
+{'title': 'We had to share the workload', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/15/how-we-stay-together-we-had-to-share-the-workload', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Dave Brubeck: Lullabies – genial sleepytime melodies', 'url': 'https://www.theguardian.com/music/2020/nov/14/dave-brubeck-lullabies-review', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/music/2020/nov/14/dave-brubeck-lullabies-review>
+{'title': 'Dave Brubeck: Lullabies – genial sleepytime melodies', 'url': 'https://www.theguardian.com/music/2020/nov/14/dave-brubeck-lullabies-review', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'French wines from less well-known regions', 'url': 'https://www.theguardian.com/food/2020/nov/15/french-wines-from-less-well-known-regions', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/food/2020/nov/15/french-wines-from-less-well-known-regions>
+{'title': 'French wines from less well-known regions', 'url': 'https://www.theguardian.com/food/2020/nov/15/french-wines-from-less-well-known-regions', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Tahini chicken and sausage with fritters: easy midweek dinner recipes', 'url': 'https://www.theguardian.com/food/2020/nov/14/tahini-chicken-and-sausage-with-fritters-easy-midweek-dinner-recipes-brussel-sprout-galette-cavolo-nero-polenta-soup', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/food/2020/nov/14/tahini-chicken-and-sausage-with-fritters-easy-midweek-dinner-recipes-brussel-sprout-galette-cavolo-nero-polenta-soup>
+{'title': 'Tahini chicken and sausage with fritters: easy midweek dinner recipes', 'url': 'https://www.theguardian.com/food/2020/nov/14/tahini-chicken-and-sausage-with-fritters-easy-midweek-dinner-recipes-brussel-sprout-galette-cavolo-nero-polenta-soup', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/2020/nov/12/canada-clearwater-seafoods-mikmaq-first-nation-fishing> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/2020/nov/13/ma-jun-china-is-beginning-to-walk-the-walk-on-climate-crisis-action-aoe> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'The Crown’s fourth season explained', 'url': 'https://www.theguardian.com/tv-and-radio/2020/nov/14/netflix-the-crown-joel-golby-gillian-anderson-thatcher', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/tv-and-radio/2020/nov/14/netflix-the-crown-joel-golby-gillian-anderson-thatcher>
+{'title': 'The Crown’s fourth season explained', 'url': 'https://www.theguardian.com/tv-and-radio/2020/nov/14/netflix-the-crown-joel-golby-gillian-anderson-thatcher', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Blessing Chitapa, 18, is crowned UK winner', 'url': 'https://www.theguardian.com/tv-and-radio/2020/nov/15/blessing-chitapa-18-is-crowned-itvs-the-voice-uk-winner', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/tv-and-radio/2020/nov/15/blessing-chitapa-18-is-crowned-itvs-the-voice-uk-winner>
+{'title': 'Blessing Chitapa, 18, is crowned UK winner', 'url': 'https://www.theguardian.com/tv-and-radio/2020/nov/15/blessing-chitapa-18-is-crowned-itvs-the-voice-uk-winner', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': '‘My closest brush with the law? I got arrested on tour. I blame Robert Plant’', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/joan-jett-interview-brush-with-the-law-got-arrested-on-tour', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/lifeandstyle/2020/nov/14/joan-jett-interview-brush-with-the-law-got-arrested-on-tour>
+{'title': '‘My closest brush with the law? I got arrested on tour. I blame Robert Plant’', 'url': 'https://www.theguardian.com/lifeandstyle/2020/nov/14/joan-jett-interview-brush-with-the-law-got-arrested-on-tour', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'America under Trump felt like a\xa0personal loss', 'url': 'https://www.theguardian.com/books/2020/nov/14/chimamanda-ngozi-adichie-america-under-trump-felt-like-a-personal-loss', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/books/2020/nov/14/chimamanda-ngozi-adichie-america-under-trump-felt-like-a-personal-loss>
+{'title': 'America under Trump felt like a\xa0personal loss', 'url': 'https://www.theguardian.com/books/2020/nov/14/chimamanda-ngozi-adichie-america-under-trump-felt-like-a-personal-loss', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/rothschild-descendant-claims-initial-victory-in-legal-battle-with-vienna> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/not-the-usual-diwali-indians-urged-to-stay-at-home-amid-covid-surge> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/2020/nov/14/uk-expected-to-ban-sale-of-new-petrol-and-diesel-cars-from-2030> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/australia-news/2020/nov/15/townsville-man-charged-with-pursuing-stolen-car-until-it-crashed> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/vietnam-orders-460000-to-evacuate-ahead-of-typhoon-vamco> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/environment/2020/nov/13/world-heritage-status-for-scottish-peat-bogs-could-help-uk-hit-net-zero-goals> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Reaching UK net zero target cheaper than we thought, says climate adviser', 'url': 'https://www.theguardian.com/environment/2020/nov/12/reaching-uk-net-zero-target-cheaper-than-we-thought-says-climate-adviser', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/2020/nov/12/reaching-uk-net-zero-target-cheaper-than-we-thought-says-climate-adviser>
+{'title': 'Reaching UK net zero target cheaper than we thought, says climate adviser', 'url': 'https://www.theguardian.com/environment/2020/nov/12/reaching-uk-net-zero-target-cheaper-than-we-thought-says-climate-adviser', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'The last crank up to 11?', 'url': 'https://www.theguardian.com/music/2020/nov/14/acdc-power-up-review-last-crank-up-to-11', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/music/2020/nov/14/acdc-power-up-review-last-crank-up-to-11>
+{'title': 'The last crank up to 11?', 'url': 'https://www.theguardian.com/music/2020/nov/14/acdc-power-up-review-last-crank-up-to-11', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Indigenous group in Canada scoops up billion dollar seafood firm', 'url': 'https://www.theguardian.com/environment/2020/nov/12/canada-clearwater-seafoods-mikmaq-first-nation-fishing', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/2020/nov/12/canada-clearwater-seafoods-mikmaq-first-nation-fishing>
+{'title': 'Indigenous group in Canada scoops up billion dollar seafood firm', 'url': 'https://www.theguardian.com/environment/2020/nov/12/canada-clearwater-seafoods-mikmaq-first-nation-fishing', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "China has started to 'walk the walk' on climate crisis, says Ma Jun", 'url': 'https://www.theguardian.com/environment/2020/nov/13/ma-jun-china-is-beginning-to-walk-the-walk-on-climate-crisis-action-aoe', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/2020/nov/13/ma-jun-china-is-beginning-to-walk-the-walk-on-climate-crisis-action-aoe>
+{'title': "China has started to 'walk the walk' on climate crisis, says Ma Jun", 'url': 'https://www.theguardian.com/environment/2020/nov/13/ma-jun-china-is-beginning-to-walk-the-walk-on-climate-crisis-action-aoe', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/australia-news/2020/nov/15/simon-birmingham-urges-china-to-respect-spirit-of-new-asian-trade-pact> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/15/church-leaders-urge-uk-government-to-sign-un-anti-nuclear-treaty> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Rothschild descendant claims initial victory in legal battle with Vienna', 'url': 'https://www.theguardian.com/world/2020/nov/14/rothschild-descendant-claims-initial-victory-in-legal-battle-with-vienna', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/rothschild-descendant-claims-initial-victory-in-legal-battle-with-vienna>
+{'title': 'Rothschild descendant claims initial victory in legal battle with Vienna', 'url': 'https://www.theguardian.com/world/2020/nov/14/rothschild-descendant-claims-initial-victory-in-legal-battle-with-vienna', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Indians urged to stay at home amid Covid surge', 'url': 'https://www.theguardian.com/world/2020/nov/14/not-the-usual-diwali-indians-urged-to-stay-at-home-amid-covid-surge', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/not-the-usual-diwali-indians-urged-to-stay-at-home-amid-covid-surge>
+{'title': 'Indians urged to stay at home amid Covid surge', 'url': 'https://www.theguardian.com/world/2020/nov/14/not-the-usual-diwali-indians-urged-to-stay-at-home-amid-covid-surge', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'UK expected to ban sale of new petrol and diesel cars from 2030', 'url': 'https://www.theguardian.com/environment/2020/nov/14/uk-expected-to-ban-sale-of-new-petrol-and-diesel-cars-from-2030', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/2020/nov/14/uk-expected-to-ban-sale-of-new-petrol-and-diesel-cars-from-2030>
+{'title': 'UK expected to ban sale of new petrol and diesel cars from 2030', 'url': 'https://www.theguardian.com/environment/2020/nov/14/uk-expected-to-ban-sale-of-new-petrol-and-diesel-cars-from-2030', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/11/end-trump-era-blow-rightwing-populist-leaders-worldwide-biden-victory-brazil-hungary> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/09/eu-draft-declaration-sets-out-stricter-rules-on-migrant-integration> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/amani-al-khatahtbeh-muslim-activist-american-airlines> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/hong-kong-politicians-face-pro-democracy-exodus> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/ethiopia-says-tigray-region-forces-fired-into-neighbouring-amhara> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Man armed with tyre iron charged with pursuing teens in stolen car until they crashed', 'url': 'https://www.theguardian.com/australia-news/2020/nov/15/townsville-man-charged-with-pursuing-stolen-car-until-it-crashed', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/australia-news/2020/nov/15/townsville-man-charged-with-pursuing-stolen-car-until-it-crashed>
+{'title': 'Man armed with tyre iron charged with pursuing teens in stolen car until they crashed', 'url': 'https://www.theguardian.com/australia-news/2020/nov/15/townsville-man-charged-with-pursuing-stolen-car-until-it-crashed', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/11/hungarian-government-mounts-new-assault-on-lgbt-rights> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/commentisfree/2020/nov/11/europe-cant-afford-to-lose-another-generation-to-youth-unemployment> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Authorities order 460,000 to evacuate ahead of Typhoon Vamco', 'url': 'https://www.theguardian.com/world/2020/nov/14/vietnam-orders-460000-to-evacuate-ahead-of-typhoon-vamco', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/vietnam-orders-460000-to-evacuate-ahead-of-typhoon-vamco>
+{'title': 'Authorities order 460,000 to evacuate ahead of Typhoon Vamco', 'url': 'https://www.theguardian.com/world/2020/nov/14/vietnam-orders-460000-to-evacuate-ahead-of-typhoon-vamco', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'World heritage status for Scottish peat bogs could help UK hit net zero goals', 'url': 'https://www.theguardian.com/environment/2020/nov/13/world-heritage-status-for-scottish-peat-bogs-could-help-uk-hit-net-zero-goals', 'author': 'Severin Carrell', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '10.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/environment/2020/nov/13/world-heritage-status-for-scottish-peat-bogs-could-help-uk-hit-net-zero-goals>
+{'title': 'World heritage status for Scottish peat bogs could help UK hit net zero goals', 'url': 'https://www.theguardian.com/environment/2020/nov/13/world-heritage-status-for-scottish-peat-bogs-could-help-uk-hit-net-zero-goals', 'author': 'Severin Carrell', 'publish_date': '\nFri 13 Nov 2020 ', 'publish_time': '10.00\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/2020/nov/14/lance-stroll-turkish-f1-gp-pole-in-wet-lewis-hamilton-sixth> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "Australia urges China to respect 'spirit' of new trade agreement", 'url': 'https://www.theguardian.com/australia-news/2020/nov/15/simon-birmingham-urges-china-to-respect-spirit-of-new-asian-trade-pact', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/australia-news/2020/nov/15/simon-birmingham-urges-china-to-respect-spirit-of-new-asian-trade-pact>
+{'title': "Australia urges China to respect 'spirit' of new trade agreement", 'url': 'https://www.theguardian.com/australia-news/2020/nov/15/simon-birmingham-urges-china-to-respect-spirit-of-new-asian-trade-pact', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Church leaders urge UK government to sign UN anti-nuclear treaty', 'url': 'https://www.theguardian.com/world/2020/nov/15/church-leaders-urge-uk-government-to-sign-un-anti-nuclear-treaty', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/15/church-leaders-urge-uk-government-to-sign-un-anti-nuclear-treaty>
+{'title': 'Church leaders urge UK government to sign UN anti-nuclear treaty', 'url': 'https://www.theguardian.com/world/2020/nov/15/church-leaders-urge-uk-government-to-sign-un-anti-nuclear-treaty', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/football/2020/nov/14/nations-league-roundup-kantes-strike-for-france-knocks-out-holders-portugal> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/football/2020/nov/14/england-gareth-southgate-belgium> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/2020/nov/14/dustin-johnson-takes-control-of-masters-with-third-round-65> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'End of Trump era deals heavy blow to rightwing populist leaders worldwide', 'url': 'https://www.theguardian.com/us-news/2020/nov/11/end-trump-era-blow-rightwing-populist-leaders-worldwide-biden-victory-brazil-hungary', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/11/end-trump-era-blow-rightwing-populist-leaders-worldwide-biden-victory-brazil-hungary>
+{'title': 'End of Trump era deals heavy blow to rightwing populist leaders worldwide', 'url': 'https://www.theguardian.com/us-news/2020/nov/11/end-trump-era-blow-rightwing-populist-leaders-worldwide-biden-victory-brazil-hungary', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Draft declaration sets out stricter rules on migrant integration', 'url': 'https://www.theguardian.com/world/2020/nov/09/eu-draft-declaration-sets-out-stricter-rules-on-migrant-integration', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/09/eu-draft-declaration-sets-out-stricter-rules-on-migrant-integration>
+{'title': 'Draft declaration sets out stricter rules on migrant integration', 'url': 'https://www.theguardian.com/world/2020/nov/09/eu-draft-declaration-sets-out-stricter-rules-on-migrant-integration', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Muslim blogger says her arrest on a flight wrongfully singled her out', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/amani-al-khatahtbeh-muslim-activist-american-airlines', 'author': 'Victoria Bekiempis', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '20.07\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/amani-al-khatahtbeh-muslim-activist-american-airlines>
+{'title': 'Muslim blogger says her arrest on a flight wrongfully singled her out', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/amani-al-khatahtbeh-muslim-activist-american-airlines', 'author': 'Victoria Bekiempis', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '20.07\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/christopher-walken-it-needs-the-luck-of-the-irish-to-place-his-accent> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/when-it-comes-to-amazon-breaking-up-is-hard-to-do> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/13/trump-coup-virtual-confederacy-race-legal-trumpian> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Politicians face pro-democracy exodus', 'url': 'https://www.theguardian.com/world/2020/nov/14/hong-kong-politicians-face-pro-democracy-exodus', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/hong-kong-politicians-face-pro-democracy-exodus>
+{'title': 'Politicians face pro-democracy exodus', 'url': 'https://www.theguardian.com/world/2020/nov/14/hong-kong-politicians-face-pro-democracy-exodus', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Leaders of Tigray region admit they attacked neighbouring Amhara', 'url': 'https://www.theguardian.com/world/2020/nov/14/ethiopia-says-tigray-region-forces-fired-into-neighbouring-amhara', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/ethiopia-says-tigray-region-forces-fired-into-neighbouring-amhara>
+{'title': 'Leaders of Tigray region admit they attacked neighbouring Amhara', 'url': 'https://www.theguardian.com/world/2020/nov/14/ethiopia-says-tigray-region-forces-fired-into-neighbouring-amhara', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Government mounts new assault on LGBT rights', 'url': 'https://www.theguardian.com/world/2020/nov/11/hungarian-government-mounts-new-assault-on-lgbt-rights', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/11/hungarian-government-mounts-new-assault-on-lgbt-rights>
+{'title': 'Government mounts new assault on LGBT rights', 'url': 'https://www.theguardian.com/world/2020/nov/11/hungarian-government-mounts-new-assault-on-lgbt-rights', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "Europe can't afford to lose another generation to youth unemployment", 'url': 'https://www.theguardian.com/world/commentisfree/2020/nov/11/europe-cant-afford-to-lose-another-generation-to-youth-unemployment', 'author': None, 'publish_date': '\nWed 11 Nov 2020 ', 'publish_time': '12.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/commentisfree/2020/nov/11/europe-cant-afford-to-lose-another-generation-to-youth-unemployment>
+{'title': "Europe can't afford to lose another generation to youth unemployment", 'url': 'https://www.theguardian.com/world/commentisfree/2020/nov/11/europe-cant-afford-to-lose-another-generation-to-youth-unemployment', 'author': None, 'publish_date': '\nWed 11 Nov 2020 ', 'publish_time': '12.00\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/sport/blog/2020/nov/14/england-show-force-not-much-spectacle-georgia-autumn-nations-cup-rugby-union> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/15/observer-view-on-the-sniping-over-joe-biden-victory> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Stroll takes stunning Turkish F1 GP pole in wet', 'url': 'https://www.theguardian.com/sport/2020/nov/14/lance-stroll-turkish-f1-gp-pole-in-wet-lewis-hamilton-sixth', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/2020/nov/14/lance-stroll-turkish-f1-gp-pole-in-wet-lewis-hamilton-sixth>
+{'title': 'Stroll takes stunning Turkish F1 GP pole in wet', 'url': 'https://www.theguardian.com/sport/2020/nov/14/lance-stroll-turkish-f1-gp-pole-in-wet-lewis-hamilton-sixth', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "Kanté's strike for France knocks out holders Portugal", 'url': 'https://www.theguardian.com/football/2020/nov/14/nations-league-roundup-kantes-strike-for-france-knocks-out-holders-portugal', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/football/2020/nov/14/nations-league-roundup-kantes-strike-for-france-knocks-out-holders-portugal>
+{'title': "Kanté's strike for France knocks out holders Portugal", 'url': 'https://www.theguardian.com/football/2020/nov/14/nations-league-roundup-kantes-strike-for-france-knocks-out-holders-portugal', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/joe-biden-trump-black-latino-republicans> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/coupledom-couple-norm-social-change> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "England no longer fear the world's top sides, says Southgate", 'url': 'https://www.theguardian.com/football/2020/nov/14/england-gareth-southgate-belgium', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/football/2020/nov/14/england-gareth-southgate-belgium>
+{'title': "England no longer fear the world's top sides, says Southgate", 'url': 'https://www.theguardian.com/football/2020/nov/14/england-gareth-southgate-belgium', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Johnson takes control of Masters with third round 65', 'url': 'https://www.theguardian.com/sport/2020/nov/14/dustin-johnson-takes-control-of-masters-with-third-round-65', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/2020/nov/14/dustin-johnson-takes-control-of-masters-with-third-round-65>
+{'title': 'Johnson takes control of Masters with third round 65', 'url': 'https://www.theguardian.com/sport/2020/nov/14/dustin-johnson-takes-control-of-masters-with-third-round-65', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Christopher Walken: it needs the luck of the Irish to place his accent', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/christopher-walken-it-needs-the-luck-of-the-irish-to-place-his-accent', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/christopher-walken-it-needs-the-luck-of-the-irish-to-place-his-accent>
+{'title': 'Christopher Walken: it needs the luck of the Irish to place his accent', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/christopher-walken-it-needs-the-luck-of-the-irish-to-place-his-accent', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'When it comes to Amazon, breaking up is hard to do', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/when-it-comes-to-amazon-breaking-up-is-hard-to-do', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/when-it-comes-to-amazon-breaking-up-is-hard-to-do>
+{'title': 'When it comes to Amazon, breaking up is hard to do', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/when-it-comes-to-amazon-breaking-up-is-hard-to-do', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "This is no conventional coup. Trump is paving the way for a 'virtual Confederacy'", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/13/trump-coup-virtual-confederacy-race-legal-trumpian', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/13/trump-coup-virtual-confederacy-race-legal-trumpian>
+{'title': "This is no conventional coup. Trump is paving the way for a 'virtual Confederacy'", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/13/trump-coup-virtual-confederacy-race-legal-trumpian', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/commentisfree/2020/nov/14/kamala-harris-vice-president-woman-speak-with-confidence> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/nearly-100-coffins-buried-over-2500-years-ago-found-in-egypt> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/15/two-killed-as-huge-pro-democracy-protests-continue-in-peru> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/14/hiker-mount-ranier-whiteout-dies-er-brought-back-to-life> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'England put on show of force against Georgia but not much of a spectacle', 'url': 'https://www.theguardian.com/sport/blog/2020/nov/14/england-show-force-not-much-spectacle-georgia-autumn-nations-cup-rugby-union', 'author': 'Andy Bull', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '19.30\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/sport/blog/2020/nov/14/england-show-force-not-much-spectacle-georgia-autumn-nations-cup-rugby-union>
+{'title': 'England put on show of force against Georgia but not much of a spectacle', 'url': 'https://www.theguardian.com/sport/blog/2020/nov/14/england-show-force-not-much-spectacle-georgia-autumn-nations-cup-rugby-union', 'author': 'Andy Bull', 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '19.30\xa0GMT'}
+INFO: Item stored: {'title': 'The Observer view on the sniping over Joe Biden’s victory', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/15/observer-view-on-the-sniping-over-joe-biden-victory', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/15/observer-view-on-the-sniping-over-joe-biden-victory>
+{'title': 'The Observer view on the sniping over Joe Biden’s victory', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/15/observer-view-on-the-sniping-over-joe-biden-victory', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'White men swung to Biden. Trump made gains with black and Latino voters. Why?', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/joe-biden-trump-black-latino-republicans', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/joe-biden-trump-black-latino-republicans>
+{'title': 'White men swung to Biden. Trump made gains with black and Latino voters. Why?', 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/joe-biden-trump-black-latino-republicans', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "It's time to end the tyranny of coupledom", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/coupledom-couple-norm-social-change', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/coupledom-couple-norm-social-change>
+{'title': "It's time to end the tyranny of coupledom", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/coupledom-couple-norm-social-change', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/society/2020/nov/15/cannabis-resin-now-25-more-potent-global-study-reveals> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/15/religious-intolerance-is-bigger-cause-of-prejudice-than-race-says-report> (referer: https://www.theguardian.com/international)
+DEBUG: Crawled (200) <GET https://www.theguardian.com/politics/2020/nov/14/attacks-by-pms-ousted-aide-left-new-press-chief-in-tears> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': "Kamala Harris didn't become vice-president-elect by saying 'no worries if not'", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/kamala-harris-vice-president-woman-speak-with-confidence', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '07.00\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/commentisfree/2020/nov/14/kamala-harris-vice-president-woman-speak-with-confidence>
+{'title': "Kamala Harris didn't become vice-president-elect by saying 'no worries if not'", 'url': 'https://www.theguardian.com/commentisfree/2020/nov/14/kamala-harris-vice-president-woman-speak-with-confidence', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '07.00\xa0GMT'}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/us-news/2020/nov/15/judge-rules-daca-suspension-invalid-homeland-security-head-in-office-illegally> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Nearly 100 coffins buried over 2,500 years ago found ', 'url': 'https://www.theguardian.com/world/2020/nov/14/nearly-100-coffins-buried-over-2500-years-ago-found-in-egypt', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/nearly-100-coffins-buried-over-2500-years-ago-found-in-egypt>
+{'title': 'Nearly 100 coffins buried over 2,500 years ago found ', 'url': 'https://www.theguardian.com/world/2020/nov/14/nearly-100-coffins-buried-over-2500-years-ago-found-in-egypt', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Two killed as huge pro-democracy protests continue', 'url': 'https://www.theguardian.com/world/2020/nov/15/two-killed-as-huge-pro-democracy-protests-continue-in-peru', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/15/two-killed-as-huge-pro-democracy-protests-continue-in-peru>
+{'title': 'Two killed as huge pro-democracy protests continue', 'url': 'https://www.theguardian.com/world/2020/nov/15/two-killed-as-huge-pro-democracy-protests-continue-in-peru', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/2020/nov/14/nagorno-karabakh-villagers-burn-their-homes-ahead-of-peace-deal> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Hiker lost in Mount Rainier whiteout dies in ER – and is brought back to life', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/hiker-mount-ranier-whiteout-dies-er-brought-back-to-life', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '22.56\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/14/hiker-mount-ranier-whiteout-dies-er-brought-back-to-life>
+{'title': 'Hiker lost in Mount Rainier whiteout dies in ER – and is brought back to life', 'url': 'https://www.theguardian.com/us-news/2020/nov/14/hiker-mount-ranier-whiteout-dies-er-brought-back-to-life', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '22.56\xa0GMT'}
+INFO: Item stored: {'title': 'Cannabis resin now 25% more potent, global study reveals', 'url': 'https://www.theguardian.com/society/2020/nov/15/cannabis-resin-now-25-more-potent-global-study-reveals', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/society/2020/nov/15/cannabis-resin-now-25-more-potent-global-study-reveals>
+{'title': 'Cannabis resin now 25% more potent, global study reveals', 'url': 'https://www.theguardian.com/society/2020/nov/15/cannabis-resin-now-25-more-potent-global-study-reveals', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "Faith is 'bigger cause of prejudice than race', says report", 'url': 'https://www.theguardian.com/world/2020/nov/15/religious-intolerance-is-bigger-cause-of-prejudice-than-race-says-report', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/15/religious-intolerance-is-bigger-cause-of-prejudice-than-race-says-report>
+{'title': "Faith is 'bigger cause of prejudice than race', says report", 'url': 'https://www.theguardian.com/world/2020/nov/15/religious-intolerance-is-bigger-cause-of-prejudice-than-race-says-report', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': "Attacks by Boris Johnson's ousted aide left new press chief in tears", 'url': 'https://www.theguardian.com/politics/2020/nov/14/attacks-by-pms-ousted-aide-left-new-press-chief-in-tears', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/politics/2020/nov/14/attacks-by-pms-ousted-aide-left-new-press-chief-in-tears>
+{'title': "Attacks by Boris Johnson's ousted aide left new press chief in tears", 'url': 'https://www.theguardian.com/politics/2020/nov/14/attacks-by-pms-ousted-aide-left-new-press-chief-in-tears', 'author': None, 'publish_date': None, 'publish_time': None}
+INFO: Item stored: {'title': 'Judge rules Daca suspension invalid, Homeland Security head in office illegally', 'url': 'https://www.theguardian.com/us-news/2020/nov/15/judge-rules-daca-suspension-invalid-homeland-security-head-in-office-illegally', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Scraped from <200 https://www.theguardian.com/us-news/2020/nov/15/judge-rules-daca-suspension-invalid-homeland-security-head-in-office-illegally>
+{'title': 'Judge rules Daca suspension invalid, Homeland Security head in office illegally', 'url': 'https://www.theguardian.com/us-news/2020/nov/15/judge-rules-daca-suspension-invalid-homeland-security-head-in-office-illegally', 'author': None, 'publish_date': None, 'publish_time': None}
+DEBUG: Crawled (200) <GET https://www.theguardian.com/world/live/2020/nov/15/coronavirus-live-news-us-confirms-177000-daily-cases-as-victoria-marks-16-days-with-no-infections> (referer: https://www.theguardian.com/international)
+INFO: Item stored: {'title': 'Villagers burn their homes ahead of peace deal', 'url': 'https://www.theguardian.com/world/2020/nov/14/nagorno-karabakh-villagers-burn-their-homes-ahead-of-peace-deal', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '18.48\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/2020/nov/14/nagorno-karabakh-villagers-burn-their-homes-ahead-of-peace-deal>
+{'title': 'Villagers burn their homes ahead of peace deal', 'url': 'https://www.theguardian.com/world/2020/nov/14/nagorno-karabakh-villagers-burn-their-homes-ahead-of-peace-deal', 'author': None, 'publish_date': '\nSat 14 Nov 2020 ', 'publish_time': '18.48\xa0GMT'}
+INFO: Item stored: {'title': 'Coronavirus: US has another record daily total as South Australia confirms local cases', 'url': 'https://www.theguardian.com/world/live/2020/nov/15/coronavirus-live-news-us-confirms-177000-daily-cases-as-victoria-marks-16-days-with-no-infections', 'author': 'Helen Sullivan', 'publish_date': '\nSun 15 Nov 2020 ', 'publish_time': '06.47\xa0GMT'}
+DEBUG: Scraped from <200 https://www.theguardian.com/world/live/2020/nov/15/coronavirus-live-news-us-confirms-177000-daily-cases-as-victoria-marks-16-days-with-no-infections>
+{'title': 'Coronavirus: US has another record daily total as South Australia confirms local cases', 'url': 'https://www.theguardian.com/world/live/2020/nov/15/coronavirus-live-news-us-confirms-177000-daily-cases-as-victoria-marks-16-days-with-no-infections', 'author': 'Helen Sullivan', 'publish_date': '\nSun 15 Nov 2020 ', 'publish_time': '06.47\xa0GMT'}
+INFO: Closing spider (finished)
+INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 43091,
+ 'downloader/request_count': 109,
+ 'downloader/request_method_count/GET': 109,
+ 'downloader/response_bytes': 8090419,
+ 'downloader/response_count': 109,
+ 'downloader/response_status_count/200': 109,
+ 'dupefilter/filtered': 22,
+ 'elapsed_time_seconds': 4.718667,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2020, 11, 15, 7, 0, 19, 42494),
+ 'item_scraped_count': 107,
+ 'log_count/DEBUG': 217,
+ 'log_count/INFO': 117,
+ 'memusage/max': 46878720,
+ 'memusage/startup': 46878720,
+ 'request_depth_max': 1,
+ 'response_received_count': 109,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/200': 1,
+ 'scheduler/dequeued': 108,
+ 'scheduler/dequeued/memory': 108,
+ 'scheduler/enqueued': 108,
+ 'scheduler/enqueued/memory': 108,
+ 'start_time': datetime.datetime(2020, 11, 15, 7, 0, 14, 323827)}
+INFO: Spider closed (finished)
