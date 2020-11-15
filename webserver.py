@@ -33,7 +33,15 @@ def list():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    con = get_db()
+    con.row_factory = sql.Row
+   
+    cur = con.cursor()
+    cur.execute("select * from guardian")
+   
+    rows = cur.fetchall(); 
+    return render_template("list.html",rows = rows)
+    # return render_template('home.html')
 
 if __name__ == '__main__':
     ## I don't like this method but it works
