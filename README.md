@@ -13,6 +13,8 @@ Data persistance provided by sqlite3 database.
 
 `pip3 install flask`
 
+`pip3 install timeloop`
+
 ---
 ## Execute: 
 
