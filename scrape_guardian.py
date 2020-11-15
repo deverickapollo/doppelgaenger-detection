@@ -5,12 +5,12 @@ from urllib.request import Request
 from twisted.internet import reactor
 import scrapy
 from scrapy.crawler import CrawlerRunner
+import logging
 from scrapy.utils.log import configure_logging
-from scrapy.utils.project import get_project_settings
 from scrapy.settings import Settings
 import os
 from db_access import *
-import logging
+
 
 
 class guardianSpider(scrapy.Spider):
@@ -43,7 +43,13 @@ class guardianSpider(scrapy.Spider):
         }
 
 def runSpider():
-    configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+    # configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+    configure_logging(install_root_handler = False) 
+    logging.basicConfig ( 
+    filename = 'logging.txt', 
+    format = '%(levelname)s: %(message)s', 
+    level = logging.DEBUG 
+    )
     settings = Settings()
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
     settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
