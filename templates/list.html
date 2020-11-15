@@ -82,7 +82,6 @@
                         <td>URL</td>
                         <td>Author</td>
                         <td>Publish Date</td>
-                        <td>Publish Time</td>
                      </thead>
                      
                      {% for row in rows %}
@@ -90,8 +89,7 @@
                            <td>{{row["title"]}}</td>
                            <td><a href="{{row["url"]}}">{{row["url"]}}</a></td>
                            <td> {{ row["author"]}}</td>
-                           <td>{{row['publish_date']}}</td>	
-                           <td>{{row['publish_time']}}</td>	
+                           <td>{{row['publish_date']}}</td>
                         </tr>
                      {% endfor %}
                     </table>
