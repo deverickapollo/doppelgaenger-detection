@@ -7,13 +7,12 @@ Data persistance provided by sqlite3 database.
 ---
 ## Setup Requirements
 
-1. Python3
-2. Scrapy
-
 `pip3 install scrapy`
 
 `pip3 install Twisted`
+
 `pip3 install flask`
+
 ---
 ## Execute: 
 
