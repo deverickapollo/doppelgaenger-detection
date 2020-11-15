@@ -27,8 +27,7 @@ def create_guardian_table(conn):
                                     url text PRIMARY KEY,
                                     title text NOT NULL,
                                     author text,
-                                    publish_date text,
-                                    publish_time text
+                                    publish_date text
                                 ); """
 	sql_set_unique_index = """ CREATE UNIQUE INDEX url_idx ON guardian (url); """
 	execute_sql(conn, sql_create_guardian_table)
@@ -36,7 +35,7 @@ def create_guardian_table(conn):
 
 def insert_into_guardian(conn,item):
 
-	sql_insert_guardian_table = """INSERT INTO guardian (url, author, title, publish_date, publish_time) VALUES (?, ?, ?, ?, ?)", (item[url],item[author],item[title],item[publish_date], item[publish_time])"""
+	sql_insert_guardian_table = """INSERT INTO guardian (url, author, title, publish_date) VALUES (?, ?, ?, ?)", (item[url],item[author],item[title],item[publish_date])"""
 
 	execute_sql(conn, sql_insert_guardian_table)
 

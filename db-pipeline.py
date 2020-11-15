@@ -14,13 +14,11 @@ class sqLitePipeline(object):
         url = str(adapter["url"])
         author = str(adapter["author"])
         publish_date = str(adapter["publish_date"])
-        publish_time = str(adapter["publish_time"])
         tmp = {
             "title": title, 
             "url": url, 
             "author": author, 
-            "publish_date": publish_date, 
-            "publish_time": publish_time
+            "publish_date": publish_date
         }
         conn = spider.connection
         cursorObj = conn.cursor()
@@ -32,7 +30,7 @@ class sqLitePipeline(object):
         else:
             # insert_into_guardian(conn,tmp)
             # logging.log(logging.INFO, "Lastrowid: %s", cursorObj.lastrowid)
-            cursorObj.execute("INSERT INTO guardian (url, author, title, publish_date, publish_time) VALUES (?, ?, ?, ?, ?)", (url,author,title,publish_date, publish_time))
+            cursorObj.execute("INSERT INTO guardian (url, author, title, publish_date) VALUES (?, ?, ?, ?)", (url,author,title,publish_date))
             conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)
         return item
