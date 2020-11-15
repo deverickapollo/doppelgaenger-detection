@@ -44,6 +44,6 @@ def home():
     # return render_template('home.html')
 
 if __name__ == '__main__':
-    ## I don't like this method but it works
+    ## Needs to be run asyn to webserver.  
     os.system("python3 guardianbot.py")
     app.run()
