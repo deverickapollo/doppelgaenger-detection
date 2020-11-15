@@ -14,15 +14,9 @@ class sqLitePipeline(object):
         url = str(adapter["url"])
         author = str(adapter["author"])
         publish_date = str(adapter["publish_date"])
-        tmp = {
-            "title": title, 
-            "url": url, 
-            "author": author, 
-            "publish_date": publish_date
-        }
         conn = spider.connection
         cursorObj = conn.cursor()
-        cursorObj.execute("SELECT * FROM guardian WHERE url=?", (url,))
+        cursorObj.execute("SELECT * FROM article WHERE url=?", (url,))
         result = cursorObj.fetchone()
 
         if result:
@@ -30,13 +24,13 @@ class sqLitePipeline(object):
         else:
             # insert_into_guardian(conn,tmp)
             # logging.log(logging.INFO, "Lastrowid: %s", cursorObj.lastrowid)
-            cursorObj.execute("INSERT INTO guardian (url, author, title, publish_date) VALUES (?, ?, ?, ?)", (url,author,title,publish_date))
+            cursorObj.execute("INSERT INTO article (url, author, title, publish_date) VALUES (?, ?, ?, ?)", (url,author,title,publish_date))
             conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)
         return item
 
     def close_spider(self, spider):
-        close_connection(spider.connection)
+        close_db_connection(spider.connection)
 
     def handle_error(self, e):
         logging.error('%s raised an error', e)

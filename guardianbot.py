@@ -30,15 +30,15 @@ def main():
 	conn = create_connection(database)
 
 	if conn is not None:
-	    create_guardian_table(conn)
-
-	    d = runner.crawl(guardianSpider,connection=conn)
-	    d.addBoth(lambda _: reactor.stop())
-	    reactor.run()  # the script will block here until the crawling is finished
+		create_article_table(conn)
+		create_user_table(conn)
+		create_comment_table(conn)
+		d = runner.crawl(guardianSpider,connection=conn)
+		d.addBoth(lambda _: reactor.stop())
+		reactor.run()  # the script will block here until the crawling is finished
 	else:
 	    logging.log(logging.ERROR, "Error! Database Tables Not Created.")
-
-	close_connection(conn)
+	close_db_connection(conn)
 
 if __name__ == '__main__':
 	main()

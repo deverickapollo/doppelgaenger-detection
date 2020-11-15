@@ -45,22 +45,23 @@ def home():
     con.row_factory = sql.Row
    
     cur = con.cursor()
-    cur.execute("select * from guardian")
+    cur.execute("select * from article")
    
     rows = cur.fetchall(); 
     return render_template("list.html",rows = rows)
     # return render_template('home.html')
 
 @tl.job(interval=timedelta(hours = 12))
-def run():
+def spider_run():
     os.system("python3 guardianbot.py")
 
 if __name__ == '__main__':
     tl.start(block=False)
     while True:
         try:
-            run()
+            spider_run()
             app.run()
         except KeyboardInterrupt:
+            # close_connection()
             tl.stop()
             break
