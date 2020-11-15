@@ -15,11 +15,11 @@ from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
 
 def main():
-	configure_logging(install_root_handler = False) 
-	logging.basicConfig ( 
-    filename = 'logging.txt', 
-    format = '%(levelname)s: %(message)s', 
-    level = logging.DEBUG 
+	configure_logging(install_root_handler = False)
+	logging.basicConfig (
+    filename = 'logs/logging.txt',
+    format = '%(levelname)s: %(message)s',
+    level = logging.DEBUG
     )
 	settings = Settings()
 	os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
@@ -28,10 +28,10 @@ def main():
 	runner = CrawlerRunner(settings)
 	database = r'database/dopplegaenger.db'
 	conn = create_connection(database)
-    
+
 	if conn is not None:
 	    create_guardian_table(conn)
-        
+
 	    d = runner.crawl(guardianSpider,connection=conn)
 	    d.addBoth(lambda _: reactor.stop())
 	    reactor.run()  # the script will block here until the crawling is finished
@@ -39,6 +39,6 @@ def main():
 	    logging.log(logging.ERROR, "Error! Database Tables Not Created.")
 
 	close_connection(conn)
-	
+
 if __name__ == '__main__':
 	main()
