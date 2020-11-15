@@ -9,15 +9,12 @@ import logging
 import scrapy
 import os
 
-from urllib.request import Request
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
 
-def main():
-	# runSpider()
-    # configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+if __name__ == '__main__':
     configure_logging(install_root_handler = False) 
     logging.basicConfig ( 
     filename = 'logging.txt', 
@@ -42,6 +39,3 @@ def main():
         logging.log(logging.ERROR, "Error! Database Tables Not Created.")
 
     close_connection(conn)
-
-if __name__ == '__main__':
-	main()
