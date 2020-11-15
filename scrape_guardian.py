@@ -15,19 +15,17 @@ class guardianSpider(scrapy.Spider):
 
     def parse(self, response):
         for url in response.css("h3.fc-item__title"):
-            title = url.css("span.js-headline-text::text").extract_first()
             link = url.css("a::attr(href)").extract_first()
-            yield scrapy.Request(url=link, callback=self.parse_article, meta={'title': title, 'url': link})
+            yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
         for url in response.css("h4.fc-sublink__title"):
-            title = url.css("span.js-headline-text::text").extract_first()
-            link = url.css("a::attr(href)").extract_first()
-            yield scrapy.Request(url=link, callback=self.parse_article, meta={'title': title, 'url': link})
+           link = url.css("a::attr(href)").extract_first()
+           yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
 
     def parse_article(self, response):
         yield {
-            'title': response.meta.get('title'),
+            'title' : response.xpath('normalize-space(//h1/text())').get(),
             'url': response.meta.get('url'),
-            'author': response.css("p.byline span span::text").extract_first(),
+            'author' : response.xpath('//a[@rel="author"]/text()').get(),
             'publish_date': response.css("time.content__dateline-wpd::text").extract_first(),
             'publish_time': response.css("span.content__dateline-time::text").extract_first()
         }
