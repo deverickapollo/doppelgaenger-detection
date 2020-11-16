@@ -7,7 +7,7 @@ import logging
 def create_connection(db_file):
 	conn = None
 	try:
-		conn = sqlite3.connect(db_file)
+		conn = sqlite3.connect(db_file,detect_types=sqlite3.PARSE_DECLTYPES)
 		return conn
 	except Error as e:
 		logging.error('%s raised an error', e)
@@ -27,7 +27,7 @@ def create_article_table(conn):
                                     url text PRIMARY KEY,
                                     title text NOT NULL,
                                     author text,
-                                    publish_date timestamp
+                                    publish_date integer
                                 ); """
 	execute_sql(conn, sql_create_article_table)
 

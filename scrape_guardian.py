@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # Helper functions to crawl Guardian News Website
-import scrapy
-import requests
+import logging, re, pytz, requests, scrapy
 from scrapy import *
-from datetime import datetime
-from datetime import timezone
-import logging
+from datetime import datetime, timezone as ttime
+import pytz
+from pytz import timezone
+
+bst = pytz.timezone('Europe/London')
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
@@ -37,11 +38,19 @@ class guardianSpider(scrapy.Spider):
         if not author:
             author = ''.join(response.xpath('//*[@class="css-1rv9jci"]//text()').extract())
         date_stripped = date.replace("\n", "")
-        time_in_datetime = datetime.strptime(date_stripped, "%a %d %b %Y %H.%M %Z")
-        timestamp = time_in_datetime.replace(tzinfo=timezone.utc).timestamp()
+        date_xa0 = date_stripped.replace(u'\xa0', u' ')
+        #HANDLE BST TIMESTAMPS
+        if (date_xa0.find('BST') != -1):
+            scrubbed = date_xa0[:-4]
+            naive = datetime.strptime(scrubbed, "%a %d %b %Y %H.%M")
+            local_dt = bst.localize(naive, is_dst=None)
+            timestamp = local_dt.astimezone(pytz.utc).timestamp()
+        else:
+            time_in_datetime = datetime.strptime(date_xa0, "%a %d %b %Y %H.%M %Z")
+            timestamp = time_in_datetime.replace(tzinfo=ttime.utc).timestamp()
         yield {
-            'title': title,
-            'url': response.meta.get('url'),
-            'author': author,
-            'publish_date': timestamp
+            'title': title, #string
+            'url': response.meta.get('url'), #string
+            'author': author, #string
+            'publish_date': timestamp #datetime object stored as a timestamp from epoch 
         }

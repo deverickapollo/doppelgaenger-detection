@@ -15,6 +15,8 @@ Data persistance provided by sqlite3 database.
 
 `pip3 install timeloop`
 
+`pip3 install pytz`
+
 ---
 ## Execute: 
 
