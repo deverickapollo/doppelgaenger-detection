@@ -17,7 +17,7 @@ from scrapy.settings import Settings
 def main():
 	configure_logging(install_root_handler = False)
 	logging.basicConfig (
-    filename = 'logs/logging.txt',
+    filename = 'logs/spider.log',
     format = '%(levelname)s: %(message)s',
     level = logging.DEBUG
     )

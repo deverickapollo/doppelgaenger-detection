@@ -34,7 +34,7 @@ def home():
     con.row_factory = sql.Row
    
     cur = con.cursor()
-    cur.execute("select url, title, author, datetime(publish_date, 'unixepoch') from article")
+    cur.execute("select url, title, author, datetime(publish_date, 'unixepoch') as date from article")
 
     rows = cur.fetchall(); 
     return render_template("list.html",rows = rows)
