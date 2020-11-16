@@ -11,6 +11,7 @@ from datetime import timedelta
 import logging
 
 app = Flask(__name__)
+logging.basicConfig(filename='logs/webapp.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 DATABASE = r'database/dopplegaenger.db'
 tl = Timeloop()
