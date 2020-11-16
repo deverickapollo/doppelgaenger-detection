@@ -34,7 +34,7 @@ def list():
     con.row_factory = sql.Row
    
     cur = con.cursor()
-    cur.execute("select * from guardian")
+    cur.execute("select * from article")
    
     rows = cur.fetchall(); 
     return render_template("list.html",rows = rows)
