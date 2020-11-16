@@ -22,8 +22,6 @@ class sqLitePipeline(object):
         if result:
             logging.log(logging.WARNING, "Item already in database: %s", item)
         else:
-            # insert_into_guardian(conn,tmp)
-            # logging.log(logging.INFO, "Lastrowid: %s", cursorObj.lastrowid)
             cursorObj.execute("INSERT INTO article (url, author, title, publish_date) VALUES (?, ?, ?, ?)", (url,author,title,publish_date))
             conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)

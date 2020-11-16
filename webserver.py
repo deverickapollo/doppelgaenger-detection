@@ -27,18 +27,6 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-
-@app.route('/list')
-def list():
-    con = get_db()
-    con.row_factory = sql.Row
-   
-    cur = con.cursor()
-    cur.execute("select * from article")
-   
-    rows = cur.fetchall(); 
-    return render_template("list.html",rows = rows)
-
 @app.route('/')
 def home():
     con = get_db()
@@ -49,7 +37,7 @@ def home():
    
     rows = cur.fetchall(); 
     return render_template("list.html",rows = rows)
-    # return render_template('home.html')
+
 
 @tl.job(interval=timedelta(hours = 12))
 def spider_run():

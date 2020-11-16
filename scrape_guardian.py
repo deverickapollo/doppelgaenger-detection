@@ -3,7 +3,9 @@
 import scrapy
 import requests
 from scrapy import *
-
+from datetime import datetime
+from datetime import timezone
+import logging
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
@@ -34,10 +36,12 @@ class guardianSpider(scrapy.Spider):
             title = response.css('h1 span::text').get()
         if not author:
             author = ''.join(response.xpath('//*[@class="css-1rv9jci"]//text()').extract())
-
+        date_stripped = date.replace("\n", "")
+        time_in_datetime = datetime.strptime(date_stripped, "%a %d %b %Y %H.%M %Z")
+        timestamp = time_in_datetime.replace(tzinfo=timezone.utc).timestamp()
         yield {
             'title': title,
             'url': response.meta.get('url'),
             'author': author,
-            'publish_date': date
+            'publish_date': timestamp
         }

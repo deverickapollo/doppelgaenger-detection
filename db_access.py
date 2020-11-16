@@ -27,7 +27,7 @@ def create_article_table(conn):
                                     url text PRIMARY KEY,
                                     title text NOT NULL,
                                     author text,
-                                    publish_date integer
+                                    publish_date timestamp
                                 ); """
 	execute_sql(conn, sql_create_article_table)
 
