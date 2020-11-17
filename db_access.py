@@ -5,6 +5,7 @@ import sqlite3 as sql
 from flask import g, Flask
 from sqlite3 import Error
 import logging, flask
+from itemadapter import ItemAdapter, is_item
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def execute_sql(conn, f):
 		c = conn.cursor()
 		c.execute(f)
 	except Error as e:
-		logging.log(logging.ERROR, '%s raised an error', e)
+		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
 
 def execute_sql_cursor_expect(conn, f):
 	c = None
@@ -44,7 +45,7 @@ def execute_sql_cursor_expect(conn, f):
 		c.execute(f)
 		return c
 	except Error as e:
-		logging.log(logging.ERROR, '%s raised an error', e)
+		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
 	return c	
 
 def create_article_table(conn):
@@ -59,6 +60,10 @@ def create_article_table(conn):
 def sql_full_report(conn):
 	sql_full_report_query = """select url, title, author, datetime(publish_date, 'unixepoch') as date from article"""
 	return execute_sql_cursor_expect(conn, sql_full_report_query)
+
+def sql_return_url(conn, url):
+	sql_return_url_query = 'SELECT * FROM article WHERE url="{url}"'
+	return execute_sql_cursor_expect(conn, sql_return_url_query)
 
 def create_user_table(conn):
 	sql_create_user_table = """ CREATE TABLE IF NOT EXISTS user (
@@ -82,8 +87,8 @@ def create_comment_table(conn):
 	execute_sql(conn, sql_create_comment_table)
 
 def insert_into_article(conn,item):
-	sql_insert_article_table = """INSERT INTO article (url, author, title, publish_date) VALUES (?, ?, ?, ?)", (item[url],item[author],item[title],item[publish_date])"""
-
+	adapter = ItemAdapter(item)
+	sql_insert_article_table = f'INSERT INTO article (url, author, title, publish_date) VALUES ("{adapter["url"]}", "{adapter["author"]}", "{adapter["title"]}", "{adapter["publish_date"]}")'
 	execute_sql(conn, sql_insert_article_table)
 
 def purge_db(conn):
@@ -98,4 +103,4 @@ def close_db_connection(conn):
 	try:
 		conn.close()
 	except Error as e:
-		logging.error('%s raised an error', e)
+		logging.error('%s close raised an error', e)
