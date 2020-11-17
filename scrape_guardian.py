@@ -84,15 +84,27 @@ class commentSpider(scrapy.Spider):
                 discussion = requests.get(
                     'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId + '?page=' + str(page_number)).json()
                 for comment in discussion['discussion']['comments']:
-                    yield {
-                            'comment_id': comment['id'],
-                            'comment_text': comment['body'],
-                            'comment_date': comment['isoDateTime'],
-                            'comment_author_id': comment['userProfile']['userId'],
-                            'comment_author_username': comment['userProfile']['displayName'],
+                    if 'responses' in comment:
+                        for comment_response in comment['responses']:
+                            yield {
+                            'comment_id': comment_response['id'],
+                            'comment_text': comment_response['body'],
+                            'comment_date': comment_response['isoDateTime'],
+                            'comment_author_id': comment_response['userProfile']['userId'],
+                            'comment_author_username': comment_response['userProfile']['displayName'],
                             'article_url': response.meta.get('url'),
                             'article_title': discussion['discussion']['title']
                         }
+                    else:
+                        yield {
+                                'comment_id': comment['id'],
+                                'comment_text': comment['body'],
+                                'comment_date': comment['isoDateTime'],
+                                'comment_author_id': comment['userProfile']['userId'],
+                                'comment_author_username': comment['userProfile']['displayName'],
+                                'article_url': response.meta.get('url'),
+                                'article_title': discussion['discussion']['title']
+                            }
 
 
 
