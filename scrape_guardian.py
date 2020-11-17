@@ -54,3 +54,20 @@ class guardianSpider(scrapy.Spider):
             'author': author, #string
             'publish_date': timestamp #datetime object stored as a timestamp from epoch 
         }
+
+class commentSpider(scrapy.Spider):
+    name = "toscrape-comment-css"
+
+    def __init__(self, *args, **kwargs):
+        super(commentSpider, self).__init__(*args, **kwargs)
+        conn = kwargs.get('connection')
+        if not conn:
+            raise ValueError('No connection argument available')
+        self.start_urls = ['https://www.theguardian.com/international']
+
+    def parse(self, response):
+        link = url.css("a::attr(href)").extract_first()
+        yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
+
+    def parse_article(self, response):
+        date = response.xpath('//*[@class="css-1kkxezg"]//text()').extract_first()

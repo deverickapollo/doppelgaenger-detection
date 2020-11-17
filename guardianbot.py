@@ -1,18 +1,16 @@
 #!/usr/bin/python
 # Main File for the Dopplegaenger Detection Program
 # Execute: python3 guardianbot.py
-
 from scrape_guardian import *
 from db_access import *
-import logging
-
-import scrapy
-import os
+import logging, scrapy, os, asyncio
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
+
+# from billiard import Process
 
 def main():
 	configure_logging(install_root_handler = False)
