@@ -1,26 +1,51 @@
 #!/usr/bin/python
 # Helper Functions to communicate with local database
-import sqlite3
+import logging, flask
+import sqlite3 as sql
+from flask import g, Flask
 from sqlite3 import Error
-import logging
+import logging, flask
+
+app = Flask(__name__)
+
+#Used for webserver. Provided by Flask. Investigate g and determine if we can replace with create_connection
+def get_db(database):
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sql.connect(database,detect_types=sql.PARSE_DECLTYPES)
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
 
 def create_connection(db_file):
 	conn = None
 	try:
-		conn = sqlite3.connect(db_file,detect_types=sqlite3.PARSE_DECLTYPES)
+		conn = sql.connect(db_file,detect_types=sql.PARSE_DECLTYPES)
 		return conn
 	except Error as e:
 		logging.error('%s raised an error', e)
-
 	return conn
 
 def execute_sql(conn, f):
 	try:
 		c = conn.cursor()
 		c.execute(f)
-		conn.commit()
 	except Error as e:
 		logging.log(logging.ERROR, '%s raised an error', e)
+
+def execute_sql_cursor_expect(conn, f):
+	c = None
+	try:
+		c = conn.cursor()
+		c.execute(f)
+		return c
+	except Error as e:
+		logging.log(logging.ERROR, '%s raised an error', e)
+	return c	
 
 def create_article_table(conn):
 	sql_create_article_table = """ CREATE TABLE IF NOT EXISTS article (
@@ -31,6 +56,9 @@ def create_article_table(conn):
                                 ); """
 	execute_sql(conn, sql_create_article_table)
 
+def sql_full_report(conn):
+	sql_full_report_query = """select url, title, author, datetime(publish_date, 'unixepoch') as date from article"""
+	return execute_sql_cursor_expect(conn, sql_full_report_query)
 
 def create_user_table(conn):
 	sql_create_user_table = """ CREATE TABLE IF NOT EXISTS user (
