@@ -66,8 +66,34 @@ class commentSpider(scrapy.Spider):
         self.start_urls = ['https://www.theguardian.com/international']
 
     def parse(self, response):
-        link = url.css("a::attr(href)").extract_first()
-        yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
+        for url in response.css("h3.fc-item__title"):
+            link = url.css("a::attr(href)").extract_first()
+            yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
+        for url in response.css("h4.fc-sublink__title"):
+            link = url.css("a::attr(href)").extract_first()
+            yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
 
     def parse_article(self, response):
-        date = response.xpath('//*[@class="css-1kkxezg"]//text()').extract_first()
+        comments = response.css("#comments").get()
+        if comments:
+            # fetch discussion via shortUrlId from guardian discussion API
+            shortUrlId = response.xpath("//script[contains(text(), 'shortUrlId')]//text()").get()
+            shortUrlId = shortUrlId.partition('shortUrlId":"')[2][:8]
+            discussion = requests.get('http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId).json()
+            for page_number in range(1, discussion['pages']+1):
+                discussion = requests.get(
+                    'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId + '?page=' + str(page_number)).json()
+                for comment in discussion['discussion']['comments']:
+                    yield {
+                            'comment_id': comment['id'],
+                            'comment_text': comment['body'],
+                            'comment_date': comment['isoDateTime'],
+                            'comment_author_id': comment['userProfile']['userId'],
+                            'comment_author_username': comment['userProfile']['displayName'],
+                            'article_url': response.meta.get('url'),
+                            'article_title': discussion['discussion']['title']
+                        }
+
+
+
+
