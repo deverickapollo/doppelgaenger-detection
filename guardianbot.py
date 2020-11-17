@@ -16,11 +16,6 @@ from scrapy.settings import Settings
 
 def main():
 	configure_logging(install_root_handler = False)
-	logging.basicConfig (
-    filename = 'logs/spider.log',
-    format = '%(levelname)s: %(message)s',
-    level = logging.DEBUG
-    )
 	settings = Settings()
 	os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
 	settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
