@@ -72,8 +72,7 @@ def create_comment_table(conn):
                                     message_title text,
 									comment text NOT NULL,
 									user_id integer NOT NULL,
-									FOREIGN KEY (user_id) REFERENCES user (user_id),
-									FOREIGN KEY (url) REFERENCES article (url)
+									FOREIGN KEY (user_id) REFERENCES user (user_id)
                                 ); """
 	execute_sql(conn, sql_create_comment_table)
 
@@ -87,7 +86,7 @@ def purge_db(conn):
 	execute_sql(conn, sql_purge_article_table)
 
 def sql_full_report(conn):
-	sql_full_report_query = """select url, title, author, datetime(publish_date, 'unixepoch') as date from article"""
+	sql_full_report_query = "select url, title, author, datetime(publish_date, 'unixepoch') as date from article"
 	return execute_sql_cursor_expect(conn, sql_full_report_query)
 
 def sql_return_row_from_url(conn, url):
