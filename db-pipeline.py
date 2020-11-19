@@ -30,12 +30,14 @@ class commentPipeline(object):
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         conn = spider.connection
-        if adapter["id"] is not None:
+        if adapter["comment_id"] is not None:
             logging.log(logging.WARNING, "Item already in database: %s", item)
-        else:
+        elif  29 < adapter["comment_text"].split() < 301:
             db_access.insert_into_comment(conn,item)
             conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)
+        else:
+            logging.log(logging.WARNING, "Item too long or too short: %s", item)
         return item
 
     def close_spider(self, spider):
