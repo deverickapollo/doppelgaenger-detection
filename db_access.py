@@ -54,7 +54,8 @@ def create_article_table(conn):
                                     url text PRIMARY KEY,
                                     title text NOT NULL,
                                     author text,
-                                    publish_date integer
+                                    publish_date integer,
+                                    comment_count integer
                                 ); """
 	execute_sql(conn, sql_create_article_table)
 
@@ -78,7 +79,7 @@ def create_comment_table(conn):
 
 def insert_into_article(conn,item):
 	adapter = ItemAdapter(item)
-	sql_insert_article_table = f'INSERT INTO article (url, author, title, publish_date) VALUES ("{adapter["url"]}", "{adapter["author"]}", "{adapter["title"]}", "{adapter["publish_date"]}")'
+	sql_insert_article_table = f'INSERT INTO article (url, author, title, publish_date, comment_count) VALUES ("{adapter["url"]}", "{adapter["author"]}", "{adapter["title"]}", "{adapter["publish_date"]}", "{adapter["comment_count"]}")'
 	execute_sql(conn, sql_insert_article_table)
 
 def purge_db(conn):

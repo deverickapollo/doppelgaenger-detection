@@ -30,6 +30,16 @@ class guardianSpider(scrapy.Spider):
         date = response.xpath('//*[@class="css-1kkxezg"]//text()').extract_first()
         title = response.xpath('normalize-space(//h1//text())').get()
         author = response.xpath('//*[@rel="author"]//text()').extract_first()
+        comments = response.css("#comments").get()
+        if comments:
+            # fetch discussion via shortUrlId from guardian discussion API
+            shortUrlId = response.xpath("//script[contains(text(), 'shortUrlId')]//text()").get()
+            shortUrlId = shortUrlId.partition('shortUrlId":"')[2][:8]
+            discussion = requests.get(
+                'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId).json()
+            comment_count = discussion['discussion']['commentCount']
+        else:
+            comment_count = 0
         if not date:
             date = response.css("time.content__dateline-wpd::text").extract_first() + response.css(
                 "span.content__dateline-time::text").extract_first()
@@ -52,7 +62,8 @@ class guardianSpider(scrapy.Spider):
             'title': title, #string
             'url': response.meta.get('url'), #string
             'author': author, #string
-            'publish_date': timestamp #datetime object stored as a timestamp from epoch 
+            'publish_date': timestamp, #datetime object stored as a timestamp from epoch
+            'comment_count': comment_count #int
         }
 
 class commentSpider(scrapy.Spider):
@@ -80,6 +91,7 @@ class commentSpider(scrapy.Spider):
             shortUrlId = response.xpath("//script[contains(text(), 'shortUrlId')]//text()").get()
             shortUrlId = shortUrlId.partition('shortUrlId":"')[2][:8]
             discussion = requests.get('http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId).json()
+
             for page_number in range(1, discussion['pages']+1):
                 discussion = requests.get(
                     'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId + '?page=' + str(page_number)).json()
@@ -87,14 +99,14 @@ class commentSpider(scrapy.Spider):
                     if 'responses' in comment:
                         for comment_response in comment['responses']:
                             yield {
-                            'comment_id': comment_response['id'],
-                            'comment_text': comment_response['body'],
-                            'comment_date': comment_response['isoDateTime'],
-                            'comment_author_id': comment_response['userProfile']['userId'],
-                            'comment_author_username': comment_response['userProfile']['displayName'],
-                            'article_url': response.meta.get('url'),
-                            'article_title': discussion['discussion']['title']
-                        }
+                                'comment_id': comment_response['id'],
+                                'comment_text': comment_response['body'],
+                                'comment_date': comment_response['isoDateTime'],
+                                'comment_author_id': comment_response['userProfile']['userId'],
+                                'comment_author_username': comment_response['userProfile']['displayName'],
+                                'article_url': response.meta.get('url'),
+                                'article_title': discussion['discussion']['title']
+                            }
                     else:
                         yield {
                                 'comment_id': comment['id'],
