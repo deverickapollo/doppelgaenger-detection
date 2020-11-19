@@ -32,7 +32,7 @@ class commentPipeline(object):
         conn = spider.connection
         if adapter["comment_id"] is not None:
             logging.log(logging.WARNING, "Item already in database: %s", item)
-        elif  29 < adapter["comment_text"].split() < 301:
+        elif 29 < len(adapter["comment_text"].split()) < 301:
             db_access.insert_into_comment(conn,item)
             conn.commit()
             logging.log(logging.INFO, "Item stored: %s", item)
