@@ -61,19 +61,21 @@ def create_article_table(conn):
 
 def create_user_table(conn):
 	sql_create_user_table = """ CREATE TABLE IF NOT EXISTS user (
-                                    user_id integer PRIMARY KEY AUTOINCREMENT,
+                                    user_id integer PRIMARY KEY,
                                     username text NOT NULL UNIQUE
                                 ); """
 	execute_sql(conn, sql_create_user_table)
 
 def create_comment_table(conn):
 	sql_create_comment_table = """ CREATE TABLE IF NOT EXISTS comment (
-                                    message_date integer NOT NULL,
-                                    article_title text,
-                                    message_title text,
-									comment text NOT NULL,
-									user_id integer NOT NULL,
-									FOREIGN KEY (user_id) REFERENCES user (user_id)
+									comment_id integer PRIMARY KEY,
+									comment_text text,
+									comment_date text,
+									comment_author_id integer,
+									comment_author_username text,
+									article_url text,
+									article_title text,
+									FOREIGN KEY (comment_author_id) REFERENCES user (user_id)
                                 ); """
 	execute_sql(conn, sql_create_comment_table)
 
@@ -100,7 +102,7 @@ def sql_return_comment_from_id(conn, id):
 
 def insert_into_comment(conn,item):
 	adapter = ItemAdapter(item)
-	sql_insert_comment_table = f'INSERT INTO comment (url, author, title, publish_date) VALUES ("{adapter["url"]}", "{adapter["author"]}", "{adapter["title"]}", "{adapter["publish_date"]}")'
+	sql_insert_comment_table = f'INSERT INTO comment (comment_id, comment_text, comment_date, comment_author_id, comment_author_username, article_url, article_title) VALUES ("{adapter["comment_id"]}", "{adapter["comment_text"]}", "{adapter["comment_date"]}", "{adapter["comment_author_id"]}", "{adapter["comment_author_username"]}", "{adapter["article_url"]}", "{adapter["article_title"]}")'
 	execute_sql(conn, sql_insert_comment_table)
 
 def drop_all(conn):	
