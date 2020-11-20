@@ -23,7 +23,6 @@ def close_connection(exception):
         db.close()
 
 def create_connection(db_file):
-	
 	conn = None
 	try:
 		conn = sql.connect(db_file,detect_types=sql.PARSE_DECLTYPES)
@@ -54,7 +53,7 @@ def create_article_table(conn):
                                     url text PRIMARY KEY,
                                     title text NOT NULL,
                                     author text,
-                                    publish_date integer,
+                                    publish_date text,
                                     comment_count integer
                                 ); """
 	execute_sql(conn, sql_create_article_table)
@@ -89,7 +88,8 @@ def purge_db(conn):
 	execute_sql(conn, sql_purge_article_table)
 
 def sql_full_report(conn):
-	sql_full_report_query = "select url, title, author, datetime(publish_date, 'unixepoch') as date from article"
+	sql_full_report_query = "select url, title, author, publish_date as date from article"
+	#sql_full_report_query = "select url, title, author, datetime(publish_date, 'unixepoch') as date from article"
 	return execute_sql_cursor_expect(conn, sql_full_report_query)
 
 def sql_return_row_from_url(conn, url):

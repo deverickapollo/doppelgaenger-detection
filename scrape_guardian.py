@@ -8,6 +8,7 @@ from pytz import timezone
 
 bst = pytz.timezone('Europe/London')
 TAG_RE = re.compile(r'<[^>]+>')
+aedt = pytz.timezone('Australia/Tasmania')
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
@@ -49,21 +50,27 @@ class guardianSpider(scrapy.Spider):
         if not author:
             author = ''.join(response.xpath('//*[@class="css-1rv9jci"]//text()').extract())
         date_stripped = date.replace("\n", "")
+        date_stripped = date_stripped.strip()
         date_xa0 = date_stripped.replace(u'\xa0', u' ')
-        #HANDLE BST TIMESTAMPS
-        if (date_xa0.find('BST') != -1):
-            scrubbed = date_xa0[:-4]
-            naive = datetime.strptime(scrubbed, "%a %d %b %Y %H.%M")
-            local_dt = bst.localize(naive, is_dst=None)
-            timestamp = local_dt.astimezone(pytz.utc).timestamp()
-        else:
-            time_in_datetime = datetime.strptime(date_xa0, "%a %d %b %Y %H.%M %Z")
-            timestamp = time_in_datetime.replace(tzinfo=ttime.utc).timestamp()
+        #HANDLE TIMESTAMPS. Find better logic here. Moving back to date for now until values are needed. Could also leave logic during frontend processing.
+        # if (date_xa0.find('BST') != -1):
+        #     scrubbed = date_xa0[:-4]
+        #     naive = datetime.strptime(scrubbed, "%a %d %b %Y %H.%M")
+        #     local_dt = bst.localize(naive, is_dst=None)
+        #     timestamp = local_dt.astimezone(pytz.utc).timestamp()
+        # elif (date_xa0.find('AEDT') != -1):
+        #     scrubbed = date_xa0[:-4]
+        #     naive = datetime.strptime(scrubbed, "%a %d %b %Y %H.%M")
+        #     local_dt = aedt.localize(naive, is_dst=None)
+        #     timestamp = local_dt.astimezone(pytz.utc).timestamp()
+        # else:
+        #     time_in_datetime = datetime.strptime(date_xa0, "%a %d %b %Y %H.%M %Z")
+        #     timestamp = time_in_datetime.replace(tzinfo=ttime.utc).timestamp()
         yield {
             'title': title, #string
             'url': response.meta.get('url'), #string
             'author': author, #string
-            'publish_date': timestamp, #datetime object stored as a timestamp from epoch
+            'publish_date': date, #datetime object stored as a timestamp from epoch
             'comment_count': comment_count #int
         }
 
