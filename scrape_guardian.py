@@ -7,6 +7,7 @@ import pytz
 from pytz import timezone
 
 bst = pytz.timezone('Europe/London')
+TAG_RE = re.compile(r'<[^>]+>')
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
@@ -100,7 +101,7 @@ class commentSpider(scrapy.Spider):
                         for comment_response in comment['responses']:
                             yield {
                                 'comment_id': comment_response['id'],
-                                'comment_text': comment_response['body'],
+                                'comment_text': TAG_RE.sub('', comment_response['body']),
                                 'comment_date': comment_response['isoDateTime'],
                                 'comment_author_id': comment_response['userProfile']['userId'],
                                 'comment_author_username': comment_response['userProfile']['displayName'],
@@ -110,7 +111,7 @@ class commentSpider(scrapy.Spider):
                     else:
                         yield {
                                 'comment_id': comment['id'],
-                                'comment_text': comment['body'],
+                                'comment_text': TAG_RE.sub('', comment['body']),
                                 'comment_date': comment['isoDateTime'],
                                 'comment_author_id': comment['userProfile']['userId'],
                                 'comment_author_username': comment['userProfile']['displayName'],
