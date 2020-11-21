@@ -21,6 +21,10 @@ Data persistance provided by sqlite3 database.
 ## Execute: 
 
 `FLASK_APP=webserver.py FLASK_ENV=development flask run`
+---
+## Log files
+1. webapp.log - Provides debug related information when running guadianbot or the webserver
+2. report.log - Provides statistical and analytical information related to articles and comments published to the Guardian website.
 
 ---
-## Notes: 
+## Notes:
