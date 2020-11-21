@@ -36,7 +36,7 @@ def close_db_connection(conn):
 		conn.close()
 	except Error as e:
 		logging.error('%s close raised an error', e)
-		
+
 def execute_sql(conn, f):
 	c = None
 	try:
@@ -99,27 +99,43 @@ def insert_into_comment(conn,item):
 	data_tuple = (adapter["comment_id"], adapter["comment_text"], adapter["comment_date"], adapter["comment_author_id"], adapter["comment_author_username"],adapter["article_url"],adapter["article_title"])
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
-
+def insert_into_user(conn,item):
+	adapter = ItemAdapter(item)
+	sqlite_insert_with_param = """INSERT INTO user
+							(user_id, username) 
+							VALUES (?, ?);"""
+	data_tuple = (adapter["comment_author_id"], adapter["comment_author_username"])
+	logging.log(logging.INFO, 'Inserting user %s with user_id %s into user table', adapter["comment_author_id"], adapter["comment_author_username"])
+	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def sql_full_report(conn):
-	sql_full_report_query = "select url, title, author, publish_date as date from article"
+	sql_full_report_query = "select url, title, author, publish_date as date from article;"
 	return execute_sql(conn, sql_full_report_query)
 
 def sql_return_row_from_url(conn, url):
-	sql_return_url_query = 'SELECT * FROM article WHERE url="{url}"'
+	sql_return_url_query = 'SELECT * FROM article WHERE url="{url}";'
 	return execute_sql(conn, sql_return_url_query)
 
+def sql_check_user_exist(conn, id):
+	sql_return_comment_query = 'SELECT * FROM user WHERE username="{id}";'
+	return execute_sql(conn, sql_return_comment_query)
+
 def sql_return_comment_from_id(conn, id):
-	sql_return_comment_query = 'SELECT * FROM comment WHERE comment_id="{id}"'
+	sql_return_comment_query = 'SELECT * FROM comment WHERE comment_id="{id}";'
+	return execute_sql(conn, sql_return_comment_query)
+
+def sql_select_comments_from_user(conn, user,row_count):
+	sql_return_comment_query = 'SELECT comment_author_username, comment_text, article_title, article_url FROM comment WHERE comment_author_username="{user}" LIMIT {row_count};'
+	return execute_sql(conn, sql_return_comment_query)
+
+#Test function.
+def sql_select_comments_from_all_users(conn,row_count):
+	sql_return_comment_query = 'SELECT comment_author_username, comment_text, article_title, article_url FROM comment ORDER BY comment_author_username LIMIT 10;'
 	return execute_sql(conn, sql_return_comment_query)
 
 def drop_all(conn):	
-	execute_sql(conn, 'DROP TABLE comment')
-	execute_sql(conn, 'DROP TABLE user')
-	execute_sql(conn, 'DROP TABLE article')
+	execute_sql(conn, 'DROP TABLE IF EXISTS comment')
+	execute_sql(conn, 'DROP TABLE IF EXISTS user')
+	execute_sql(conn, 'DROP TABLE IF EXISTS article')
 	conn.commit()
-
-def purge_db(conn):
-	sql_purge_article_table = 'DROP TABLE IF EXISTS article;'
-	execute_sql(conn, sql_purge_article_table)
 
