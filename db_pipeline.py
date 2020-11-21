@@ -12,11 +12,11 @@ class sqLitePipeline(object):
         curr = db_access.sql_return_row_from_url(conn, adapter["url"])
         result = curr.fetchone()
         if result:
-            logging.log(logging.WARNING, "Item already in database: %s", item)
+            logging.log(logging.WARNING, "Article already in database table: %s", item)
         else:
             db_access.insert_into_article(conn,item)
             conn.commit()
-            logging.log(logging.INFO, "Item stored: %s", item)
+            logging.log(logging.INFO, "Article stored: %s", item)
         return item
 
     def close_spider(self, spider):
@@ -30,14 +30,16 @@ class commentPipeline(object):
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         conn = spider.connection
-        if adapter["comment_id"] is not None:
-            logging.log(logging.WARNING, "Item already in database: %s", item)
+        curr = db_access.sql_return_comment_from_id(conn, adapter["comment_id"])
+        result = curr.fetchone()
+        if result:           
+            logging.log(logging.WARNING, "Comment already in database table: %s", item)
         elif 29 < len(adapter["comment_text"].split()) < 301:
             db_access.insert_into_comment(conn,item)
             conn.commit()
-            logging.log(logging.INFO, "Item stored: %s", item)
+            logging.log(logging.INFO, "Comment stored: %s", item)
         else:
-            logging.log(logging.WARNING, "Item too long or too short: %s", item)
+            logging.log(logging.WARNING, "Comment too long or too short: %s", item)
         return item
 
     def close_spider(self, spider):

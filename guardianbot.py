@@ -17,8 +17,11 @@ from importlib import import_module
 
 def main():
 	#Report Log 
+	# LOG_FORMAT = (
+    # "%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d")
 	LOG_FORMAT = (
-    "%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d")
+		"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s"
+	)
 	LOG_LEVEL = logging.INFO
 	# messaging logger
 	MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
@@ -42,14 +45,14 @@ def main():
 	#Database declaration and connection
 	database = r'database/dopplegaenger.db'
 	conn = create_connection(database)
-	
+	conn2 = create_connection(database)
 	if conn is not None:
 		create_article_table(conn)
 		create_user_table(conn)
 		create_comment_table(conn)
 		runner = CrawlerRunner(settings)
 		runner.crawl(guardianSpider,connection=conn)
-		runner.crawl(commentSpider,connection=conn)
+		runner.crawl(commentSpider,connection=conn2)
 		d = runner.join() 
 		d.addBoth(lambda _: reactor.stop())
 		reactor.run()  # the script will block here until the crawling is finished

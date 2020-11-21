@@ -59,9 +59,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'db_pipeline.sqLitePipeline': 1,
-}
+# ITEM_PIPELINES = {
+#    'db_pipeline.sqLitePipeline': 1,
+#    'db_pipeline.commentPipeline': 1,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

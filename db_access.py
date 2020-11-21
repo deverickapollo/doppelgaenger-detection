@@ -38,6 +38,13 @@ def execute_sql(conn, f):
 	except Error as e:
 		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
 
+def execute_sql_param(conn, f,param):
+	try:
+		c = conn.cursor()
+		c.execute(f,param)
+	except Error as e:
+		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
+
 def execute_sql_cursor_expect(conn, f):
 	c = None
 	try:
@@ -97,13 +104,19 @@ def sql_return_row_from_url(conn, url):
 	return execute_sql_cursor_expect(conn, sql_return_url_query)
 
 def sql_return_comment_from_id(conn, id):
-	sql_return_url_query = 'SELECT * FROM article WHERE id="{id}"'
-	return execute_sql_cursor_expect(conn, sql_return_url_query)
+	sql_return_comment_query = 'SELECT * FROM comment WHERE comment_id="{id}"'
+	return execute_sql_cursor_expect(conn, sql_return_comment_query)
 
 def insert_into_comment(conn,item):
 	adapter = ItemAdapter(item)
-	sql_insert_comment_table = f'INSERT INTO comment (comment_id, comment_text, comment_date, comment_author_id, comment_author_username, article_url, article_title) VALUES ("{adapter["comment_id"]}", "{adapter["comment_text"]}", "{adapter["comment_date"]}", "{adapter["comment_author_id"]}", "{adapter["comment_author_username"]}", "{adapter["article_url"]}", "{adapter["article_title"]}")'
-	execute_sql(conn, sql_insert_comment_table)
+	logging.log(logging.WARNING, "COMMENT TO INSERT: %s", item)
+	# sql_insert_comment_table = f'INSERT INTO comment (comment_id, comment_text, comment_date, comment_author_id, comment_author_username, article_url, article_title) VALUES ("{adapter["comment_id"]}", "{adapter["comment_text"]}", "{adapter["comment_date"]}", "{adapter["comment_author_id"]}", "{adapter["comment_author_username"]}", "{adapter["article_url"]}", "{adapter["article_title"]}")'
+	sqlite_insert_with_param = """INSERT INTO comment
+							(comment_id, comment_text, comment_date, comment_author_id, comment_author_username,article_url,article_title) 
+							VALUES (?, ?, ?, ?, ?, ?, ?);"""
+	data_tuple = (adapter["comment_id"], adapter["comment_text"], adapter["comment_date"], adapter["comment_author_id"], adapter["comment_author_username"],adapter["article_url"],adapter["article_title"])
+    # cursor.execute(sqlite_insert_with_param, data_tuple)
+	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE comment')
