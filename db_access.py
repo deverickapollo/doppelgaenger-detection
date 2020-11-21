@@ -5,7 +5,7 @@ import sqlite3 as sql
 from flask import g, Flask
 from sqlite3 import Error
 import logging, flask
-from itemadapter import ItemAdapter, is_item
+from itemadapter import ItemAdapter
 
 app = Flask(__name__)
 
@@ -31,12 +31,20 @@ def create_connection(db_file):
 		logging.error('%s raised an error', e)
 	return conn
 
+def close_db_connection(conn):
+	try:
+		conn.close()
+	except Error as e:
+		logging.error('%s close raised an error', e)
+		
 def execute_sql(conn, f):
+	c = None
 	try:
 		c = conn.cursor()
 		c.execute(f)
 	except Error as e:
 		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
+	return c
 
 def execute_sql_param(conn, f,param):
 	try:
@@ -44,16 +52,6 @@ def execute_sql_param(conn, f,param):
 		c.execute(f,param)
 	except Error as e:
 		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
-
-def execute_sql_cursor_expect(conn, f):
-	c = None
-	try:
-		c = conn.cursor()
-		c.execute(f)
-		return c
-	except Error as e:
-		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
-	return c	
 
 def create_article_table(conn):
 	sql_create_article_table = """ CREATE TABLE IF NOT EXISTS article (
@@ -87,36 +85,33 @@ def create_comment_table(conn):
 
 def insert_into_article(conn,item):
 	adapter = ItemAdapter(item)
-	sql_insert_article_table = f'INSERT INTO article (url, author, title, publish_date, comment_count) VALUES ("{adapter["url"]}", "{adapter["author"]}", "{adapter["title"]}", "{adapter["publish_date"]}", "{adapter["comment_count"]}")'
-	execute_sql(conn, sql_insert_article_table)
-
-def purge_db(conn):
-	sql_purge_article_table = 'DROP TABLE IF EXISTS article;'
-	execute_sql(conn, sql_purge_article_table)
-
-def sql_full_report(conn):
-	sql_full_report_query = "select url, title, author, publish_date as date from article"
-	#sql_full_report_query = "select url, title, author, datetime(publish_date, 'unixepoch') as date from article"
-	return execute_sql_cursor_expect(conn, sql_full_report_query)
-
-def sql_return_row_from_url(conn, url):
-	sql_return_url_query = 'SELECT * FROM article WHERE url="{url}"'
-	return execute_sql_cursor_expect(conn, sql_return_url_query)
-
-def sql_return_comment_from_id(conn, id):
-	sql_return_comment_query = 'SELECT * FROM comment WHERE comment_id="{id}"'
-	return execute_sql_cursor_expect(conn, sql_return_comment_query)
+	sqlite_insert_with_param = """INSERT INTO article
+							(url, author, title, publish_date, comment_count) 
+							VALUES (?, ?, ?, ?,?);"""
+	data_tuple = (adapter["url"], adapter["author"], adapter["title"], adapter["publish_date"], adapter["comment_count"])
+	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def insert_into_comment(conn,item):
 	adapter = ItemAdapter(item)
-	logging.log(logging.WARNING, "COMMENT TO INSERT: %s", item)
-	# sql_insert_comment_table = f'INSERT INTO comment (comment_id, comment_text, comment_date, comment_author_id, comment_author_username, article_url, article_title) VALUES ("{adapter["comment_id"]}", "{adapter["comment_text"]}", "{adapter["comment_date"]}", "{adapter["comment_author_id"]}", "{adapter["comment_author_username"]}", "{adapter["article_url"]}", "{adapter["article_title"]}")'
 	sqlite_insert_with_param = """INSERT INTO comment
 							(comment_id, comment_text, comment_date, comment_author_id, comment_author_username,article_url,article_title) 
 							VALUES (?, ?, ?, ?, ?, ?, ?);"""
 	data_tuple = (adapter["comment_id"], adapter["comment_text"], adapter["comment_date"], adapter["comment_author_id"], adapter["comment_author_username"],adapter["article_url"],adapter["article_title"])
-    # cursor.execute(sqlite_insert_with_param, data_tuple)
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
+
+
+
+def sql_full_report(conn):
+	sql_full_report_query = "select url, title, author, publish_date as date from article"
+	return execute_sql(conn, sql_full_report_query)
+
+def sql_return_row_from_url(conn, url):
+	sql_return_url_query = 'SELECT * FROM article WHERE url="{url}"'
+	return execute_sql(conn, sql_return_url_query)
+
+def sql_return_comment_from_id(conn, id):
+	sql_return_comment_query = 'SELECT * FROM comment WHERE comment_id="{id}"'
+	return execute_sql(conn, sql_return_comment_query)
 
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE comment')
@@ -124,8 +119,7 @@ def drop_all(conn):
 	execute_sql(conn, 'DROP TABLE article')
 	conn.commit()
 
-def close_db_connection(conn):
-	try:
-		conn.close()
-	except Error as e:
-		logging.error('%s close raised an error', e)
+def purge_db(conn):
+	sql_purge_article_table = 'DROP TABLE IF EXISTS article;'
+	execute_sql(conn, sql_purge_article_table)
+

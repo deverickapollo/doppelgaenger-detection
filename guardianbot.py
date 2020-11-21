@@ -44,21 +44,21 @@ def main():
 
 	#Database declaration and connection
 	database = r'database/dopplegaenger.db'
-	conn = create_connection(database)
-	conn2 = create_connection(database)
-	if conn is not None:
-		create_article_table(conn)
-		create_user_table(conn)
-		create_comment_table(conn)
+	conn_article = create_connection(database)
+	conn_comments = create_connection(database)
+	if conn_article is not None and conn_comments is not None:
+		create_article_table(conn_article)
+		create_user_table(conn_article)
+		create_comment_table(conn_article)
 		runner = CrawlerRunner(settings)
-		runner.crawl(guardianSpider,connection=conn)
-		runner.crawl(commentSpider,connection=conn2)
+		runner.crawl(guardianSpider,connection=conn_article)
+		runner.crawl(commentSpider,connection=conn_comments)
 		d = runner.join() 
 		d.addBoth(lambda _: reactor.stop())
 		reactor.run()  # the script will block here until the crawling is finished
 	else:
-	    logging.log(logging.ERROR, "Error! Database Tables Not Created.")
-	close_db_connection(conn)
-
+	    logging.log(logging.ERROR, "Fatal Error! Database Tables Not Created. Exiting!")
+	close_db_connection(conn_article)
+	close_db_connection(conn_comments)
 
 main()
