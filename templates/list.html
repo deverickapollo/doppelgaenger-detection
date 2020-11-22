@@ -30,6 +30,7 @@
                         <td>URL</td>
                         <td>Author</td>
                         <td>Publish Date</td>
+                        <td>Comments</td>
                      </thead>
                      
                      {% for row in rows %}
@@ -38,6 +39,11 @@
                            <td><a href="{{row["url"]}}">{{row["url"]}}</a></td>
                            <td> {{ row["author"]}}</td>
                            <td>{{row["date"]}}</td> 
+                           
+                           <td><!-- Button trigger modal -->
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="comments.html#exampleModal">
+                                Comments
+                              </button></td>
                         </tr>
                      {% endfor %}
                     </table>
