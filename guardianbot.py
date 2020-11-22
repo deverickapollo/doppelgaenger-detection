@@ -128,4 +128,5 @@ def main(spider="guardianSpider", log=False, size=0):
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 
-main()
+if __name__== "__main__":
+	main()
