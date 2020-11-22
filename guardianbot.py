@@ -28,6 +28,15 @@ all_args.add_argument("-s", "--size", required=False, help="Output collection of
 
 args = all_args.parse_args()
 
+#Report Log 
+LOG_FORMAT = (
+	"%(message)s "
+)
+LOG_LEVEL = logging.INFO
+# messaging logger
+MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
+messaging_logger = logging.getLogger("doppelgaenger_detection.guardianbot")
+
 def main():
 	#Database declaration and connection
 	database = r'database/dopplegaenger.db'
@@ -47,14 +56,6 @@ def main():
 		print("GuardianBot version 1.0")
 	else:
 		if args.log:
-			#Report Log 
-			LOG_FORMAT = (
-				"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s"
-			)
-			LOG_LEVEL = logging.INFO
-			# messaging logger
-			MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
-			messaging_logger = logging.getLogger("doppelgaenger_detection.guardianbot")
 			messaging_logger.setLevel(LOG_LEVEL)
 			messaging_logger_file_handler = FileHandler(MESSAGING_LOG_FILE)
 			messaging_logger_file_handler.setLevel(LOG_LEVEL)
@@ -87,7 +88,8 @@ def main():
 			cursor = sql_select_all_users(conn_comments)
 			rows_user = cursor.fetchall(); 
 			for user in rows_user:
-				print("Next User ", user['username'])
+				print("Next User: ", user['username'])
+				print("--------------------------------------------------")
 				# logging.log(logging.INFO, 'Next User: %s', user['username'])
 				try:
 					#Returns a dictionary curstor instead of tuple
@@ -95,7 +97,7 @@ def main():
 					cur = sql_select_comments_from_user(conn_comments,user['username'],args.size)
 					rows = cur.fetchall(); 
 					for row in rows:
-						print(row['comment_author_username'], "|" , row['article_title'], "|" , row['article_url'])
+						print(" Article Title: ", row['article_title'], "\n" , "Article URL: ", row['article_url'], "\n\n" " User Comment: ", row['comment_text'] , "\n")
 				except sql.Error as error:
 					logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
 		except sql.Error as error:

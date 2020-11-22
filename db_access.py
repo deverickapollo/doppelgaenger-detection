@@ -129,14 +129,7 @@ def sql_return_comment_from_id(conn, id):
 def sql_select_comments_from_user(conn, user,row_count):
 	sql_return_comment_query = """SELECT comment_author_username, comment_text, article_title, article_url FROM comment WHERE comment_author_username= ? ORDER BY comment_author_username LIMIT ? ;"""
 	data_tuple = (user,row_count,)
-	#return execute_sql(conn, sql_return_comment_query)
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
-
-
-#Test function.
-def sql_select_comments_from_all_users(conn,row_count):
-	sql_return_comment_query = 'SELECT comment_author_username, comment_text, article_title, article_url FROM comment ORDER BY comment_author_username LIMIT 10;'
-	return execute_sql(conn, sql_return_comment_query)
 
 def sql_select_all_users(conn):
 	sql_select_all_users_query = 'SELECT username FROM user'
