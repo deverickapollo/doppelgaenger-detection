@@ -13,10 +13,6 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
 
-from itertools import groupby
-
-from importlib import import_module
-
 # Construct an argument parser
 all_args = argparse.ArgumentParser()
 
@@ -39,25 +35,31 @@ LOG_LEVEL = logging.INFO
 MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
 messaging_logger = logging.getLogger("doppelgaenger_detection.guardianbot")
 
-def main():
+def main(log=False,size=0):
 	#Database declaration and connection
 	database = r'database/dopplegaenger.db'
 	conn_article = create_connection(database)
 	conn_comments = create_connection(database)
+	if args.size:
+		size = args.size
+	if args.log:
+		log = args.log
 	if args.clean:
 		drop_all(conn_article)
 		if os.path.isfile('logs/webapp.log'):
 			open('logs/webapp.log', 'w').close()
 		else:
 			print ("Webapp log doesn't exist")
+			logging.log(logging.ERROR, "Error! Webapp log doesn't exist.")
 		if os.path.isfile('logs/report.log'):
 			open('logs/report.log', 'w').close()
 		else:
 			print ("Report log doesn't exist")
+			logging.log(logging.ERROR, "Error! Report log doesn't exist.")
 	elif args.version:
 		print("GuardianBot version 1.0")
 	else:
-		if args.log:
+		if log:
 			messaging_logger.setLevel(LOG_LEVEL)
 			messaging_logger_file_handler = FileHandler(MESSAGING_LOG_FILE)
 			messaging_logger_file_handler.setLevel(LOG_LEVEL)
@@ -83,7 +85,7 @@ def main():
 			reactor.run()  # the script will block here until the crawling is finished
 		else:
 			logging.log(logging.ERROR, "Fatal Error! Database Tables Not Created. Exiting!")
-	if args.size:
+	if size:
 		try:
 			#Returns a dictionary curstor instead of tuple
 			conn_comments.row_factory = sql.Row
@@ -92,7 +94,7 @@ def main():
 			for user in rows_user:
 				print("Next User: ", user['username'])
 				print("--------------------------------------------------")
-				# logging.log(logging.INFO, 'Next User: %s', user['username'])
+				logging.log(logging.INFO, 'Next User: %s', user['username'])
 				try:
 					#Returns a dictionary curstor instead of tuple
 					conn_comments.row_factory = sql.Row
