@@ -95,10 +95,10 @@ def insert_into_article(conn,item):
 
 def insert_into_comment(conn,item):
 	adapter = ItemAdapter(item)
-	sqlite_insert_with_param = """INSERT INTO comment
+	sqlite_insert_with_param = """INSERT OR REPLACE INTO comment
 							(comment_id, comment_text, comment_date, comment_author_id, comment_author_username,article_url,article_title) 
-							VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE comment_text = ?;"""
-	data_tuple = (adapter["comment_id"], adapter["comment_text"], adapter["comment_date"], adapter["comment_author_id"], adapter["comment_author_username"],adapter["article_url"],adapter["article_title"], adapter["comment_text"])
+							VALUES (?, ?, ?, ?, ?, ?, ?);"""
+	data_tuple = (adapter["comment_id"], adapter["comment_text"], adapter["comment_date"], adapter["comment_author_id"], adapter["comment_author_username"],adapter["article_url"],adapter["article_title"])
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def insert_into_user(conn,item):
