@@ -45,7 +45,7 @@ class commentPipeline(object):
         cursor = db_access.sql_return_comment_from_id(conn, adapter["comment_id"])
         result = cursor.fetchone()
 
-        if result is not None:           
+        if result is not None and result[1] == adapter["comment_text"]:
             logging.log(logging.WARNING, "Comment already in database table: %s", item)
         elif 29 < len(adapter["comment_text"].split()) < 301:
             curse = db_access.sql_check_username_exist(conn, adapter["comment_author_username"])
