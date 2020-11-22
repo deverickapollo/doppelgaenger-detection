@@ -24,7 +24,9 @@ all_args = argparse.ArgumentParser()
 all_args.add_argument("-v", "--version", help="Show version information.", action="store_true")
 all_args.add_argument("-c", "--clean", help="Purge database and logs. Program exits after.", action="store_true")
 all_args.add_argument("-l", "--log", help="Outputs report.log to the logs directory. Program continues.", action="store_true")
-all_args.add_argument("-s", "--size", required=False, help="Output collection of comments to CLI.")
+all_args.add_argument("-s", "--size", required=False, help="Output collection of comments from all users to CLI.")
+all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI.")
+
 
 args = all_args.parse_args()
 
@@ -102,6 +104,25 @@ def main():
 					logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
+	if args.user:
+		try:
+			#Returns a dictionary curstor instead of tuple
+			conn_comments.row_factory = sql.Row
+			print("User: ", args.user[0])
+			print("--------------------------------------------------")
+			# logging.log(logging.INFO, 'Next User: %s', user['username'])
+			try:
+				#Returns a dictionary curstor instead of tuple
+				conn_comments.row_factory = sql.Row
+				cur = sql_select_comments_from_user(conn_comments,args.user[0],int(args.user[1]))
+				rows = cur.fetchall();
+				for row in rows:
+					print(" Article Title: ", row['article_title'], "\n" , "Article URL: ", row['article_url'], "\n\n" " User Comment: ", row['comment_text'] , "\n")
+			except sql.Error as error:
+				logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
+		except sql.Error as error:
+			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
+
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 
