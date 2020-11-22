@@ -47,11 +47,13 @@ def execute_sql(conn, f):
 	return c
 
 def execute_sql_param(conn, f,param):
+	c = None
 	try:
 		c = conn.cursor()
 		c.execute(f,param)
 	except Error as e:
 		logging.log(logging.ERROR, '%s raised an error on query %s', e, f)
+	return c
 
 def create_article_table(conn):
 	sql_create_article_table = """ CREATE TABLE IF NOT EXISTS article (
@@ -125,13 +127,20 @@ def sql_return_comment_from_id(conn, id):
 	return execute_sql(conn, sql_return_comment_query)
 
 def sql_select_comments_from_user(conn, user,row_count):
-	sql_return_comment_query = 'SELECT comment_author_username, comment_text, article_title, article_url FROM comment WHERE comment_author_username="{user}" LIMIT {row_count};'
-	return execute_sql(conn, sql_return_comment_query)
+	sql_return_comment_query = """SELECT comment_author_username, comment_text, article_title, article_url FROM comment WHERE comment_author_username= ? ORDER BY comment_author_username LIMIT ? ;"""
+	data_tuple = (user,row_count,)
+	#return execute_sql(conn, sql_return_comment_query)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
 
 #Test function.
 def sql_select_comments_from_all_users(conn,row_count):
 	sql_return_comment_query = 'SELECT comment_author_username, comment_text, article_title, article_url FROM comment ORDER BY comment_author_username LIMIT 10;'
 	return execute_sql(conn, sql_return_comment_query)
+
+def sql_select_all_users(conn):
+	sql_select_all_users_query = 'SELECT username FROM user'
+	return execute_sql(conn, sql_select_all_users_query)
 
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE IF EXISTS comment')

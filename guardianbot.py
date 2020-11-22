@@ -84,15 +84,22 @@ def main():
 		try:
 			#Returns a dictionary curstor instead of tuple
 			conn_comments.row_factory = sql.Row
-			cur = sql_select_comments_from_all_users(conn_comments,10)
-			rows = cur.fetchall(); 
-			
-			for row in rows:
-				print(row['comment_author_username'], "|" , row['comment_text'], "|" , row['article_title'], "|" , row['article_url'])
-			cur.close()
-		except sqlite3.Error as error:
-			logging.log(logging.ERROR, "Fatal Error! Database Tables Not Created. Exiting!")
-
+			cursor = sql_select_all_users(conn_comments)
+			rows_user = cursor.fetchall(); 
+			for user in rows_user:
+				print("Next User ", user['username'])
+				# logging.log(logging.INFO, 'Next User: %s', user['username'])
+				try:
+					#Returns a dictionary curstor instead of tuple
+					conn_comments.row_factory = sql.Row
+					cur = sql_select_comments_from_user(conn_comments,user['username'],args.size)
+					rows = cur.fetchall(); 
+					for row in rows:
+						print(row['comment_author_username'], "|" , row['article_title'], "|" , row['article_url'])
+				except sql.Error as error:
+					logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
+		except sql.Error as error:
+			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 
