@@ -1,8 +1,8 @@
 import guardianbot, logging, asyncio, time, sqlite3 as sql, db_access
-from flask import Flask, render_template, request
-from flask import g
+from flask import Flask, render_template, request, g
 from timeloop import Timeloop
 from datetime import timedelta
+import subprocess
 
 app = Flask(__name__)
 logging.basicConfig(filename='logs/webapp.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
@@ -18,16 +18,15 @@ def home():
 
     return render_template("list.html",rows = rows)
 
-
-@tl.job(interval=timedelta(hours = 12))
+@tl.job(interval=timedelta(seconds = 60))
 def spider_run():
-    guardianbot.main()
+    list_files = subprocess.run(["watch", "-n60", "python3", "guardianbot.py"])
+    logging.log(logging.INFO, "Running Bot")
 
-if __name__ == '__main__':
-    tl.start(block=False)
+if __name__== "__main__":
+    tl.start()
     while True:
         try:
-            spider_run()
             app.run()
         except KeyboardInterrupt:
             tl.stop()

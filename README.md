@@ -28,3 +28,5 @@ Data persistance provided by sqlite3 database.
 
 ---
 ## Notes:
+
+Please be aware this is not production ready.  SQL queries are not sanitized and are therefore a potential security risk. Do not host live.

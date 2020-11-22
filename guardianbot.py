@@ -35,7 +35,7 @@ LOG_LEVEL = logging.INFO
 MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
 messaging_logger = logging.getLogger("doppelgaenger_detection.guardianbot")
 
-def main(log=False,size=0):
+def main(spider="guardianSpider", log=False, size=0):
 	#Database declaration and connection
 	database = r'database/dopplegaenger.db'
 	conn_article = create_connection(database)
