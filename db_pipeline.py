@@ -48,11 +48,14 @@ class commentPipeline(object):
         if result is not None:           
             logging.log(logging.WARNING, "Comment already in database table: %s", item)
         elif 29 < len(adapter["comment_text"].split()) < 301:
-            curse = db_access.sql_check_user_exist(conn, adapter["comment_author_username"])
+            curse = db_access.sql_check_username_exist(conn, adapter["comment_author_username"])
             user_exist_fetch = curse.fetchone()
-            if user_exist_fetch is not None: 
+            curse2 = db_access.sql_check_userid_exist(conn, adapter["comment_author_id"])
+            user_exist2_fetch = curse2.fetchone()
+            logging.log(logging.INFO, "Username %s and ID %s to insert", adapter["comment_author_username"],adapter["comment_author_id"])
+            if user_exist_fetch is not None and user_exist2_fetch is not None: 
                 logging.log(logging.INFO, "User %s with userid %s is already in the database", adapter["comment_author_username"],adapter["comment_author_id"])
-            elif user_exist_fetch is None:
+            elif user_exist_fetch is None and user_exist2_fetch is None:
                 logging.log(logging.INFO, "The results before the fail %s", user_exist_fetch)
                 db_access.insert_into_user(conn,item)
                 global total_user_count

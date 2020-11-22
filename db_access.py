@@ -111,20 +111,28 @@ def insert_into_user(conn,item):
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def sql_full_report(conn):
-	sql_full_report_query = "select url, title, author, publish_date as date from article;"
+	sql_full_report_query = """SELECT url, title, author, publish_date AS date FROM article;"""
 	return execute_sql(conn, sql_full_report_query)
 
 def sql_return_row_from_url(conn, url):
-	sql_return_url_query = 'SELECT * FROM article WHERE url="{url}";'
-	return execute_sql(conn, sql_return_url_query)
+	sql_return_comment_query = """SELECT * FROM article WHERE url=?;"""
+	data_tuple = (url,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
-def sql_check_user_exist(conn, id):
-	sql_return_comment_query = 'SELECT * FROM user WHERE username="{id}";'
-	return execute_sql(conn, sql_return_comment_query)
+def sql_check_userid_exist(conn, id):
+	sql_return_comment_query = """SELECT * FROM user WHERE user_id=?;"""
+	data_tuple = (id,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
+def sql_check_username_exist(conn, username):
+	sql_return_comment_query = """SELECT * FROM user WHERE username= ?;"""
+	data_tuple = (username,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
 def sql_return_comment_from_id(conn, id):
-	sql_return_comment_query = 'SELECT * FROM comment WHERE comment_id="{id}";'
-	return execute_sql(conn, sql_return_comment_query)
+	sql_return_comment_query = """SELECT * FROM comment WHERE comment_id=?;"""
+	data_tuple = (id,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
 def sql_select_comments_from_user(conn, user,row_count):
 	sql_return_comment_query = """SELECT comment_author_username, comment_text, article_title, article_url FROM comment WHERE comment_author_username= ? ORDER BY comment_author_username LIMIT ? ;"""
@@ -132,7 +140,7 @@ def sql_select_comments_from_user(conn, user,row_count):
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
 def sql_select_all_users(conn):
-	sql_select_all_users_query = 'SELECT username FROM user'
+	sql_select_all_users_query = """SELECT username FROM user;"""
 	return execute_sql(conn, sql_select_all_users_query)
 
 def drop_all(conn):	
