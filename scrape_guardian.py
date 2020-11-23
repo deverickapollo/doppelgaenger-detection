@@ -110,30 +110,34 @@ class commentSpider(scrapy.Spider):
             shortUrlId = shortUrlId.partition('shortUrlId":"')[2][:8]
             discussion = requests.get('http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId).json()
 
-            for page_number in range(1, discussion['pages']+1):
+            for page_number in range(1, discussion['pages'] + 1):
                 discussion = requests.get(
-                    'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId + '?page=' + str(page_number)).json()
+                    'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId + '?page=' + str(
+                        page_number)).json()
+                user_ids = []
                 for comment in discussion['discussion']['comments']:
                     if 'responses' in comment:
                         for comment_response in comment['responses']:
-                            yield {
-                                'comment_id': comment_response['id'],
-                                'comment_text': TAG_RE.sub('', comment_response['body']),
-                                'comment_date': comment_response['isoDateTime'],
-                                'comment_author_id': comment_response['userProfile']['userId'],
-                                'comment_author_username': comment_response['userProfile']['displayName'],
-                                'article_url': response.meta.get('url'),
-                                'article_title': discussion['discussion']['title']
-                            }
+                            if user_ids.append(comment_response['userProfile']['userId']) not in user_ids:
+                                user_ids.append(comment_response['userProfile']['userId'])
                     else:
-                        yield {
-                                'comment_id': comment['id'],
-                                'comment_text': TAG_RE.sub('', comment['body']),
-                                'comment_date': comment['isoDateTime'],
-                                'comment_author_id': comment['userProfile']['userId'],
-                                'comment_author_username': comment['userProfile']['displayName'],
-                                'article_url': response.meta.get('url'),
-                                'article_title': discussion['discussion']['title']
+                        if user_ids.append(comment['userProfile']['userId']) not in user_ids:
+                            user_ids.append(comment['userProfile']['userId'])
+                for user_id in user_ids:
+                    user_comments = requests.get('http://discussion.theguardian.com/discussion-api/profile/' + str(
+                        user_id) + '/comments?pageSize=100&page=1').json()
+                    for page_number_user_comments in range(1, user_comments['pages'] + 1):
+                        user_comments = requests.get('http://discussion.theguardian.com/discussion-api/profile/' + str(
+                            user_id) + '/comments?pageSize=100&page=' + str(page_number_user_comments)).json()
+                        for user_comment in user_comments['comments']:
+                            yield {
+                                'comment_id': user_comment['id'],
+                                'comment_text': TAG_RE.sub('', user_comment['body']),
+                                'comment_date': user_comment['isoDateTime'],
+                                'comment_author_id': user_comments['userProfile']['userId'],
+                                'comment_author_username': user_comments['userProfile']['displayName'],
+                                'article_url': user_comment['discussion']['webUrl'],
+                                'article_title': user_comment['discussion']['title']
                             }
 
 
