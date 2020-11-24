@@ -40,6 +40,9 @@ optional arguments:
   
   -u [USER ...], --user [USER ...]
                         Output a specified number of comments from a specific user to CLI.
+                                 
+Run the Bot periodicly with watch: `watch -n3600 python3 guardianbot.py -r` (every hour)
+                    
 ## Log files
 1. webapp.log - Provides debug related information when running guadianbot or the webserver
 
