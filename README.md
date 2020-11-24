@@ -20,11 +20,28 @@ Data persistance provided by sqlite3 database.
 ---
 ## Execute: 
 
-`FLASK_APP=webserver.py FLASK_ENV=development flask run`
----
+`usage: python3 guardianbot.py [-h] [-r] [-i] [-v] [-c] [-l] [-s SIZE] [-u [USER ...]]`
+
+optional arguments:
+
+  -h, --help            show this help message and exit
+  
+  -r, --run             Run the Crawler
+  
+  -i, --info            Show information about the data collection
+  
+  -v, --version         Show version information.
+  
+  -c, --clean           Purge database and logs. Program exits after.
+  
+  -l, --log             Outputs report.log to the logs directory. Program continues.
+  
+  -s SIZE, --size SIZE  Output a specified number of comments for every user to CLI.
+  
+  -u [USER ...], --user [USER ...]
+                        Output a specified number of comments from a specific user to CLI.
 ## Log files
 1. webapp.log - Provides debug related information when running guadianbot or the webserver
-2. report.log - Provides statistical and analytical information related to articles and comments published to the Guardian website.
 
 ---
 ## Notes:
