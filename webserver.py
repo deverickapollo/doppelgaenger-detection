@@ -18,9 +18,17 @@ def home():
 
     return render_template("list.html",rows = rows)
 
+@app.route('/comments/<url>')
+def vmd_timestamp():
+    return render_template('comments.html')
+
+@app.route('/user/<username>')
+def profile(username):
+    return render_template('profile.html')
+
 @tl.job(interval=timedelta(seconds = 60))
 def spider_run():
-    list_files = subprocess.run(["watch", "-n60", "python3", "guardianbot.py"])
+    # list_files = subprocess.run(["watch", "-n60", "python3", "guardianbot.py"])
     logging.log(logging.INFO, "Running Bot")
 
 if __name__== "__main__":
