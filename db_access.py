@@ -143,6 +143,18 @@ def sql_select_all_users(conn):
 	sql_select_all_users_query = """SELECT username FROM user;"""
 	return execute_sql(conn, sql_select_all_users_query)
 
+def sql_count_articles(conn):
+	sql_count_articles_query = """SELECT COUNT(*) FROM article;"""
+	return execute_sql(conn, sql_count_articles_query)
+
+def sql_count_users(conn):
+	sql_count_users_query = """SELECT COUNT(*) FROM user;"""
+	return execute_sql(conn, sql_count_users_query)
+
+def sql_count_comments(conn):
+	sql_count_comments_query = """SELECT COUNT(*) FROM comment;"""
+	return execute_sql(conn, sql_count_comments_query)
+
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE IF EXISTS comment')
 	execute_sql(conn, 'DROP TABLE IF EXISTS user')

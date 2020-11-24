@@ -18,11 +18,12 @@ all_args = argparse.ArgumentParser()
 
 # Add arguments to the parser
 all_args.add_argument("-r", "--run", help="Run the Crawler", action="store_true")
+all_args.add_argument("-i", "--info", help="Show information about the data collection ", action="store_true")
 all_args.add_argument("-v", "--version", help="Show version information.", action="store_true")
 all_args.add_argument("-c", "--clean", help="Purge database and logs. Program exits after.", action="store_true")
 all_args.add_argument("-l", "--log", help="Outputs report.log to the logs directory. Program continues.", action="store_true")
-all_args.add_argument("-s", "--size", required=False, help="Output a specified number of comments for every user to CLI. Usage: -s [NUMBER OF COMMENTS]")
-all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI. Usage: -u [USER] [NUMBER OF COMMENTS]")
+all_args.add_argument("-s", "--size", required=False, help="Output a specified number of comments for every user to CLI.")
+all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI.")
 
 
 
@@ -42,6 +43,7 @@ def main(spider="guardianSpider", log=False, size=0):
 	database = r'database/dopplegaenger.db'
 	conn_article = create_connection(database)
 	conn_comments = create_connection(database)
+	conn_user = create_connection(database)
 	if args.size:
 		size = args.size
 	if args.log:
@@ -87,6 +89,26 @@ def main(spider="guardianSpider", log=False, size=0):
 			reactor.run()  # the script will block here until the crawling is finished
 		else:
 			logging.log(logging.ERROR, "Fatal Error! Database Tables Not Created. Exiting!")
+	elif args.info:
+		try:
+			cur = sql_count_articles(conn_article)
+			number_articles = cur.fetchall()[0][0]
+			print("Articles: " + str(number_articles))
+		except sql.Error as error:
+			logging.log(logging.ERROR, "Fatal Error! Articles Table Not Accessible. Exiting!")
+		try:
+			cur = sql_count_comments(conn_comments)
+			number_comments = cur.fetchall()[0][0]
+			print("Comments: " + str(number_comments))
+		except sql.Error as error:
+			logging.log(logging.ERROR, "Fatal Error! Comments Table Not Accessible. Exiting!")
+		try:
+			cur = sql_count_users(conn_user)
+			number_users = cur.fetchall()[0][0]
+			print("Users: " + str(number_users))
+		except sql.Error as error:
+			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
+		print("Average Comments per User: " + str(number_comments / number_users))
 	elif size:
 		try:
 			#Returns a dictionary curstor instead of tuple
@@ -101,7 +123,7 @@ def main(spider="guardianSpider", log=False, size=0):
 					#Returns a dictionary curstor instead of tuple
 					conn_comments.row_factory = sql.Row
 					cur = sql_select_comments_from_user(conn_comments,user['username'],args.size)
-					rows = cur.fetchall(); 
+					rows = cur.fetchall();
 					for row in rows:
 						print(" Article Title: ", row['article_title'], "\n" , "Article URL: ", row['article_url'], "\n\n" " User Comment: ", row['comment_text'] , "\n")
 				except sql.Error as error:
@@ -129,6 +151,7 @@ def main(spider="guardianSpider", log=False, size=0):
 
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
+	close_db_connection(conn_user)
 
 if __name__== "__main__":
 	main()
