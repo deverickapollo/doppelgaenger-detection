@@ -17,12 +17,12 @@ from scrapy.settings import Settings
 all_args = argparse.ArgumentParser()
 
 # Add arguments to the parser
+all_args.add_argument("-r", "--run", help="Run the Crawler", action="store_true")
 all_args.add_argument("-v", "--version", help="Show version information.", action="store_true")
 all_args.add_argument("-c", "--clean", help="Purge database and logs. Program exits after.", action="store_true")
 all_args.add_argument("-l", "--log", help="Outputs report.log to the logs directory. Program continues.", action="store_true")
-all_args.add_argument("-s", "--size", required=False, help="Output collection of comments from all users to CLI.")
-all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI.")
-all_args.add_argument("-r", "--run", required=False, help="Run the Crawler (max 200 comments per user)")
+all_args.add_argument("-s", "--size", required=False, help="Output a specified number of comments for every user to CLI. Usage: -s [NUMBER OF COMMENTS]")
+all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI. Usage: -u [USER] [NUMBER OF COMMENTS]")
 
 
 

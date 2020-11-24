@@ -101,10 +101,44 @@ class commentSpider(scrapy.Spider):
         for url in response.css("h4.fc-sublink__title"):
             link = url.css("a::attr(href)").extract_first()
             yield scrapy.Request(url=link, callback=self.parse_article, meta={'url': link})
+        ids = []
+        with open('misc/ids.txt', 'r') as filehandle:
+            for line in filehandle:
+                # remove linebreak which is the last character of the string
+                currentPlace = line[:-1]
+                # add item to the list
+                if currentPlace not in ids:
+                    ids.append(currentPlace)
+        for id in ids:
+            user_comments = requests.get('http://discussion.theguardian.com/discussion-api/profile/' + str(id) + '/comments?pageSize=100&page=1').json()
+            for user_comment in user_comments['comments']:
+                yield {
+                    'comment_id': user_comment['id'],
+                    'comment_text': TAG_RE.sub('', user_comment['body']),
+                    'comment_date': user_comment['isoDateTime'],
+                    'comment_author_id': user_comments['userProfile']['userId'],
+                    'comment_author_username': user_comments['userProfile']['displayName'],
+                    'article_url': user_comment['discussion']['webUrl'],
+                    'article_title': user_comment['discussion']['title']
+                }
+            if user_comments['pages'] > 1:
+                user_comments = requests.get('http://discussion.theguardian.com/discussion-api/profile/' + str(
+                    id) + '/comments?pageSize=100&page=2').json()
+                for user_comment in user_comments['comments']:
+                    yield {
+                        'comment_id': user_comment['id'],
+                        'comment_text': TAG_RE.sub('', user_comment['body']),
+                        'comment_date': user_comment['isoDateTime'],
+                        'comment_author_id': user_comments['userProfile']['userId'],
+                        'comment_author_username': user_comments['userProfile']['displayName'],
+                        'article_url': user_comment['discussion']['webUrl'],
+                        'article_title': user_comment['discussion']['title']
+                    }
 
     def parse_article(self, response):
         comments = response.css("#comments").get()
         if comments:
+            user_ids = []
             # fetch discussion via shortUrlId from guardian discussion API
             shortUrlId = response.xpath("//script[contains(text(), 'shortUrlId')]//text()").get()
             shortUrlId = shortUrlId.partition('shortUrlId":"')[2][:8]
@@ -114,7 +148,6 @@ class commentSpider(scrapy.Spider):
                 discussion = requests.get(
                     'http://discussion.theguardian.com/discussion-api/discussion/' + shortUrlId + '?page=' + str(
                         page_number)).json()
-                user_ids = []
                 for comment in discussion['discussion']['comments']:
                     if 'responses' in comment:
                         for comment_response in comment['responses']:
@@ -123,22 +156,16 @@ class commentSpider(scrapy.Spider):
                     else:
                         if user_ids.append(comment['userProfile']['userId']) not in user_ids:
                             user_ids.append(comment['userProfile']['userId'])
-                for user_id in user_ids:
-                    user_comments = requests.get('http://discussion.theguardian.com/discussion-api/profile/' + str(
-                        user_id) + '/comments?pageSize=100&page=1').json()
-                    for page_number_user_comments in range(1, user_comments['pages'] + 1):
-                        user_comments = requests.get('http://discussion.theguardian.com/discussion-api/profile/' + str(
-                            user_id) + '/comments?pageSize=100&page=' + str(page_number_user_comments)).json()
-                        for user_comment in user_comments['comments']:
-                            yield {
-                                'comment_id': user_comment['id'],
-                                'comment_text': TAG_RE.sub('', user_comment['body']),
-                                'comment_date': user_comment['isoDateTime'],
-                                'comment_author_id': user_comments['userProfile']['userId'],
-                                'comment_author_username': user_comments['userProfile']['displayName'],
-                                'article_url': user_comment['discussion']['webUrl'],
-                                'article_title': user_comment['discussion']['title']
-                            }
+            for user_id in user_ids:
+                with open("misc/ids.txt", "a") as myfile:
+                    myfile.write(user_id + "\n")
+
+
+
+
+
+
+
 
 
 
