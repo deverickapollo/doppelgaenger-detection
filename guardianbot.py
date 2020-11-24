@@ -22,6 +22,8 @@ all_args.add_argument("-c", "--clean", help="Purge database and logs. Program ex
 all_args.add_argument("-l", "--log", help="Outputs report.log to the logs directory. Program continues.", action="store_true")
 all_args.add_argument("-s", "--size", required=False, help="Output collection of comments from all users to CLI.")
 all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI.")
+all_args.add_argument("-r", "--run", required=False, help="Run the Crawler (max 200 comments per user)")
+
 
 
 args = all_args.parse_args()
@@ -58,7 +60,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			logging.log(logging.ERROR, "Error! Report log doesn't exist.")
 	elif args.version:
 		print("GuardianBot version 1.0")
-	else:
+	elif args.run:
 		if log:
 			messaging_logger.setLevel(LOG_LEVEL)
 			messaging_logger_file_handler = FileHandler(MESSAGING_LOG_FILE)
@@ -85,7 +87,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			reactor.run()  # the script will block here until the crawling is finished
 		else:
 			logging.log(logging.ERROR, "Fatal Error! Database Tables Not Created. Exiting!")
-	if size:
+	elif size:
 		try:
 			#Returns a dictionary curstor instead of tuple
 			conn_comments.row_factory = sql.Row
@@ -106,7 +108,7 @@ def main(spider="guardianSpider", log=False, size=0):
 					logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
-	if args.user:
+	elif args.user:
 		try:
 			#Returns a dictionary curstor instead of tuple
 			conn_comments.row_factory = sql.Row
