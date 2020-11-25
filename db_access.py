@@ -111,7 +111,7 @@ def insert_into_user(conn,item):
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def sql_full_report(conn):
-	sql_full_report_query = """SELECT url, title, author, publish_date AS date FROM article;"""
+	sql_full_report_query = """SELECT url, title, author, publish_date AS date, comment_count FROM article;"""
 	return execute_sql(conn, sql_full_report_query)
 
 def sql_return_row_from_url(conn, url):

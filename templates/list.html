@@ -39,7 +39,7 @@
                            <td><a href="{{row["url"]}}">{{row["url"]}}</a></td>
                            <td> {{ row["author"]}}</td>
                            <td>{{row["date"]}}</td>
-                           <td><a href="comments/{{row["title"]}}" class="btn btn-default"> Comments </a></td>
+                           <td><a href="comments/{{row["title"]}}" class="btn btn-default"> {{row["comment_count"]}} Comments </a></td>
                         </tr>
                      {% endfor %}
                     </table>
