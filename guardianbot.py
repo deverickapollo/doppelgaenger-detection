@@ -111,7 +111,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("Average Comments per User: " + str(number_comments / number_users))
 	elif size:
 		try:
-			#Returns a dictionary curstor instead of tuple
+			#Returns a dictionary cursor instead of tuple
 			conn_comments.row_factory = sql.Row
 			cursor = sql_select_all_users(conn_comments)
 			rows_user = cursor.fetchall(); 
@@ -120,7 +120,7 @@ def main(spider="guardianSpider", log=False, size=0):
 				print("--------------------------------------------------")
 				logging.log(logging.INFO, 'Next User: %s', user['username'])
 				try:
-					#Returns a dictionary curstor instead of tuple
+					#Returns a dictionary cursor instead of tuple
 					conn_comments.row_factory = sql.Row
 					cur = sql_select_comments_from_user(conn_comments,user['username'],args.size)
 					rows = cur.fetchall();
@@ -132,13 +132,13 @@ def main(spider="guardianSpider", log=False, size=0):
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
 	elif args.user:
 		try:
-			#Returns a dictionary curstor instead of tuple
+			#Returns a dictionary cursor instead of tuple
 			conn_comments.row_factory = sql.Row
 			print("User: ", args.user[0])
 			print("--------------------------------------------------")
 			# logging.log(logging.INFO, 'Next User: %s', user['username'])
 			try:
-				#Returns a dictionary curstor instead of tuple
+				#Returns a dictionary cursor instead of tuple
 				conn_comments.row_factory = sql.Row
 				cur = sql_select_comments_from_user(conn_comments,args.user[0],int(args.user[1]))
 				rows = cur.fetchall();

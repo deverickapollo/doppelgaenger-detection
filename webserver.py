@@ -19,7 +19,14 @@ def home():
     return render_template("list.html",rows = rows)
 
 @app.route('/comments/<url>')
-def vmd_timestamp():
+def comments(url):
+    conn = db_access.get_db(DATABASE)
+    conn.row_factory = sql.Row
+    cur = db_access.sql_return_row_from_url(conn,url)
+    rows = cur.fetchall(); 
+    print("FIRST PRINT URL: ",url)
+    for x in rows:
+        print(x)
     return render_template('comments.html')
 
 @app.route('/user/<username>')
