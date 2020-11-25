@@ -29,11 +29,16 @@ def comments(title):
 
 @app.route('/user/<username>')
 def profile(username):
-    return render_template('profile.html')
+    conn = db_access.get_db(DATABASE)
+    conn.row_factory = sql.Row
+    cur = db_access.sql_select_all_comments_from_user(conn,username)
+    rows = cur.fetchall(); 
+    print("FIRST PRINT URL: ",username)
+    return render_template('profile.html', rows = rows)
 
 @tl.job(interval=timedelta(seconds = 60))
 def spider_run():
-    # list_files = subprocess.run(["watch", "-n60", "python3", "guardianbot.py"])
+    # list_files = subprocess.run(["watch", "-n60", "python3", -r, "guardianbot.py"])
     logging.log(logging.INFO, "Running Bot")
 
 if __name__== "__main__":

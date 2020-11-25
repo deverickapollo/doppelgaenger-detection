@@ -13,6 +13,9 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
 
+import time
+start_time = time.time()
+
 # Construct an argument parser
 all_args = argparse.ArgumentParser()
 
@@ -44,6 +47,19 @@ def main(spider="guardianSpider", log=False, size=0):
 	conn_article = create_connection(database)
 	conn_comments = create_connection(database)
 	conn_user = create_connection(database)
+	messaging_logger.setLevel(LOG_LEVEL)
+	messaging_logger_file_handler = FileHandler(MESSAGING_LOG_FILE)
+	messaging_logger_file_handler.setLevel(LOG_LEVEL)
+	messaging_logger_file_handler.setFormatter(Formatter(LOG_FORMAT))
+	messaging_logger.addHandler(messaging_logger_file_handler)
+	#Debug Log
+	configure_logging(install_root_handler = False)
+	logging.basicConfig(filename='logs/webapp.log', level=logging.DEBUG, format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
+	settings = Settings()
+	os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
+	settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
+	settings.setmodule(settings_module_path, priority='default')
+
 	if args.size:
 		size = args.size
 	if args.log:
@@ -63,20 +79,6 @@ def main(spider="guardianSpider", log=False, size=0):
 	elif args.version:
 		print("GuardianBot version 1.0")
 	elif args.run:
-		if log:
-			messaging_logger.setLevel(LOG_LEVEL)
-			messaging_logger_file_handler = FileHandler(MESSAGING_LOG_FILE)
-			messaging_logger_file_handler.setLevel(LOG_LEVEL)
-			messaging_logger_file_handler.setFormatter(Formatter(LOG_FORMAT))
-			messaging_logger.addHandler(messaging_logger_file_handler)
-		#Debug Log
-		configure_logging(install_root_handler = False)
-		logging.basicConfig(filename='logs/webapp.log', level=logging.DEBUG, format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
-		settings = Settings()
-		os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
-		settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
-		settings.setmodule(settings_module_path, priority='default')
-
 		if conn_article is not None and conn_comments is not None:
 			create_article_table(conn_article)
 			create_user_table(conn_article)
@@ -155,3 +157,5 @@ def main(spider="guardianSpider", log=False, size=0):
 
 if __name__== "__main__":
 	main()
+	logging.log(logging.INFO, "--- %s minutes ---" % ((time.time() - start_time)//60))
+	print("--- %s seconds ---" % (time.time() - start_time))

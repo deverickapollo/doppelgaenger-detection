@@ -9,7 +9,7 @@
    <body>
       <div class="container-fluid py-5">
          <header class="text-center text-white">
-           <h1 class="display-4">Doppel Detection</h1>
+            <a href="/" class="text-white"><h1 class="display-4">Doppel Detection</h1></a>
            <p class="lead mb-0">Web Crawler results collected from <a href="https://www.theguardian.com/international" class="text-white">
             <u>The Guardian</u>
           </a> </p>
@@ -26,8 +26,7 @@
                  <div class="table-responsive">
                   <table id="example" style="width:100%" class="table table-striped table-bordered">
                      <thead>
-                        <td>Title</td>
-                        <td>URL</td>
+                        <td>Article</td>
                         <td>Author</td>
                         <td>Publish Date</td>
                         <td>Comments</td>
@@ -35,8 +34,7 @@
                      
                      {% for row in rows %}
                         <tr>
-                           <td>{{row["title"]}}</td>
-                           <td><a href="{{row["url"]}}">{{row["url"]}}</a></td>
+                           <td><a href="{{row["url"]}}">{{row["title"]}}</a></td>
                            <td> {{ row["author"]}}</td>
                            <td>{{row["date"]}}</td>
                            <td><a href="comments/{{row["title"]}}" class="btn btn-default"> {{row["comment_count"]}} Comments </a></td>
