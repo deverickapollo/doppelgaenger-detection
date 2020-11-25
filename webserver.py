@@ -18,16 +18,14 @@ def home():
 
     return render_template("list.html",rows = rows)
 
-@app.route('/comments/<url>')
-def comments(url):
+@app.route('/comments/<title>')
+def comments(title):
     conn = db_access.get_db(DATABASE)
     conn.row_factory = sql.Row
-    cur = db_access.sql_return_row_from_url(conn,url)
+    cur = db_access.sql_return_comments_from_title(conn,title)
     rows = cur.fetchall(); 
-    print("FIRST PRINT URL: ",url)
-    for x in rows:
-        print(x)
-    return render_template('comments.html')
+    print("FIRST PRINT URL: ",title)
+    return render_template('comments.html',rows = rows)
 
 @app.route('/user/<username>')
 def profile(username):

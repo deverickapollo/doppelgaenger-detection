@@ -39,8 +39,7 @@
                            <td><a href="{{row["url"]}}">{{row["url"]}}</a></td>
                            <td> {{ row["author"]}}</td>
                            <td>{{row["date"]}}</td>
-                           <!-- <td><button type="button" class="btn btn-primary">Comments</button></td> -->
-                           <td><a href="https://tutorialdeep.com/bootstrap/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Visit Bootstrap Tutorial</a></td>
+                           <td><a href="comments/{{row["title"]}}" class="btn btn-default"> Comments </a></td>
                         </tr>
                      {% endfor %}
                     </table>

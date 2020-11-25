@@ -134,6 +134,11 @@ def sql_return_comment_from_id(conn, id):
 	data_tuple = (id,)
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
+def sql_return_comments_from_title(conn, title):
+	sql_return_comment_query = """SELECT * FROM comment WHERE article_title=?;"""
+	data_tuple = (title,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
 def sql_select_comments_from_user(conn, user,row_count):
 	sql_return_comment_query = """SELECT comment_author_username, comment_text, article_title, article_url FROM comment WHERE comment_author_username= ? ORDER BY comment_author_username LIMIT ? ;"""
 	data_tuple = (user,row_count,)
