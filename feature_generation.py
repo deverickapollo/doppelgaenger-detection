@@ -1,5 +1,9 @@
+import math
 import nltk
 
+###################################
+####### CHARACTER LEVEL ###########
+###################################
 
 # get character frequency for individual letters in a string
 def character_frequency_letters(string):
@@ -12,7 +16,6 @@ def character_frequency_letters(string):
                 char_freq_letters[char] = 1
     return char_freq_letters
 
-
 # get character frequency for individual digits in a string
 def character_frequency_digits(string):
     char_freq_digits = {}
@@ -23,7 +26,6 @@ def character_frequency_digits(string):
             else:
                 char_freq_digits[char] = 1
     return char_freq_digits
-
 
 # get character frequency for individual special characters in a string
 def character_frequency_special_characters(string):
@@ -36,7 +38,6 @@ def character_frequency_special_characters(string):
                 char_freq_special[char] = 1
     return char_freq_special
 
-
 # get character frequency for all individual characters in a string
 def character_frequency(string):
     char_freq = {}
@@ -46,7 +47,6 @@ def character_frequency(string):
         else:
             char_freq[char] = 1
     return char_freq
-
 
 # get word length distribution for all words with up to 20 characters in a string
 def word_length_distribution(string):
@@ -60,6 +60,9 @@ def word_length_distribution(string):
                 word_length_distr[len(word)] = 1
     return word_length_distr
 
+###################################
+##### VOCABULARY RICHNESS #########
+###################################
 
 # get word frequency for a string
 def word_frequency(string):
@@ -71,7 +74,6 @@ def word_frequency(string):
         else:
             word_freq[word] = 1
     return word_freq
-
 
 # get number of words with a length larger then l
 # returns a tuple: (total, weighted)
@@ -85,7 +87,6 @@ def number_big_words(string, l = 10):
             number += 1
     return (number, number / n)
 
-
 # get number of words appearing i times in a string
 # for hapax legomena: i = 1
 # for hapax dislegomena: i = 2
@@ -98,3 +99,18 @@ def number_words_appearing_i_times(string, i = 1):
         if word_freq[word] == i:
             number += 1
     return (number, number / n)
+
+def yules_k(string):
+    return 0
+
+def brunets_w(string):
+    return 0
+
+# get honores r measure for a string
+def honores_r(string):
+    word_tokens = nltk.word_tokenize(string)
+    n = len(word_tokens)
+    r = 100 * (math.log(n)/ (1 - number_words_appearing_i_times(string)[1]))
+    return r
+
+
