@@ -33,11 +33,13 @@ def character_frequency_special_characters(string):
                 char_freq_special[char] = 1
     return char_freq_special
 
+
 # get character frequency for all individual characters in a string
 def character_frequency(string):
-    char_freq_letters = character_frequency_letters(string)
-    char_freq_digits = character_frequency_digits(string)
-    char_freq_special = character_frequency_special_characters(string)
-    char_freq_letters.update(char_freq_digits)
-    char_freq_letters.update(char_freq_special)
-    return char_freq_letters
+    char_freq = {}
+    for char in string:
+        if char in char_freq:
+            char_freq[char] += 1
+        else:
+            char_freq[char] = 1
+    return char_freq
