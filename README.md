@@ -17,6 +17,16 @@ Data persistance provided by sqlite3 database.
 
 `pip3 install pytz`
 
+`pip3 install nltk`
+
+In python console:
+`import nltk`
+`nltk.download('wordnet')`
+`nltk.download('punkt')`
+`nltk.download('stopwords')`
+
+
+
 ---
 ## Execute: 
 
