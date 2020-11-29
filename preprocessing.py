@@ -17,11 +17,8 @@ def remove_stop_words(string):
     word_tokens = nltk.word_tokenize(string)
     return [word for word in word_tokens if not word in stop_words]
 
-# lemmatize words from a list of strings and return a list of strings
-def lemmatize_words(words):
+# lemmatize words from a  string and return a list of strings
+def lemmatize_words(string):
+    word_tokens = nltk.word_tokenize(string)
     word_net_lemmatizer = nltk.WordNetLemmatizer()
-    return [word_net_lemmatizer.lemmatize(word, get_pos_tag_wordnet(word)) for word in words]
-
-
-
-
+    return [word_net_lemmatizer.lemmatize(word, get_pos_tag_wordnet(word)) for word in word_tokens]
