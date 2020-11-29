@@ -1,3 +1,6 @@
+import nltk
+
+
 # get character frequency for individual letters in a string
 def character_frequency_letters(string):
     char_freq_letters = {}
@@ -43,3 +46,16 @@ def character_frequency(string):
         else:
             char_freq[char] = 1
     return char_freq
+
+
+# get word length distribution for all words with up to 20 characters in a string
+def word_length_distribution(string):
+    word_length_distr = {}
+    word_tokens = nltk.word_tokenize(string)
+    for word in word_tokens:
+        if len(word) <= 20:
+            if len(word) in word_length_distr:
+                word_length_distr[len(word)] += 1
+            else:
+                word_length_distr[len(word)] = 1
+    return word_length_distr
