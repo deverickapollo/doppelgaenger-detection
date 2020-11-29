@@ -59,3 +59,54 @@ def word_length_distribution(string):
             else:
                 word_length_distr[len(word)] = 1
     return word_length_distr
+
+
+# get word frequency for a string
+def word_frequency(string):
+    word_freq = {}
+    word_tokens = nltk.word_tokenize(string)
+    for word in word_tokens:
+        if word in word_freq:
+            word_freq[word] += 1
+        else:
+            word_freq[word] = 1
+    return word_freq
+
+
+# get number of words with a length larger then l
+# TODO: is 10 a good standard value?
+def number_big_words(string, l = 10):
+    number = 0
+    word_tokens = nltk.word_tokenize(string)
+    for word in word_tokens:
+        if len(word) > l:
+            number += 1
+    return number
+
+
+# get weighted number of words with a length larger then l
+def number_big_words_weighted(string, l = 10):
+    n = len(nltk.word_tokenize(string))
+    number = number_big_words(string, l)
+    return number / n
+
+
+# get number of words appearing i times in a string
+# for hapax legomena: i = 1
+# for hapax dislegomena: i = 2
+def number_words_appearing_i_times(string, i = 1):
+    number = 0
+    word_freq = word_frequency(string)
+    for word in word_freq:
+        if word_freq[word] == i:
+            number += 1
+    return number
+
+
+# get weighted number of words appearing i times in a string
+# for hapax legomena: i = 1
+# for hapax dislegomena: i = 2
+def number_words_appearing_i_times_weighted(string, i = 1):
+    n = len(nltk.word_tokenize(string))
+    number = number_words_appearing_i_times(string, i)
+    return number / n
