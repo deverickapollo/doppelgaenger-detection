@@ -1,24 +1,23 @@
-from nltk.corpus import stopwords, wordnet
+from nltk.corpus import stopwords
 import nltk
+import spacy
 
-stop_words = set(stopwords.words('english'))
-tag_dict = {"J": wordnet.ADJ,
-            "R": wordnet.ADV,
-            "N": wordnet.NOUN,
-            "V": wordnet.VERB}
+stop_words_dict = dict(EN=set(stopwords.words('english')),
+                       ES=set(stopwords.words('spanish')),
+                       DE=set(stopwords.words('german')),
+                       FR=set(stopwords.words('french')))
+spacy_models_dict = dict(EN="en_core_web_sm",
+                         ES="es_core_news_sm",
+                         DE="de_core_news_sm",
+                         FR="fr_core_news_sm")
 
-# helper function to map nltks pos tag to wordnets pos tag
-def get_pos_tag_wordnet(word):
-    tag = nltk.pos_tag([word])[0][1][0].upper()
-    return tag_dict.get(tag, wordnet.NOUN)
-
-# remove stop words from a string and return a list of strings
-def remove_stop_words(string):
+# remove stop words from a string and return a list of words
+def remove_stop_words(string, language = "EN"):
     word_tokens = nltk.word_tokenize(string)
-    return [word for word in word_tokens if not word in stop_words]
+    return [word for word in word_tokens if not word in stop_words_dict.get(language.upper())]
 
-# lemmatize words from a  string and return a list of strings
-def lemmatize_words(string):
-    word_tokens = nltk.word_tokenize(string)
-    word_net_lemmatizer = nltk.WordNetLemmatizer()
-    return [word_net_lemmatizer.lemmatize(word, get_pos_tag_wordnet(word)) for word in word_tokens]
+# lemmatize string and return a list of words
+def lemmatize(string, language = "EN"):
+    nlp = spacy.load(spacy_models_dict.get(language.upper()))
+    s = nlp(string)
+    return [word.lemma_ for word in s]

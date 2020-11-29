@@ -20,11 +20,15 @@ Data persistance provided by sqlite3 database.
 `pip3 install nltk`
 
 In python console:
-`import nltk`
-`nltk.download('wordnet')`
-`nltk.download('punkt')`
-`nltk.download('stopwords')`
+`import nltk`,
+`nltk.download('punkt')`,
+`nltk.download('stopwords')`,
 `nltk.download('averaged_perceptron_tagger')`
+
+`pip3 install spacy`
+
+Download spacy language packs:
+`python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
 
 
 
