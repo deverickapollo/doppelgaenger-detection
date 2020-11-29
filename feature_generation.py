@@ -25,7 +25,7 @@ def character_frequency_digits(string):
     return char_freq_digits
 
 
-# get character frequency for individual digits in a string
+# get character frequency for individual special characters in a string
 def character_frequency_special_characters(string):
     char_freq_special = {}
     for char in string:
