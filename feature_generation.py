@@ -107,10 +107,13 @@ def brunets_w(string):
     return 0
 
 # get honores r measure for a string
+# TODO: Research: What to do if hapax_legomena_weighted is 1? -> division by 0
 def honores_r(string):
     word_tokens = nltk.word_tokenize(string)
     n = len(word_tokens)
-    r = 100 * (math.log(n)/ (1 - number_words_appearing_i_times(string)[1]))
-    return r
-
+    hapax_legomena_weighted = number_words_appearing_i_times(string)[1]
+    if hapax_legomena_weighted == 1:
+        return 0
+    else:
+        return 100 * (math.log(n)/ (1 - hapax_legomena_weighted))
 
