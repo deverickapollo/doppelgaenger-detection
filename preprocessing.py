@@ -1,11 +1,27 @@
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords, wordnet
+import nltk
 
 stop_words = set(stopwords.words('english'))
+tag_dict = {"J": wordnet.ADJ,
+            "R": wordnet.ADV,
+            "N": wordnet.NOUN,
+            "V": wordnet.VERB}
 
-# remove stop words from a string and return a list
-def remove_stop_words(comment_text):
-    word_tokens = word_tokenize(comment_text)
-    comment_text_filtered = [word for word in word_tokens if not word in stop_words]
-    return comment_text_filtered
+# helper function to map nltks pos tag to wordnets pos tag
+def get_pos_tag_wordnet(word):
+    tag = nltk.pos_tag([word])[0][1][0].upper()
+    return tag_dict.get(tag, wordnet.NOUN)
+
+# remove stop words from a string and return a list of strings
+def remove_stop_words(string):
+    word_tokens = nltk.word_tokenize(string)
+    return [word for word in word_tokens if not word in stop_words]
+
+# lemmatize words from a list of strings and return a list of strings
+def lemmatize_words(words):
+    word_net_lemmatizer = nltk.WordNetLemmatizer()
+    return [word_net_lemmatizer.lemmatize(word, get_pos_tag_wordnet(word)) for word in words]
+
+
+
 
