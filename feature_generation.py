@@ -117,3 +117,73 @@ def honores_r(string):
     else:
         return 100 * (math.log(n)/ (1 - hapax_legomena_weighted))
 
+###################################
+####### SENTENCE LEVEL ############
+###################################
+
+# get the average number of characters per sentence for a string
+def average_number_characters_sentence(string):
+    exclude = set([".", "?", "!"])
+    counter_exclude = 0
+    for char in string:
+            if char in exclude or char.isspace():
+                counter_exclude += 1
+    sentences = nltk.sent_tokenize(string)
+    return (len(string) - counter_exclude) / len(sentences)
+
+# get the average number of lowercase letters per sentence for a string
+def average_number_lowercase_letters_sentence(string):
+    counter_lowercase = 0
+    for char in string:
+        if char.islower():
+            counter_lowercase += 1
+    sentences = nltk.sent_tokenize(string)
+    return (counter_lowercase) / len(sentences)
+
+# get the average number of uppercase letters per sentence for a string
+def average_number_uppercase_letters_sentence(string):
+    counter_uppercase = 0
+    for char in string:
+        if char.isupper():
+            counter_uppercase += 1
+    sentences = nltk.sent_tokenize(string)
+    return (counter_uppercase) / len(sentences)
+
+# get the average number of digits per sentence for a string
+def average_number_digits_sentence(string):
+    counter_digits = 0
+    for char in string:
+        if char.isnumeric():
+            counter_digits += 1
+    sentences = nltk.sent_tokenize(string)
+    return (counter_digits) / len(sentences)
+
+# get the average number of words per sentence for a string
+def average_number_words_sentence(string):
+    exclude = set([".", "?", "!"])
+    counter_words = 0
+    sentences = nltk.sent_tokenize(string)
+    for sentence in sentences:
+        sentence = nltk.word_tokenize(sentence)
+        for word in sentence:
+            if word not in exclude:
+                counter_words += 1
+    return counter_words / len(sentences)
+
+# get the total number of words per sentence for a string
+def total_number_words_sentence(string):
+    exclude = set([".", "?", "!"])
+    total_words_sentence = {}
+    sentences = nltk.sent_tokenize(string)
+    for sentence in sentences:
+        words = nltk.word_tokenize(sentence)
+        for word in words:
+            if word not in exclude:
+                if sentence in total_words_sentence:
+                    total_words_sentence[sentence] += 1
+                else:
+                    total_words_sentence[sentence] = 1
+    return total_words_sentence
+
+
+
