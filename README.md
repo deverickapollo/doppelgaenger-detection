@@ -45,6 +45,8 @@ optional arguments:
   
   -i, --info            Show information about the data collection
   
+  -m, --mode            (Optional) Run one of the statistical modes listed below.
+
   -v, --version         Show version information.
   
   -c, --clean           Purge database and logs. Program exits after.
@@ -55,7 +57,16 @@ optional arguments:
   
   -u [USER ...], --user [USER ...]
                         Output a specified number of comments from a specific user to CLI.
-                                 
+
+Modes Available:
+  - char          character-level
+  - vocab         vocabulary-richness
+  - sentence      sentence-level   
+  - leet          letspeak-based
+  - white         whitespace and punctuation
+  - content       content-based
+  - idio          Idiosyncratic
+            
 Run the Bot periodicly with watch: `watch -n3600 python3 guardianbot.py -r` (every hour)
                     
 ## Log files

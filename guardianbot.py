@@ -28,9 +28,8 @@ all_args.add_argument("-v", "--version", help="Show version information.", actio
 all_args.add_argument("-c", "--clean", help="Purge database and logs. Program exits after.", action="store_true")
 all_args.add_argument("-l", "--log", help="Outputs report.log to the logs directory. Program continues.", action="store_true")
 all_args.add_argument("-s", "--size", required=False, help="Output a specified number of comments for every user to CLI.")
-all_args.add_argument("-u", "--user", nargs="*", required=False, help="Output a specified number of comments from a specific user to CLI.")
-
-
+all_args.add_argument("-u", "--user", nargs=2, required=False, help="Requires username as first argument and max row count as second. Output a specified number of comments from a specific user to CLI.")
+all_args.add_argument("-m", "--mode", required=False, help="Starts Crawler with the specified pre-processing feature.")
 
 args = all_args.parse_args()
 
@@ -39,12 +38,16 @@ LOG_FORMAT = (
 	"%(message)s "
 )
 LOG_LEVEL = logging.INFO
+
 # messaging logger
 MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
 messaging_logger = logging.getLogger("doppelgaenger_detection.guardianbot")
 
 def main(spider="guardianSpider", log=False, size=0):
 	#Database declaration and connection
+	size = None
+	log = None
+	mode = None
 	database = r'database/dopplegaenger.db'
 	conn_article = create_connection(database)
 	conn_comments = create_connection(database)
@@ -66,6 +69,8 @@ def main(spider="guardianSpider", log=False, size=0):
 		size = args.size
 	if args.log:
 		log = args.log
+	if args.mode:
+		mode = args.mode
 	if args.clean:
 		drop_all(conn_article)
 		if os.path.isfile('logs/webapp.log'):
@@ -160,12 +165,21 @@ def main(spider="guardianSpider", log=False, size=0):
 				logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
-
+	if mode:
+		switcher ={
+			'+': lambda n1,n2: n1+n2,
+			'-': lambda n1,n2: n1-n2,
+			'*': lambda n1,n2: n1*n2,
+			'/': lambda n1,n2: n1/n2,
+		}
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
 
 if __name__== "__main__":
 	main()
-	logging.log(logging.INFO, "--- %s minutes ---" % ((time.time() - start_time)//60))
-	print("--- %s seconds ---" % (time.time() - start_time))
+	time = (time.time() - start_time)
+	if time >= 120:
+		time = time//60
+	logging.log(logging.INFO, "--- %s seconds ---" % time)
+	print("--- %s seconds ---" % time)
