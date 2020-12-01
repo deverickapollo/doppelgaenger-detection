@@ -62,6 +62,12 @@ Run the Bot periodicly with watch: `watch -n3600 python3 guardianbot.py -r` (eve
 1. webapp.log - Provides debug related information when running guadianbot or the webserver
 
 ---
+## Testing
+
+**TO Run**
+
+`pytest --html=report.html test.py`
+
 ## Notes:
 
 Please be aware this is not production ready.  SQL queries are not sanitized and are therefore a potential security risk. Do not host live.
