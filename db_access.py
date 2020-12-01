@@ -165,6 +165,11 @@ def sql_count_comments(conn):
 	sql_count_comments_query = """SELECT COUNT(*) FROM comment;"""
 	return execute_sql(conn, sql_count_comments_query)
 
+def sql_delete_username(conn, username):
+	sql_return_comment_query = """DELETE FROM user WHERE username= ?;"""
+	data_tuple = (username,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE IF EXISTS comment')
 	execute_sql(conn, 'DROP TABLE IF EXISTS user')
