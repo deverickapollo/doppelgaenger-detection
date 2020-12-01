@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # Helper functions to crawl Guardian News Website
-import logging, re, pytz, requests, scrapy
+import re, pytz, requests, scrapy, pytz
 from scrapy import *
 from datetime import datetime, timezone as ttime
-import pytz
 from pytz import timezone
 
 bst = pytz.timezone('Europe/London')
@@ -15,9 +14,6 @@ class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
     custom_settings = {'ITEM_PIPELINES': {'db_pipeline.sqLitePipeline': 300}}
 
-    # pipeline = set([
-    #     db_pipeline.sqLitePipeline,
-    # ])
     def __init__(self, *args, **kwargs):
         super(guardianSpider, self).__init__(*args, **kwargs)
         conn = kwargs.get('connection')
@@ -82,10 +78,6 @@ class guardianSpider(scrapy.Spider):
 
 class commentSpider(scrapy.Spider):
     name = "toscrape-comment-css"
-
-    # pipeline = set([
-    #     db_pipeline.commentPipeline,
-    # ])
     custom_settings = {'ITEM_PIPELINES': {'db_pipeline.commentPipeline': 300}}
 
     def __init__(self, *args, **kwargs):

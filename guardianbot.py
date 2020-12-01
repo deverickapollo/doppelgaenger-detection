@@ -76,9 +76,9 @@ def main(spider="guardianSpider", log=False, size=0):
 		else:
 			print ("Report log doesn't exist")
 			logging.log(logging.ERROR, "Error! Report log doesn't exist.")
-	elif args.version:
+	if args.version:
 		print("GuardianBot version 1.0")
-	elif args.run:
+	if args.run:
 		if conn_article is not None and conn_comments is not None:
 			create_article_table(conn_article)
 			create_user_table(conn_article)
@@ -96,21 +96,25 @@ def main(spider="guardianSpider", log=False, size=0):
 			cur = sql_count_articles(conn_article)
 			number_articles = cur.fetchall()[0][0]
 			print("Articles: " + str(number_articles))
+			messaging_logger.info("Articles: " + str(number_articles))
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Articles Table Not Accessible. Exiting!")
 		try:
 			cur = sql_count_comments(conn_comments)
 			number_comments = cur.fetchall()[0][0]
 			print("Comments: " + str(number_comments))
+			messaging_logger.info("Comments: " + str(number_comments))
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Comments Table Not Accessible. Exiting!")
 		try:
 			cur = sql_count_users(conn_user)
 			number_users = cur.fetchall()[0][0]
 			print("Users: " + str(number_users))
+			messaging_logger.info("Comments: " + str(number_users))
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
 		print("Average Comments per User: " + str(number_comments / number_users))
+		messaging_logger.info("Average Comments per User: " + str(number_comments / number_users))
 	elif size:
 		try:
 			#Returns a dictionary cursor instead of tuple
@@ -138,7 +142,6 @@ def main(spider="guardianSpider", log=False, size=0):
 			conn_comments.row_factory = sql.Row
 			print("User: ", args.user[0])
 			print("--------------------------------------------------")
-			# logging.log(logging.INFO, 'Next User: %s', user['username'])
 			try:
 				#Returns a dictionary cursor instead of tuple
 				conn_comments.row_factory = sql.Row
