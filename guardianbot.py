@@ -14,6 +14,8 @@ from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
 
 import time
+from datetime import datetime
+
 start_time = time.time()
 
 # Construct an argument parser
@@ -92,6 +94,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		else:
 			logging.log(logging.ERROR, "Fatal Error! Database Tables Not Created. Exiting!")
 	elif args.info:
+		# datetime object containing current date and time
+		now = datetime.now()
+		# dd/mm/YY H:M:S
+		dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+		messaging_logger.info("================ Executed at " + dt_string + " ================")
 		try:
 			cur = sql_count_articles(conn_article)
 			number_articles = cur.fetchall()[0][0]
@@ -110,11 +117,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			cur = sql_count_users(conn_user)
 			number_users = cur.fetchall()[0][0]
 			print("Users: " + str(number_users))
-			messaging_logger.info("Comments: " + str(number_users))
+			messaging_logger.info("Users: " + str(number_users))
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
 		print("Average Comments per User: " + str(number_comments / number_users))
-		messaging_logger.info("Average Comments per User: " + str(number_comments / number_users))
+		messaging_logger.info("Average Comments per User: " + str(number_comments / number_users) + "\n")
 	elif size:
 		try:
 			#Returns a dictionary cursor instead of tuple
