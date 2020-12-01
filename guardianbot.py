@@ -3,7 +3,7 @@
 # Execute: python3 guardianbot.py
 from scrape_guardian import *
 from db_access import *
-import logging, scrapy, os, asyncio, argparse
+import logging, scrapy, os, asyncio, argparse, feature_generation as feat
 
 from logging import FileHandler
 from logging import Formatter
@@ -29,7 +29,7 @@ all_args.add_argument("-c", "--clean", help="Purge database and logs. Program ex
 all_args.add_argument("-l", "--log", help="Outputs report.log to the logs directory. Program continues.", action="store_true")
 all_args.add_argument("-s", "--size", required=False, help="Output a specified number of comments for every user to CLI.")
 all_args.add_argument("-u", "--user", nargs=2, required=False, help="Requires username as first argument and max row count as second. Output a specified number of comments from a specific user to CLI.")
-all_args.add_argument("-m", "--mode", required=False, help="Starts Crawler with the specified pre-processing feature.")
+all_args.add_argument("-m", "--mode", nargs="*", required=False, help="Starts Crawler with the specified pre-processing feature.")
 
 args = all_args.parse_args()
 
@@ -42,6 +42,23 @@ LOG_LEVEL = logging.INFO
 # messaging logger
 MESSAGING_LOG_FILE = os.getcwd() + "/logs/report.log"
 messaging_logger = logging.getLogger("doppelgaenger_detection.guardianbot")
+
+# Input: String
+# Output: Dictionary
+# Comment: Used to generate comments using available feature
+def mode_execute(mode):
+	text = None
+	switcher ={
+		'char': lambda text: feat.character_frequency_letters(text),
+		'vocab': lambda text: feat.character_frequency_letters(text),
+		'sentence': lambda text: feat.character_frequency_letters(text),
+		'leet': lambda text: feat.character_frequency_letters(text),
+		'white': lambda text: feat.character_frequency_letters(text),
+		'content': lambda text: feat.character_frequency_letters(text),
+		'idio': lambda text: feat.character_frequency_letters(text),
+	}
+	#Returns a dictionary
+	return switcher.get(mode)(text)
 
 def main(spider="guardianSpider", log=False, size=0):
 	#Database declaration and connection
@@ -165,13 +182,9 @@ def main(spider="guardianSpider", log=False, size=0):
 				logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
+	#Use ForEach logic to execute multiple modes in succession.
 	if mode:
-		switcher ={
-			'+': lambda n1,n2: n1+n2,
-			'-': lambda n1,n2: n1-n2,
-			'*': lambda n1,n2: n1*n2,
-			'/': lambda n1,n2: n1/n2,
-		}
+		mode_execute(mode)
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
