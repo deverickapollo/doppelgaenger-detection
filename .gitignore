@@ -8,4 +8,4 @@ __pycache__/
 # Scrapy stuff:
 .scrapy
 
-misc/
+misc/ids.txt

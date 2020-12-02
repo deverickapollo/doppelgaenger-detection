@@ -1,5 +1,6 @@
 import math
 import re
+import string
 
 import nltk
 
@@ -38,6 +39,8 @@ def character_frequency_letters(string):
                 char_freq_letters[char] += 1
             else:
                 char_freq_letters[char] = 1
+    for char in char_freq_letters:
+        char_freq_letters[char] = (char_freq_letters[char], char_freq_letters[char] / len(string))
     return char_freq_letters
 
 
@@ -50,6 +53,8 @@ def character_frequency_digits(string):
                 char_freq_digits[char] += 1
             else:
                 char_freq_digits[char] = 1
+    for char in char_freq_digits:
+        char_freq_digits[char] = (char_freq_digits[char], char_freq_digits[char] / len(string))
     return char_freq_digits
 
 
@@ -62,6 +67,8 @@ def character_frequency_special_characters(string):
                 char_freq_special[char] += 1
             else:
                 char_freq_special[char] = 1
+    for char in char_freq_special:
+        char_freq_special[char] = (char_freq_special[char], char_freq_special[char] / len(string))
     return char_freq_special
 
 
@@ -73,6 +80,8 @@ def character_frequency(string):
             char_freq[char] += 1
         else:
             char_freq[char] = 1
+    for char in char_freq:
+        char_freq[char] = (char_freq[char], char_freq[char] / len(string))
     return char_freq
 
 
@@ -210,6 +219,43 @@ def total_number_words_sentence(string):
     for sentence in sentences:
         total_words_sentence[sentence] = count_words(sentence)
     return total_words_sentence
+
+
+###################################
+######## PUNCTUATION ##############
+###################################
+
+# get the punctuation frequency for a string
+# returns a dict with tuples (total, average)
+def punctuation_frequency(s):
+    punc_freq = {}
+    for char in s:
+        if char in string.punctuation:
+            if char in punc_freq:
+                punc_freq[char] += 1
+            else:
+                punc_freq[char] = 1
+    for char in punc_freq:
+        punc_freq[char] = (punc_freq[char], punc_freq[char] / len(s))
+    return punc_freq
+
+
+# get the punctuation frequency per sentence for a string
+# returns a dict per sentence with tuples (total, average)
+def punctuation_frequency_sentence(s):
+    punc_freq = {}
+    sentences = nltk.sent_tokenize(s)
+    for sentence in sentences:
+        punc_freq[sentence] = {}
+        for char in sentence:
+            if char in string.punctuation:
+                if char in punc_freq[sentence]:
+                    punc_freq[sentence][char] += 1
+                else:
+                    punc_freq[sentence][char] = 1
+        for char in punc_freq[sentence]:
+            punc_freq[sentence][char] = (punc_freq[sentence][char], punc_freq[sentence][char] / len(sentence))
+    return punc_freq
 
 
 ###################################
