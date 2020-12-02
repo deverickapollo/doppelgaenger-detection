@@ -3,11 +3,11 @@ import re
 
 import nltk
 
-sentiment_analysis_word_dict = dict(EN="en_core_web_sm",
-                                    ES="es_core_news_sm",
+sentiment_analysis_word_dict = dict(EN="misc/sentiment_analysis/en/vader_lexicon.txt",
+                                    ES="",
                                     DE=["misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt",
                                         "misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt"],
-                                    FR="fr_core_news_sm")
+                                    FR="")
 
 
 ###################################
@@ -246,8 +246,32 @@ def load_sentiment_lexicon_german():
     return dict
 
 
+# loads the english sentiment lexicon from a text file, does some preprocessing and returns a dict
+#
+# We use VADERs lexicon:
+#
+# VADER (Valence Aware Dictionary and sEntiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is
+# specifically attuned to sentiments expressed in social media. It is fully open-sourced under the [MIT License]
+#
+# Sentiment ratings from 10 independent human raters (all pre-screened, trained, and quality checked for optimal
+# inter-rater reliability). Over 9,000 token features were rated on a scale from "[–4] Extremely Negative"
+# to "[4] Extremely Positive", with allowance for "[0] Neutral (or Neither, N/A)". We kept every lexical feature
+# that had a non-zero mean rating, and whose standard deviation was less than 2.5 as determined by the aggregate of
+# those ten independent raters. This left us with just over 7,500 lexical features with validated valence scores that
+# indicated both the sentiment polarity (positive/negative), and the sentiment intensity on a scale from –4 to +4. For
+# example, the word "okay" has a positive valence of 0.9, "good" is 1.9, and "great" is 3.1, whereas "horrible" is –2.5,
+# the frowning emoticon :( is –2.2, and "sucks" and it's slang derivative "sux" are both –1.5.
+#
+# Hutto, C.J. & Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media
+# Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 def load_sentiment_lexicon_english():
-    return 0
+    dict = {}
+    with open(sentiment_analysis_word_dict.get("EN")) as f:
+        lines = f.read().splitlines()
+    for line in lines:
+        line = re.split("\t",line)
+        dict[line[0]] = float(line[1]) / 4
+    return dict
 
 
 def load_sentiment_lexicon_spanish():
@@ -258,6 +282,7 @@ def load_sentiment_lexicon_french():
     return 0
 
 
+# helper function to load the sentiment lexicon
 def load_sentiment_lexicon(language):
     if language.upper() == "DE":
         return load_sentiment_lexicon_german()
