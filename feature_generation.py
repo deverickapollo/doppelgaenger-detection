@@ -259,6 +259,43 @@ def punctuation_frequency_sentence(s):
 
 
 ###################################
+######## WHITESPACES ##############
+###################################
+
+# get the frequency for the repeated occurences of whitespaces for a string
+# returns a dict with tuples (total, average)
+def repeated_whitespace(string):
+    whitespaces = re.findall("\s+", string)
+    dict = {}
+    for w in whitespaces:
+        if len(w) in dict:
+            dict[len(w)] +=1
+        else:
+            dict[len(w)] = 1
+    for whitespace in dict:
+        dict[whitespace] = (dict[whitespace], dict[whitespace] / len(string))
+    return dict
+
+
+# get the frequency for the repeated occurences of whitespaces per sentence for a string
+# returns a dict per sentence with tuples (total, average)
+def repeated_whitespace_sentence(string):
+    dict = {}
+    sentences = nltk.sent_tokenize(string)
+    for sentence in sentences:
+        dict[sentence] = {}
+        whitespaces = re.findall("\s+", sentence)
+        for w in whitespaces:
+            if len(w) in dict:
+                dict[sentence][len(w)] += 1
+            else:
+                dict[sentence][len(w)] = 1
+        for whitespace in dict[sentence]:
+            dict[sentence][whitespace] = (dict[sentence][whitespace], dict[sentence][whitespace] / len(sentence))
+    return dict
+
+
+###################################
 ##### SENTIMENT ANALYSIS ##########
 ###################################
 
