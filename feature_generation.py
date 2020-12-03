@@ -293,6 +293,36 @@ def repeated_whitespace_sentence(string):
 
 
 ###################################
+######## IDIOSYNCRASY #############
+###################################
+
+# get the number of uppercase words for a string
+# returns a tuple: (total, average)
+def uppercase_words(string):
+    words = nltk.word_tokenize(string)
+    counter_uppercase = 0
+    for word in words:
+        if word.isupper():
+            counter_uppercase += 1
+    return (counter_uppercase, counter_uppercase / count_words(string))
+
+
+# get the number of uppercase words per sentence for a string
+# returns a dict with a tuple per sentence: (total, average)
+def uppercase_words_sentence(string):
+    dict = {}
+    sentences = nltk.sent_tokenize(string)
+    for sentence in sentences:
+        words = nltk.word_tokenize(sentence)
+        counter_uppercase = 0
+        for word in words:
+            if word.isupper():
+                counter_uppercase += 1
+        dict[sentence] = (counter_uppercase, counter_uppercase / count_words(sentence))
+    return dict
+
+
+###################################
 ##### SENTIMENT ANALYSIS ##########
 ###################################
 
