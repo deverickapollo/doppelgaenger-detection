@@ -375,7 +375,7 @@ def load_sentiment_lexicon_spanish():
     lines = re.split(',',lines)
     for line in lines:
         line = re.split(':', line)
-        dict[line[0].replace('"', '')] = line[1] / 5
+        dict[line[0].replace('"', '')] = float(line[1]) / 5
     return dict
 
 
