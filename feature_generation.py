@@ -15,15 +15,19 @@ sentiment_analysis_word_dict = dict(EN="misc/sentiment_analysis/en/vader_lexicon
 ####### HELPER FUNCTIONS ##########
 ###################################
 
-# count words of a string excluding all limiters
-def count_words(string):
-    exclude = set([".", "?", "!"])
-    words = nltk.word_tokenize(string)
+# count words of a string excluding all punctuation but including emojis
+def count_words(s):
+    with open("misc/emojis/emoji_list", "r") as f:
+        lines = f.read().splitlines()
+    counter_include = 0
+    for l in lines:
+        counter_include += s.count(l)
+    words = nltk.word_tokenize(s)
     counter_exclude = 0
     for word in words:
-        if word in exclude:
+        if word in string.punctuation:
             counter_exclude += 1
-    return len(words) - counter_exclude
+    return len(words) - counter_exclude + counter_include
 
 
 ###################################
@@ -404,4 +408,42 @@ def sentiment_analysis_sentence_average(string, language="EN"):
             if word in sentiment_lexicon:
                 result += float(sentiment_lexicon[word])
         dict[sentence] = result / count_words(sentence)
+    return dict
+
+
+###################################
+##### ADDITIONAL FEATURES #########
+###################################
+
+# get the emoji frequency for a string
+# returns a dict with tuples per emoji: tuple (total, average)
+def emoji_frequency_word(string):
+    with open("misc/emojis/emoji_list", "r") as f:
+        lines = f.read().splitlines()
+    dict = {}
+    for l in lines:
+        for l in lines:
+            emojis_counter = string.count(l)
+            if emojis_counter > 0:
+                dict[l] = emojis_counter
+    for emoji in dict:
+        dict[emoji] = (dict[emoji], dict[emoji] / count_words(string))
+    return dict
+
+
+# get the emoji frequency for a string
+# returns a dict with tuples per sentence and emoji: tuple (total, average)
+def emoji_frequency_sentence(string):
+    with open("misc/emojis/emoji_list", "r") as f:
+        lines = f.read().splitlines()
+    sentences = nltk.sent_tokenize(string)
+    dict = {}
+    for sentence in sentences:
+        dict[sentence] = {}
+        for l in lines:
+            emojis_sentence_counter = sentence.count(l)
+            if emojis_sentence_counter > 0:
+                dict[sentence][l] = emojis_sentence_counter
+        for emoji in dict[sentence]:
+            dict[sentence][emoji] = (dict[sentence][emoji], dict[sentence][emoji] / count_words(sentence))
     return dict
