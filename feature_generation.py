@@ -1,14 +1,7 @@
 import math
 import re
 import string
-
 import nltk
-
-sentiment_analysis_word_dict = dict(EN="misc/sentiment_analysis/en/vader_lexicon.txt",
-                                    ES="misc/sentiment_analysis/es/AFINN-es-111.txt",
-                                    DE=["misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt",
-                                        "misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt"],
-                                    FR="misc/sentiment_analysis/fr/AFINN-fr-165.txt")
 
 
 ###################################
@@ -213,7 +206,7 @@ def average_number_digits_sentence(string):
 # get the average number of words per sentence for a string
 def average_number_words_sentence(string):
     sentences = nltk.sent_tokenize(string)
-    return count_words(string ) / len(sentences)
+    return count_words(string) / len(sentences)
 
 
 # get the total number of words per sentence for a string
@@ -273,7 +266,7 @@ def repeated_whitespace(string):
     dict = {}
     for w in whitespaces:
         if len(w) in dict:
-            dict[len(w)] +=1
+            dict[len(w)] += 1
         else:
             dict[len(w)] = 1
     for whitespace in dict:
@@ -318,13 +311,13 @@ def repeated_whitespace_sentence(string):
 # In: Proceedings of the 7th International Language Ressources and Evaluation (LREC'10), 201
 def load_sentiment_lexicon_german():
     dict = {}
-    with open(sentiment_analysis_word_dict.get("DE")[0]) as f:
+    with open("misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
         line = re.split("\|.{0,6}\\t|\\t|,", line)
         for word in line[:1] + line[2:]:
             dict[word] = line[1]
-    with open(sentiment_analysis_word_dict.get("DE")[1]) as f:
+    with open("misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
         line = re.split("\|.{0,6}\\t|\\t|,", line)
@@ -353,10 +346,10 @@ def load_sentiment_lexicon_german():
 # Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 def load_sentiment_lexicon_english():
     dict = {}
-    with open(sentiment_analysis_word_dict.get("EN")) as f:
+    with open("misc/sentiment_analysis/en/vader_lexicon.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
-        line = re.split("\t",line)
+        line = re.split("\t", line)
         dict[line[0]] = float(line[1]) / 4
     return dict
 
@@ -370,9 +363,9 @@ def load_sentiment_lexicon_english():
 # Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
 def load_sentiment_lexicon_spanish():
     dict = {}
-    with open(sentiment_analysis_word_dict.get("ES")) as f:
+    with open("misc/sentiment_analysis/es/AFINN-es-111.txt") as f:
         lines = f.read()
-    lines = re.split(',',lines)
+    lines = re.split(',', lines)
     for line in lines:
         line = re.split(':', line)
         dict[line[0].replace('"', '')] = float(line[1]) / 5
@@ -388,10 +381,10 @@ def load_sentiment_lexicon_spanish():
 # Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
 def load_sentiment_lexicon_french():
     dict = {}
-    with open(sentiment_analysis_word_dict.get("FR")) as f:
+    with open("misc/sentiment_analysis/fr/AFINN-fr-165.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
-        line = re.split("\t",line)
+        line = re.split("\t", line)
         dict[line[0]] = float(line[1]) / 5
     return dict
 
@@ -474,5 +467,3 @@ def emoji_frequency_sentence(string):
         for emoji in dict[sentence]:
             dict[sentence][emoji] = (dict[sentence][emoji], dict[sentence][emoji] / count_words(sentence))
     return dict
-
-print(load_sentiment_lexicon_spanish())
