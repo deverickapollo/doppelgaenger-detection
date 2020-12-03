@@ -1,7 +1,7 @@
 import math
 import re
-import string
 import nltk
+from string import punctuation
 
 
 ###################################
@@ -18,7 +18,7 @@ def count_words(s):
     words = nltk.word_tokenize(s)
     counter_exclude = 0
     for word in words:
-        if word in string.punctuation:
+        if word in punctuation:
             counter_exclude += 1
     return len(words) - counter_exclude + counter_include
 
@@ -227,7 +227,7 @@ def total_number_words_sentence(string):
 def punctuation_frequency(s):
     punc_freq = {}
     for char in s:
-        if char in string.punctuation:
+        if char in punctuation:
             if char in punc_freq:
                 punc_freq[char] += 1
             else:
@@ -245,7 +245,7 @@ def punctuation_frequency_sentence(s):
     for sentence in sentences:
         punc_freq[sentence] = {}
         for char in sentence:
-            if char in string.punctuation:
+            if char in punctuation:
                 if char in punc_freq[sentence]:
                     punc_freq[sentence][char] += 1
                 else:
