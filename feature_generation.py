@@ -8,7 +8,7 @@ sentiment_analysis_word_dict = dict(EN="misc/sentiment_analysis/en/vader_lexicon
                                     ES="",
                                     DE=["misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt",
                                         "misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt"],
-                                    FR="")
+                                    FR="misc/sentiment_analysis/fr/AFINN-fr-165.txt")
 
 
 ###################################
@@ -362,11 +362,24 @@ def load_sentiment_lexicon_english():
 
 
 def load_sentiment_lexicon_spanish():
-    return 0
+    return {}
 
 
+# loads the french sentiment lexicon from a text file, does some preprocessing and returns a dict
+#
+# We use the french version of the AFINN wordlist:
+#
+# * Finn Årup Nielsen, "A new ANEW: evaluation of a word list for sentiment analysis in microblogs", Proceedings
+# of the ESWC2011 Workshop on 'Making Sense of Microposts': Big things come in small packages. Volume 718 in CEUR
+# Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
 def load_sentiment_lexicon_french():
-    return 0
+    dict = {}
+    with open(sentiment_analysis_word_dict.get("FR")) as f:
+        lines = f.read().splitlines()
+    for line in lines:
+        line = re.split("\t",line)
+        dict[line[0]] = float(line[1]) / 5
+    return dict
 
 
 # helper function to load the sentiment lexicon
@@ -447,3 +460,5 @@ def emoji_frequency_sentence(string):
         for emoji in dict[sentence]:
             dict[sentence][emoji] = (dict[sentence][emoji], dict[sentence][emoji] / count_words(sentence))
     return dict
+
+print(load_sentiment_lexicon_french())
