@@ -1,9 +1,8 @@
 #!/usr/bin/python
-# Main File for the Dopplegaenger Detection Program
-# Execute: python3 guardianbot.py
+# Main for Dopplegaenger Detection Program
 from scrape_guardian import *
-from db_access import *
-import logging, scrapy, os, asyncio, argparse, feature_generation as feat
+from database.db_access import *
+import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat
 
 from logging import FileHandler
 from logging import Formatter

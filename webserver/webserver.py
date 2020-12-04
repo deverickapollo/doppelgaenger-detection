@@ -1,4 +1,4 @@
-import guardianbot, logging, asyncio, time, sqlite3 as sql, db_access
+import guardianbot, logging, asyncio, time, sqlite3 as sql, database.db_access as db
 from flask import Flask, render_template, request, g
 from timeloop import Timeloop
 from datetime import timedelta
@@ -11,25 +11,25 @@ tl = Timeloop()
 
 @app.route('/')
 def home():
-    conn = db_access.get_db(DATABASE)
+    conn = db.get_db(DATABASE)
     conn.row_factory = sql.Row
-    cur = db_access.sql_full_report(conn)
+    cur = db.sql_full_report(conn)
     rows = cur.fetchall(); 
     return render_template("list.html",rows = rows)
 
 @app.route('/comments/<title>')
 def comments(title):
-    conn = db_access.get_db(DATABASE)
+    conn = db.get_db(DATABASE)
     conn.row_factory = sql.Row
-    cur = db_access.sql_return_comments_from_title(conn,title)
+    cur = db.sql_return_comments_from_title(conn,title)
     rows = cur.fetchall(); 
     return render_template('comments.html',rows = rows)
 
 @app.route('/user/<username>')
 def profile(username):
-    conn = db_access.get_db(DATABASE)
+    conn = db.get_db(DATABASE)
     conn.row_factory = sql.Row
-    cur = db_access.sql_select_all_comments_from_user(conn,username)
+    cur = db.sql_select_all_comments_from_user(conn,username)
     rows = cur.fetchall(); 
     return render_template('profile.html', rows = rows)
 
@@ -45,5 +45,5 @@ if __name__== "__main__":
             app.run()
         except KeyboardInterrupt:
             tl.stop()
-            db_access.close_connection()
+            db.close_connection()
             break
