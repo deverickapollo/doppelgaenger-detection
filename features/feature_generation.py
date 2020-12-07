@@ -460,6 +460,14 @@ def sentiment_analysis_sentence_average(string, language="EN"):
 
 
 ###################################
+####### LEEETSPEAK ################
+###################################
+
+def leetspeak(string):
+    tots = total_number_words_sentence(string)
+
+
+###################################
 ##### ADDITIONAL FEATURES #########
 ###################################
 
@@ -533,3 +541,37 @@ def leetcheck(string, language = "EN"):
                             leet.append(token + " " + j + " " + str(z[0]))
             
     return leet
+
+# load word lists from text files
+def load_most_common_words():
+    with open("../misc/most_common_words/de.txt", "r") as f:
+        german = f.read().splitlines()
+    with open("../misc/most_common_words/en.txt", "r") as f:
+        english = f.read().splitlines()
+    with open("../misc/most_common_words/es.txt", "r") as f:
+        spanish = f.read().splitlines()
+    with open("../misc/most_common_words/fr.txt", "r") as f:
+        french = f.read().splitlines()
+    return dict(DE=german, EN=english, ES=spanish, FR=french)
+
+
+# determine if the language of a string is most likely to be en, de, fr or es based on a word list approach
+# each word list contains the 10000 most common words of the language
+#
+# word lists are taken from https://github.com/oprogramador/most-common-words-by-language
+#
+# returns the language
+def get_language(string):
+    words = nltk.word_tokenize(string)
+    counter = dict(DE=0, EN=0, ES=0, FR=0)
+    most_common_words = load_most_common_words()
+    for word in words:
+        if word in most_common_words['DE']:
+            counter['DE'] += 1
+        if word in most_common_words['EN']:
+            counter['EN'] += 1
+        if word in most_common_words['ES']:
+            counter['ES'] += 1
+        if word in most_common_words['FR']:
+            counter['FR'] += 1
+    return max(counter, key=counter.get)
