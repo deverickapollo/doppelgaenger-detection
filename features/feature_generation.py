@@ -769,9 +769,12 @@ def feature_vector(string):
     cfg = json.loads(config.get("Vocabulary Richness", "number_big_words"))
     if cfg[0] == 1:
         dict["number_big_words"] = number_big_words(strings[select_string(cfg)])
-    cfg = json.loads(config.get("Vocabulary Richness", "number_words_appearing_i_times"))
+    cfg = json.loads(config.get("Vocabulary Richness", "hapax_legomena"))
     if cfg[0] == 1:
-        dict["number_words_appearing_i_times"] = number_words_appearing_i_times(strings[select_string(cfg)])
+        dict["hapax_legomena"] = number_words_appearing_i_times(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Vocabulary Richness", "hapax_dislegomena"))
+    if cfg[0] == 1:
+        dict["hapax_dislegomena"] = number_words_appearing_i_times(strings[select_string(cfg)], 2)
     cfg = json.loads(config.get("Vocabulary Richness", "yules_k"))
     if cfg[0] == 1:
         dict["yules_k"] = yules_k(strings[select_string(cfg)])
