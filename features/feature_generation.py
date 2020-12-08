@@ -748,10 +748,14 @@ def type_token_ratio(string):
     return vocabulary_size(string) / count_words(string)
 
 
+# get sichels s measure
+#
+# Sichel (1975) observed that the ratio of dis legomena, V (2, N ) to the vocabulary
+# size is roughly constant across a wide range of sample sizes
 def sichels_s(string):
     hapax_dislegomena = number_words_appearing_i_times(string, 2)
     vocab_size = vocabulary_size(string)
-    return hapax_dislegomena / vocab_size
+    return hapax_dislegomena[0] / vocab_size
 
 
 
@@ -902,5 +906,8 @@ def feature_vector(string):
     cfg = json.loads(config.get("Additional Features", "mean_word_frequency"))
     if cfg[0] == 1:
         dict["mean_word_frequency"] = mean_word_frequency(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Additional Features", "sichels_s"))
+    if cfg[0] == 1:
+        dict["sichels_s"] = sichels_s(strings[select_string(cfg)])
 
     return dict
