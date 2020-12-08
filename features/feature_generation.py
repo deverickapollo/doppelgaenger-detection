@@ -1,7 +1,6 @@
-import configparser
-import json
+import configparser, json, language_tool_python
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-#from spacy_hunspell import spaCyHunSpell
+from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -332,6 +331,12 @@ def uppercase_words_sentence(string):
         dict[sentence] = (counter_uppercase, counter_uppercase / count_words(sentence))
     return dict
 
+# get the number of grammar mistakes within a string
+# returns a tuple: (errors, len(matches))
+def grammarCheck(string, language = "en-US"):
+    tool = language_tool_python.LanguageTool(language)
+    errors = tool.check(string)
+    return (errors, len(errors))
 
 ###################################
 ##### SENTIMENT ANALYSIS ##########
@@ -473,51 +478,6 @@ def sentiment_analysis_sentence_average(string, language="EN"):
 
 
 ###################################
-####### LEEETSPEAK ################
-###################################
-
-def leetspeak(string):
-    # total per sentence
-    tots_per_sentence = total_number_words_sentence(string)
-    punkt_st = nltk.tokenize.PunktSentenceTokenizer()
-    sentence_list = punkt_st.tokenize(string)
-    # Sentence Level Check
-    sentence_level_leet = leetcheck(sentence_list)
-    # Full Text Level Search
-    # text_level_leet = leetcheck(string)
-    return sentence_level_leet
-
-
-def find_key(input_dict, value):
-    return {k for k, v in input_dict.items() if v == value}
-
-
-def leetcheck(string, language="EN"):
-    leet = []
-    nlp = spacy.load(process.spacy_models_dict.get(language.upper()))
-    hunspell = spaCyHunSpell(nlp, ('/Library/Spelling/en_US.dic', '/Library/Spelling/en_US.aff'))
-    # Need to consider other languages here
-    nlp.add_pipe(hunspell)
-    for sentence in string:
-        tokens = nltk.word_tokenize(sentence)
-        for token in tokens:
-            # Check for misspelling
-            check = nlp(token)[0]
-            if check._.hunspell_spell == False:
-                # See if word contains leet
-                for a in alpha.leet_alphabet.values():
-                    for j in a:
-                        if j in token:
-                            z = find_key(alpha.leet_alphabet, j)
-                            # Add to possible candidate list
-
-                            # Test candidate list
-                            leet.append(token + " " + j + " " + str(z[0]))
-
-    return leet
-
-
-###################################
 ##### ADDITIONAL FEATURES #########
 ###################################
 
@@ -559,18 +519,18 @@ def emoji_frequency_sentence(string):
 ####### LEETSPEAK ################
 ###################################
 
-def leetspeak(string):
-    valDict = dictionary_values_as_keys(alpha.leet_alphabet)
+# def leetspeak_sentence(string):
+#     valDict = dictionary_values_as_keys(alpha.leet_alphabet)
 
-    # total per sentence
-    tots_per_sentence = total_number_words_sentence(string)
-    punkt_st = nltk.tokenize.PunktSentenceTokenizer()
-    sentence_list = punkt_st.tokenize(string)
-    # Sentence Level Check
-    sentence_level_leet = leetScan(sentence_list, valDict)
-    # Full Text Level Search
-    # text_level_leet = leetScan(string)
-    return sentence_level_leet
+#     # total per sentence
+#     tots_per_sentence = total_number_words_sentence(string)
+#     punkt_st = nltk.tokenize.PunktSentenceTokenizer()
+#     sentence_list = punkt_st.tokenize(string)
+#     # Sentence Level Check
+#     sentence_level_leet = leetScan(sentence_list, valDict)
+#     # Full Text Level Search
+#     # text_level_leet = leetScan(string)
+#     return sentence_level_leet
 
 
 # Builds a dictionary with values from input dictionary mapped as keys.
@@ -619,9 +579,7 @@ def swapValid(token, valDict,nlp):
         for leet in lValues:
             if leet in token:
                 copyToken = token
-                print("leet: "+ leet +  " token: " + token + " candidate: " + str(valDict[leet][0]) )
-
-                #This part of the algo needs to be expanded on
+                #Logic
                 for l in valDict[leet]:
                     otherStr = copyToken.replace(leet , str(valDict[leet][0]))
                     #If spelled correctly, we test, otherwise try again. Perfect recursion case.
@@ -636,13 +594,12 @@ def swapValid(token, valDict,nlp):
 
 # Checks what percentage of words are potential leetwords
 # input: String, language = "EN"
-# output: fraction
+# output: Fraction(1, 24) object
 
-def leetScan(string, valDict, language="EN", ):
+def leetScan(string, valDict, language="EN" ):
     leetcandidates = []
     count = 0
     nlp = spacy.load(process.spacy_models_dict.get(language.upper()))
-
     hunspell = spaCyHunSpell(nlp, ('/Library/Spelling/en_US.dic', '/Library/Spelling/en_US.aff'))
     # Need to consider other languages here
     nlp.add_pipe(hunspell)
