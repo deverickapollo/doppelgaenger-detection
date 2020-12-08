@@ -107,10 +107,11 @@ def word_frequency(string):
     word_freq = {}
     word_tokens = nltk.word_tokenize(string)
     for word in word_tokens:
-        if word in word_freq:
-            word_freq[word] += 1
-        else:
-            word_freq[word] = 1
+        if word not in punctuation:
+            if word in word_freq:
+                word_freq[word] += 1
+            else:
+                word_freq[word] = 1
     return word_freq
 
 
