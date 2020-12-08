@@ -1,14 +1,18 @@
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-#from spacy_hunspell import spaCyHunSpell
+from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
+from collections import defaultdict
+
+
+
 ###################################
 ####### HELPER FUNCTIONS ##########
 ###################################
 
 # count words of a string excluding all punctuation but including emojis
 def count_words(s):
-    with open("../misc/emojis/emoji_list", "r") as f:
+    with open("misc/emojis/emoji_list", "r") as f:
         lines = f.read().splitlines()
     counter_include = 0
     for l in lines:
@@ -540,6 +544,102 @@ def emoji_frequency_sentence(string):
         for emoji in dict[sentence]:
             dict[sentence][emoji] = (dict[sentence][emoji], dict[sentence][emoji] / count_words(sentence))
     return dict
+
+
+
+###################################
+####### LEETSPEAK ################
+###################################
+
+def leetspeak(string):
+    valDict = dictionary_values_as_keys(alpha.leet_alphabet)
+
+    #total per sentence
+    tots_per_sentence = total_number_words_sentence(string)
+    punkt_st = nltk.tokenize.PunktSentenceTokenizer()
+    sentence_list = punkt_st.tokenize(string)
+    #Sentence Level Check
+    sentence_level_leet=leetScan(sentence_list, valDict)
+    #Full Text Level Search
+    # text_level_leet = leetScan(string)
+    return sentence_level_leet
+
+# Builds a dictionary with values from input dictionary mapped as keys.
+# input: Dictionary
+# output: Dictionary
+def dictionary_values_as_keys(dict):
+    keysDict = {}
+    for key,values in dict.items():
+        for v in values:
+            if v not in keysDict:
+                keysDict[v] = [key]
+            elif v in keysDict:
+                keysDict[v].append(key)
+    return keysDict
+
+# Prints a dictionary that contains a list as values.
+# input: Dictionary
+# output: Dictionary
+def print_ldict(dict):
+    for k in dict:
+        print("key: " + k)
+        for x in dict[k]:
+            print(x)    
+
+# Checks input strign for possible leet characters
+# input: String
+# output: True/False
+def leetCheck(token):
+    status = False
+    for lValues in alpha.leet_alphabet.values():
+        for leet in lValues:
+            if leet in token:
+                status = True
+                return status
+    return status
+
+#Lets play a game.
+# input: String
+# output: True/False
+def swapValid(token):
+    status = False
+    for lValues in alpha.leet_alphabet.values():
+        for leet in lValues:
+            if leet in token:
+                print("hello")
+    return status
+
+# Checks what percentage of words are potential leetwords
+# input: String, language = "EN"
+# output: fraction
+
+def leetScan(string, valDict, language = "EN", ):
+    leetcandidates = []
+    count = 0
+    nlp = spacy.load(process.spacy_models_dict.get(language.upper()))
+    
+    hunspell = spaCyHunSpell(nlp, ('/Library/Spelling/en_US.dic', '/Library/Spelling/en_US.aff'))
+    #Need to consider other languages here
+    nlp.add_pipe(hunspell)
+    tokens = nltk.word_tokenize(string)
+    #Calculate Total Words in string
+    total_words = len(tokens)
+    for token in tokens:
+        #Check for misspelling
+        check = nlp(token)[0]
+        if check._.hunspell_spell == False:
+            #See if word contains leet
+            if leetCheck(token):
+                #Add to possible candidate list
+                leetcandidates.append(token)
+    #Test candidate list for word validity using swapping
+    for candidate in leetcandidates:
+        if swapValid(candidate):
+            count = count + 1
+    fraction = count//total_words
+    #Lazy solution
+    fraction = len(leetcandidates)//total_words
+    return fraction
 
 # load word lists from text files
 def load_most_common_words():
