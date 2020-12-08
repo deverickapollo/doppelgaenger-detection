@@ -4,10 +4,8 @@ from fractions import Fraction
 #Debug Log
 logging.basicConfig(level=logging.DEBUG, format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
 mylogger = logging.getLogger()
-# mylogger.log(logging.DEBUG, "Leet is %s", leet)
 
 raw_comment = "1. Here is sample /\\pple I3urger  23424, comment of language used to test 0 functions found in our feature generation file. L33t bcuz Le3t. 2. This is purely for test purposes  .  Test, Repeat. 1, 2 3 ,434, 4 "
-sensitive_comment = u'/\pple is all i need'
 
 def test_py():
       x=5
