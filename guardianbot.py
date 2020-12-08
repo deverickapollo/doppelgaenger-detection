@@ -215,7 +215,7 @@ def main(spider="guardianSpider", log=False, size=0):
 				print("\n------\n")
 		if x == "3":
 			string = input("Enter string: ")
-			pprint(feat.feature_vector(string))
+			pprint(feat.feature_vector(string), sort_dicts=False)
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
