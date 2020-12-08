@@ -140,25 +140,29 @@ def number_words_appearing_i_times(string, i=1):
     return (number, number / count_words(string))
 
 
+# get yules k measure for a string
 def yules_k(string):
-    return 0
+    n = count_words(string)
+    m1 = sum(number_words_appearing_i_times(string, i+1)[0]*(((i+1)/n)**2) for i in range(n))
+    m2 = -(1/n)
+    return (10**4) * (m2 + m1)
 
 
+# get brunets w measure for a string
 def brunets_w(string):
-    return 0
+    n = count_words(string)
+    vocab_size = vocabulary_size(string)
+    a = -0.172
+    return n**(vocab_size ** -a)
 
 
 # get honores r measure for a string
-# TODO: Research: What to do if hapax_legomena_weighted is 1? -> division by 0
 def honores_r(string):
     word_tokens = nltk.word_tokenize(string)
     n = len(word_tokens)
     hapax_legomena = number_words_appearing_i_times(string)[0]
     vocab_size = vocabulary_size(string)
     div = hapax_legomena / vocab_size
-    print(hapax_legomena)
-    print(vocab_size)
-    print(div)
     if div == 1:
         div = 0.9999999
     return 100 * (math.log(n) / (1 - div))
@@ -701,6 +705,16 @@ def type_token_ratio(string):
     return vocabulary_size(string) / count_words(string)
 
 
+# get sichels s measure
+#
+# Sichel (1975) observed that the ratio of dis legomena, V (2, N ) to the vocabulary
+# size is roughly constant across a wide range of sample sizes
+def sichels_s(string):
+    hapax_dislegomena = number_words_appearing_i_times(string, 2)
+    vocab_size = vocabulary_size(string)
+    return hapax_dislegomena[0] / vocab_size
+
+
 
 
 
@@ -849,5 +863,8 @@ def feature_vector(string):
     cfg = json.loads(config.get("Additional Features", "mean_word_frequency"))
     if cfg[0] == 1:
         dict["mean_word_frequency"] = mean_word_frequency(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Additional Features", "sichels_s"))
+    if cfg[0] == 1:
+        dict["sichels_s"] = sichels_s(strings[select_string(cfg)])
 
     return dict
