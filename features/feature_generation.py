@@ -1,7 +1,7 @@
 import configparser
 import json
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-from spacy_hunspell import spaCyHunSpell
+#from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -121,11 +121,10 @@ def word_frequency(string):
 def number_big_words(string, l=10):
     number = 0
     word_tokens = nltk.word_tokenize(string)
-    n = len(word_tokens)
     for word in word_tokens:
         if len(word) > l:
             number += 1
-    return (number, number / n)
+    return (number, number / count_words(string))
 
 
 # get number of words appearing i times in a string
@@ -135,11 +134,10 @@ def number_big_words(string, l=10):
 def number_words_appearing_i_times(string, i=1):
     number = 0
     word_freq = word_frequency(string)
-    n = len(nltk.word_tokenize(string))
     for word in word_freq:
         if word_freq[word] == i:
             number += 1
-    return (number, number / n)
+    return (number, number / count_words(string))
 
 
 def yules_k(string):
@@ -840,9 +838,9 @@ def feature_vector(string):
         dict["sentiment_analysis_sentence_average"] = sentiment_analysis_sentence_average(strings[select_string(cfg)], language)
 
     # Leetspeak
-    cfg = json.loads(config.get("Leetspeak", "leetspeak"))
-    if cfg[0] == 1:
-        dict["leetspeak"] = leetspeak(strings[select_string(cfg)])
+    #cfg = json.loads(config.get("Leetspeak", "leetspeak"))
+    #if cfg[0] == 1:
+    #    dict["leetspeak"] = leetspeak(strings[select_string(cfg)])
 
     # Additional Features
     cfg = json.loads(config.get("Additional Features", "emoji_frequency_word"))
