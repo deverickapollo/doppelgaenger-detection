@@ -1,6 +1,6 @@
 import configparser, json, language_tool_python
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-from spacy_hunspell import spaCyHunSpell
+#from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -275,10 +275,11 @@ def repeated_whitespace(string):
     whitespaces = re.findall(r"\s+", string)
     dict = {}
     for w in whitespaces:
-        if len(w) in dict:
-            dict[len(w)] += 1
-        else:
-            dict[len(w)] = 1
+        if len(w) > 1:
+            if len(w) in dict:
+                dict[len(w)] += 1
+            else:
+                dict[len(w)] = 1
     for whitespace in dict:
         dict[whitespace] = (dict[whitespace], dict[whitespace] / len(string))
     return dict
@@ -293,10 +294,11 @@ def repeated_whitespace_sentence(string):
         dict[sentence] = {}
         whitespaces = re.findall(r"\s+", sentence)
         for w in whitespaces:
-            if len(w) in dict:
-                dict[sentence][len(w)] += 1
-            else:
-                dict[sentence][len(w)] = 1
+            if len(w) > 1:
+                if len(w) in dict:
+                    dict[sentence][len(w)] += 1
+                else:
+                    dict[sentence][len(w)] = 1
         for whitespace in dict[sentence]:
             dict[sentence][whitespace] = (dict[sentence][whitespace], dict[sentence][whitespace] / len(sentence))
     return dict
@@ -452,7 +454,7 @@ def load_sentiment_lexicon(language):
 # returns the average per word
 def sentiment_analysis_word_average(string, language="EN"):
     sentiment_lexicon = load_sentiment_lexicon(language)
-    words = nltk.word_tokenize(string)
+    words = nltk.word_tokenize(string.lower())
     result = 0.0
     for word in words:
         if word in sentiment_lexicon:
@@ -465,7 +467,7 @@ def sentiment_analysis_word_average(string, language="EN"):
 # returns the average per sentence
 def sentiment_analysis_sentence_average(string, language="EN"):
     sentiment_lexicon = load_sentiment_lexicon(language)
-    sentences = nltk.sent_tokenize(string)
+    sentences = nltk.sent_tokenize(string.lower())
     dict = {}
     for sentence in sentences:
         result = 0.0

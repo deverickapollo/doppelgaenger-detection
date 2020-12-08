@@ -162,4 +162,32 @@ def test_total_number_words_sentence():
 
 def test_punctuation_frequency():
     mylogger.log(logging.DEBUG, "Input: This is. A test.")
-    assert feat.average_number_uppercase_letters_sentence("This is. A test.") == {'.': (2, 0.125)}, "test failed"
+    assert feat.punctuation_frequency("This is. A test.") == {'.': (2, 0.125)}, "test failed"
+
+def test_punctuation_frequency_sentence():
+    mylogger.log(logging.DEBUG, "Input: This is. A test.")
+    assert feat.punctuation_frequency_sentence("This is. A test.") == {'This is.': {'.': (1, 0.125)}, 'A test.': {'.': (1, 0.14285714285714285)}}, "test failed"
+
+def test_repeated_whitespace():
+    mylogger.log(logging.DEBUG, "Input: Test   Test. Test  Test.")
+    assert feat.repeated_whitespace("Test   Test. Test  Test.") == {3: (1, 0.041666666666666664), 2: (1, 0.041666666666666664)}, "test failed"
+
+def test_repeated_whitespace_sentence():
+    mylogger.log(logging.DEBUG, "Input: Test   Test. Test  Test.")
+    assert feat.repeated_whitespace_sentence("Test   Test. Test  Test.") == {'Test   Test.': {3: (1, 0.08333333333333333)}, 'Test  Test.': {2: (1, 0.09090909090909091)}}, "test failed"
+
+def test_uppercase_words():
+    mylogger.log(logging.DEBUG, "Input: Upper lower. Upper Upper.")
+    assert feat.uppercase_words("Upper lower. Upper Upper.") == (3, 0.75), "test failed"
+
+def test_uppercase_words_sentence():
+    mylogger.log(logging.DEBUG, "Input: Upper lower. Upper Upper.")
+    assert feat.uppercase_words_sentence("Upper lower. Upper Upper.") == {'Upper lower.': (1, 0.5), 'Upper Upper.': (2, 1.0)}, "test failed"
+
+def test_sentiment_analysis_word_average():
+    mylogger.log(logging.DEBUG, "Input: Happy sentence. Sad sentence.")
+    assert feat.sentiment_analysis_word_average("Happy sentence. Sad sentence.")  == 0.075, "test failed"
+
+def test_sentiment_analysis_sentence_average():
+    mylogger.log(logging.DEBUG, "Input: Happy sentence. Sad sentence.")
+    assert feat.sentiment_analysis_sentence_average("Happy sentence. Sad sentence.")  == {'happy sentence.': 0.375, 'sad sentence.': -0.225}, "test failed"
