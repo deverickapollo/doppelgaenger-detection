@@ -19,18 +19,18 @@ Data persistance provided by sqlite3 database.
 
 `pip3 install nltk`
 
+`pip3 install spacy`
+
+`pip3 install language_tool_python`
+
 In python console:
 `import nltk`,
 `nltk.download('punkt')`,
 `nltk.download('stopwords')`,
 `nltk.download('averaged_perceptron_tagger')`
 
-`pip3 install spacy`
-
 Download spacy language packs:
 `python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
-
-
 
 ---
 ## Execute: 
@@ -70,7 +70,7 @@ Modes Available:
 Run the Bot periodicly with watch: `watch -n3600 python3 guardianbot.py -r` (every hour)
                     
 ## Log files
-1. webapp.log - Provides debug related information when running guadianbot or the webserver
+1. webapp.log - Provides debug related information when running guardianbot or the webserver
 
 ---
 ## Testing

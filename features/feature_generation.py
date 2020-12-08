@@ -514,7 +514,6 @@ def emoji_frequency_sentence(string):
             dict[sentence][emoji] = (dict[sentence][emoji], dict[sentence][emoji] / count_words(sentence))
     return dict
 
-
 ###################################
 ####### LEETSPEAK ################
 ###################################
@@ -656,7 +655,6 @@ def get_language(string):
         if word in most_common_words['FR']:
             counter['FR'] += 1
     return max(counter, key=counter.get)
-
 
 # get the number of all capital words for a string
 # returns a tuple: (total, average)
