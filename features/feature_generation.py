@@ -132,6 +132,7 @@ def number_big_words(string, l=10):
 # for hapax dislegomena: i = 2
 # returns a tuple: (total, weighted)
 def number_words_appearing_i_times(string, i=1):
+    string = string.lower()
     number = 0
     word_freq = word_frequency(string)
     for word in word_freq:
@@ -153,11 +154,15 @@ def brunets_w(string):
 def honores_r(string):
     word_tokens = nltk.word_tokenize(string)
     n = len(word_tokens)
-    hapax_legomena_weighted = number_words_appearing_i_times(string)[1]
-    if hapax_legomena_weighted == 1:
-        return 0
-    else:
-        return 100 * (math.log(n) / (1 - hapax_legomena_weighted))
+    hapax_legomena = number_words_appearing_i_times(string)[0]
+    vocab_size = vocabulary_size(string)
+    div = hapax_legomena / vocab_size
+    print(hapax_legomena)
+    print(vocab_size)
+    print(div)
+    if div == 1:
+        div = 0.9999999
+    return 100 * (math.log(n) / (1 - div))
 
 
 ###################################
