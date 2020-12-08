@@ -1,7 +1,7 @@
 import configparser
 import json
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-#from spacy_hunspell import spaCyHunSpell
+from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -265,7 +265,7 @@ def punctuation_frequency_sentence(s):
 # get the frequency for the repeated occurences of whitespaces for a string
 # returns a dict with tuples (total, average)
 def repeated_whitespace(string):
-    whitespaces = re.findall("\s+", string)
+    whitespaces = re.findall(r"\s+", string)
     dict = {}
     for w in whitespaces:
         if len(w) in dict:
@@ -284,7 +284,7 @@ def repeated_whitespace_sentence(string):
     sentences = nltk.sent_tokenize(string)
     for sentence in sentences:
         dict[sentence] = {}
-        whitespaces = re.findall("\s+", sentence)
+        whitespaces = re.findall(r"\s+", sentence)
         for w in whitespaces:
             if len(w) in dict:
                 dict[sentence][len(w)] += 1
@@ -747,7 +747,7 @@ def feature_vector(string):
     string_remove_stop_words_lemmatize = process.lemmatize(string_remove_stop_words, language)
     strings = [string, string_remove_stop_words, string_lemmatize, string_remove_stop_words_lemmatize]
     config = configparser.ConfigParser()
-    config.readfp(open(r'feature_generation_config.cfg'))
+    config.readfp(open(r'features/feature_generation_config.cfg'))
 
     # Character Frequency
     cfg = json.loads(config.get("Character Frequency", "character_frequency_letters"))
