@@ -602,16 +602,27 @@ def leetCheck(token):
                 return status
     return status
 
-
 # Lets play a game.
 # input: String
 # output: True/False
-def swapValid(token):
+def swapValid(token, valDict,nlp):
     status = False
     for lValues in alpha.leet_alphabet.values():
         for leet in lValues:
             if leet in token:
-                print("hello")
+                copyToken = token
+                print("leet: "+ leet +  " token: " + token + " candidate: " + str(valDict[leet][0]) )
+
+                #This part of the algo needs to be expanded on
+                for l in valDict[leet]:
+                    otherStr = copyToken.replace(leet , str(valDict[leet][0]))
+                    #If spelled correctly, we test, otherwise try again. Perfect recursion case.
+                    #Check for misspelling
+                    check = nlp(otherStr)[0]
+                    if check._.hunspell_spell == True:
+                        status = True
+                        print(otherStr)
+                        return status    
     return status
 
 
@@ -640,13 +651,12 @@ def leetScan(string, valDict, language="EN", ):
                 leetcandidates.append(token)
     # Test candidate list for word validity using swapping
     for candidate in leetcandidates:
-        if swapValid(candidate):
+        if swapValid(candidate, valDict,nlp):
             count = count + 1
-    fraction = count // total_words
-    # Lazy solution
-    fraction = len(leetcandidates) // total_words
+    fraction = Fraction(count,total_words)
+    #Lazy solution
+    # fraction = Fraction(len(leetcandidates),total_words)
     return fraction
-
 
 # load word lists from text files
 def load_most_common_words():
