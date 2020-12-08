@@ -305,7 +305,7 @@ def uppercase_words(string):
     words = nltk.word_tokenize(string)
     counter_uppercase = 0
     for word in words:
-        if word.isupper():
+        if word.istitle():
             counter_uppercase += 1
     return (counter_uppercase, counter_uppercase / count_words(string))
 
@@ -319,7 +319,7 @@ def uppercase_words_sentence(string):
         words = nltk.word_tokenize(sentence)
         counter_uppercase = 0
         for word in words:
-            if word.isupper():
+            if word.istitle():
                 counter_uppercase += 1
         dict[sentence] = (counter_uppercase, counter_uppercase / count_words(sentence))
     return dict
@@ -693,6 +693,32 @@ def get_language(string):
     return max(counter, key=counter.get)
 
 
+# get the number of all capital words for a string
+# returns a tuple: (total, average)
+def all_capital_words(string):
+    words = nltk.word_tokenize(string)
+    counter_all_capital = 0
+    for word in words:
+        if word.isupper():
+            counter_all_capital += 1
+    return (counter_all_capital, counter_all_capital / count_words(string))
+
+
+# get the number of all capital words per sentence for a string
+# returns a dict with a tuple per sentence: (total, average)
+def all_capital_words_sentence(string):
+    dict = {}
+    sentences = nltk.sent_tokenize(string)
+    for sentence in sentences:
+        words = nltk.word_tokenize(sentence)
+        counter_all_capital = 0
+        for word in words:
+            if word.isupper():
+                counter_all_capital += 1
+        dict[sentence] = (counter_all_capital, counter_all_capital / count_words(sentence))
+    return dict
+
+
 
 
 ###################################
@@ -817,7 +843,7 @@ def feature_vector(string):
     if cfg[0] == 1:
         dict["leetspeak"] = leetspeak(strings[select_string(cfg)])
 
-    # Idiosyncrasy
+    # Additional Features
     cfg = json.loads(config.get("Additional Features", "emoji_frequency_word"))
     if cfg[0] == 1:
         dict["emoji_frequency_word"] = emoji_frequency_word(strings[select_string(cfg)])
@@ -827,5 +853,11 @@ def feature_vector(string):
     cfg = json.loads(config.get("Additional Features", "get_language"))
     if cfg[0] == 1:
         dict["get_language"] = get_language(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Additional Features", "all_capital_words"))
+    if cfg[0] == 1:
+        dict["all_capital_words"] = all_capital_words(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Additional Features", "all_capital_words_sentence"))
+    if cfg[0] == 1:
+        dict["all_capital_words_sentence"] = all_capital_words_sentence(strings[select_string(cfg)])
 
     return dict
