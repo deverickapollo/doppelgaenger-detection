@@ -7,6 +7,8 @@ mylogger = logging.getLogger()
 # mylogger.log(logging.DEBUG, "Leet is %s", leet)
 
 raw_comment = "1. Here is sample /\\pple I3urger  23424, comment of language used to test 0 functions found in our feature generation file. L33t bcuz Le3t. 2. This is purely for test purposes  .  Test, Repeat. 1, 2 3 ,434, 4 "
+sensitive_comment = u'/\pple is all i need'
+
 def test_py():
       x=5
       y=6
@@ -81,9 +83,10 @@ def test_reverse():
 
 def test_upperCase():
     mylogger.log(logging.DEBUG, "Word: Strong")
-    assert feat.uppercase_words("Strong")[0] == 1 
-    mylogger.log(logging.DEBUG, "Word: Strong is The key")
-    assert feat.uppercase_words("Strong is The key")[0] == 2
+    assert feat.uppercase_words("Strong")[0] == 1, "test failed"
+def test_ALLCAPS():    
+    mylogger.log(logging.DEBUG, "Word: STRONG is THE KEY")
+    assert feat.all_capital_words("STRONG is THE KEY")[0] == 3, "test failed"
 
 def test_grammar():
-    assert feat.grammarCheck(u'A sentence with a error in the Hitchhiker’s Guide tot he Galaxy')[1] == 2
+    assert feat.grammarCheck(u'A sentence with a error in the Hitchhiker’s Guide tot he Galaxy')[1] == 2, "test failed"
