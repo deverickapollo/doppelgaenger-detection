@@ -644,6 +644,7 @@ def load_most_common_words():
 #
 # returns the language
 def get_language(string):
+    string = string.lower()
     words = nltk.word_tokenize(string)
     counter = dict(DE=0, EN=0, ES=0, FR=0)
     most_common_words = load_most_common_words()
