@@ -1,7 +1,7 @@
 import configparser
 import json
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-from spacy_hunspell import spaCyHunSpell
+#from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -13,7 +13,7 @@ from collections import defaultdict
 
 # count words of a string excluding all punctuation but including emojis
 def count_words(s):
-    with open("../misc/emojis/emoji_list", "r") as f:
+    with open("misc/emojis/emoji_list", "r") as f:
         lines = f.read().splitlines()
     counter_include = 0
     for l in lines:
@@ -344,13 +344,13 @@ def uppercase_words_sentence(string):
 # In: Proceedings of the 7th International Language Ressources and Evaluation (LREC'10), 201
 def load_sentiment_lexicon_german():
     dict = {}
-    with open("../misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt") as f:
+    with open("misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
         line = re.split("\|.{0,6}\\t|\\t|,", line)
         for word in line[:1] + line[2:]:
             dict[word] = line[1]
-    with open("../misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt") as f:
+    with open("misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
         line = re.split("\|.{0,6}\\t|\\t|,", line)
@@ -379,7 +379,7 @@ def load_sentiment_lexicon_german():
 # Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.
 def load_sentiment_lexicon_english():
     dict = {}
-    with open("../misc/sentiment_analysis/en/vader_lexicon.txt") as f:
+    with open("misc/sentiment_analysis/en/vader_lexicon.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
         line = re.split("\t", line)
@@ -396,7 +396,7 @@ def load_sentiment_lexicon_english():
 # Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
 def load_sentiment_lexicon_spanish():
     dict = {}
-    with open("../misc/sentiment_analysis/es/AFINN-es-111.txt") as f:
+    with open("misc/sentiment_analysis/es/AFINN-es-111.txt") as f:
         lines = f.read()
     lines = re.split(',', lines)
     for line in lines:
@@ -414,7 +414,7 @@ def load_sentiment_lexicon_spanish():
 # Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
 def load_sentiment_lexicon_french():
     dict = {}
-    with open("../misc/sentiment_analysis/fr/AFINN-fr-165.txt") as f:
+    with open("misc/sentiment_analysis/fr/AFINN-fr-165.txt") as f:
         lines = f.read().splitlines()
     for line in lines:
         line = re.split("\t", line)
@@ -516,7 +516,7 @@ def leetcheck(string, language="EN"):
 # get the emoji frequency for a string
 # returns a dict with tuples per emoji: tuple (total, average)
 def emoji_frequency_word(string):
-    with open("../misc/emojis/emoji_list", "r") as f:
+    with open("misc/emojis/emoji_list", "r") as f:
         lines = f.read().splitlines()
     dict = {}
     for l in lines:
@@ -532,7 +532,7 @@ def emoji_frequency_word(string):
 # get the emoji frequency for a string
 # returns a dict with tuples per sentence and emoji: tuple (total, average)
 def emoji_frequency_sentence(string):
-    with open("../misc/emojis/emoji_list", "r") as f:
+    with open("misc/emojis/emoji_list", "r") as f:
         lines = f.read().splitlines()
     sentences = nltk.sent_tokenize(string)
     dict = {}
@@ -650,13 +650,13 @@ def leetScan(string, valDict, language="EN", ):
 
 # load word lists from text files
 def load_most_common_words():
-    with open("../misc/most_common_words/de.txt", "r") as f:
+    with open("misc/most_common_words/de.txt", "r") as f:
         german = f.read().splitlines()
-    with open("../misc/most_common_words/en.txt", "r") as f:
+    with open("misc/most_common_words/en.txt", "r") as f:
         english = f.read().splitlines()
-    with open("../misc/most_common_words/es.txt", "r") as f:
+    with open("misc/most_common_words/es.txt", "r") as f:
         spanish = f.read().splitlines()
-    with open("../misc/most_common_words/fr.txt", "r") as f:
+    with open("misc/most_common_words/fr.txt", "r") as f:
         french = f.read().splitlines()
     return dict(DE=german, EN=english, ES=spanish, FR=french)
 
@@ -819,4 +819,3 @@ def feature_vector(string):
         dict["get_language"] = get_language(strings[select_string(cfg)])
 
     return dict
-
