@@ -79,14 +79,6 @@ def test_insert_and_verify_user():
 #    leet = feat.dictionary_values_as_keys(alpha.leet_alphabet)
 #    assert leet == reverse
 
-def test_upperCase():
-    mylogger.log(logging.DEBUG, "Word: Strong")
-    assert feat.uppercase_words("Strong")[0] == 1, "test failed"
-
-def test_ALLCAPS():    
-    mylogger.log(logging.DEBUG, "Word: STRONG is THE KEY")
-    assert feat.all_capital_words("STRONG is THE KEY")[0] == 3, "test failed"
-
 #def test_grammar():
  #   assert feat.grammarCheck(u'A sentence with a error in the Hitchhiker’s Guide tot he Galaxy')[1] == 2, "test failed"
 
@@ -191,3 +183,27 @@ def test_sentiment_analysis_word_average():
 def test_sentiment_analysis_sentence_average():
     mylogger.log(logging.DEBUG, "Input: Happy sentence. Sad sentence.")
     assert feat.sentiment_analysis_sentence_average("Happy sentence. Sad sentence.")  == {'happy sentence.': 0.375, 'sad sentence.': -0.225}, "test failed"
+
+def test_emoji_frequency_word():
+    mylogger.log(logging.DEBUG, "Input: This is :-). This is :(.")
+    assert feat.emoji_frequency_word("This is :-). This is :(.")  == {':(': (1, 0.16666666666666666), ':-)': (1, 0.16666666666666666)}, "test failed"
+
+def test_emoji_frequency_sentence():
+    mylogger.log(logging.DEBUG, "Input: This is :-). This is :(.")
+    assert feat.emoji_frequency_sentence("This is :-). This is :(.")  == {'This is :-).': {':-)': (1, 0.3333333333333333)}, 'This is :(.': {':(': (1, 0.3333333333333333)}}, "test failed"
+
+def test_get_language_de():
+    mylogger.log(logging.DEBUG, "Input: Das ist ein deutscher Satz.")
+    assert feat.get_language("Das ist ein deutscher Satz") == "DE", "test failed"
+
+def test_get_language_en():
+    mylogger.log(logging.DEBUG, "Input: This is an english sentence.")
+    assert feat.get_language("This is an english sentence.") == "EN", "test failed"
+
+def test_all_capital_words():
+    mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
+    assert feat.all_capital_words("STRONG is THE KEY") == (3, 0.75), "test failed"
+
+def test_all_capital_words_sentence():
+    mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
+    assert feat.all_capital_words_sentence("STRONG is THE KEY") == {'STRONG is THE KEY': (3, 0.75)}, "test failed"
