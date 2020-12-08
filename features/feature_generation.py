@@ -132,6 +132,7 @@ def number_big_words(string, l=10):
 # for hapax dislegomena: i = 2
 # returns a tuple: (total, weighted)
 def number_words_appearing_i_times(string, i=1):
+    string = string.lower()
     number = 0
     word_freq = word_frequency(string)
     for word in word_freq:
@@ -153,11 +154,15 @@ def brunets_w(string):
 def honores_r(string):
     word_tokens = nltk.word_tokenize(string)
     n = len(word_tokens)
-    hapax_legomena_weighted = number_words_appearing_i_times(string)[1]
-    if hapax_legomena_weighted == 1:
-        return 0
-    else:
-        return 100 * (math.log(n) / (1 - hapax_legomena_weighted))
+    hapax_legomena = number_words_appearing_i_times(string)[0]
+    vocab_size = vocabulary_size(string)
+    div = hapax_legomena / vocab_size
+    print(hapax_legomena)
+    print(vocab_size)
+    print(div)
+    if div == 1:
+        div = 0.9999999
+    return 100 * (math.log(n) / (1 - div))
 
 
 ###################################
@@ -718,6 +723,29 @@ def all_capital_words_sentence(string):
     return dict
 
 
+# get the vocabulary size for a string
+def vocabulary_size(string):
+    string = string.lower()
+    vocab = set()
+    words = nltk.word_tokenize(string)
+    for word in words:
+        if not word in punctuation:
+            vocab.add(word)
+    return len(vocab)
+
+
+# get the mean word frequency
+def mean_word_frequency(string):
+    return count_words(string) / vocabulary_size(string)
+
+
+# get the type token ratio
+def type_token_ratio(string):
+    return vocabulary_size(string) / count_words(string)
+
+
+
+
 
 
 ###################################
@@ -858,5 +886,11 @@ def feature_vector(string):
     cfg = json.loads(config.get("Additional Features", "all_capital_words_sentence"))
     if cfg[0] == 1:
         dict["all_capital_words_sentence"] = all_capital_words_sentence(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Additional Features", "type_token_ratio"))
+    if cfg[0] == 1:
+        dict["type_token_ratio"] = type_token_ratio(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Additional Features", "mean_word_frequency"))
+    if cfg[0] == 1:
+        dict["mean_word_frequency"] = mean_word_frequency(strings[select_string(cfg)])
 
     return dict
