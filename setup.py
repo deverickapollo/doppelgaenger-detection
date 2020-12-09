@@ -39,6 +39,7 @@ class PreInstallCommand(install):
         check_call("python3 -m pip install language_tool_python".split())
         check_call("python3 -m pip install spacy".split())
         check_call("python3 -m pip install scrapy".split())
+        check_call("python3 -m pip install itemadapter".split())
         check_call("python3 -m pip install wheel".split())
         check_call("python3 -m pip install numpy".split())
         check_call("python3 -m pip install Twisted".split())
