@@ -4,7 +4,8 @@ See:
 https://packaging.python.org/guides/distributing-packages-using-setuptools/
 """
 
-import os
+import os, sys, subprocess
+import os.path
 import atexit
 import pathlib
 # Always prefer setuptools over distutils
@@ -17,7 +18,9 @@ here = pathlib.Path(__file__).parent.resolve()
 # Get the long description from the README file
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
-
+def subprocess_cmd(command):
+    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
+    proc_stdout = process.communicate()[0].strip()
 
 def _post_install():
     print('============== POST INSTALL ==============')
@@ -36,23 +39,27 @@ class new_install(install):
         super(new_install, self).__init__(*args, **kwargs)
         atexit.register(_post_install)
 
+#UPDATE WHEN TIME
 class PreInstallCommand(install):
     """Pre-installation for installation mode."""
     def run(self):
-        check_call("python3 -m venv DoppelDetect".split())
-        check_call("source DoppelDetect/bin/activate".split())
         check_call("python3 -m pip install --upgrade pip".split())
         check_call("pip3 install numpy".split())
         check_call("brew reinstall hunspell".split())
         check_call("pip3 install cyhunspell".split())
-        check_call("git clone https://github.com/hashes4merkle/spacy_hunspell.git && git clone https://github.com/hashes4merkle/pyhunspell.git".split())
-        check_call("ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a".split())
-        check_call("ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a".split())
-        check_call("ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib".split())
-        check_call("CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell".split())
-
-        check_call("cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install".split())
-        check_call("cd pyhunspell && python3 setup.py install".split())
+        check_call("pip3 install wheel".split())
+        check_call("pip3 install scrapy".split())
+        check_call("pip3 install numpy".split())
+        check_call("pip3 install Twisted".split())
+        check_call("pip3 install flask".split())
+        check_call("pip3 install timeloop".split())
+        check_call("pip3 install pytz".split())
+        check_call("pip3 install nltk".split())
+        check_call("pip3 install language_tool_python".split())
+        check_call("pip3 install spacy".split())
+        check_call("pip3 install spacy".split())
+        subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
+        subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
         install.run(self)
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
