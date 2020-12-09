@@ -10,49 +10,24 @@ import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 from setuptools.command.install import install
-
+from subprocess import check_call
 
 here = pathlib.Path(__file__).parent.resolve()
 
 # Get the long description from the README file
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
+
+
 def _post_install():
     print('============== POST INSTALL ==============')
 
-    version = "python3 --version" #command to be executed
-    spacyPackage = "git clone https://github.com/hashes4merkle/spacy_hunspell.git && git clone https://github.com/hashes4merkle/pyhunspell.git"
-    brew = "brew reinstall hunspell"
-    numpy = "pip3 install numpy"
-    link = "ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a"
-    link2 = "ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib"
-    pip = "CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell"
-
-    # hunspell_include = "export C_INCLUDE_PATH=/usr/local/include/hunspell "
-    install_hunspell = "cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install"
-    gohome = f"cd {here}"
-    install_pyhunspell = "cd pyhunspell && python3 setup.py install"
     download = "python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm"
     nltk = "python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger"
-    res = os.system(version)
-    print("Returned Value: ", res)
-    print(here)
-    os.system(spacyPackage)
-    os.system(brew)
-    os.system(numpy)
-    os.system(link)
-    os.system(link2)
-    os.system(pip)
-    os.system(gohome)
-#   os.system(hunspell_include)
-    os.system(install_hunspell)
+ 
     os.system(download)
-    os.system(gohome)
-    os.system(install_pyhunspell)
     os.system(nltk)
 
-
-    
     print('========== END OF POST INSTALL ===========')
 
 
@@ -61,6 +36,24 @@ class new_install(install):
         super(new_install, self).__init__(*args, **kwargs)
         atexit.register(_post_install)
 
+class PreInstallCommand(install):
+    """Pre-installation for installation mode."""
+    def run(self):
+        check_call("python3 -m venv DoppelDetect".split())
+        check_call("source DoppelDetect/bin/activate".split())
+        check_call("python3 -m pip install --upgrade pip".split())
+        check_call("pip3 install numpy".split())
+        check_call("brew reinstall hunspell".split())
+        check_call("pip3 install cyhunspell".split())
+        check_call("git clone https://github.com/hashes4merkle/spacy_hunspell.git && git clone https://github.com/hashes4merkle/pyhunspell.git".split())
+        check_call("ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a".split())
+        check_call("ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a".split())
+        check_call("ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib".split())
+        check_call("CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell".split())
+
+        check_call("cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install".split())
+        check_call("cd pyhunspell && python3 setup.py install".split())
+        install.run(self)
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
@@ -164,5 +157,8 @@ setup(
     #         'sample=sample:main',
     #     ],
     # },
-    cmdclass={'install': new_install},
+    cmdclass={
+        'install': new_install,
+        'install': PreInstallCommand,
+    },
 )
