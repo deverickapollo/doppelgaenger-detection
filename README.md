@@ -16,6 +16,8 @@ Data persistance provided by sqlite3 database.
 - nltk
 - spacy
 - language_tool_python
+- numphy
+- wheel
 
 
 
@@ -24,6 +26,8 @@ Data persistance provided by sqlite3 database.
 
 - `python3 -m venv DoppelDetect`
 - `source DoppelDetect/bin/activate`
+- `dopple-env/bin/python3 -m pip install --upgrade pip`
+- `pip3 install numpy`
 - `python3 setup.py install`
 
 
@@ -38,6 +42,8 @@ Download packages from nltk:
 
 Download spacy language packs:
 `python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
+
+
 
 ---
 ## Execute: 

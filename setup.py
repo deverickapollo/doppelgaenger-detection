@@ -5,14 +5,11 @@ https://packaging.python.org/guides/distributing-packages-using-setuptools/
 """
 
 import os
-import sys
 import atexit
 import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-from setuptools.command.develop import develop
 from setuptools.command.install import install
-from subprocess import check_call
 
 
 here = pathlib.Path(__file__).parent.resolve()
@@ -131,7 +128,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['wheel', 'scrapy','Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy', 'numpy'],  # Optional
+    install_requires=['wheel', 'scrapy','numpy', 'Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
