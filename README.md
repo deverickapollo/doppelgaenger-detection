@@ -7,6 +7,7 @@ Data persistance provided by sqlite3 database.
 ---
 ## Setup Requirements
 
+
 `pip3 install scrapy`
 
 `pip3 install Twisted`
@@ -31,6 +32,10 @@ In python console:
 
 Download spacy language packs:
 `python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
+
+---
+## Installation:
+`python3 setup.py install`
 
 ---
 ## Execute: 
@@ -75,7 +80,7 @@ Run the Bot periodicly with watch: `watch -n3600 python3 guardianbot.py -r` (eve
 ---
 ## Testing
 
-**TO Run**
+**To Run**
 
 `pytest --html=report.html test.py`
 

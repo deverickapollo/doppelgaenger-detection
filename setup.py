@@ -1,20 +1,64 @@
 """A setuptools based setup module.
+
 See:
 https://packaging.python.org/guides/distributing-packages-using-setuptools/
 """
 
+import os
+import sys
+import atexit
+import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-import pathlib
+from setuptools.command.develop import develop
+from setuptools.command.install import install
+from subprocess import check_call
+
 
 here = pathlib.Path(__file__).parent.resolve()
 
 # Get the long description from the README file
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
+def _post_install():
+    print('============== POST INSTALL ==============')
+
+    version = "python3 --version" #command to be executed
+    spacyPackage = "git clone https://github.com/hashes4merkle/spacy_hunspell.git && git clone https://github.com/hashes4merkle/pyhunspell.git"
+    hunspell_include = "export C_INCLUDE_PATH=/usr/local/include/hunspell && ln -s /usr/local/lib/libhunspell-{VERSION_NUMBER}.a /usr/local/lib/libhunspell.a &&"
+    install_hunspell = "cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install"
+    gohome = f"cd {here}"
+    install_pyhunspell = "cd pyhunspell && python3 setup.py install"
+    download = "python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm"
+    nltk = "python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger"
+    res = os.system(version)
+    print("Returned Value: ", res)
+    print(here)
+    os.system(spacyPackage)
+    os.system(gohome)
+    os.system(hunspell_include)
+    os.system(install_hunspell)
+    os.system(download)
+    os.system(gohome)
+    os.system(install_pyhunspell)
+ 
+    os.system(nltk)
+
+    
+
+
+    
+    print('========== END OF POST INSTALL ===========')
+
+
+class new_install(install):
+    def __init__(self, *args, **kwargs):
+        super(new_install, self).__init__(*args, **kwargs)
+        atexit.register(_post_install)
+
+
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
-
 setup(
 
     # $ pip install doppel-detect
@@ -115,5 +159,5 @@ setup(
     #         'sample=sample:main',
     #     ],
     # },
-
+    cmdclass={'install': new_install},
 )
