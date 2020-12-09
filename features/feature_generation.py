@@ -1,6 +1,6 @@
 import configparser, json, language_tool_python
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-from spacy_hunspell import spaCyHunSpell
+#from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -338,6 +338,19 @@ def grammarCheck(string, language = "en-US"):
     tool = language_tool_python.LanguageTool(language)
     errors = tool.check(string)
     return (errors, len(errors))
+
+
+# get the number of grammar mistakes within a string
+# returns a tuple: (errors, len(matches))
+def grammarCheck_sentence(string, language = "en-US"):
+    dict = {}
+    sentences = nltk.sent_tokenize(string)
+    tool = language_tool_python.LanguageTool(language)
+    for sentence in sentences:
+        errors = tool.check(sentence)
+        dict[sentence] = (errors, len(errors))
+    return dict
+
 
 ###################################
 ##### SENTIMENT ANALYSIS ##########
@@ -830,6 +843,12 @@ def feature_vector(string):
     cfg = json.loads(config.get("Idiosyncrasy", "uppercase_words_sentence"))
     if cfg[0] == 1:
         dict["uppercase_words_sentence"] = uppercase_words_sentence(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Idiosyncrasy", "grammarCheck"))
+    if cfg[0] == 1:
+        dict["grammarCheck"] = grammarCheck(strings[select_string(cfg)])
+    cfg = json.loads(config.get("Idiosyncrasy", "grammarCheck_sentence"))
+    if cfg[0] == 1:
+        dict["grammarCheck_sentence"] = grammarCheck_sentence(strings[select_string(cfg)])
 
     # Sentiment Analysis
     cfg = json.loads(config.get("Sentiment Analysis", "sentiment_analysis_word_average"))

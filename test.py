@@ -33,9 +33,9 @@ def test_insert_and_verify_user():
     conn.commit()
     db.close_db_connection(conn)
 
-def test_leetScan():
-    leet = feat.dictionary_values_as_keys(alpha.leet_alphabet)
-    assert feat.leetScan(raw_comment,leet) == Fraction(1, 24)
+#def test_leetScan():
+#    leet = feat.dictionary_values_as_keys(alpha.leet_alphabet)
+#    assert feat.leetScan(raw_comment,leet) == Fraction(1, 24)
 
 def test_check():
     assert feat.leetCheck("/\\pple") == True, "test failed"
