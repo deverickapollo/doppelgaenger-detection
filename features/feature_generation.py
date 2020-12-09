@@ -845,10 +845,10 @@ def feature_vector(string):
         dict["uppercase_words_sentence"] = uppercase_words_sentence(strings[select_string(cfg)])
     cfg = json.loads(config.get("Idiosyncrasy", "grammarCheck"))
     if cfg[0] == 1:
-        dict["grammarCheck"] = grammarCheck(strings[select_string(cfg)])
+        dict["grammarCheck"] = grammarCheck(strings[select_string(cfg)], language)
     cfg = json.loads(config.get("Idiosyncrasy", "grammarCheck_sentence"))
     if cfg[0] == 1:
-        dict["grammarCheck_sentence"] = grammarCheck_sentence(strings[select_string(cfg)])
+        dict["grammarCheck_sentence"] = grammarCheck_sentence(strings[select_string(cfg)], language)
 
     # Sentiment Analysis
     cfg = json.loads(config.get("Sentiment Analysis", "sentiment_analysis_word_average"))
