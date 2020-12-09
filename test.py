@@ -33,11 +33,6 @@ def test_insert_and_verify_user():
     conn.commit()
     db.close_db_connection(conn)
 
-def test_leet_string_sentence():
-    leet = feat.leetspeak_sentence(raw_comment)
-    leet_compare = {'H': 1, 'e': 190, 'r': 7, 'i': 7, 's': 11, 'a': 7, 'm': 3, 'p': 5, 'l': 4, 'c': 2, 'o': 9, 'n': 8, 't': 11, 'f': 6, 'g': 3, 'u': 8, 'd': 2, 'T': 2, 'h': 1, 'y': 1, 'R': 1}
-    assert leet != leet, "test failed"
-
 def test_leetScan():
     leet = feat.dictionary_values_as_keys(alpha.leet_alphabet)
     assert feat.leetScan(raw_comment,leet) == Fraction(1, 24)

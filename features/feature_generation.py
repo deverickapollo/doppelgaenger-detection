@@ -1,6 +1,6 @@
 import configparser, json, language_tool_python
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-#from spacy_hunspell import spaCyHunSpell
+from spacy_hunspell import spaCyHunSpell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
