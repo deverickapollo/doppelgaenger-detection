@@ -30,6 +30,7 @@ Data persistance provided by sqlite3 database.
   
 ## Installation:
 
+# IN BETA
 - `python3 setup.py install`
 
 ## Uninstall:
