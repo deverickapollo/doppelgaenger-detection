@@ -1,6 +1,6 @@
 import configparser, json, language_tool_python
 import math, re, nltk, features.leetalpha as alpha, string, spacy, features.preprocessing as process
-#from spacy_hunspell import spaCyHunSpell
+from hunspell import Hunspell
 from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
@@ -586,7 +586,7 @@ def leetCheck(token):
 # Lets play a game.
 # input: String
 # output: True/False
-def swapValid(token, valDict,nlp):
+def swapValid(token, valDict,h):
     status = False
     for lValues in alpha.leet_alphabet.values():
         for leet in lValues:
@@ -597,8 +597,7 @@ def swapValid(token, valDict,nlp):
                     otherStr = copyToken.replace(leet , str(valDict[leet][0]))
                     #If spelled correctly, we test, otherwise try again. Perfect recursion case.
                     #Check for misspelling
-                    check = nlp(otherStr)[0]
-                    if check._.hunspell_spell == True:
+                    if h.spell(otherStr) == True:
                         status = True
                         print(otherStr)
                         return status    
@@ -612,24 +611,20 @@ def swapValid(token, valDict,nlp):
 def leetScan(string, valDict, language="EN" ):
     leetcandidates = []
     count = 0
-    nlp = spacy.load(process.spacy_models_dict.get(language.upper()))
-    hunspell = spaCyHunSpell(nlp, ('/Library/Spelling/en_US.dic', '/Library/Spelling/en_US.aff'))
-    # Need to consider other languages here
-    nlp.add_pipe(hunspell)
+    h = Hunspell('en_US', hunspell_data_dir='/Library/Spelling')
     tokens = nltk.word_tokenize(string)
     # Calculate Total Words in string
     total_words = len(tokens)
     for token in tokens:
         # Check for misspelling
-        check = nlp(token)[0]
-        if check._.hunspell_spell == False:
+        if h.spell(token)== False:
             # See if word contains leet
             if leetCheck(token):
                 # Add to possible candidate list
                 leetcandidates.append(token)
     # Test candidate list for word validity using swapping
     for candidate in leetcandidates:
-        if swapValid(candidate, valDict,nlp):
+        if swapValid(candidate, valDict,h):
             count = count + 1
     fraction = Fraction(count,total_words)
     #Lazy solution
