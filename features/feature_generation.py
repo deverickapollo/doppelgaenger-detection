@@ -5,7 +5,6 @@ from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
 
-
 ###################################
 ####### HELPER FUNCTIONS ##########
 ###################################

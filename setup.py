@@ -22,7 +22,12 @@ def _post_install():
 
     version = "python3 --version" #command to be executed
     spacyPackage = "git clone https://github.com/hashes4merkle/spacy_hunspell.git && git clone https://github.com/hashes4merkle/pyhunspell.git"
-    hunspell_include = "export C_INCLUDE_PATH=/usr/local/include/hunspell && ln -s /usr/local/lib/libhunspell-{VERSION_NUMBER}.a /usr/local/lib/libhunspell.a &&"
+    brew = "brew reinstall hunspell"
+    link = "ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a"
+    link2 = "ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib"
+    pip = "CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell"
+
+    # hunspell_include = "export C_INCLUDE_PATH=/usr/local/include/hunspell "
     install_hunspell = "cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install"
     gohome = f"cd {here}"
     install_pyhunspell = "cd pyhunspell && python3 setup.py install"
@@ -32,16 +37,17 @@ def _post_install():
     print("Returned Value: ", res)
     print(here)
     os.system(spacyPackage)
+    os.system(brew)
+    os.system(link)
+    os.system(link2)
+    os.system(pip)
     os.system(gohome)
-    os.system(hunspell_include)
+#   os.system(hunspell_include)
     os.system(install_hunspell)
     os.system(download)
     os.system(gohome)
     os.system(install_pyhunspell)
- 
     os.system(nltk)
-
-    
 
 
     
@@ -128,7 +134,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['wheel', 'scrapy','numpy', 'Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy'],  # Optional
+    install_requires=['wheel', 'cyhunspell' ,'scrapy','numpy', 'Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"

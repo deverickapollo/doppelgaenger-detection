@@ -8,6 +8,7 @@ Data persistance provided by sqlite3 database.
 ## Setup Requirements
 
 - python3
+- cyhunspell
 - scrapy
 - Twisted
 - flask
@@ -19,17 +20,22 @@ Data persistance provided by sqlite3 database.
 - numphy
 - wheel
 
-
-
 ---
-## Installation:
+## Preinstallation venv setup: 
 
 - `python3 -m venv DoppelDetect`
 - `source DoppelDetect/bin/activate`
 - `dopple-env/bin/python3 -m pip install --upgrade pip`
-- `pip3 install numpy`
-- `python3 setup.py install`
+  
+## Installation:
 
+- `brew reinstall hunspell`
+- `ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a`
+- `ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib`
+- `CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell`
+- in pyhunspell: 
+  - `pip install -r requirements.txt`
+  - `python3 setup.py install`
 
 ## Uninstall:
 - `pip3 uninstall DoppelDetect`
@@ -42,8 +48,6 @@ Download packages from nltk:
 
 Download spacy language packs:
 `python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
-
-
 
 ---
 ## Execute: 
@@ -87,8 +91,6 @@ Run the Bot periodically with watch: `watch -n3600 python3 guardianbot.py -r` (e
 
 ---
 ## Testing
-
-**To Run**
 
 `pytest --html=report.html test.py`
 
