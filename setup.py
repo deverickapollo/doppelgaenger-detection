@@ -23,6 +23,7 @@ def _post_install():
     version = "python3 --version" #command to be executed
     spacyPackage = "git clone https://github.com/hashes4merkle/spacy_hunspell.git && git clone https://github.com/hashes4merkle/pyhunspell.git"
     brew = "brew reinstall hunspell"
+    numpy = "pip3 install numpy"
     link = "ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a"
     link2 = "ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib"
     pip = "CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell"
@@ -38,6 +39,7 @@ def _post_install():
     print(here)
     os.system(spacyPackage)
     os.system(brew)
+    os.system(numpy)
     os.system(link)
     os.system(link2)
     os.system(pip)
