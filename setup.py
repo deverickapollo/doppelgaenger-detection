@@ -44,8 +44,8 @@ class PreInstallCommand(install):
     """Pre-installation for installation mode."""
     def run(self):
         check_call("python3 -m pip install --upgrade pip".split())
-        check_call("pip3 install numpy".split())
         check_call("brew reinstall hunspell".split())
+        
         check_call("pip3 install cyhunspell".split())
         check_call("pip3 install wheel".split())
         check_call("pip3 install scrapy".split())
@@ -56,7 +56,6 @@ class PreInstallCommand(install):
         check_call("pip3 install pytz".split())
         check_call("pip3 install nltk".split())
         check_call("pip3 install language_tool_python".split())
-        check_call("pip3 install spacy".split())
         check_call("pip3 install spacy".split())
         subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
         subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
@@ -136,7 +135,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['wheel', 'cyhunspell' ,'scrapy','numpy', 'Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy'],  # Optional
+    install_requires=['wheel', 'hunspell' 'cyhunspell' ,'scrapy','numpy', 'Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
