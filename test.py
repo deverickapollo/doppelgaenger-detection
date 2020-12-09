@@ -16,6 +16,9 @@ def test_insert_and_verify_user():
     #Database declaration and connection
     database = r'database/dopplegaenger.db'
     conn = db.create_connection(database)
+    create_article_table(conn)
+    create_user_table(conn)
+    create_comment_table(conn)
     #Returns a dictionary cursor instead of tuple
     conn.row_factory = db.sql.Row
     thisdict = {
