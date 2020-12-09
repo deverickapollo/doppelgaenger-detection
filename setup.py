@@ -4,6 +4,7 @@ See:
 https://packaging.python.org/guides/distributing-packages-using-setuptools/
 """
 
+
 import os, sys, subprocess
 import os.path
 import atexit
@@ -22,22 +23,11 @@ def subprocess_cmd(command):
     process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
     proc_stdout = process.communicate()[0].strip()
 
-def _post_install():
-    print('============== POST INSTALL ==============')
-
-    download = "python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm"
-    nltk = "python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger"
- 
-    os.system(download)
-    os.system(nltk)
-
-    print('========== END OF POST INSTALL ===========')
-
 
 class new_install(install):
     def __init__(self, *args, **kwargs):
         super(new_install, self).__init__(*args, **kwargs)
-        atexit.register(_post_install)
+        # atexit.register(_post_install)
 
 #UPDATE WHEN TIME
 class PreInstallCommand(install):
@@ -45,21 +35,27 @@ class PreInstallCommand(install):
     def run(self):
         check_call("python3 -m pip install --upgrade pip".split())
         check_call("brew reinstall hunspell".split())
+        check_call("python3 -m pip install cyhunspell".split())
+        check_call("python3 -m pip install language_tool_python".split())
+        check_call("python3 -m pip install spacy".split())
+        check_call("python3 -m pip install scrapy".split())
+        check_call("python3 -m pip install wheel".split())
+        check_call("python3 -m pip install numpy".split())
+        check_call("python3 -m pip install Twisted".split())
+        check_call("python3 -m pip install flask".split())
+        check_call("python3 -m pip install timeloop".split())
+        check_call("python3 -m pip install pytz".split())
+        check_call("python3 -m pip install nltk".split())
         
-        check_call("pip3 install cyhunspell".split())
-        check_call("pip3 install wheel".split())
-        check_call("pip3 install scrapy".split())
-        check_call("pip3 install numpy".split())
-        check_call("pip3 install Twisted".split())
-        check_call("pip3 install flask".split())
-        check_call("pip3 install timeloop".split())
-        check_call("pip3 install pytz".split())
-        check_call("pip3 install nltk".split())
-        check_call("pip3 install language_tool_python".split())
-        check_call("pip3 install spacy".split())
+        subprocess_cmd("git clone https://github.com/hashes4merkle/spacy_hunspell.git")
+        
+        check_call("cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install".split())        
+        
         subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
         subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
         install.run(self)
+
+
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
@@ -135,7 +131,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['wheel', 'hunspell' 'cyhunspell' ,'scrapy','numpy', 'Twisted','flask', 'timeloop','pytz','nltk','language_tool_python','spacy'],  # Optional
+    install_requires=[],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -164,7 +160,6 @@ setup(
     #     ],
     # },
     cmdclass={
-        'install': new_install,
         'install': PreInstallCommand,
     },
 )
