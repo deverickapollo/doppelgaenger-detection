@@ -35,19 +35,7 @@ class PreInstallCommand(install):
     def run(self):
         check_call("python3 -m pip install --upgrade pip".split())
         check_call("brew reinstall hunspell".split())
-        check_call("python3 -m pip install cyhunspell".split())
-        check_call("python3 -m pip install language_tool_python".split())
-        check_call("python3 -m pip install spacy".split())
-        check_call("python3 -m pip install scrapy".split())
-        check_call("python3 -m pip install itemadapter".split())
-        check_call("python3 -m pip install wheel".split())
-        check_call("python3 -m pip install numpy".split())
-        check_call("python3 -m pip install Twisted".split())
-        check_call("python3 -m pip install flask".split())
-        check_call("python3 -m pip install timeloop".split())
-        check_call("python3 -m pip install pytz".split())
-        check_call("python3 -m pip install nltk".split())  
-        
+        check_call("python3 -m pip install cyhunspell language_tool_python spacy scrapy itemadapter wheel numpy Twisted flask timeloop pytz nltk".split())
         subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
         subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
         install.run(self)
@@ -128,7 +116,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['itemadapter'],  # Optional
+    install_requires=[],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
