@@ -17,7 +17,7 @@ Data persistance provided by sqlite3 database.
 - nltk
 - spacy
 - language_tool_python
-- numphy
+- numpy
 - wheel
 
 ---
@@ -25,17 +25,12 @@ Data persistance provided by sqlite3 database.
 
 - `python3 -m venv DoppelDetect`
 - `source DoppelDetect/bin/activate`
-- `dopple-env/bin/python3 -m pip install --upgrade pip`
+- `python3 -m pip install --upgrade pip`
+  
   
 ## Installation:
 
-- `brew reinstall hunspell`
-- `ln -s /usr/local/lib/libhunspell-1.7.a /usr/local/lib/libhunspell.a`
-- `ln -s /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib /usr/local/Cellar/hunspell/1.7.0_2/lib/libhunspell-1.7.dylib`
-- `CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip3 install hunspell`
-- in pyhunspell: 
-  - `pip install -r requirements.txt`
-  - `python3 setup.py install`
+- `python3 setup.py install`
 
 ## Uninstall:
 - `pip3 uninstall DoppelDetect`
