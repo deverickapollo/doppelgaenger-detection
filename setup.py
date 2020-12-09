@@ -45,11 +45,7 @@ class PreInstallCommand(install):
         check_call("python3 -m pip install flask".split())
         check_call("python3 -m pip install timeloop".split())
         check_call("python3 -m pip install pytz".split())
-        check_call("python3 -m pip install nltk".split())
-        
-        subprocess_cmd("git clone https://github.com/hashes4merkle/spacy_hunspell.git")
-        
-        check_call("cd spacy_hunspell && pip3 install -r requirements.txt && python3 setup.py install".split())        
+        check_call("python3 -m pip install nltk".split())  
         
         subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
         subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
