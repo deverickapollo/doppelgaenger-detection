@@ -7,35 +7,37 @@ Data persistance provided by sqlite3 database.
 ---
 ## Setup Requirements
 
+- python3
+- scrapy
+- Twisted
+- flask
+- timeloop
+- pytz
+- nltk
+- spacy
+- language_tool_python
 
-`pip3 install scrapy`
 
-`pip3 install Twisted`
-
-`pip3 install flask`
-
-`pip3 install timeloop`
-
-`pip3 install pytz`
-
-`pip3 install nltk`
-
-`pip3 install spacy`
-
-`pip3 install language_tool_python`
-
-In python console:
-`import nltk`,
-`nltk.download('punkt')`,
-`nltk.download('stopwords')`,
-`nltk.download('averaged_perceptron_tagger')`
-
-Download spacy language packs:
-`python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
 
 ---
 ## Installation:
-`python3 setup.py install`
+
+- `python3 -m venv DoppelDetect`
+- `source DoppelDetect/bin/activate`
+- `python3 setup.py install`
+
+
+## Uninstall:
+- `pip3 uninstall DoppelDetect`
+
+## IF NOT USING setup.py
+Including system requirements, you will need these packages
+
+Download packages from nltk:
+`python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger`
+
+Download spacy language packs:
+`python3 -m spacy download de_core_news_sm`, `python3 -m spacy download en_core_web_sm`, `python3 -m spacy download fr_core_news_sm`, `python3 -m spacy download es_core_news_sm`
 
 ---
 ## Execute: 
@@ -72,7 +74,7 @@ Modes Available:
   - content       content-based
   - idio          Idiosyncratic
             
-Run the Bot periodicly with watch: `watch -n3600 python3 guardianbot.py -r` (every hour)
+Run the Bot periodically with watch: `watch -n3600 python3 guardianbot.py -r` (every hour)
                     
 ## Log files
 1. webapp.log - Provides debug related information when running guardianbot or the webserver
