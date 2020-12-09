@@ -86,10 +86,14 @@ Run the Bot periodically with watch: `watch -n3600 python3 guardianbot.py -r` (e
 1. webapp.log - Provides debug related information when running guardianbot or the webserver
 
 ---
-## Testing
+## Functional Testing
 
-`pytest --html=report.html test.py`
+- `pytest --html=report.html test.py`
 
+## Code Coverage
+- `coverage run --omit="/usr/local/*" -m pytest test.py`
+- `coverage html`
+- 
 ## Notes:
 
 Please be aware this is not production ready.  SQL queries are not sanitized and are therefore a potential security risk. Do not host live.

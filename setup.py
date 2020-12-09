@@ -5,9 +5,7 @@ https://packaging.python.org/guides/distributing-packages-using-setuptools/
 """
 
 
-import os, sys, subprocess
-import os.path
-import atexit
+import subprocess
 import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
@@ -23,19 +21,13 @@ def subprocess_cmd(command):
     process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
     proc_stdout = process.communicate()[0].strip()
 
-
-class new_install(install):
-    def __init__(self, *args, **kwargs):
-        super(new_install, self).__init__(*args, **kwargs)
-        # atexit.register(_post_install)
-
 #UPDATE WHEN TIME
 class PreInstallCommand(install):
     """Pre-installation for installation mode."""
     def run(self):
         check_call("python3 -m pip install --upgrade pip".split())
         check_call("brew reinstall hunspell".split())
-        check_call("python3 -m pip install cyhunspell language_tool_python spacy scrapy itemadapter wheel numpy Twisted flask timeloop pytz nltk".split())
+        check_call("python3 -m pip install cyhunspell language_tool_python spacy scrapy itemadapter wheel numpy Twisted flask timeloop pytz nltk coverage".split())
         subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
         subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
         install.run(self)
