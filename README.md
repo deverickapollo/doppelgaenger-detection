@@ -92,3 +92,5 @@ Run the Bot periodically with watch: `watch -n3600 python3 guardianbot.py -r` (e
 ## Notes:
 
 Please be aware this is not production ready.  SQL queries are not sanitized and are therefore a potential security risk. Do not host live.
+
+Only tested on MacOS
