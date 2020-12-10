@@ -9,3 +9,5 @@ __pycache__/
 .scrapy
 
 misc/ids.txt
+DoppelDetect.egg-info/
+
