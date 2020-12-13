@@ -5,6 +5,50 @@ from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
 
+#Represents a Feature Matrix
+class FeatureMatrix():
+    def __init__(self, name):
+        self.name = name
+        self.character_frequency_letters = []    # creates a new empty list for each dog
+        self.character_frequency_digits = []
+        self.character_frequency_special_characters = []
+        self.character_frequency = []
+        self.word_length_distribution = []
+        self.word_frequency = []
+        self.number_big_words = []
+        self.hapax_legomena = []
+        self.hapax_dislegomena = []
+        self.honores_r = []
+        self.average_number_characters_sentence = []
+        self.average_number_lowercase_letters_sentence = []
+        self.average_number_uppercase_letters_sentence = []
+        self.average_number_digits_sentence = []
+        self.average_number_words_sentence = []
+        self.total_number_words_sentence = []
+        self.punctuation_frequency = []
+        self.punctuation_frequency_sentence = []
+        self.feature11 = []
+        self.repeated_whitespace = []
+        self.repeated_whitespace_sentence = []
+        self.uppercase_words = []
+        self.uppercase_words_sentence = []
+        self.grammarCheck = []
+        self.sentiment_analysis_word_average = []
+        self.sentiment_analysis_sentence_average = []
+        self.emoji_frequency_word = []
+        self.emoji_frequency_sentence = []
+        self.get_language = []
+        self.all_capital_words = []
+        self.all_capital_words_sentence = []
+        self.type_token_ratio = []
+        self.mean_word_frequency = []
+        self.sichels_s = []
+
+    def add_feature(self, feature, value):
+        print("place holder")
+
+
+
 ###################################
 ####### HELPER FUNCTIONS ##########
 ###################################
@@ -268,7 +312,7 @@ def punctuation_frequency_sentence(s):
 ######## WHITESPACES ##############
 ###################################
 
-# get the frequency for the repeated occurences of whitespaces for a string
+# get the frequency for the repeated occurrences of whitespaces for a string
 # returns a dict with tuples (total, average)
 def repeated_whitespace(string):
     whitespaces = re.findall(r"\s+", string)
@@ -284,7 +328,7 @@ def repeated_whitespace(string):
     return dict
 
 
-# get the frequency for the repeated occurences of whitespaces per sentence for a string
+# get the frequency for the repeated occurrences of whitespaces per sentence for a string
 # returns a dict per sentence with tuples (total, average)
 def repeated_whitespace_sentence(string):
     dict = {}
@@ -571,7 +615,7 @@ def print_ldict(dict):
 
         # Checks input strign for possible leet characters
 
-
+# Checks leet alphabet dictionary values for token
 # input: String
 # output: True/False
 def leetCheck(token):
@@ -591,7 +635,6 @@ def swapValid(token, valDict,h):
     for lValues in alpha.leet_alphabet.values():
         for leet in lValues:
             if leet in token:
-                copyToken = token
                 #Logic
                 for l in valDict[leet]:
                     otherStr = copyToken.replace(leet , str(valDict[leet][0]))
@@ -627,8 +670,6 @@ def leetScan(string, valDict, language="EN" ):
         if swapValid(candidate, valDict,h):
             count = count + 1
     fraction = Fraction(count,total_words)
-    #Lazy solution
-    # fraction = Fraction(len(leetcandidates),total_words)
     return fraction
 
 # load word lists from text files
