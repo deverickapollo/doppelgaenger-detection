@@ -148,6 +148,10 @@ def sql_select_all_comments_from_user(conn, user):
 	sql_return_comment_query = """SELECT comment_author_username, comment_text, article_title, article_url, comment_date FROM comment WHERE comment_author_username= ? ORDER BY comment_author_username ;"""
 	data_tuple = (user,)
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+	
+def sql_select_all_comments(conn):
+	sql_return_comment_query = """SELECT comment_text FROM comment;"""
+	return execute_sql(conn,sql_return_comment_query)
 
 def sql_select_all_users(conn):
 	sql_select_all_users_query = """SELECT username FROM user;"""
