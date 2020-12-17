@@ -5,50 +5,6 @@ from string import punctuation
 from fractions import Fraction
 from collections import defaultdict
 
-#Represents a Feature Matrix
-class FeatureMatrix():
-    def __init__(self, name):
-        self.name = name
-        self.character_frequency_letters = []    # creates a new empty list for each dog
-        self.character_frequency_digits = []
-        self.character_frequency_special_characters = []
-        self.character_frequency = []
-        self.word_length_distribution = []
-        self.word_frequency = []
-        self.number_big_words = []
-        self.hapax_legomena = []
-        self.hapax_dislegomena = []
-        self.honores_r = []
-        self.average_number_characters_sentence = []
-        self.average_number_lowercase_letters_sentence = []
-        self.average_number_uppercase_letters_sentence = []
-        self.average_number_digits_sentence = []
-        self.average_number_words_sentence = []
-        self.total_number_words_sentence = []
-        self.punctuation_frequency = []
-        self.punctuation_frequency_sentence = []
-        self.feature11 = []
-        self.repeated_whitespace = []
-        self.repeated_whitespace_sentence = []
-        self.uppercase_words = []
-        self.uppercase_words_sentence = []
-        self.grammarCheck = []
-        self.sentiment_analysis_word_average = []
-        self.sentiment_analysis_sentence_average = []
-        self.emoji_frequency_word = []
-        self.emoji_frequency_sentence = []
-        self.get_language = []
-        self.all_capital_words = []
-        self.all_capital_words_sentence = []
-        self.type_token_ratio = []
-        self.mean_word_frequency = []
-        self.sichels_s = []
-
-    def add_feature(self, feature, value):
-        print("place holder")
-
-
-
 ###################################
 ####### HELPER FUNCTIONS ##########
 ###################################
