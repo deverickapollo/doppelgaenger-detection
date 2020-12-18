@@ -26,8 +26,8 @@ def feature_vector(string):
     string_remove_stop_words_lemmatize = process.lemmatize(string_remove_stop_words, language)
     strings = [string, string_remove_stop_words, string_lemmatize, string_remove_stop_words_lemmatize]
     config = configparser.ConfigParser()
-    config.readfp(open(r'features/feature_generation_config.cfg'))
-
+    #config.readfp(open(r'features/feature_generation_config.cfg'))
+    config.read_file(open(r'features/feature_generation_config.cfg'))
     # Character Frequency
     cfg = json.loads(config.get("Character Frequency", "character_frequency_letters"))
     if cfg[0] == 1:
