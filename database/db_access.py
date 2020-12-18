@@ -85,6 +85,49 @@ def create_comment_table(conn):
                                 ); """
 	execute_sql(conn, sql_create_comment_table)
 
+def create_stats_table(conn):
+	sql_create_stats_table = """ CREATE TABLE IF NOT EXISTS stats (
+									stat_id integer PRIMARY KEY,
+									character_frequency_letters integer,
+									character_frequency_digits integer,
+									character_frequency_special_characters integer,
+									character_frequency integer,
+									word_length_distribution integer,
+									word_frequency integer,
+									number_big_words integer,
+									hapax_legomena integer,
+									hapax_dislegomena integer,
+									yules_k integer,
+									brunets_w integer,
+									honores_r integer,
+									average_number_characters_sentence integer,
+									average_number_lowercase_letters_sentence integer,
+									average_number_uppercase_letters_sentence integer,
+									average_number_digits_sentence integer,
+									average_number_words_sentence integer,
+									total_number_words_sentence integer,
+									punctuation_frequency integer,
+									punctuation_frequency_sentence integer,
+									repeated_whitespace integer,
+									repeated_whitespace_sentence integer,
+									uppercase_words integer,
+									uppercase_words_sentence integer,
+									grammarCheck integer,
+									grammarCheck_sentence integer,
+									sentiment_analysis_word_average integer,
+									sentiment_analysis_sentence_average integer,
+									emoji_frequency_word integer,
+									emoji_frequency_sentence integer,
+									get_language integer,
+									all_capital_words integer,
+									all_capital_words_sentence integer,
+									type_token_ratio integer,
+									mean_word_frequency integer,
+									sichels_s integer,
+									FOREIGN KEY (stat_id) REFERENCES comment (comment_id)
+                                ); """
+	execute_sql(conn, sql_create_stats_table)
+
 def insert_into_article(conn,item):
 	adapter = ItemAdapter(item)
 	sqlite_insert_with_param = """INSERT INTO article

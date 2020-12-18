@@ -4,7 +4,7 @@ from pprint import pprint
 
 from scrape_guardian import *
 from database.db_access import *
-import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat
+import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat, features.feature_matrix as matrix
 
 from logging import FileHandler
 from logging import Formatter
@@ -195,6 +195,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("1 - Enter a comment id from the database and genereate a feature vector")
 		print("2 - Enter a username from the database and generate feature vectors for a specified number of his comments")
 		print("3 - Enter a string and generate a feature vector")
+		print("4 - Run full feature analysis")
 		x = input("Select Mode: ")
 		if x == "1":
 			comment_id = input("Enter comment id: ")
@@ -202,7 +203,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			cur = sql_return_comment_from_id(conn_comments, comment_id)
 			rows = cur.fetchall();
 			for row in rows:
-				pprint(feat.feature_vector(row['comment_text']), sort_dicts=False)
+				pprint(matrix.feature_vector(row['comment_text']), sort_dicts=False)
 				print("\n------\n")
 		if x == "2":
 			username = input("Enter username: ")
@@ -211,15 +212,26 @@ def main(spider="guardianSpider", log=False, size=0):
 			cur = sql_select_comments_from_user(conn_comments, username, number)
 			rows = cur.fetchall();
 			for row in rows:
-				pprint(feat.feature_vector(row['comment_text']), sort_dicts=False)
+				pprint(matrix.feature_vector(row['comment_text']), sort_dicts=False)
 				print("\n------\n")
 		if x == "3":
 			string = input("Enter string: ")
-			pprint(feat.feature_vector(string), sort_dicts=False)
+			pprint(matrix.feature_vector(string), sort_dicts=False)
+		if x == "4":
+			conn_comments.row_factory = sql.Row
+			cur = sql_select_all_comments(conn_comments)
+			rows = cur.fetchall()
+			llist = []
+			covariance = {}
+			#Here we will calculate the covariance for each the full database so we have a mean for each of the features
+			for row in rows:
+				llist.append(matrix.feature_vector(row['comment_text']))
+				pprint(row[0])
+				
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
-
+	
 if __name__== "__main__":
 	main()
 	time = (time.time() - start_time)
