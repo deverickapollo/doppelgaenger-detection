@@ -41,11 +41,14 @@ class commentPipeline(object):
     # Take the item and put it in database - do not allow duplicates
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
+        comment_id = adapter["comment_id"]
         conn = spider.connection
-        cursor = db.sql_return_comment_from_id(conn, adapter["comment_id"])
+        cursor = db.sql_return_comment_from_id(conn, comment_id)
         result = cursor.fetchone()
+        comment_string = result[1]
+        
 
-        if result is not None and result[1] == adapter["comment_text"]:
+        if result is not None and comment_string == adapter["comment_text"]:
             logging.log(logging.WARNING, "Comment already in database table: %s", item)
         elif 29 < len(adapter["comment_text"].split()) < 301:
             curse = db.sql_check_username_exist(conn, adapter["comment_author_username"])
@@ -68,7 +71,10 @@ class commentPipeline(object):
             conn.commit()
             logging.log(logging.INFO, "Comment stored: %s", item)
             logging.log(logging.INFO, "Computing Comment Statistics on: %s", item)
-
+            statistics = feature_matrix(comment_string)
+            logging.log(logging.INFO, "Computing Statistics Complete")
+            logging.log(logging.INFO, "Statistic stored: %s", item)
+            db.insert_into_stats(conn, comment_id, statistics)
         else:
             logging.log(logging.WARNING, "Comment too long or too short: %s", item)
         return item

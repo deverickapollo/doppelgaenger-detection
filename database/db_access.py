@@ -150,11 +150,11 @@ def insert_into_user(conn,item):
 							(user_id, username) 
 							VALUES (?, ?);"""
 	data_tuple = (adapter["comment_author_id"], adapter["comment_author_username"])
-	logging.log(logging.INFO, 'Inserting user %s with user_id %s into user table', adapter["comment_author_id"], adapter["comment_author_username"])
+	logging.log(logging.INFO, 'Inserting user %s with user_id %s into user table', adapter["comment_author_username"], adapter["comment_author_id"])
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
-def insert_into_stats(conn,item):
-	adapter = ItemAdapter(item)
+def insert_into_stats(conn, comment_id, statistics):
+	adapter = ItemAdapter(statistics)
 	sqlite_insert_with_param = """INSERT OR REPLACE INTO stats
 							(stat_id, character_frequency_letters, character_frequency_digits, character_frequency_special_characters, character_frequency,word_length_distribution,word_frequency,number_big_words,\
 							hapax_legomena,hapax_dislegomena,yules_k,brunets_w,honores_r,average_number_characters_sentence, average_number_lowercase_letters_sentence,average_number_uppercase_letters_sentence,\
@@ -163,7 +163,7 @@ def insert_into_stats(conn,item):
 							get_language, all_capital_words,all_capital_words_sentence, type_token_ratio, mean_word_frequency, sichels_s) 
 							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );"""
 
-	data_tuple =(adapter["comment_id"], adapter["character_frequency_letters"], adapter["character_frequency_digits"], adapter["character_frequency_special_characters"], adapter["character_frequency"],adapter["word_length_distribution"],adapter["word_frequency"],\
+	data_tuple =(comment_id, adapter["character_frequency_letters"], adapter["character_frequency_digits"], adapter["character_frequency_special_characters"], adapter["character_frequency"],adapter["word_length_distribution"],adapter["word_frequency"],\
 				adapter["number_big_words"], adapter["hapax_legomena"], adapter["hapax_dislegomena"], adapter["yules_k"], adapter["brunets_w"],adapter["honores_r"],adapter["average_number_characters_sentence"],\
 				adapter["average_number_lowercase_letters_sentence"], adapter["average_number_uppercase_letters_sentence"], adapter["average_number_digits_sentence"], adapter["average_number_words_sentence"], adapter["total_number_words_sentence"],adapter["punctuation_frequency"],adapter["punctuation_frequency_sentence"],\
 				adapter["repeated_whitespace"], adapter["repeated_whitespace_sentence"], adapter["uppercase_words"], adapter["uppercase_words_sentence"], adapter["grammarCheck"],adapter["grammarCheck_sentence"],adapter["sentiment_analysis_word_average"],\
@@ -186,8 +186,18 @@ def sql_check_userid_exist(conn, id):
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
 def sql_check_username_exist(conn, username):
-	sql_return_comment_query = """SELECT * FROM user WHERE username= ?;"""
+	sql_return_username_query = """SELECT * FROM user WHERE username= ?;"""
 	data_tuple = (username,)
+	return execute_sql_param(conn, sql_return_username_query,data_tuple)
+
+def sql_check_comment_exist(conn, comment_id):
+	sql_return_comment_query = """SELECT * FROM comment WHERE comment_id= ?;"""
+	data_tuple = (comment_id,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
+def sql_check_stat_exist(conn, stat_id):
+	sql_return_comment_query = """SELECT * FROM stats WHERE stat_id= ?;"""
+	data_tuple = (stat_id,)
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
 
 def sql_return_comment_from_id(conn, id):
@@ -219,7 +229,7 @@ def sql_select_all_users(conn):
 	return execute_sql(conn, sql_select_all_users_query)
 
 def select_all_stats(conn):
-	sql_select_all_stats = """SELECT username FROM stats;"""
+	sql_select_all_stats = """SELECT * FROM stats;"""
 	return execute_sql(conn, sql_select_all_stats)
 	
 def sql_count_articles(conn):
@@ -242,6 +252,31 @@ def sql_delete_username(conn, username):
 	sql_return_comment_query = """DELETE FROM user WHERE username= ?;"""
 	data_tuple = (username,)
 	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
+def sql_delete_userid(conn, user_id):
+	sql_return_comment_query = """DELETE FROM user WHERE user_id= ?;"""
+	data_tuple = (user_id,)
+	return execute_sql_param(conn, sql_return_comment_query,data_tuple)
+
+def sql_delete_stat_by_id(conn, stat_id):
+	sql_return_stats_query = """DELETE FROM stats WHERE stat_id= ?;"""
+	data_tuple = (stat_id,)
+	return execute_sql_param(conn, sql_return_stats_query,data_tuple)
+
+def sql_delete_comments_by_comment_id(conn, comment_id):
+	sql_return_comments_query = """DELETE FROM comment WHERE comment_id= ?;"""
+	data_tuple = (comment_id,)
+	return execute_sql_param(conn, sql_return_comments_query,data_tuple)
+
+def sql_delete_comments_by_comment_author_id(conn, comment_author_id):
+	sql_return_comments_query = """DELETE FROM comment WHERE comment_author_id= ?;"""
+	data_tuple = (stat_id,)
+	return execute_sql_param(conn, sql_return_comments_query,data_tuple)
+
+def sql_delete_comments_by_comment_author_username(conn, comment_author_username):
+	sql_return_comments_query = """DELETE FROM comment WHERE comment_author_username= ?;"""
+	data_tuple = (comment_author_username,)
+	return execute_sql_param(conn, sql_return_comments_query,data_tuple)
 
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE IF EXISTS comment')

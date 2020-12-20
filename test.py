@@ -20,6 +20,7 @@ def test_insert_and_verify_user():
     create_article_table(conn)
     create_user_table(conn)
     create_comment_table(conn)
+    create_stats_table(conn)
     #Returns a dictionary cursor instead of tuple
     conn.row_factory = db.sql.Row
     thisdict = {
@@ -31,15 +32,100 @@ def test_insert_and_verify_user():
     conn.commit()
     cur = db.sql_check_username_exist(conn,"monero")
     username_exist = cur.fetchone()
-    mylogger.log(logging.DEBUG, "user exist %s", username_exist)
-    assert username_exist,"test failed"
-    db.sql_delete_username(conn,"monero")
-    conn.commit()
+    mylogger.log(logging.DEBUG, "user exist %s", username_exist[0])
+    assert username_exist,"test failed"       
     db.close_db_connection(conn)
 
-#def test_leetScan():
-#    leet = feat.dictionary_values_as_keys(alpha.leet_alphabet)
-#    assert feat.leetScan(raw_comment,leet) == Fraction(1, 24)
+    #Test Inserting Comment
+def test_comment():
+    database = r'database/dopplegaenger.db'
+    conn = db.create_connection(database)
+    thiscomment = {
+    "comment_id": 999999999,
+    "comment_text": "monero on the rise",
+    "comment_date": 999999999,
+    "comment_author_id": 999999999,
+    "comment_author_username": "monero",
+    "article_url": "someurl.com",
+    "article_title": "Some new title"
+    }
+    db.insert_into_comment(conn,thiscomment)
+    conn.commit()
+    #Pass comment_id to check for comment in database
+    cur = db.sql_check_comment_exist(conn,999999999)
+    comment_exist = cur.fetchone()
+    mylogger.log(logging.DEBUG, "Comment exist %s", comment_exist)
+    assert comment_exist,"test failed"   
+    db.close_db_connection(conn)
+
+def test_insert_stat_for_comment():
+    database = r'database/dopplegaenger.db'
+    conn = db.create_connection(database)
+    thisstat = {
+    "character_frequency_letters": 999999999,
+    "character_frequency_digits": 999999999,
+    "character_frequency_special_characters": 999999999,
+    "character_frequency": 999999999,
+    "word_length_distribution": 999999999,
+    "word_frequency": 999999999,
+    "number_big_words": 999999999,
+    "hapax_legomena": 999999999,
+    "hapax_dislegomena": 999999999,
+    "yules_k": 999999999,
+    "brunets_w": 999999999,
+    "honores_r": 999999999,
+    "average_number_characters_sentence": 999999999,
+    "average_number_lowercase_letters_sentence": 999999999,
+    "average_number_uppercase_letters_sentence": 999999999,
+    "average_number_digits_sentence": 999999999,
+    "average_number_words_sentence": 999999999,
+    "total_number_words_sentence": 999999999,
+    "punctuation_frequency": 999999999,
+    "punctuation_frequency_sentence": 999999999,
+    "repeated_whitespace": 999999999,
+    "repeated_whitespace_sentence": 999999999,
+    "uppercase_words": 999999999,
+    "uppercase_words_sentence": 999999999,
+    "grammarCheck": 999999999,
+    "grammarCheck_sentence": 999999999,
+    "sentiment_analysis_word_average": 999999999,
+    "sentiment_analysis_sentence_average": 999999999,
+    "emoji_frequency_word": 999999999,
+    "emoji_frequency_sentence": 999999999,
+    "get_language": 999999999,
+    "all_capital_words": 999999999,
+    "all_capital_words_sentence": 999999999,
+    "type_token_ratio": 999999999,
+    "mean_word_frequency": 999999999,
+    "sichels_s": 999999999
+    }
+    comment_id = 999999999
+    db.insert_into_stats(conn, comment_id, thisstat)
+    conn.commit()
+    #Pass comment_id to check for comment in database
+    cur = db.sql_check_stat_exist(conn,999999999)
+    stat_exist = cur.fetchone()
+    mylogger.log(logging.DEBUG, "Stat exist %s", stat_exist)
+    assert stat_exist,"test failed"   
+    db.close_db_connection(conn)
+
+
+
+def test_delete():
+    database = r'database/dopplegaenger.db'
+    conn = db.create_connection(database)
+    #We need to delete all stats
+    username = "monero"
+    db.sql_delete_stat_by_id(conn,999999999)
+    db.sql_delete_comments_by_comment_author_username(conn,username)
+    db.sql_delete_userid(conn,999999999)
+    conn.commit()
+
+    cur = db.sql_check_username_exist(conn,username)
+    username_exist = cur.fetchone()
+    mylogger.log(logging.DEBUG, "User %s has been removed ", username)
+    assert username_exist == None,"test failed"       
+    db.close_db_connection(conn)
 
 def test_check():
     assert feat.leetCheck("/\\pple") == True, "test failed"
@@ -178,6 +264,10 @@ def test_all_capital_words_sentence():
     mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
     assert feat.all_capital_words_sentence("STRONG is THE KEY") == {'STRONG is THE KEY': (3, 0.75)}, "test failed"
 
+#def test_leetScan():
+#    leet = feat.dictionary_values_as_keys(alpha.leet_alphabet)
+#    assert feat.leetScan(raw_comment,leet) == Fraction(1, 24)
+
 def test_feature_matrix():
     mylogger.log(logging.DEBUG, "Feature Matrix Testing")
     ddict = matrix.feature_matrix("STRONG is THE KEY")
@@ -196,3 +286,4 @@ def test_feature_matrix():
                     'grammarCheck_sentence': {'STRONG is THE KEY': ([], 0)}, 'sentiment_analysis_word_average': 0.14375, 'sentiment_analysis_sentence_average': {'strong is the key': 0.14375}, 'emoji_frequency_word': {}, \
                     'emoji_frequency_sentence': {'STRONG is THE KEY': {}}, 'get_language': 'EN', 'all_capital_words': (3, 0.75), 'all_capital_words_sentence': {'STRONG is THE KEY': (3, 0.75)}, 'type_token_ratio': 1.0, 'mean_word_frequency': 1.0, 'sichels_s': 0.0}, \
                     "test failed"
+
