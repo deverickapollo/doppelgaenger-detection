@@ -4,7 +4,7 @@ from pprint import pprint
 
 from scrape_guardian import *
 from database.db_access import *
-import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat, features.feature_matrix as matrix
+import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat, feature_matrix as matrix
 
 from logging import FileHandler
 from logging import Formatter
