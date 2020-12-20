@@ -1,9 +1,8 @@
 import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys
 from features.feature_generation import *
-# from multiprocessing import Process, Manager
+from multiprocessing import Process
 from os import getpid, getppid
-
-
+from multiprocessing import Pool
 
 cpu_count = mp.cpu_count()
 
@@ -65,22 +64,14 @@ def select_string(cfg):
 
 
 def func1(strings):
-    print('parent process:', getppid())
-    print('I am in process dead %d' % (getpid()))
     matrix_dict["character_frequency_letters"] = character_frequency_letters(strings[select_string(cfg1)])
 def func2(strings):
-    print('parent process:', getppid())
-    print('I am in process char freq %d' % (getpid()))
     matrix_dict["character_frequency_digits"] = character_frequency_digits(strings[select_string(cfg2)])
-    matrix_dict["character_frequency_digits"] = "char freq"
 def func3(strings):
-    print('I am in process %d' % (getpid()))
     matrix_dict["character_frequency_special_characters"] = character_frequency_special_characters(strings[select_string(cfg3)])
 def func4(strings):
-    print('I am in process %d' % (getpid()))
     matrix_dict["character_frequency"] = character_frequency(strings[select_string(cfg4)])
 def func5(strings):
-    print('I am in process %d' % (getpid()))
     matrix_dict["word_length_distribution"] = word_length_distribution(strings[select_string(cfg5)])
 def func6(strings):
     matrix_dict["word_frequency"] = word_frequency(strings[select_string(cfg6)])
@@ -143,7 +134,6 @@ def func34(strings):
 def func35(strings):
     matrix_dict["mean_word_frequency"] = mean_word_frequency(strings[select_string(cfg35)])
 def func36(strings):
-    print('I am in process %d' % (getpid()))
     matrix_dict["sichels_s"] = sichels_s(strings[select_string(cfg36)])
 
 
@@ -151,27 +141,25 @@ def func36(strings):
     # cfg = json.loads(config.get("Leetspeak", "leetspeak"))
     # if cfg[0] == 1:
     #    matrix_dict["leetspeak"] = leetspeak(strings[select_string(cfg)])
-def run_cpu_tasks_in_parallel(tasks,strings):
-    running_tasks = [Process(target=task, args=(strings, )) for task in tasks]
+def run_cpu_tasks_in_parallel(tasks):
+    running_tasks = [Process(target=task) for task in tasks]
     for running_task in running_tasks:
         running_task.start()
     for running_task in running_tasks:
         running_task.join()
 
+def add_to_db_if_exist(comment,statvalues):
+    pass
 
+def returnDict():
+    return matrix_dict
 
 # generate the feature vector based on the config file
 # returns a dict
 if __name__ == '__main__':
- 
-    # Manager to create shared object.
-    manager = mp.Manager()
-
-    # Create a global variable.
-    matrix_dict = manager.dict()
     starttime = time.time()
     string = str(sys.argv[1])
-    
+    matrix_dict = {}
     language = get_language(string)
     string_remove_stop_words = process.remove_stop_words(string)
     string_lemmatize = process.lemmatize(string, language)
@@ -184,25 +172,18 @@ if __name__ == '__main__':
           func22,func23,func24,\
           func29,func30,func31,func32,func33,func34,func35,func36]
     flist2=[func25,func26,func27,func28]
-    # run_cpu_tasks_in_parallel(flist,strings)
+    with mp.Pool(processes=cpu_count) as pool:
+        for i in flist:
+            pool.apply_async(i(strings))  
+        for j in flist2:
+            pool.apply_async(j(strings,language))
 
-    # creating processes 
-    p1 = mp.Process(target=func1, args=(strings, )) 
-    p2 = mp.Process(target=func2, args=(strings, )) 
-  
-    # starting process 1 
-    p1.start() 
-    # starting process 2 
-    p2.start() 
-  
-    # wait until process 1 is finished 
-    p1.join() 
-    # wait until process 2 is finished 
-    p2.join() 
+    pool.close()
+    pool.join()
 
-    print(matrix_dict)
-    print("=========================================")    
-    print('Time taken = {} seconds'.format(time.time() - starttime))
-    print("=========================================")  
+    # print(matrix_dict)
+    # print("=========================================")    
+    # print('Time taken = {} seconds'.format(time.time() - starttime))
+    # print("=========================================")  
 
     
