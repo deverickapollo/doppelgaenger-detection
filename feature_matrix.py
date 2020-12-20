@@ -1,12 +1,12 @@
-import configparser, json, features.preprocessing as process, string, time, multiprocessing, sys
+import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys
 from features.feature_generation import *
-from multiprocessing import Process
+# from multiprocessing import Process, Manager
 from os import getpid, getppid
-from multiprocessing import Pool
-from itertools import repeat
 
-cpu_count = multiprocessing.cpu_count()
-matrix_dict = {}
+
+
+cpu_count = mp.cpu_count()
+
 config = configparser.ConfigParser()
 config.read_file(open(r'features/feature_generation_config.cfg'))
 
@@ -65,18 +65,19 @@ def select_string(cfg):
 
 
 def func1(strings):
-    # print('parent process:', getppid())
-    print('I am in process %d' % (getpid()))
+    print('parent process:', getppid())
+    print('I am in process dead %d' % (getpid()))
     matrix_dict["character_frequency_letters"] = character_frequency_letters(strings[select_string(cfg1)])
 def func2(strings):
-    # print('parent process:', getppid())
-    print('I am in process %d' % (getpid()))
+    print('parent process:', getppid())
+    print('I am in process char freq %d' % (getpid()))
     matrix_dict["character_frequency_digits"] = character_frequency_digits(strings[select_string(cfg2)])
+    matrix_dict["character_frequency_digits"] = "char freq"
 def func3(strings):
-    # print('I am in process %d' % (getpid()))
+    print('I am in process %d' % (getpid()))
     matrix_dict["character_frequency_special_characters"] = character_frequency_special_characters(strings[select_string(cfg3)])
 def func4(strings):
-    # print('I am in process %d' % (getpid()))
+    print('I am in process %d' % (getpid()))
     matrix_dict["character_frequency"] = character_frequency(strings[select_string(cfg4)])
 def func5(strings):
     print('I am in process %d' % (getpid()))
@@ -150,17 +151,26 @@ def func36(strings):
     # cfg = json.loads(config.get("Leetspeak", "leetspeak"))
     # if cfg[0] == 1:
     #    matrix_dict["leetspeak"] = leetspeak(strings[select_string(cfg)])
-def run_cpu_tasks_in_parallel(tasks):
-    running_tasks = [Process(target=task) for task in tasks]
+def run_cpu_tasks_in_parallel(tasks,strings):
+    running_tasks = [Process(target=task, args=(strings, )) for task in tasks]
     for running_task in running_tasks:
         running_task.start()
     for running_task in running_tasks:
         running_task.join()
 
 
+
 # generate the feature vector based on the config file
 # returns a dict
-def feature_vector(string):
+if __name__ == '__main__':
+ 
+    # Manager to create shared object.
+    manager = mp.Manager()
+
+    # Create a global variable.
+    matrix_dict = manager.dict()
+    starttime = time.time()
+    string = str(sys.argv[1])
     
     language = get_language(string)
     string_remove_stop_words = process.remove_stop_words(string)
@@ -168,24 +178,29 @@ def feature_vector(string):
     string_remove_stop_words_lemmatize = process.lemmatize(string_remove_stop_words, language)
     strings = [string, string_remove_stop_words, string_lemmatize, string_remove_stop_words_lemmatize]
 
-    flist=[func1(strings),func2(strings),func3(strings),func4(strings),func5(strings),func6(strings),func7(strings),\
-          func8(strings),func9(strings),func10(strings),func11(strings),func12(strings),func13(strings),func14(strings),\
-          func15(strings),func16(strings),func17(strings),func18(strings),func19(strings),func20(strings),func21(strings),\
-          func22(strings),func23(strings),func24(strings),func25(strings,language),func26(strings,language),func27(strings,language),\
-          func28(strings,language),func29(strings),func30(strings),func31(strings),func32(strings),func33(strings),func34(strings),func35(strings),func36(strings)]
-    
-    run_cpu_tasks_in_parallel(flist)
+    flist=[func1,func2,func3,func4,func5,func6,func7,\
+          func8,func9,func10,func11,func12,func13,func14,\
+          func15,func16,func17,func18,func19,func20,func21,\
+          func22,func23,func24,\
+          func29,func30,func31,func32,func33,func34,func35,func36]
+    flist2=[func25,func26,func27,func28]
+    # run_cpu_tasks_in_parallel(flist,strings)
 
+    # creating processes 
+    p1 = mp.Process(target=func1, args=(strings, )) 
+    p2 = mp.Process(target=func2, args=(strings, )) 
+  
+    # starting process 1 
+    p1.start() 
+    # starting process 2 
+    p2.start() 
+  
+    # wait until process 1 is finished 
+    p1.join() 
+    # wait until process 2 is finished 
+    p2.join() 
 
-    return matrix_dict
-
-if __name__ == '__main__':
-    starttime = time.time()
-    input_string = str(sys.argv[1])
-    print ('Second argument:',  input_string)
-    print("Number of cpu : ", cpu_count)
-    result = feature_vector(input_string)
-    print(result)
+    print(matrix_dict)
     print("=========================================")    
     print('Time taken = {} seconds'.format(time.time() - starttime))
     print("=========================================")  
