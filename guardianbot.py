@@ -111,6 +111,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			create_article_table(conn_article)
 			create_user_table(conn_article)
 			create_comment_table(conn_article)
+			create_stats_table(conn_comments)
 			runner = CrawlerRunner(settings)
 			runner.crawl(guardianSpider,connection=conn_article)
 			runner.crawl(commentSpider,connection=conn_comments)

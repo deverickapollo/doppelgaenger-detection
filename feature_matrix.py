@@ -148,9 +148,6 @@ def run_cpu_tasks_in_parallel(tasks):
     for running_task in running_tasks:
         running_task.join()
 
-def add_to_db_if_exist(comment,statvalues):
-    pass
-
 def getDict():
     return matrix_dict
 
@@ -178,11 +175,11 @@ def feature_matrix(string):
 
     pool.close()
     pool.join()
-
-    print(matrix_dict)
-    print("=========================================")    
-    print('Time taken = {} seconds'.format(time.time() - starttime))
-    print("=========================================")  
+    return matrix_dict
+    # print(matrix_dict)
+    # print("=========================================")    
+    # print('Time taken = {} seconds'.format(time.time() - starttime))
+    # print("=========================================")  
 
 # generate the feature vector based on the config file
 # returns a dict

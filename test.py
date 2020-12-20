@@ -180,7 +180,7 @@ def test_all_capital_words_sentence():
 
 def test_feature_matrix():
     mylogger.log(logging.DEBUG, "Feature Matrix Testing")
-    ddict = matrix.feature_vector("STRONG is THE KEY")
+    ddict = matrix.feature_matrix("STRONG is THE KEY")
     mylogger.log(logging.DEBUG, "Feature Matrix: %s",  str(ddict))
     assert ddict == {'character_frequency_letters': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), \
                     'O': (1, 0.058823529411764705), 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), 'i': (1, 0.058823529411764705), 's': \

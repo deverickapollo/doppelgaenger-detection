@@ -3,7 +3,7 @@
 import logging, item, database.db_access as db
 from database.db_access import *
 from contextlib import closing
-
+from feature_matrix import feature_matrix
 total_comment_count = 0
 total_user_count = 0
 total_article_count = 0
@@ -67,6 +67,8 @@ class commentPipeline(object):
             total_comment_count += 1
             conn.commit()
             logging.log(logging.INFO, "Comment stored: %s", item)
+            logging.log(logging.INFO, "Computing Comment Statistics on: %s", item)
+
         else:
             logging.log(logging.WARNING, "Comment too long or too short: %s", item)
         return item
