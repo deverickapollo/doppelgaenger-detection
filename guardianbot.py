@@ -205,10 +205,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			cur = sql_return_comment_from_id(conn_comments, comment_id)
 			rows = cur.fetchall();
 			for row in rows:
-				pprint(matrix.feature_vector(row['comment_text']), sort_dicts=False)
-				proc=subprocess.Popen(['python3', 'feature_matrix.py', row['comment_text']], shell=False, stdout=subprocess.PIPE, )
-				output=proc.communicate()[0]
-				print(output)
+				pprint(matrix.feature_matrix(row['comment_text']), sort_dicts=False)
 				print("\n------\n")
 		if x == "2":
 			username = input("Enter username: ")
@@ -217,7 +214,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			cur = sql_select_comments_from_user(conn_comments, username, number)
 			rows = cur.fetchall();
 			for row in rows:
-				pprint(matrix.feature_vector(row['comment_text']), sort_dicts=False)
+				pprint(matrix.feature_matrix(row['comment_text']), sort_dicts=False)
 				print("\n------\n")
 		if x == "3":
 			string = input("Enter string: ")

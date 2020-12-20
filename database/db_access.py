@@ -218,6 +218,10 @@ def sql_select_all_users(conn):
 	sql_select_all_users_query = """SELECT username FROM user;"""
 	return execute_sql(conn, sql_select_all_users_query)
 
+def select_all_stats(conn):
+	sql_select_all_stats = """SELECT username FROM stats;"""
+	return execute_sql(conn, sql_select_all_stats)
+	
 def sql_count_articles(conn):
 	sql_count_articles_query = """SELECT COUNT(*) FROM article;"""
 	return execute_sql(conn, sql_count_articles_query)
@@ -230,6 +234,10 @@ def sql_count_comments(conn):
 	sql_count_comments_query = """SELECT COUNT(*) FROM comment;"""
 	return execute_sql(conn, sql_count_comments_query)
 
+def sql_count_stats(conn):
+	sql_count_stats_query = """SELECT COUNT(*) FROM stats;"""
+	return execute_sql(conn, sql_count_stats_query)
+
 def sql_delete_username(conn, username):
 	sql_return_comment_query = """DELETE FROM user WHERE username= ?;"""
 	data_tuple = (username,)
@@ -239,5 +247,6 @@ def drop_all(conn):
 	execute_sql(conn, 'DROP TABLE IF EXISTS comment')
 	execute_sql(conn, 'DROP TABLE IF EXISTS user')
 	execute_sql(conn, 'DROP TABLE IF EXISTS article')
+	execute_sql(conn, 'DROP TABLE IF EXISTS stats')
 	conn.commit()
 
