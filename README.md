@@ -89,7 +89,7 @@ Run the Bot periodically with watch: `watch -n3600 python3 guardianbot.py -r` (e
 ## Functional Testing
 
 - `pytest --html=report.html test.py`
-
+- `pytest test.py -s` to output to console.
 ## Code Coverage
 - `coverage run --omit="/usr/local/*" -m pytest test.py`
 - `coverage html`
