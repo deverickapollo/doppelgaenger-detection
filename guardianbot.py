@@ -4,10 +4,11 @@ from pprint import pprint
 
 from scrape_guardian import *
 from database.db_access import *
-import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat, feature_matrix as matrix
+import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat, feature_matrix as matrix,subprocess
 
 from logging import FileHandler
 from logging import Formatter
+from subprocess import Popen, PIPE
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -204,6 +205,9 @@ def main(spider="guardianSpider", log=False, size=0):
 			rows = cur.fetchall();
 			for row in rows:
 				pprint(matrix.feature_vector(row['comment_text']), sort_dicts=False)
+				proc=subprocess.Popen(['python3', 'feature_matrix.py', row['comment_text']], shell=False, stdout=subprocess.PIPE, )
+				output=proc.communicate()[0]
+				print(output)
 				print("\n------\n")
 		if x == "2":
 			username = input("Enter username: ")
@@ -216,7 +220,7 @@ def main(spider="guardianSpider", log=False, size=0):
 				print("\n------\n")
 		if x == "3":
 			string = input("Enter string: ")
-			pprint(matrix.feature_vector(string), sort_dicts=False)
+			pprint(matrix.feature_matrix(string), sort_dicts=False)
 		if x == "4":
 			conn_comments.row_factory = sql.Row
 			cur = sql_select_all_comments(conn_comments)
