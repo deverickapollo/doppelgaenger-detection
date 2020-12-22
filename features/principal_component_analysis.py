@@ -26,15 +26,26 @@ def get_covariance_matrix(matrix):
 
 
 # calculate the eigenvectors and eigenvalues for a matrix
-def eigen(matrix):
+def get_eigen(matrix):
     return np.linalg.eig(matrix)
 
 
-# return the the value K (new dimension) for the best low-dimensional feature space (minimal error between the original
+# return the eigenvectors for the most principal components (minimal error between the original
 # dataset and the PCA > 0.999)
-def feature_reduction(matrix_eigenvalues):
-    t = len(matrix_eigenvalues)+1
-    for i in reversed(range(len(matrix_eigenvalues)+1)):
-        if sum(matrix_eigenvalues[:i]) / sum(matrix_eigenvalues) > 0.999:
+def get_most_principal_components(matrix_eig):
+    t = len(matrix_eig[0])+1
+    for i in reversed(range(len(matrix_eig[0])+1)):
+        if sum(matrix_eig[0][:i]) / sum(matrix_eig[0]) > 0.999:
             t = i
-    return t
+    return matrix_eig[1][:t]
+
+
+# execute principal component analysis to return a reduced feature matrix where each column represents a principal component
+def execute_pca(dict):
+    matrix = get_numpy_array(dict)
+    matrix = transpose_matrix(matrix)
+    matrix_norm = normalize_matrix(matrix)
+    matrix_norm_cov = get_covariance_matrix(matrix_norm)
+    matrix_norm_cov_eigen = get_eigen(matrix_norm_cov)
+    matrix_reduced = matrix.dot(transpose_matrix(get_most_principal_components(matrix_norm_cov_eigen)))
+    return matrix_reduced
