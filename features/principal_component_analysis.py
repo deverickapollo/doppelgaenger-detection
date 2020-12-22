@@ -40,7 +40,9 @@ def get_most_principal_components(matrix_eig):
     return matrix_eig[1][:t]
 
 
-# execute principal component analysis to return a reduced feature matrix where each column represents a principal component
+# execute principal component analysis
+# input: feature matrix as a dict where each key represents a variable
+# output: reduced feature matrix where each column represents a principal component
 def execute_pca(dict):
     matrix = get_numpy_array(dict)
     matrix = transpose_matrix(matrix)
