@@ -1,5 +1,5 @@
 import logging, database.db_access as db, features.feature_generation as feat, features.leetalpha as alpha, json
-import features.leetalpha, pytest,feature_matrix as matrix
+import feature_matrix as matrix
 from database.db_access import *
 from fractions import Fraction
 #Debug Log
