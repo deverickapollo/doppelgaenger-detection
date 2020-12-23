@@ -64,78 +64,149 @@ def select_string(cfg):
         return 3
 
 
-def func1(matrix,matrix_dict):
+def func1(strings, matrix,matrix_dict):
+    if select_string(cfg1):
+        matrix.reset_string(strings[select_string(cfg1)])
     matrix_dict["character_frequency_letters"] = matrix.character_frequency_letters()
-def func2(matrix,matrix_dict):
+def func2(strings, matrix,matrix_dict):
+    if select_string(cfg2):
+        matrix.reset_string(strings[select_string(cfg2)])
     matrix_dict["character_frequency_digits"] = matrix.character_frequency_digits()
-#strings[select_string(cfg3)]
-def func3(matrix,matrix_dict):
+def func3(strings, matrix,matrix_dict):
+    if select_string(cfg3):
+        matrix.reset_string(strings[select_string(cfg3)])
     matrix_dict["character_frequency_special_characters"] = matrix.character_frequency_special_characters()
-def func4(matrix,matrix_dict):
+def func4(strings, matrix,matrix_dict):
+    if select_string(cfg4):
+        matrix.reset_string(strings[select_string(cfg4)])
     matrix_dict["character_frequency"] = matrix.character_frequency()
-def func5(matrix,matrix_dict):
+def func5(strings, matrix,matrix_dict):
+    if select_string(cfg5):
+        matrix.reset_string(strings[select_string(cfg5)])
     matrix_dict["word_length_distribution"] = matrix.word_length_distribution()
-def func6(matrix,matrix_dict):
+def func6(strings, matrix,matrix_dict):
+    if select_string(cfg6):
+        matrix.reset_string(strings[select_string(cfg6)])
     matrix_dict["word_frequency"] = matrix.word_frequency()
-def func7(matrix,matrix_dict):
+def func7(strings, matrix,matrix_dict):
+    if select_string(cfg7):
+        matrix.reset_string(strings[select_string(cfg7)])
     matrix_dict["number_big_words"] = matrix.number_big_words()
-def func8(matrix,matrix_dict):
+def func8(strings, matrix,matrix_dict):
+    if select_string(cfg8):
+        matrix.reset_string(strings[select_string(cfg8)])
     matrix_dict["hapax_legomena"] = matrix.number_words_appearing_i_times()
-def func9(matrix,matrix_dict):
+def func9(strings, matrix,matrix_dict):
+    if select_string(cfg9):
+        matrix.reset_string(strings[select_string(cfg9)])
     matrix_dict["hapax_dislegomena"] = matrix.number_words_appearing_i_times(2)
-def func10(matrix,matrix_dict):
+def func10(strings, matrix,matrix_dict):
+    if select_string(cfg10):
+        matrix.reset_string(strings[select_string(cfg10)])
     matrix_dict["yules_k"] = matrix.yules_k()
-def func11(matrix,matrix_dict):
+def func11(strings, matrix,matrix_dict):
+    if select_string(cfg11):
+        matrix.reset_string(strings[select_string(cfg11)])
     matrix_dict["brunets_w"] = matrix.brunets_w()
-def func12(matrix,matrix_dict):
+def func12(strings, matrix,matrix_dict):
+    if select_string(cfg12):
+        matrix.reset_string(strings[select_string(cfg12)])
     matrix_dict["honores_r"] = matrix.honores_r()
-def func13(matrix,matrix_dict):
+def func13(strings, matrix,matrix_dict):
+    if select_string(cfg13):
+        matrix.reset_string(strings[select_string(cfg13)])
     matrix_dict["average_number_characters_sentence"] = matrix.average_number_characters_sentence()
-def func14(matrix,matrix_dict):
+def func14(strings, matrix,matrix_dict):
+    if select_string(cfg14):
+        matrix.reset_string(strings[select_string(cfg14)])    
     matrix_dict["average_number_lowercase_letters_sentence"] = matrix.average_number_lowercase_letters_sentence()
-def func15(matrix,matrix_dict):
+def func15(strings, matrix,matrix_dict):
+    if select_string(cfg15):
+        matrix.reset_string(strings[select_string(cfg15)])
     matrix_dict["average_number_uppercase_letters_sentence"] = matrix.average_number_uppercase_letters_sentence()
-def func16(matrix,matrix_dict):
+def func16(strings, matrix,matrix_dict):
+    if select_string(cfg16):
+        matrix.reset_string(strings[select_string(cfg16)])
     matrix_dict["average_number_digits_sentence"] = matrix.average_number_digits_sentence()
-def func17(matrix,matrix_dict):
+def func17(strings, matrix,matrix_dict):
+    if select_string(cfg17):
+        matrix.reset_string(strings[select_string(cfg17)])
     matrix_dict["average_number_words_sentence"] = matrix.average_number_words_sentence()
-def func18(matrix,matrix_dict):
+def func18(strings, matrix,matrix_dict):
+    if select_string(cfg18):
+        matrix.reset_string(strings[select_string(cfg18)])
     matrix_dict["total_number_words_sentence"] = matrix.total_number_words_sentence()
-def func19(matrix,matrix_dict):
+def func19(strings, matrix,matrix_dict):
+    if select_string(cfg19):
+        matrix.reset_string(strings[select_string(cfg19)])
     matrix_dict["punctuation_frequency"] = matrix.punctuation_frequency()
-def func20(matrix,matrix_dict):
+def func20(strings, matrix,matrix_dict):
+    if select_string(cfg20):
+        matrix.reset_string(strings[select_string(cfg20)])
     matrix_dict["punctuation_frequency_sentence"] = matrix.punctuation_frequency_sentence()
-def func21(matrix,matrix_dict):
+def func21(strings, matrix,matrix_dict):
+    if select_string(cfg21):
+        matrix.reset_string(strings[select_string(cfg21)])
     matrix_dict["repeated_whitespace"] = matrix.repeated_whitespace()
-def func22(matrix,matrix_dict):
+def func22(strings, matrix,matrix_dict):
+    if select_string(cfg22):
+        matrix.reset_string(strings[select_string(cfg22)])
     matrix_dict["repeated_whitespace_sentence"] = matrix.repeated_whitespace_sentence()
-def func23(matrix,matrix_dict):
+def func23(strings, matrix,matrix_dict):
+    if select_string(cfg23):
+        matrix.reset_string(strings[select_string(cfg23)])
     matrix_dict["uppercase_words"] = matrix.uppercase_words()
-def func24(matrix,matrix_dict):
+def func24(strings, matrix,matrix_dict):
+    if select_string(cfg24):
+        matrix.reset_string(strings[select_string(cfg24)])
     matrix_dict["uppercase_words_sentence"] = matrix.uppercase_words_sentence()
-# def func25(strings, language, matrix_dict):
-#     matrix_dict["grammarCheck"] = grammarCheck(strings[select_string(cfg25)], language)
-# def func26(strings, language, matrix_dict):
-#     matrix_dict["grammarCheck_sentence"] = grammarCheck_sentence(strings[select_string(cfg26)], language)
-def func27(matrix, language, matrix_dict):
+def func25(strings, matrix, language, matrix_dict):
+    if select_string(cfg25):
+        matrix.reset_string(strings[select_string(cfg25)])
+    matrix_dict["grammarCheck"] = matrix.grammarCheck(language)
+def func26(strings, matrix, language, matrix_dict):
+    if select_string(cfg26):
+        matrix.reset_string(strings[select_string(cfg26)])
+    matrix_dict["grammarCheck_sentence"] = matrix.grammarCheck_sentence(language)
+def func27(strings, matrix, language, matrix_dict):
+    if select_string(cfg27):
+        matrix.reset_string(strings[select_string(cfg27)])
     matrix_dict["sentiment_analysis_word_average"] = matrix.sentiment_analysis_word_average(language)
-def func28(matrix, language, matrix_dict):
+def func28(strings, matrix, language, matrix_dict):
+    if select_string(cfg28):
+        matrix.reset_string(strings[select_string(cfg28)])
     matrix_dict["sentiment_analysis_sentence_average"] = matrix.sentiment_analysis_sentence_average(language)
-def func29(matrix, matrix_dict):
+def func29(strings, matrix, matrix_dict):
+    if select_string(cfg29):
+        matrix.reset_string(strings[select_string(cfg29)])
     matrix_dict["emoji_frequency_word"] = matrix.emoji_frequency_word()
-def func30(matrix, matrix_dict):
+def func30(strings, matrix, matrix_dict):
+    if select_string(cfg30):
+        matrix.reset_string(strings[select_string(cfg30)])
     matrix_dict["emoji_frequency_sentence"] = matrix.emoji_frequency_sentence()
-def func31(matrix, matrix_dict):
+def func31(strings, matrix, matrix_dict):
+    if select_string(cfg31):
+        matrix.reset_string(strings[select_string(cfg31)])
     matrix_dict["get_language"] = matrix.get_language()
-def func32(matrix, matrix_dict):
+def func32(strings, matrix, matrix_dict):
+    if select_string(cfg32):
+        matrix.reset_string(strings[select_string(cfg32)])
     matrix_dict["all_capital_words"] = matrix.all_capital_words()
-def func33(matrix, matrix_dict):
+def func33(strings, matrix, matrix_dict):
+    if select_string(cfg33):
+        matrix.reset_string(strings[select_string(cfg33)])
     matrix_dict["all_capital_words_sentence"] = matrix.all_capital_words_sentence()
-def func34(matrix, matrix_dict):
+def func34(strings, matrix, matrix_dict):
+    if select_string(cfg34):
+        matrix.reset_string(strings[select_string(cfg34)])
     matrix_dict["type_token_ratio"] = matrix.type_token_ratio()
-def func35(matrix, matrix_dict):
+def func35(strings, matrix, matrix_dict):
+    if select_string(cfg35):
+        matrix.reset_string(strings[select_string(cfg35)])
     matrix_dict["mean_word_frequency"] = matrix.mean_word_frequency()
-def func36(matrix, matrix_dict):
+def func36(strings, matrix, matrix_dict):
+    if select_string(cfg36):
+        matrix.reset_string(strings[select_string(cfg36)])
     matrix_dict["sichels_s"] = matrix.sichels_s()
 
 
@@ -152,11 +223,13 @@ def run_cpu_tasks_in_parallel(tasks):
 
 def feature_matrix(string):
     matrix = Feature_Generator(string)
-
+    string_remove_stop_words   = process.remove_stop_words(string)
+    string_lemmatize           = process.lemmatize(string, matrix.language)
+    string_remove_stop_words_lemmatize = process.lemmatize(string_remove_stop_words, matrix.language)
+    strings               = [string, string_remove_stop_words, string_lemmatize, string_remove_stop_words_lemmatize]
     
     starttime = time.time()
     matrix_dict = {}
-
 
     flist=[func1,func2,func3,func4,func5,func6,func7,\
           func8,func9,func10,func11,func12,func13,func14,\
@@ -168,9 +241,9 @@ def feature_matrix(string):
     flist2=[func27,func28]
     with mp.Pool(processes=cpu_count) as pool:
         for i in flist:
-            pool.apply_async(i(matrix,matrix_dict))  
+            pool.apply_async(i(strings, matrix,matrix_dict))  
         for j in flist2:
-            pool.apply_async(j(matrix,matrix.language,matrix_dict))
+            pool.apply_async(j(strings, matrix,matrix.language,matrix_dict))
 
     pool.close()
     pool.join()
