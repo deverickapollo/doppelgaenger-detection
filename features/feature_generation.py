@@ -246,7 +246,6 @@ class Feature_Generator:
 
     # get the average number of words per sentence for a string
     def average_number_words_sentence(self):
-        # sentences = nltk.sent_tokenize(self.string)
         return self.count_words() / len(self.sentences)
 
 
@@ -254,8 +253,6 @@ class Feature_Generator:
     def total_number_words_sentence(self):
         total_words_sentence = {}
         sentences = nltk.sent_tokenize(self.string)
-        #TODO Here we need count word for sentences. Verify this works
-        print("Sentence list is " + str(self.sentences))
         for sentence in sentences:
             total_words_sentence[sentence] = self.count_words_sentence(sentence)
         return total_words_sentence
@@ -578,7 +575,6 @@ class Feature_Generator:
         # with open("misc/emojis/emoji_list", "r") as f:
         #     lines = f.read().splitlines()
         sentences = nltk.sent_tokenize(self.string)
-        print(str(sentences))
         dict = {}
         for sentence in sentences:
             dict[sentence] = {}
