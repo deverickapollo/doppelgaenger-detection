@@ -171,6 +171,24 @@ def insert_into_stats(conn, comment_id, statistics):
 				adapter["mean_word_frequency"], adapter["sichels_s"])
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
+def insert_available_into_stats(conn, comment_id, statistics):
+	adapter = ItemAdapter(statistics)
+	sqlite_insert_with_param = """INSERT OR REPLACE INTO stats
+							(stat_id, character_frequency_letters, character_frequency_digits, character_frequency_special_characters, character_frequency,word_length_distribution,word_frequency,number_big_words,\
+							hapax_legomena,hapax_dislegomena,yules_k,brunets_w,honores_r,average_number_characters_sentence, average_number_lowercase_letters_sentence,average_number_uppercase_letters_sentence,\
+							average_number_digits_sentence,average_number_words_sentence,total_number_words_sentence,punctuation_frequency,punctuation_frequency_sentence,repeated_whitespace,repeated_whitespace_sentence,\
+							uppercase_words,uppercase_words_sentence,grammarCheck,grammarCheck_sentence,sentiment_analysis_word_average,sentiment_analysis_sentence_average,emoji_frequency_word,emoji_frequency_sentence,\
+							get_language, all_capital_words,all_capital_words_sentence, type_token_ratio, mean_word_frequency, sichels_s) 
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );"""
+
+	data_tuple =(comment_id, adapter["character_frequency_letters"], adapter["character_frequency_digits"], adapter["character_frequency_special_characters"], adapter["character_frequency"],adapter["word_length_distribution"],adapter["word_frequency"],\
+				adapter["number_big_words"], adapter["hapax_legomena"], adapter["hapax_dislegomena"], adapter["yules_k"], adapter["brunets_w"],adapter["honores_r"],adapter["average_number_characters_sentence"],\
+				adapter["average_number_lowercase_letters_sentence"], adapter["average_number_uppercase_letters_sentence"], adapter["average_number_digits_sentence"], adapter["average_number_words_sentence"], adapter["total_number_words_sentence"],adapter["punctuation_frequency"],adapter["punctuation_frequency_sentence"],\
+				adapter["repeated_whitespace"], adapter["repeated_whitespace_sentence"], adapter["uppercase_words"], adapter["uppercase_words_sentence"], adapter["grammarCheck"],adapter["grammarCheck_sentence"],adapter["sentiment_analysis_word_average"],\
+				adapter["sentiment_analysis_sentence_average"], adapter["emoji_frequency_word"], adapter["emoji_frequency_sentence"], adapter["get_language"], adapter["all_capital_words"],adapter["all_capital_words_sentence"],adapter["type_token_ratio"],\
+				adapter["mean_word_frequency"], adapter["sichels_s"])
+	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
+
 def sql_full_report(conn):
 	sql_full_report_query = """SELECT url, title, author, publish_date AS date, comment_count FROM article;"""
 	return execute_sql(conn, sql_full_report_query)
