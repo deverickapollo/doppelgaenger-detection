@@ -335,7 +335,7 @@ def test_feature_matrix():
     ddict = matrix.feature_matrix("STRONG is THE KEY")
     json_dump = json.dumps(ddict, sort_keys=False, indent=4)
     ##Pretty print nested dictionary
-    mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
+    # mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
     assert ddict == {'character_frequency_letters': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), \
                     'O': (1, 0.058823529411764705), 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), 'i': (1, 0.058823529411764705), 's': \
                     (1, 0.058823529411764705), 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), \

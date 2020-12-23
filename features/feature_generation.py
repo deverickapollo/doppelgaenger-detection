@@ -15,15 +15,21 @@ class Feature_Generator:
         self.sentences                  = nltk.sent_tokenize(self.string)
         self.wordcount                  = self.count_words()
         self.language                   = self.get_language()
-        self.string_remove_stop_words   = process.remove_stop_words(string)
-        self.string_lemmatize           = process.lemmatize(string, self.language)
-        self.string_remove_stop_words_lemmatize = process.lemmatize(self.string_remove_stop_words, self.language)
-        self.strings_list               = [string, self.string_remove_stop_words, self.string_lemmatize, self.string_remove_stop_words_lemmatize]
+
         with open("misc/emojis/emoji_list", "r") as f:
             self.lines = f.read().splitlines()
+            
     ###################################
     ####### HELPER FUNCTIONS ##########
     ###################################
+
+    def reset_string(self, string):
+        self.string = string
+        self.string_lowercase           = self.string.lower()
+        self.word_tokens                = nltk.word_tokenize(self.string)
+        self.word_tokens_lower          = nltk.word_tokenize(self.string_lowercase)
+        self.sentences                  = nltk.sent_tokenize(self.string)
+        self.wordcount                  = self.count_words()
 
     # count words of a string excluding all punctuation but including emojis
     #TODO EMOJI LIST
