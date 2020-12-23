@@ -19,7 +19,6 @@ class Feature_Generator:
         self.string_lemmatize           = process.lemmatize(string, self.language)
         self.string_remove_stop_words_lemmatize = process.lemmatize(self.string_remove_stop_words, self.language)
         self.strings_list               = [string, self.string_remove_stop_words, self.string_lemmatize, self.string_remove_stop_words_lemmatize]
-        self.lines = []
         with open("misc/emojis/emoji_list", "r") as f:
             self.lines = f.read().splitlines()
     ###################################
@@ -27,6 +26,7 @@ class Feature_Generator:
     ###################################
 
     # count words of a string excluding all punctuation but including emojis
+    #TODO EMOJI LIST
     def count_words(self):
         with open("misc/emojis/emoji_list", "r") as f:
             lines = f.read().splitlines()
@@ -175,7 +175,7 @@ class Feature_Generator:
     # get yules k measure for a string
     def yules_k(self):
         n = self.count_words()
-        m1 = sum(self.number_words_appearing_i_times(self.string, i+1)[0]*(((i+1)/n)**2) for i in range(n))
+        m1 = sum(self.number_words_appearing_i_times(i+1)[0]*(((i+1)/n)**2) for i in range(n))
         m2 = -(1/n)
         return (10**4) * (m2 + m1)
 
@@ -183,7 +183,7 @@ class Feature_Generator:
     # get brunets w measure for a string
     def brunets_w(self):
         n = self.count_words()
-        vocab_size = self.vocabulary_size(self.string)
+        vocab_size = self.vocabulary_size()
         a = -0.172
         return n**(vocab_size ** -a)
 
@@ -764,12 +764,12 @@ class Feature_Generator:
 
     # get the mean word frequency
     def mean_word_frequency(self):
-        return self.count_words() / self.vocabulary_size(self.string)
+        return self.count_words() / self.vocabulary_size()
 
 
     # get the type token ratio
     def type_token_ratio(self):
-        return self.vocabulary_size(self.string) / self.count_words()
+        return self.vocabulary_size() / self.count_words()
 
 
     # get sichels s measure
@@ -777,6 +777,6 @@ class Feature_Generator:
     # Sichel (1975) observed that the ratio of dis legomena, V (2, N ) to the vocabulary
     # size is roughly constant across a wide range of sample sizes
     def sichels_s(self):
-        hapax_dislegomena = self.number_words_appearing_i_times(self.string, 2)
-        vocab_size = self.vocabulary_size(self.string)
+        hapax_dislegomena = self.number_words_appearing_i_times(2)
+        vocab_size = self.vocabulary_size()
         return hapax_dislegomena[0] / vocab_size

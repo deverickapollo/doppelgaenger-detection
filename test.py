@@ -327,28 +327,42 @@ def test_all_capital_words_sentence():
 #    leet = generator.dictionary_values_as_keys(alpha.leet_alphabet)
 #    assert generator.leetScan(raw_comment,leet) == Fraction(1, 24)
 
-# def test_feature_matrix():
-#     mylogger.log(logging.DEBUG, "Feature Matrix Testing")
-#     mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
-#     testgenerator = feat.Feature_Generator("STRONG is THE KEY")
+def test_feature_matrix():
+    mylogger.log(logging.DEBUG, "Feature Matrix Testing")
+    mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
+    testgenerator = feat.Feature_Generator("STRONG is THE KEY")
 
-#     ddict = matrix.feature_matrix("STRONG is THE KEY")
-#     json_dump = json.dumps(ddict, sort_keys=False, indent=4)
-#     ##Pretty print nested dictionary
-#     mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
+    ddict = matrix.feature_matrix("STRONG is THE KEY")
+    json_dump = json.dumps(ddict, sort_keys=False, indent=4)
+    ##Pretty print nested dictionary
+    mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
+    assert ddict == {'character_frequency_letters': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), \
+                    'O': (1, 0.058823529411764705), 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), 'i': (1, 0.058823529411764705), 's': \
+                    (1, 0.058823529411764705), 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), \
+                    'Y': (1, 0.058823529411764705)}, 'character_frequency_digits': {}, 'character_frequency_special_characters': {' ': (3, 0.17647058823529413)}, \
+                    'character_frequency': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), 'O': (1, 0.058823529411764705), \
+                    'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), ' ': (3, 0.17647058823529413), 'i': (1, 0.058823529411764705), 's': (1, 0.058823529411764705), \
+                    'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), 'Y': (1, 0.058823529411764705)}, 'word_length_distribution': {6: 1, 2: 1, 3: 2}, \
+                    'word_frequency': {'STRONG': 1, 'is': 1, 'THE': 1, 'KEY': 1}, 'number_big_words': (0, 0.0), 'hapax_legomena': (4, 1.0), 'hapax_dislegomena': (0, 0.0), 'yules_k': 0.0, 'brunets_w': 5.8100145317524445, 'honores_r': 1386294361.8495748, \
+                    'average_number_characters_sentence': 14.0, 'average_number_lowercase_letters_sentence': 2.0, 'average_number_uppercase_letters_sentence': 12.0, 'average_number_digits_sentence': 0.0, \
+                    'average_number_words_sentence': 4.0, 'total_number_words_sentence': {'STRONG is THE KEY': 4}, 'punctuation_frequency': {}, 'punctuation_frequency_sentence': {'STRONG is THE KEY': {}}, \
+                    'repeated_whitespace': {}, 'repeated_whitespace_sentence': {'STRONG is THE KEY': {}}, 'uppercase_words': (0, 0.0), 'uppercase_words_sentence': {'STRONG is THE KEY': (0, 0.0)},  \
+                    'sentiment_analysis_word_average': 0.14375, 'sentiment_analysis_sentence_average': {'strong is the key': 0.14375}, 'emoji_frequency_word': {}, \
+                    'emoji_frequency_sentence': {'STRONG is THE KEY': {}}, 'get_language': 'EN', 'all_capital_words': (3, 0.75), 'all_capital_words_sentence': {'STRONG is THE KEY': (3, 0.75)}, 'type_token_ratio': 1.0, 'mean_word_frequency': 1.0, 'sichels_s': 0.0}, \
+                    "test failed"
 
-#     assert ddict == {'character_frequency_letters': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), \
-#                     'O': (1, 0.058823529411764705), 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), 'i': (1, 0.058823529411764705), 's': \
-#                     (1, 0.058823529411764705), 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), \
-#                     'Y': (1, 0.058823529411764705)}, 'character_frequency_digits': {}, 'character_frequency_special_characters': {' ': (3, 0.17647058823529413)}, \
-#                     'character_frequency': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), 'O': (1, 0.058823529411764705), \
-#                     'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), ' ': (3, 0.17647058823529413), 'i': (1, 0.058823529411764705), 's': (1, 0.058823529411764705), \
-#                     'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), 'Y': (1, 0.058823529411764705)}, 'word_length_distribution': {6: 1, 2: 1, 3: 2}, \
-#                     'word_frequency': {'STRONG': 1, 'is': 1, 'THE': 1, 'KEY': 1}, 'number_big_words': (0, 0.0), 'hapax_legomena': (4, 1.0), 'hapax_dislegomena': (0, 0.0), 'yules_k': 0.0, 'brunets_w': 5.8100145317524445, 'honores_r': 1386294361.8495748, \
-#                     'average_number_characters_sentence': 14.0, 'average_number_lowercase_letters_sentence': 2.0, 'average_number_uppercase_letters_sentence': 12.0, 'average_number_digits_sentence': 0.0, \
-#                     'average_number_words_sentence': 4.0, 'total_number_words_sentence': {'STRONG is THE KEY': 4}, 'punctuation_frequency': {}, 'punctuation_frequency_sentence': {'STRONG is THE KEY': {}}, \
-#                     'repeated_whitespace': {}, 'repeated_whitespace_sentence': {'STRONG is THE KEY': {}}, 'uppercase_words': (0, 0.0), 'uppercase_words_sentence': {'STRONG is THE KEY': (0, 0.0)}, 'grammarCheck': ([], 0), \
-#                     'grammarCheck_sentence': {'STRONG is THE KEY': ([], 0)}, 'sentiment_analysis_word_average': 0.14375, 'sentiment_analysis_sentence_average': {'strong is the key': 0.14375}, 'emoji_frequency_word': {}, \
-#                     'emoji_frequency_sentence': {'STRONG is THE KEY': {}}, 'get_language': 'EN', 'all_capital_words': (3, 0.75), 'all_capital_words_sentence': {'STRONG is THE KEY': (3, 0.75)}, 'type_token_ratio': 1.0, 'mean_word_frequency': 1.0, 'sichels_s': 0.0}, \
-#                     "test failed"
-
+##Grammar check included
+    # assert ddict == {'character_frequency_letters': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), \
+    #                 'O': (1, 0.058823529411764705), 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), 'i': (1, 0.058823529411764705), 's': \
+    #                 (1, 0.058823529411764705), 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), \
+    #                 'Y': (1, 0.058823529411764705)}, 'character_frequency_digits': {}, 'character_frequency_special_characters': {' ': (3, 0.17647058823529413)}, \
+    #                 'character_frequency': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), 'O': (1, 0.058823529411764705), \
+    #                 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), ' ': (3, 0.17647058823529413), 'i': (1, 0.058823529411764705), 's': (1, 0.058823529411764705), \
+    #                 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), 'Y': (1, 0.058823529411764705)}, 'word_length_distribution': {6: 1, 2: 1, 3: 2}, \
+    #                 'word_frequency': {'STRONG': 1, 'is': 1, 'THE': 1, 'KEY': 1}, 'number_big_words': (0, 0.0), 'hapax_legomena': (4, 1.0), 'hapax_dislegomena': (0, 0.0), 'yules_k': 0.0, 'brunets_w': 5.8100145317524445, 'honores_r': 1386294361.8495748, \
+    #                 'average_number_characters_sentence': 14.0, 'average_number_lowercase_letters_sentence': 2.0, 'average_number_uppercase_letters_sentence': 12.0, 'average_number_digits_sentence': 0.0, \
+    #                 'average_number_words_sentence': 4.0, 'total_number_words_sentence': {'STRONG is THE KEY': 4}, 'punctuation_frequency': {}, 'punctuation_frequency_sentence': {'STRONG is THE KEY': {}}, \
+    #                 'repeated_whitespace': {}, 'repeated_whitespace_sentence': {'STRONG is THE KEY': {}}, 'uppercase_words': (0, 0.0), 'uppercase_words_sentence': {'STRONG is THE KEY': (0, 0.0)}, 'grammarCheck': ([], 0), \
+    #                 'grammarCheck_sentence': {'STRONG is THE KEY': ([], 0)}, 'sentiment_analysis_word_average': 0.14375, 'sentiment_analysis_sentence_average': {'strong is the key': 0.14375}, 'emoji_frequency_word': {}, \
+    #                 'emoji_frequency_sentence': {'STRONG is THE KEY': {}}, 'get_language': 'EN', 'all_capital_words': (3, 0.75), 'all_capital_words_sentence': {'STRONG is THE KEY': (3, 0.75)}, 'type_token_ratio': 1.0, 'mean_word_frequency': 1.0, 'sichels_s': 0.0}, \
+    #                 "test failed"
