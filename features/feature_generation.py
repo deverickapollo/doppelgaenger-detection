@@ -1,9 +1,8 @@
-import configparser, json, language_tool_python
-import math, re, nltk, features.leetalpha as alpha, string, features.preprocessing as process
+import language_tool_python
+import math, re, nltk, features.leetalpha as alpha, features.preprocessing as process
 from hunspell import Hunspell
 from string import punctuation
 from fractions import Fraction
-from collections import defaultdict
 
 
 class Feature_Generator:

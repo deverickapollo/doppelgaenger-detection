@@ -63,7 +63,6 @@ def select_string(cfg):
     else:
         return 3
 
-
 def func1(strings, matrix,matrix_dict):
     if select_string(cfg1):
         matrix.reset_string(strings[select_string(cfg1)])

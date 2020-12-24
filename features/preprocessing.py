@@ -1,5 +1,5 @@
 from nltk.corpus import stopwords
-import nltk, spacy, re
+import nltk, spacy
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 
 stop_words_dict = dict(EN=set(stopwords.words('english')),
