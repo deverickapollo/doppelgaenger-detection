@@ -1,5 +1,5 @@
 import language_tool_python
-import math, re, nltk, features.leetalpha as alpha, features.preprocessing as process
+import math, re, nltk, features.leetalpha as alpha
 from hunspell import Hunspell
 from string import punctuation
 from fractions import Fraction
@@ -410,13 +410,14 @@ class Feature_Generator:
         with open("misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt") as f:
             lines = f.read().splitlines()
         for line in lines:
-            line = re.split("\|.{0,6}\\t|\\t|,", line)
+            #TODO check added escape character valid
+            line = re.split("\\|.{0,6}\\t|\\t|,", line)
             for word in line[:1] + line[2:]:
                 dict[word] = line[1]
         with open("misc/sentiment_analysis/de/SentiWS_v2.0_Positive.txt") as f:
             lines = f.read().splitlines()
         for line in lines:
-            line = re.split("\|.{0,6}\\t|\\t|,", line)
+            line = re.split("\\|.{0,6}\\t|\\t|,", line)
             for word in line[:1] + line[2:]:
                 dict[word] = line[1]
         return dict
