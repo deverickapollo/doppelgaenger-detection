@@ -566,10 +566,9 @@ class Feature_Generator:
         #     lines = f.read().splitlines()
         dict = {}
         for l in self.lines:
-            for l in self.lines:
-                emojis_counter = self.string.count(l)
-                if emojis_counter > 0:
-                    dict[l] = emojis_counter
+            emojis_counter = self.string.count(l)
+            if emojis_counter > 0:
+                dict[l] = emojis_counter
         for emoji in dict:
             dict[emoji] = (dict[emoji], dict[emoji] / self.count_words())
         return dict
