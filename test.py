@@ -338,8 +338,6 @@ def test_all_capital_words_sentence():
 def test_feature_matrix():
     mylogger.log(logging.DEBUG, "Feature Matrix Testing")
     mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
-    testgenerator = feat.Feature_Generator("STRONG is THE KEY")
-
     ddict = matrix.feature_matrix("STRONG is THE KEY")
     json_dump = json.dumps(ddict, sort_keys=False, indent=4)
     ##Pretty print nested dictionary
