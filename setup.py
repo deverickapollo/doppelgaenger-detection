@@ -4,11 +4,10 @@ See:
 https://packaging.python.org/guides/distributing-packages-using-setuptools/
 """
 
-
 import subprocess
 import pathlib
 # Always prefer setuptools over distutils
-from setuptools import setup, find_packages
+from setuptools import setup
 from setuptools.command.install import install
 from subprocess import check_call
 

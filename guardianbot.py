@@ -4,11 +4,10 @@ from pprint import pprint
 
 from scrape_guardian import *
 from database.db_access import *
-import logging, scrapy, os, asyncio, argparse, features.feature_generation as feat, feature_matrix as matrix,subprocess
+import logging, os, argparse, features.feature_generation as feat, feature_matrix as matrix
 
 from logging import FileHandler
 from logging import Formatter
-from subprocess import Popen, PIPE
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
