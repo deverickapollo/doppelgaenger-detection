@@ -1,7 +1,6 @@
 import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys
 from features.feature_generation import *
 from multiprocessing import Process
-from os import getpid, getppid
 from multiprocessing import Pool
 
 cpu_count = mp.cpu_count()

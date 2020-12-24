@@ -2,7 +2,7 @@
 # Helper functions to crawl Guardian News Website
 import re, pytz, requests, scrapy, pytz
 from scrapy import *
-from datetime import datetime, timezone as ttime
+# from datetime import datetime, timezone as ttime
 from pytz import timezone
 
 bst = pytz.timezone('Europe/London')
