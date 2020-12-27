@@ -1,4 +1,5 @@
 import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys
+from pprint import pprint
 
 from features.feature_generation import *
 from multiprocessing import Process
@@ -243,8 +244,23 @@ def feature_matrix(string):
     # print('Time taken = {} seconds'.format(time.time() - starttime))
     # print("=========================================")  
     return matrix_dict
+
+
+# flatten a dictionary
+def flatten_dict(init, left_key=''):
+    flattened = dict()
+    for right_key,value in init.items():
+        key = str(left_key)+str(right_key)
+        if isinstance(value, dict):
+            flattened.update(flatten_dict(value, key+'_'))
+        else:
+            flattened[key] = value
+    return flattened
+
 # generate the feature vector based on the config file
 # returns a dict
 if __name__ == '__main__':
     string = str(sys.argv[1])
-    feature_matrix(string)
+    flatten_dict(feature_matrix(string))
+
+
