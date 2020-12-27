@@ -38,7 +38,6 @@ class Feature_Generator:
         counter_include = 0
         for l in lines:
             counter_include += self.string.count(l)
-        # words = nltk.word_tokenize(s)
         words = self.word_tokens
         counter_exclude = 0
         for word in words:
@@ -46,16 +45,15 @@ class Feature_Generator:
                 counter_exclude += 1
         return len(words) - counter_exclude + counter_include
 
-
+    #TODO emojilits needs to move outside of this module
     # count words of a string excluding all punctuation but including emojis
     def count_words_sentence(self, string):
-        # with open("misc/emojis/emoji_list", "r") as f:
-        #     lines = f.read().splitlines()
+        with open("misc/emojis/emoji_list", "r") as f:
+            lines = f.read().splitlines()
         counter_include = 0
-        for l in self.lines:
+        for l in lines:
             counter_include += string.count(l)
         words = nltk.word_tokenize(string)
-        # words = self.word_tokens
         counter_exclude = 0
         for word in words:
             if word in punctuation:
@@ -76,7 +74,7 @@ class Feature_Generator:
                 else:
                     char_freq_letters[char] = 1
         for char in char_freq_letters:
-            char_freq_letters[char] = (char_freq_letters[char], char_freq_letters[char] / len(self.string))
+            char_freq_letters[char] = char_freq_letters[char] / len(self.string)
         return char_freq_letters
 
 
@@ -90,7 +88,7 @@ class Feature_Generator:
                 else:
                     char_freq_digits[char] = 1
         for char in char_freq_digits:
-            char_freq_digits[char] = (char_freq_digits[char], char_freq_digits[char] / len(self.string))
+            char_freq_digits[char] = char_freq_digits[char] / len(self.string)
         return char_freq_digits
 
     # get character frequency for individual special characters in a string
@@ -103,7 +101,7 @@ class Feature_Generator:
                 else:
                     char_freq_special[char] = 1
         for char in char_freq_special:
-            char_freq_special[char] = (char_freq_special[char], char_freq_special[char] / len(self.string))
+            char_freq_special[char] = char_freq_special[char] / len(self.string)
         return char_freq_special
 
 
@@ -116,14 +114,13 @@ class Feature_Generator:
             else:
                 char_freq[char] = 1
         for char in char_freq:
-            char_freq[char] = (char_freq[char], char_freq[char] / len(self.string))
+            char_freq[char] = char_freq[char] / len(self.string)
         return char_freq
 
 
     # get word length distribution for all words with up to 20 characters in a string
     def word_length_distribution(self):
         word_length_distr = {}
-        # word_tokens = nltk.word_tokenize(string)
         word_tokens = self.word_tokens
         for word in word_tokens:
             if len(word) <= 20:
@@ -137,17 +134,21 @@ class Feature_Generator:
     ###################################
     ##### VOCABULARY RICHNESS #########
     ###################################
-
+    #TODO Should we use all lowercase here to identify matches using different capitalization
+    #TODO Includes frequency character frequency letters
+    #TODO Difference between word_freq and char_freq algorithm? Verify with test cases
     # get word frequency for a string
     def word_frequency(self):
         word_freq = {}
-        # word_tokens = nltk.word_tokenize(string)
-        for word in self.word_tokens:
+    
+        for word in self.word_tokens_lower:
             if word not in punctuation:
                 if word in word_freq:
                     word_freq[word] += 1
                 else:
                     word_freq[word] = 1
+        for word in word_freq:
+            word_freq[word] = word_freq[word] / len(self.string)
         return word_freq
 
 
@@ -156,11 +157,10 @@ class Feature_Generator:
     # TODO: is 10 a good standard value?
     def number_big_words(self, l=10):
         number = 0
-        # word_tokens = nltk.word_tokenize(string)
         for word in self.word_tokens:
             if len(word) > l:
                 number += 1
-        return (number, number / self.count_words())
+        return number
 
 
     # get number of words appearing i times in a string
@@ -168,19 +168,18 @@ class Feature_Generator:
     # for hapax dislegomena: i = 2
     # returns a tuple: (total, weighted)
     def number_words_appearing_i_times(self, i=1):
-        # string = string.lower()
         number = 0
         word_freq = self.word_frequency()
         for word in word_freq:
             if word_freq[word] == i:
                 number += 1
-        return (number, number / self.count_words())
+        return number
 
 
     # get yules k measure for a string
     def yules_k(self):
         n = self.count_words()
-        m1 = sum(self.number_words_appearing_i_times(i+1)[0]*(((i+1)/n)**2) for i in range(n))
+        m1 = sum(self.number_words_appearing_i_times(i+1)*(((i+1)/n)**2) for i in range(n))
         m2 = -(1/n)
         return (10**4) * (m2 + m1)
 
@@ -197,7 +196,7 @@ class Feature_Generator:
     def honores_r(self):
         # word_tokens = nltk.word_tokenize(string)
         n = len(self.word_tokens)
-        hapax_legomena = self.number_words_appearing_i_times()[0]
+        hapax_legomena = self.number_words_appearing_i_times()
         vocab_size = self.vocabulary_size()
         div = hapax_legomena / vocab_size
         if div == 1:
@@ -216,7 +215,6 @@ class Feature_Generator:
         for char in self.string:
             if char in exclude or char.isspace():
                 counter_exclude += 1
-        # sentences = nltk.sent_tokenize(string)
         return (len(self.string) - counter_exclude) / len(self.sentences)
 
     # get the average number of lowercase letters per sentence for a string
@@ -225,7 +223,6 @@ class Feature_Generator:
         for char in self.string:
             if char.islower():
                 counter_lowercase += 1
-        # sentences = nltk.sent_tokenize(string)
         return (counter_lowercase) / len(self.sentences)
 
 
@@ -235,7 +232,6 @@ class Feature_Generator:
         for char in self.string:
             if char.isupper():
                 counter_uppercase += 1
-        # sentences = nltk.sent_tokenize(string)
         return (counter_uppercase) / len(self.sentences)
 
 
@@ -245,7 +241,6 @@ class Feature_Generator:
         for char in self.string:
             if char.isnumeric():
                 counter_digits += 1
-        # sentences = nltk.sent_tokenize(string)
         return (counter_digits) / len(self.sentences)
 
 
@@ -278,7 +273,7 @@ class Feature_Generator:
                 else:
                     punc_freq[char] = 1
         for char in punc_freq:
-            punc_freq[char] = (punc_freq[char], punc_freq[char] / len(self.string))
+            punc_freq[char] = punc_freq[char] / len(self.string)
         return punc_freq
 
 
@@ -296,7 +291,7 @@ class Feature_Generator:
                     else:
                         punc_freq[sentence][char] = 1
             for char in punc_freq[sentence]:
-                punc_freq[sentence][char] = (punc_freq[sentence][char], punc_freq[sentence][char] / len(sentence))
+                punc_freq[sentence][char] = punc_freq[sentence][char] / len(sentence)
         return punc_freq
 
 
@@ -316,7 +311,7 @@ class Feature_Generator:
                 else:
                     dict[len(w)] = 1
         for whitespace in dict:
-            dict[whitespace] = (dict[whitespace], dict[whitespace] / len(self.string))
+            dict[whitespace] = dict[whitespace] / len(self.string)
         return dict
 
 
@@ -335,7 +330,7 @@ class Feature_Generator:
                     else:
                         dict[sentence][len(w)] = 1
             for whitespace in dict[sentence]:
-                dict[sentence][whitespace] = (dict[sentence][whitespace], dict[sentence][whitespace] / len(sentence))
+                dict[sentence][whitespace] = dict[sentence][whitespace] / len(sentence)
         return dict
 
 
@@ -351,7 +346,7 @@ class Feature_Generator:
         for word in self.word_tokens:
             if word.istitle():
                 counter_uppercase += 1
-        return (counter_uppercase, counter_uppercase / self.count_words())
+        return counter_uppercase
 
 
     # get the number of uppercase words per sentence for a string
@@ -365,7 +360,7 @@ class Feature_Generator:
             for word in words:
                 if word.istitle():
                     counter_uppercase += 1
-            dict[sentence] = (counter_uppercase, counter_uppercase / self.count_words_sentence(sentence))
+            dict[sentence] = counter_uppercase
         return dict
 
     # get the number of grammar mistakes within a string
@@ -562,15 +557,15 @@ class Feature_Generator:
     # get the emoji frequency for a string
     # returns a dict with tuples per emoji: tuple (total, average)
     def emoji_frequency_word(self):
-        # with open("misc/emojis/emoji_list", "r") as f:
-        #     lines = f.read().splitlines()
+        with open("misc/emojis/emoji_list", "r") as f:
+            lines = f.read().splitlines()
         dict = {}
-        for l in self.lines:
+        for l in lines:
             emojis_counter = self.string.count(l)
             if emojis_counter > 0:
                 dict[l] = emojis_counter
         for emoji in dict:
-            dict[emoji] = (dict[emoji], dict[emoji] / self.count_words())
+            dict[emoji] = dict[emoji] / self.count_words()
         return dict
 
 
@@ -588,7 +583,7 @@ class Feature_Generator:
                 if emojis_sentence_counter > 0:
                     dict[sentence][l] = emojis_sentence_counter
             for emoji in dict[sentence]:
-                dict[sentence][emoji] = (dict[sentence][emoji], dict[sentence][emoji] / self.count_words_sentence(sentence))
+                dict[sentence][emoji] = dict[sentence][emoji] / self.count_words_sentence(sentence)
         return dict
 
     ###################################
@@ -733,7 +728,7 @@ class Feature_Generator:
         for word in self.word_tokens:
             if word.isupper():
                 counter_all_capital += 1
-        return (counter_all_capital, counter_all_capital / self.count_words())
+        return counter_all_capital
 
 
     # get the number of all capital words per sentence for a string
@@ -747,7 +742,7 @@ class Feature_Generator:
             for word in words:
                 if word.isupper():
                     counter_all_capital += 1
-            dict[sentence] = (counter_all_capital, counter_all_capital / self.count_words_sentence(sentence))
+            dict[sentence] = counter_all_capital
         return dict
 
 
@@ -780,4 +775,4 @@ class Feature_Generator:
     def sichels_s(self):
         hapax_dislegomena = self.number_words_appearing_i_times(2)
         vocab_size = self.vocabulary_size()
-        return hapax_dislegomena[0] / vocab_size
+        return hapax_dislegomena / vocab_size

@@ -246,10 +246,11 @@ def feature_matrix(string):
     pool.close()
     pool.join()
 
-    print(matrix_dict)
-    print("=========================================")    
-    print('Time taken = {} seconds'.format(time.time() - starttime))
-    print("=========================================")  
+    # json_dump = json.dumps(matrix_dict, sort_keys=False, indent=4)
+    # print(json_dump)
+    # print("=========================================")    
+    # print('Time taken = {} seconds'.format(time.time() - starttime))
+    # print("=========================================")  
     return matrix_dict
 # generate the feature vector based on the config file
 # returns a dict
