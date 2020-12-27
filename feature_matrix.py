@@ -1,4 +1,5 @@
 import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys
+
 from features.feature_generation import *
 from multiprocessing import Process
 from multiprocessing import Pool
@@ -74,18 +75,11 @@ def func3(strings, matrix,matrix_dict):
     if select_string(cfg3):
         matrix.reset_string(strings[select_string(cfg3)])
     matrix_dict["character_frequency_special_characters"] = matrix.character_frequency_special_characters()
-def func4(strings, matrix,matrix_dict):
-    if select_string(cfg4):
-        matrix.reset_string(strings[select_string(cfg4)])
-    matrix_dict["character_frequency"] = matrix.character_frequency()
 def func5(strings, matrix,matrix_dict):
     if select_string(cfg5):
         matrix.reset_string(strings[select_string(cfg5)])
     matrix_dict["word_length_distribution"] = matrix.word_length_distribution()
-def func6(strings, matrix,matrix_dict):
-    if select_string(cfg6):
-        matrix.reset_string(strings[select_string(cfg6)])
-    matrix_dict["word_frequency"] = matrix.word_frequency()
+
 def func7(strings, matrix,matrix_dict):
     if select_string(cfg7):
         matrix.reset_string(strings[select_string(cfg7)])
@@ -130,10 +124,7 @@ def func17(strings, matrix,matrix_dict):
     if select_string(cfg17):
         matrix.reset_string(strings[select_string(cfg17)])
     matrix_dict["average_number_words_sentence"] = matrix.average_number_words_sentence()
-def func18(strings, matrix,matrix_dict):
-    if select_string(cfg18):
-        matrix.reset_string(strings[select_string(cfg18)])
-    matrix_dict["total_number_words_sentence"] = matrix.total_number_words_sentence()
+
 def func19(strings, matrix,matrix_dict):
     if select_string(cfg19):
         matrix.reset_string(strings[select_string(cfg19)])
@@ -169,11 +160,11 @@ def func26(strings, matrix, language, matrix_dict):
 def func27(strings, matrix, language, matrix_dict):
     if select_string(cfg27):
         matrix.reset_string(strings[select_string(cfg27)])
-    matrix_dict["sentiment_analysis_word_average"] = matrix.sentiment_analysis_word_average(language)
+    matrix_dict["sentiment_analysis_word_average"] = matrix.sentiment_analysis_word_average()
 def func28(strings, matrix, language, matrix_dict):
     if select_string(cfg28):
         matrix.reset_string(strings[select_string(cfg28)])
-    matrix_dict["sentiment_analysis_sentence_average"] = matrix.sentiment_analysis_sentence_average(language)
+    matrix_dict["sentiment_analysis_sentence_average"] = matrix.sentiment_analysis_sentence_average()
 def func29(strings, matrix, matrix_dict):
     if select_string(cfg29):
         matrix.reset_string(strings[select_string(cfg29)])
@@ -229,9 +220,9 @@ def feature_matrix(string):
     starttime = time.time()
     matrix_dict = {}
 
-    flist=[func1,func2,func3,func4,func5,func6,func7,\
+    flist=[func1,func2,func3,func5,func7,\
           func8,func9,func10,func11,func12,func13,func14,\
-          func15,func16,func17,func18,func19,func20,func21,\
+          func15,func16,func17,func19,func20,func21,\
           func22,func23,func24,\
           func29,func30,func31,func32,func33,func34,func35,func36]
 ##Grammar functions are cpu intensive. Evaluate value proposition before adding
@@ -257,4 +248,3 @@ def feature_matrix(string):
 if __name__ == '__main__':
     string = str(sys.argv[1])
     feature_matrix(string)
-    

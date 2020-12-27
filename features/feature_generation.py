@@ -1,3 +1,5 @@
+import string
+
 import language_tool_python
 import math, re, nltk, features.leetalpha as alpha
 from hunspell import Hunspell
@@ -66,13 +68,10 @@ class Feature_Generator:
 
     # get character frequency for individual letters in a string
     def character_frequency_letters(self):
-        char_freq_letters = {}
+        char_freq_letters = dict.fromkeys(string.ascii_letters, 0)
         for char in self.string:
-            if char.isalpha():
-                if char in char_freq_letters:
-                    char_freq_letters[char] += 1
-                else:
-                    char_freq_letters[char] = 1
+            if char in string.ascii_letters:
+                char_freq_letters[char] += 1
         for char in char_freq_letters:
             char_freq_letters[char] = char_freq_letters[char] / len(self.string)
         return char_freq_letters
@@ -80,54 +79,34 @@ class Feature_Generator:
 
     # get character frequency for individual digits in a string
     def character_frequency_digits(self):
-        char_freq_digits = {}
+        char_freq_digits = dict.fromkeys(string.digits, 0)
         for char in self.string:
-            if char.isnumeric():
-                if char in char_freq_digits:
-                    char_freq_digits[char] += 1
-                else:
-                    char_freq_digits[char] = 1
+            if char in string.digits:
+                char_freq_digits[char] += 1
         for char in char_freq_digits:
             char_freq_digits[char] = char_freq_digits[char] / len(self.string)
         return char_freq_digits
 
     # get character frequency for individual special characters in a string
     def character_frequency_special_characters(self):
-        char_freq_special = {}
+        char_freq_special = dict.fromkeys(string.punctuation, 0)
         for char in self.string:
-            if not char.isalnum():
-                if char in char_freq_special:
-                    char_freq_special[char] += 1
-                else:
-                    char_freq_special[char] = 1
+            if char in string.punctuation:
+                char_freq_special[char] += 1
         for char in char_freq_special:
             char_freq_special[char] = char_freq_special[char] / len(self.string)
         return char_freq_special
 
 
-    # get character frequency for all individual characters in a string
-    def character_frequency(self):
-        char_freq = {}
-        for char in self.string:
-            if char in char_freq:
-                char_freq[char] += 1
-            else:
-                char_freq[char] = 1
-        for char in char_freq:
-            char_freq[char] = char_freq[char] / len(self.string)
-        return char_freq
-
-
     # get word length distribution for all words with up to 20 characters in a string
     def word_length_distribution(self):
-        word_length_distr = {}
+        word_length_distr = dict.fromkeys(range(0, 21), 0)
         word_tokens = self.word_tokens
         for word in word_tokens:
-            if len(word) <= 20:
-                if len(word) in word_length_distr:
-                    word_length_distr[len(word)] += 1
-                else:
-                    word_length_distr[len(word)] = 1
+            if len(word) <= 20 and not word in string.punctuation:
+                word_length_distr[len(word)] += 1
+        for word_length in word_length_distr:
+            word_length_distr[word_length] = (word_length_distr[word_length] / len(self.word_tokens))
         return word_length_distr
 
 
@@ -140,15 +119,13 @@ class Feature_Generator:
     # get word frequency for a string
     def word_frequency(self):
         word_freq = {}
-    
+
         for word in self.word_tokens_lower:
             if word not in punctuation:
                 if word in word_freq:
                     word_freq[word] += 1
                 else:
                     word_freq[word] = 1
-        for word in word_freq:
-            word_freq[word] = word_freq[word] / len(self.string)
         return word_freq
 
 
@@ -265,13 +242,10 @@ class Feature_Generator:
     # get the punctuation frequency for a string
     # returns a dict with tuples (total, average)
     def punctuation_frequency(self):
-        punc_freq = {}
+        punc_freq = dict.fromkeys(punctuation, 0)
         for char in self.string:
             if char in punctuation:
-                if char in punc_freq:
-                    punc_freq[char] += 1
-                else:
-                    punc_freq[char] = 1
+                punc_freq[char] += 1
         for char in punc_freq:
             punc_freq[char] = punc_freq[char] / len(self.string)
         return punc_freq
@@ -280,18 +254,12 @@ class Feature_Generator:
     # get the punctuation frequency per sentence for a string
     # returns a dict per sentence with tuples (total, average)
     def punctuation_frequency_sentence(self):
-        punc_freq = {}
-        # sentences = nltk.sent_tokenize(s)
-        for sentence in self.sentences:
-            punc_freq[sentence] = {}
-            for char in sentence:
-                if char in punctuation:
-                    if char in punc_freq[sentence]:
-                        punc_freq[sentence][char] += 1
-                    else:
-                        punc_freq[sentence][char] = 1
-            for char in punc_freq[sentence]:
-                punc_freq[sentence][char] = punc_freq[sentence][char] / len(sentence)
+        punc_freq = dict.fromkeys(punctuation, 0)
+        for char in self.string:
+            if char in punctuation:
+                punc_freq[char] += 1
+        for char in punc_freq:
+            punc_freq[char] = punc_freq[char] / len(self.sentences)
         return punc_freq
 
 
@@ -302,36 +270,27 @@ class Feature_Generator:
     # get the frequency for the repeated occurrences of whitespaces for a string
     # returns a dict with tuples (total, average)
     def repeated_whitespace(self):
+        d = dict.fromkeys(range(0,21), 0)
         whitespaces = re.findall(r"\s+", self.string)
-        dict = {}
         for w in whitespaces:
-            if len(w) > 1:
-                if len(w) in dict:
-                    dict[len(w)] += 1
-                else:
-                    dict[len(w)] = 1
-        for whitespace in dict:
-            dict[whitespace] = dict[whitespace] / len(self.string)
-        return dict
+            if len(w) > 1 and len(w) < 21:
+                d[len(w)] += 1
+        for key in d:
+            d[key] = d[key] / len(self.string)
+        return d
 
 
     # get the frequency for the repeated occurrences of whitespaces per sentence for a string
     # returns a dict per sentence with tuples (total, average)
     def repeated_whitespace_sentence(self):
-        dict = {}
-        # sentences = nltk.sent_tokenize(string)
-        for sentence in self.sentences:
-            dict[sentence] = {}
-            whitespaces = re.findall(r"\s+", sentence)
-            for w in whitespaces:
-                if len(w) > 1:
-                    if len(w) in dict:
-                        dict[sentence][len(w)] += 1
-                    else:
-                        dict[sentence][len(w)] = 1
-            for whitespace in dict[sentence]:
-                dict[sentence][whitespace] = dict[sentence][whitespace] / len(sentence)
-        return dict
+        d = dict.fromkeys(range(0, 21), 0)
+        whitespaces = re.findall(r"\s+", self.string)
+        for w in whitespaces:
+            if len(w) > 1 and len(w) < 21:
+                d[len(w)] += 1
+        for key in d:
+            d[key] = d[key] / len(self.sentences)
+        return d
 
 
     ###################################
@@ -346,22 +305,18 @@ class Feature_Generator:
         for word in self.word_tokens:
             if word.istitle():
                 counter_uppercase += 1
-        return counter_uppercase
+        return counter_uppercase / self.count_words()
 
 
     # get the number of uppercase words per sentence for a string
     # returns a dict with a tuple per sentence: (total, average)
     def uppercase_words_sentence(self):
-        dict = {}
-        # sentences = nltk.sent_tokenize(string)
-        for sentence in self.sentences:
-            words = nltk.word_tokenize(sentence)
-            counter_uppercase = 0
-            for word in words:
-                if word.istitle():
-                    counter_uppercase += 1
-            dict[sentence] = counter_uppercase
-        return dict
+        counter_uppercase = 0
+        for word in self.word_tokens:
+            if word.istitle():
+                counter_uppercase += 1
+        return counter_uppercase / len(self.sentences)
+
 
     # get the number of grammar mistakes within a string
     # returns a tuple: (errors, len(matches))
@@ -400,7 +355,7 @@ class Feature_Generator:
     #
     # R. Remus, U. Quasthoff & G. Heyer: SentiWS - a Publicly Available German-language Resource for Sentiment Analysis.
     # In: Proceedings of the 7th International Language Ressources and Evaluation (LREC'10), 201
-    def load_sentiment_lexicon_german():
+    def load_sentiment_lexicon_german(self):
         dict = {}
         with open("misc/sentiment_analysis/de/SentiWS_v2.0_Negative.txt") as f:
             lines = f.read().splitlines()
@@ -453,7 +408,7 @@ class Feature_Generator:
     # * Finn Årup Nielsen, "A new ANEW: evaluation of a word list for sentiment analysis in microblogs", Proceedings
     # of the ESWC2011 Workshop on 'Making Sense of Microposts': Big things come in small packages. Volume 718 in CEUR
     # Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
-    def load_sentiment_lexicon_spanish():
+    def load_sentiment_lexicon_spanish(self):
         dict = {}
         with open("misc/sentiment_analysis/es/AFINN-es-111.txt") as f:
             lines = f.read()
@@ -471,7 +426,7 @@ class Feature_Generator:
     # * Finn Årup Nielsen, "A new ANEW: evaluation of a word list for sentiment analysis in microblogs", Proceedings
     # of the ESWC2011 Workshop on 'Making Sense of Microposts': Big things come in small packages. Volume 718 in CEUR
     # Workshop Proceedings: 93-98. 2011 May. Matthew Rowe, Milan Stankovic, Aba-Sah Dadzie, Mariann Hardey (editors)
-    def load_sentiment_lexicon_french():
+    def load_sentiment_lexicon_french(self):
         dict = {}
         with open("misc/sentiment_analysis/fr/AFINN-fr-165.txt") as f:
             lines = f.read().splitlines()
@@ -496,8 +451,8 @@ class Feature_Generator:
     # perform sentiment analysis based on a lexicon approach for a string
     # result is a value between -1 and +1 where +1 is positive and -1 is negative
     # returns the average per word
-    def sentiment_analysis_word_average(self, language="EN"):
-        sentiment_lexicon = self.load_sentiment_lexicon(language)
+    def sentiment_analysis_word_average(self):
+        sentiment_lexicon = self.load_sentiment_lexicon(self.language)
         # words = nltk.word_tokenize(self.string.lower)
         words = self.word_tokens_lower
         result = 0.0
@@ -524,31 +479,28 @@ class Feature_Generator:
     #         dict[sentence] = result / self.count_words_sentence(sentence)
     #     return dict
 
-    def sentiment_analysis_sentence_average(self, language="EN"):
-        sentiment_lexicon = self.load_sentiment_lexicon(language)
-        sentences = nltk.sent_tokenize(self.string.lower())
-        dict = {}
-        for sentence in sentences:
-            result = 0.0
-            words = nltk.word_tokenize(sentence)
-            for word in words:
-                if word in sentiment_lexicon:
-                    result += float(sentiment_lexicon[word])
-            dict[sentence] = result / self.count_words_sentence(sentence)
-        return dict
+    def sentiment_analysis_sentence_average(self):
+        sentiment_lexicon = self.load_sentiment_lexicon(self.language)
+        # words = nltk.word_tokenize(self.string.lower)
+        words = self.word_tokens_lower
+        result = 0.0
+        for word in words:
+            if word in sentiment_lexicon:
+                result += float(sentiment_lexicon[word])
+        return result / len(self.sentences)
 
-    def sentiment_analysis_sentence_average2(self, string, language="EN"):
-        sentiment_lexicon = self.load_sentiment_lexicon(language)
-        sentences = nltk.sent_tokenize(string.lower())
-        dict = {}
-        for sentence in sentences:
-            result = 0.0
-            words = nltk.word_tokenize(sentence)
-            for word in words:
-                if word in sentiment_lexicon:
-                    result += float(sentiment_lexicon[word])
-            dict[sentence] = result / self.count_words_sentence(sentence)
-        return dict
+    # def sentiment_analysis_sentence_average2(self, string, language="EN"):
+    #     sentiment_lexicon = self.load_sentiment_lexicon(language)
+    #     sentences = nltk.sent_tokenize(string.lower())
+    #     dict = {}
+    #     for sentence in sentences:
+    #         result = 0.0
+    #         words = nltk.word_tokenize(sentence)
+    #         for word in words:
+    #             if word in sentiment_lexicon:
+    #                 result += float(sentiment_lexicon[word])
+    #         dict[sentence] = result / self.count_words_sentence(sentence)
+    #     return dict
 
     ###################################
     ##### ADDITIONAL FEATURES #########
@@ -557,16 +509,14 @@ class Feature_Generator:
     # get the emoji frequency for a string
     # returns a dict with tuples per emoji: tuple (total, average)
     def emoji_frequency_word(self):
-        with open("misc/emojis/emoji_list", "r") as f:
-            lines = f.read().splitlines()
-        dict = {}
-        for l in lines:
+        d = dict.fromkeys(self.lines, 0)
+        for l in self.lines:
             emojis_counter = self.string.count(l)
             if emojis_counter > 0:
-                dict[l] = emojis_counter
-        for emoji in dict:
-            dict[emoji] = dict[emoji] / self.count_words()
-        return dict
+                d[l] = emojis_counter
+        for emoji in d:
+            d[emoji] = d[emoji] / self.count_words()
+        return d
 
 
     # get the emoji frequency for a string
@@ -574,17 +524,14 @@ class Feature_Generator:
     def emoji_frequency_sentence(self):
         # with open("misc/emojis/emoji_list", "r") as f:
         #     lines = f.read().splitlines()
-        sentences = nltk.sent_tokenize(self.string)
-        dict = {}
-        for sentence in sentences:
-            dict[sentence] = {}
-            for l in self.lines:
-                emojis_sentence_counter = sentence.count(l)
-                if emojis_sentence_counter > 0:
-                    dict[sentence][l] = emojis_sentence_counter
-            for emoji in dict[sentence]:
-                dict[sentence][emoji] = dict[sentence][emoji] / self.count_words_sentence(sentence)
-        return dict
+        d = dict.fromkeys(self.lines, 0)
+        for l in self.lines:
+            emojis_counter = self.string.count(l)
+            if emojis_counter > 0:
+                d[l] = emojis_counter
+        for emoji in d:
+            d[emoji] = d[emoji] / len(self.sentences)
+        return d
 
     ###################################
     ####### LEETSPEAK ################
