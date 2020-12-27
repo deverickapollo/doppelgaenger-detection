@@ -675,22 +675,18 @@ class Feature_Generator:
         for word in self.word_tokens:
             if word.isupper():
                 counter_all_capital += 1
-        return counter_all_capital
+        return counter_all_capital / self.count_words()
 
 
     # get the number of all capital words per sentence for a string
     # returns a dict with a tuple per sentence: (total, average)
     def all_capital_words_sentence(self):
-        dict = {}
-        # sentences = nltk.sent_tokenize(string)
-        for sentence in self.sentences:
-            words = nltk.word_tokenize(sentence)
-            counter_all_capital = 0
-            for word in words:
-                if word.isupper():
-                    counter_all_capital += 1
-            dict[sentence] = counter_all_capital
-        return dict
+        # words = nltk.word_tokenize(string)
+        counter_all_capital = 0
+        for word in self.word_tokens:
+            if word.isupper():
+                counter_all_capital += 1
+        return counter_all_capital / len(self.sentences)
 
 
     # get the vocabulary size for a string
