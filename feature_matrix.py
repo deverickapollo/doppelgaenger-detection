@@ -211,7 +211,7 @@ def run_cpu_tasks_in_parallel(tasks):
     for running_task in running_tasks:
         running_task.join()
 
-def feature_matrix(string):
+def feature_matrix(string, user_id):
     matrix = Feature_Generator(string)
     string_remove_stop_words   = process.remove_stop_words(string)
     string_lemmatize           = process.lemmatize(string, matrix.language)
@@ -242,7 +242,8 @@ def feature_matrix(string):
     # print(json_dump)
     # print("=========================================")    
     # print('Time taken = {} seconds'.format(time.time() - starttime))
-    # print("=========================================")  
+    # print("=========================================")
+    matrix_dict["user_id"] = user_id
     return matrix_dict
 
 
@@ -261,7 +262,8 @@ def flatten_dict(init, left_key=''):
 # returns a dict
 if __name__ == '__main__':
     string = str(sys.argv[1])
-    feature_matrix(string)
-    #flatten_dict(feature_matrix(string))
+    user_id = int(sys.argv[2])
+    feature_matrix(string, user_id)
+    #flatten_dict(feature_matrix(string, user_id))
 
 

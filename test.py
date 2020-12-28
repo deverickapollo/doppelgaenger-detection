@@ -962,7 +962,7 @@ def test_all_capital_words_sentence():
 def test_feature_matrix():
     mylogger.log(logging.DEBUG, "Feature Matrix Testing")
     mylogger.log(logging.DEBUG, "Input: STRONG is THE KEY")
-    ddict = matrix.feature_matrix("STRONG is THE KEY")
+    ddict = matrix.feature_matrix("STRONG is THE KEY", 2)
     json_dump = json.dumps(ddict, sort_keys=False, indent=4)
     ##Pretty print nested dictionary
     # mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
@@ -1609,7 +1609,8 @@ def test_feature_matrix():
  'mean_word_frequency': 1.0,
  'sichels_s': 0.0,
  'sentiment_analysis_word_average': 0.14375,
- 'sentiment_analysis_sentence_average': 0.575}, \
+ 'sentiment_analysis_sentence_average': 0.575,
+ 'user_id': 2}, \
         "test failed"
 
 ##Grammar check included
