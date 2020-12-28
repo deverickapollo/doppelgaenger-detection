@@ -261,6 +261,7 @@ def flatten_dict(init, left_key=''):
 # returns a dict
 if __name__ == '__main__':
     string = str(sys.argv[1])
-    flatten_dict(feature_matrix(string))
+    feature_matrix(string)
+    #flatten_dict(feature_matrix(string))
 
 

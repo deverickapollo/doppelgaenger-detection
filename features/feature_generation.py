@@ -137,7 +137,7 @@ class Feature_Generator:
         for word in self.word_tokens:
             if len(word) > l:
                 number += 1
-        return number
+        return number / self.count_words()
 
 
     # get number of words appearing i times in a string
