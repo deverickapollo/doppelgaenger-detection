@@ -298,7 +298,7 @@ def sql_delete_comments_by_comment_author_username(conn, comment_author_username
 
 # return all comments by users which have at least 100 comments
 def sql_return_comments_users_hundred(conn):
-	sql_return_comments_users_hundred_query = """SELECT * FROM comment GROUP BY comment_author_id HAVING  COUNT(comment_author_id) > 99 ORDER BY comment_author_id;"""
+	sql_return_comments_users_hundred_query = """SELECT * FROM comment c JOIN ( SELECT comment_author_id FROM comment GROUP BY comment_author_id HAVING COUNT(*) > 99 ) b on c.comment_author_id = b.comment_author_id ORDER BY comment_author_id;"""
 	return execute_sql(conn, sql_return_comments_users_hundred_query)
 
 def drop_all(conn):	
