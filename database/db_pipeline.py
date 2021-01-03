@@ -73,7 +73,7 @@ class commentPipeline(object):
             conn.commit()
             logging.log(logging.INFO, "Computing Comment Statistics on: %s", item)
             #TODO Pass dictionaries and symbol tables into Matrix
-            statistics = feat.feature_matrix(comment_text,[comment_id])
+            statistics = feat.feature_matrix([comment_text],[comment_id])
             # logging.log(logging.INFO, "Statistic stored: %s", statistics)
             db.insert_stat_horrorshow(conn, comment_id, statistics)
             conn.commit()
