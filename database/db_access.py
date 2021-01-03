@@ -303,7 +303,7 @@ def sql_delete_comments_by_comment_id(conn, comment_id):
 
 def sql_delete_comments_by_comment_author_id(conn, comment_author_id):
 	sql_return_comments_query = """DELETE FROM comment WHERE comment_author_id= ?;"""
-	data_tuple = (stat_id,)
+	data_tuple = (comment_author_id,)
 	return execute_sql_param(conn, sql_return_comments_query,data_tuple)
 
 def sql_delete_comments_by_comment_author_username(conn, comment_author_username):

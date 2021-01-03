@@ -12,7 +12,7 @@ aedt = pytz.timezone('Australia/Tasmania')
 
 class guardianSpider(scrapy.Spider):
     name = "toscrape-css"
-    custom_settings = {'ITEM_PIPELINES': {'db_pipeline.sqLitePipeline': 300}}
+    custom_settings = {'ITEM_PIPELINES': {'database.db_pipeline.sqLitePipeline': 300}}
 
     def __init__(self, *args, **kwargs):
         super(guardianSpider, self).__init__(*args, **kwargs)
@@ -78,7 +78,7 @@ class guardianSpider(scrapy.Spider):
 
 class commentSpider(scrapy.Spider):
     name = "toscrape-comment-css"
-    custom_settings = {'ITEM_PIPELINES': {'db_pipeline.commentPipeline': 300}}
+    custom_settings = {'ITEM_PIPELINES': {'database.db_pipeline.commentPipeline': 300}}
 
     def __init__(self, *args, **kwargs):
         super(commentSpider, self).__init__(*args, **kwargs)

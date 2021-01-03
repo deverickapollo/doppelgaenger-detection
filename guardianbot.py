@@ -96,12 +96,10 @@ def main(spider="guardianSpider", log=False, size=0):
 		if os.path.isfile('logs/webapp.log'):
 			open('logs/webapp.log', 'w').close()
 		else:
-			print ("Webapp log doesn't exist")
 			logging.log(logging.ERROR, "Error! Webapp log doesn't exist.")
 		if os.path.isfile('logs/report.log'):
 			open('logs/report.log', 'w').close()
 		else:
-			print ("Report log doesn't exist")
 			logging.log(logging.ERROR, "Error! Report log doesn't exist.")
 	if args.version:
 		print("GuardianBot version 1.0")
