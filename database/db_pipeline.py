@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # Item pipeline used to process data after scraping 
-import logging, item, database.db_access as db
+import logging, database.db_access as db
 from database.db_access import *
-from contextlib import closing
-from feature_matrix import feature_matrix
+from feature_matrix import feature_matrix as matrix
 total_comment_count = 0
 total_user_count = 0
 total_article_count = 0
@@ -40,7 +39,7 @@ class sqLitePipeline(object):
 class commentPipeline(object):
     # Take the item and put it in database - do not allow duplicates
     def process_item(self, item, spider):
-        adapter = ItemAdapter(item)
+        adapter = ItemAdapter(item) 
         comment_id = adapter["comment_id"]
         conn = spider.connection
         cursor = db.sql_return_comment_from_id(conn, comment_id)
@@ -66,15 +65,16 @@ class commentPipeline(object):
             db.insert_into_comment(conn,item)
             global total_comment_count 
             global total_comment_words
+            #TODO Do we need this value? 
             total_comment_words += len(adapter["comment_text"].split())
             total_comment_count += 1
             conn.commit()
-            logging.log(logging.INFO, "Comment stored: %s", item)
             logging.log(logging.INFO, "Computing Comment Statistics on: %s", item)
-            statistics = feature_matrix(comment_string)
-            logging.log(logging.INFO, "Computing Statistics Complete")
-            logging.log(logging.INFO, "Statistic stored: %s", item)
+            #TODO Pass dictionaries and symbol tables into Matrix
+            statistics = matrix.feature_matrix(comment_string)
+            # logging.log(logging.INFO, "Statistic stored: %s", statistics)
             db.insert_into_stats(conn, comment_id, statistics)
+            conn.commit()
         else:
             logging.log(logging.WARNING, "Comment too long or too short: %s", item)
         return item
