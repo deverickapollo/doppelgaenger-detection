@@ -1,4 +1,4 @@
-import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys
+import configparser, json, features.preprocessing as process, string, time, multiprocessing as mp, sys, os, logging
 from pprint import pprint
 
 from features.feature_generation import *
@@ -9,6 +9,10 @@ cpu_count = mp.cpu_count()
 
 config = configparser.ConfigParser()
 config.read_file(open(r'features/feature_generation_config.cfg'))
+
+# Debug Log
+# logging.basicConfig(level=logging.DEBUG, format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
+# mylogger = logging.getLogger()
 
 # Character Frequency
 cfg1 = json.loads(config.get("Character Frequency", "character_frequency_letters"))
@@ -47,7 +51,6 @@ cfg33 = json.loads(config.get("Additional Features", "all_capital_words_sentence
 cfg34 = json.loads(config.get("Additional Features", "type_token_ratio"))
 cfg35 = json.loads(config.get("Additional Features", "mean_word_frequency"))
 cfg36 = json.loads(config.get("Additional Features", "sichels_s"))
-
 
 ###################################
 ### FEATURE VECTOR GENERATION #####
@@ -285,38 +288,41 @@ def feature_matrix(s, u):
              func15, func16, func17, func19, func20, func21, \
              func22, func23, func24, \
              func29, func30, func31, func32, func33, func34, func35, func36]
-    ##Grammar functions are cpu intensive. Evaluate value proposition before adding
+    ##Grammar functions are cpu intensive. Evaluate value proposition before adding. TODO Must also be added to DB
     # func25,func26,
-    flist2 = [func27, func28]
-
-    for string, user_id in zip(s, u):
-        matrix = Feature_Generator(string)
-        string_remove_stop_words = process.remove_stop_words(string)
-        string_lemmatize = process.lemmatize(string, matrix.language)
-        string_remove_stop_words_lemmatize = process.lemmatize(string_remove_stop_words, matrix.language)
-        strings = [string, string_remove_stop_words, string_lemmatize, string_remove_stop_words_lemmatize]
-
-        starttime = time.time()
-        matrix_dict = {}
-
-        with mp.Pool(processes=cpu_count) as pool:
+    flist2 = [func27, func28]   
+    starttime = time.time()
+    with mp.Pool(processes=cpu_count) as pool:
+        logging.log(logging.DEBUG, "s and u: %s %s",  s, u)
+        # mylogger.log(logging.DEBUG, "s and u: %s %s",  s, u)
+        for string, user_id in zip(s, u):
+            matrix = Feature_Generator(string)
+            string_remove_stop_words = process.remove_stop_words(string)
+            string_lemmatize = process.lemmatize(string, matrix.language)
+            string_remove_stop_words_lemmatize = process.lemmatize(string_remove_stop_words, matrix.language)
+            strings = [string, string_remove_stop_words, string_lemmatize, string_remove_stop_words_lemmatize]
+            matrix_dict = {}
+       
             for i in flist:
                 pool.apply_async(i(strings, matrix, matrix_dict))
             for j in flist2:
                 pool.apply_async(j(strings, matrix, matrix.language, matrix_dict))
 
+
+
+            json_dump = json.dumps(matrix_dict, sort_keys=False, indent=4)
+            # # print(json_dump)
+
+            matrix_dict["user_id"] = user_id
+            vectors.append(flatten_dict(matrix_dict))
         pool.close()
         pool.join()
+    # print("=========================================")
+    # print('Time taken = {} seconds'.format(time.time() - starttime))
+    # print("=========================================")
+        logging.log(logging.DEBUG, 'Time taken = {} seconds'.format(time.time() - starttime))
 
-        # json_dump = json.dumps(matrix_dict, sort_keys=False, indent=4)
-        # print(json_dump)
-        # print("=========================================")
-        # print('Time taken = {} seconds'.format(time.time() - starttime))
-        # print("=========================================")
-        matrix_dict["user_id"] = user_id
-        vectors.append(flatten_dict(matrix_dict))
-
-    return merge_dicts(vectors)
+        return merge_dicts(vectors)
 
 
 # flatten a dictionary

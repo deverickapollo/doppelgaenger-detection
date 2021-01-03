@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # Item pipeline used to process data after scraping 
-import logging, database.db_access as db
+import logging, database.db_access as db, feature_matrix as feat
 from database.db_access import *
-from feature_matrix import feature_matrix as matrix
 total_comment_count = 0
 total_user_count = 0
 total_article_count = 0
@@ -39,12 +38,15 @@ class sqLitePipeline(object):
 class commentPipeline(object):
     # Take the item and put it in database - do not allow duplicates
     def process_item(self, item, spider):
-        adapter = ItemAdapter(item) 
+        adapter = ItemAdapter(item)
         comment_id = adapter["comment_id"]
+        comment_text = adapter["comment_text"]
         conn = spider.connection
         cursor = db.sql_return_comment_from_id(conn, comment_id)
         result = cursor.fetchone()
-        comment_string = result[1]
+        comment_string = None
+        if result:
+            comment_string = result[1]
         
 
         if result is not None and comment_string == adapter["comment_text"]:
@@ -71,9 +73,9 @@ class commentPipeline(object):
             conn.commit()
             logging.log(logging.INFO, "Computing Comment Statistics on: %s", item)
             #TODO Pass dictionaries and symbol tables into Matrix
-            statistics = matrix.feature_matrix(comment_string)
+            statistics = feat.feature_matrix(comment_text,[comment_id])
             # logging.log(logging.INFO, "Statistic stored: %s", statistics)
-            db.insert_into_stats(conn, comment_id, statistics)
+            db.insert_stat_horrorshow(conn, comment_id, statistics)
             conn.commit()
         else:
             logging.log(logging.WARNING, "Comment too long or too short: %s", item)

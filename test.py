@@ -973,9 +973,9 @@ def test_feature_matrix():
                "This is another friendly happy test", "hallo deutsch >;)"]
     user_ids = [2, 33, 999999]
     ddict = matrix.feature_matrix(strings, user_ids)
-    json_dump = json.dumps(ddict, sort_keys=False, indent=4)
+    # json_dump = json.dumps(ddict, sort_keys=False, indent=4)
     #Pretty print nested dictionary
-    mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
+    # mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
     assert ddict == {'character_frequency_letters_a': [0.04918032786885246,
                                                        0.09090909090909091,
                                                        0.05714285714285714],
