@@ -1668,10 +1668,10 @@ def test_feature_matrix():
         "test failed"
 
 
-def test_drop():
-    # Database declaration and connection
-    database = r'database/dopplegaenger.db'
-    conn = db.create_connection(database)
-    drop_all(conn)
-    conn.commit()
-    assert check_table(conn,"user").fetchone() is None, "test failed"
+# def test_drop():
+#     # Database declaration and connection
+#     database = r'database/dopplegaenger.db'
+#     conn = db.create_connection(database)
+#     drop_all(conn)
+#     conn.commit()
+#     assert check_table(conn,"user").fetchone() is None, "test failed"
