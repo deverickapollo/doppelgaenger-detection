@@ -1,0 +1,7357 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.1, pytest-6.1.2, py-1.9.0, pluggy-0.13.1
+rootdir: /Users/r00t/Github/doppelgaenger_detection, configfile: pytest.ini
+plugins: html-3.1.0, metadata-1.11.0, cov-2.10.1
+collected 43 items
+
+test.py::test_py PASSED                                                  [  2%]
+test.py::test_insert_and_verify_user 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:16 [   DEBUG] User ID: 999999999 and  Username: monero (test.py:35)
+2021-01-03 14:59:17 [    INFO] Inserting user monero with user_id 999999999 into user table (db_access.py:161)
+2021-01-03 14:59:17 [   DEBUG] user exist 999999999 (test.py:41)
+PASSED                                                                   [  4%]
+test.py::test_comment 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Comment exist (999999999, 'monero on the rise', '999999999', 999999999, 'monero', 'someurl.com', 'Some new title') (test.py:65)
+PASSED                                                                   [  6%]
+test.py::test_insert_stat_for_comment 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Stat exist (999999999, "{'character_frequency_letters': 999999999, 'character_frequency_digits': 999999999, 'character_frequency_special_characters': 999999999, 'character_frequency': 999999999, 'word_length_distribution': 999999999, 'word_frequency': 999999999, 'number_big_words': 999999999, 'hapax_legomena': 999999999, 'hapax_dislegomena': 999999999, 'yules_k': 999999999, 'brunets_w': 999999999, 'honores_r': 999999999, 'average_number_characters_sentence': 999999999, 'average_number_lowercase_letters_sentence': 999999999, 'average_number_uppercase_letters_sentence': 999999999, 'average_number_digits_sentence': 999999999, 'average_number_words_sentence': 999999999, 'total_number_words_sentence': 999999999, 'punctuation_frequency': 999999999, 'punctuation_frequency_sentence': 999999999, 'repeated_whitespace': 999999999, 'repeated_whitespace_sentence': 999999999, 'uppercase_words': 999999999, 'uppercase_words_sentence': 999999999, 'grammarCheck': 999999999, 'grammarCheck_sentence': 999999999, 'sentiment_analysis_word_average': 999999999, 'sentiment_analysis_sentence_average': 999999999, 'emoji_frequency_word': 999999999, 'emoji_frequency_sentence': 999999999, 'get_language': 999999999, 'all_capital_words': 999999999, 'all_capital_words_sentence': 999999999, 'type_token_ratio': 999999999, 'mean_word_frequency': 999999999, 'sichels_s': 999999999}") (test.py:117)
+PASSED                                                                   [  9%]
+test.py::test_verify_stat_nonexist 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Stat does not exist None (test.py:127)
+PASSED                                                                   [ 11%]
+test.py::test_delete 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] User monero has been removed  (test.py:142)
+PASSED                                                                   [ 13%]
+test.py::test_check PASSED                                               [ 16%]
+test.py::test_reverse PASSED                                             [ 18%]
+test.py::test_count_words_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Check the lock. Cache is full. Lets test again. (test.py:192)
+PASSED                                                                   [ 20%]
+test.py::test_count_words 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: These are four words. (test.py:198)
+PASSED                                                                   [ 23%]
+test.py::test_count_words2 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: These are. four words.. (test.py:204)
+PASSED                                                                   [ 25%]
+test.py::test_count_words3 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Counting characters makes Jack a dull boy. (test.py:210)
+PASSED                                                                   [ 27%]
+test.py::test_count_words4 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input:  (test.py:216)
+PASSED                                                                   [ 30%]
+test.py::test_count_words5 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input:  (test.py:222)
+PASSED                                                                   [ 32%]
+test.py::test_character_frequency_letters 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Freq123.,! (test.py:228)
+PASSED                                                                   [ 34%]
+test.py::test_character_frequency_digits 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Freq123.,! (test.py:240)
+PASSED                                                                   [ 37%]
+test.py::test_character_frequency_special_characters 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Freq123.,! (test.py:256)
+PASSED                                                                   [ 39%]
+test.py::test_word_length_distribution 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is a test string. (test.py:294)
+PASSED                                                                   [ 41%]
+test.py::test_number_big_words 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Only one big woooooooooooord. (test.py:321)
+PASSED                                                                   [ 44%]
+test.py::test_hapax_legomena 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is a test string. (test.py:327)
+PASSED                                                                   [ 46%]
+test.py::test_hapax_dislegomena 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is a test string. (test.py:333)
+PASSED                                                                   [ 48%]
+test.py::test_average_number_characters_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test. (test.py:339)
+PASSED                                                                   [ 51%]
+test.py::test_average_number_lowercase_letters_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test. (test.py:345)
+PASSED                                                                   [ 53%]
+test.py::test_average_number_uppercase_letters_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test. (test.py:351)
+PASSED                                                                   [ 55%]
+test.py::test_average_number_digits_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Th1s 1s. A t3st. (test.py:357)
+PASSED                                                                   [ 58%]
+test.py::test_average_number_words_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test test. (test.py:363)
+PASSED                                                                   [ 60%]
+test.py::test_total_number_words_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test. (test.py:369)
+PASSED                                                                   [ 62%]
+test.py::test_punctuation_frequency 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test. (test.py:407)
+PASSED                                                                   [ 65%]
+test.py::test_punctuation_frequency_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is. A test. (test.py:445)
+PASSED                                                                   [ 67%]
+test.py::test_repeated_whitespace 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Test   Test. Test  Test. (test.py:472)
+PASSED                                                                   [ 69%]
+test.py::test_repeated_whitespace_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Test   Test. Test  Test. (test.py:499)
+PASSED                                                                   [ 72%]
+test.py::test_uppercase_words 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Upper lower. Upper Upper. (test.py:505)
+PASSED                                                                   [ 74%]
+test.py::test_uppercase_words_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Upper lower. Upper Upper. (test.py:511)
+PASSED                                                                   [ 76%]
+test.py::test_sentiment_analysis_word_average 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Happy sentence. Sad sentence. (test.py:517)
+PASSED                                                                   [ 79%]
+test.py::test_sentiment_analysis_sentence_average 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Happy sentence. Sad sentence. (test.py:523)
+PASSED                                                                   [ 81%]
+test.py::test_emoji_frequency_word 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is :-). This is :(. (test.py:730)
+PASSED                                                                   [ 83%]
+test.py::test_emoji_frequency_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is :-). This is :(. (test.py:937)
+PASSED                                                                   [ 86%]
+test.py::test_get_language_de 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: Das ist ein deutscher Satz. (test.py:943)
+PASSED                                                                   [ 88%]
+test.py::test_get_language_en 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: This is an english sentence. (test.py:949)
+PASSED                                                                   [ 90%]
+test.py::test_all_capital_words 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: STRONG is THE KEY (test.py:955)
+PASSED                                                                   [ 93%]
+test.py::test_all_capital_words_sentence 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:17 [   DEBUG] Input: STRONG is THE KEY. KEY. (test.py:961)
+PASSED                                                                   [ 95%]
+test.py::test_feature_matrix 
+-------------------------------- live log call ---------------------------------
+2021-01-03 14:59:19 [   DEBUG] Feature Matrix: 82052 (feature_matrix.py:87)
+2021-01-03 14:59:20 [   DEBUG] Feature Matrix: 82052 (feature_matrix.py:87)
+2021-01-03 14:59:21 [   DEBUG] Feature Matrix: 82052 (feature_matrix.py:87)
+2021-01-03 14:59:22 [   DEBUG] Time taken = 4.434209108352661 seconds (feature_matrix.py:324)
+2021-01-03 14:59:22 [   DEBUG] Feature Matrix: {
+    "character_frequency_letters_a": [
+        0.04918032786885246,
+        0.09090909090909091,
+        0.04918032786885246
+    ],
+    "character_frequency_letters_b": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_c": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_d": [
+        0.06557377049180328,
+        0.05194805194805195,
+        0.06557377049180328
+    ],
+    "character_frequency_letters_e": [
+        0.08196721311475409,
+        0.06493506493506493,
+        0.08196721311475409
+    ],
+    "character_frequency_letters_f": [
+        0.04918032786885246,
+        0.05194805194805195,
+        0.04918032786885246
+    ],
+    "character_frequency_letters_g": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "character_frequency_letters_h": [
+        0.03278688524590164,
+        0.025974025974025976,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_i": [
+        0.03278688524590164,
+        0.025974025974025976,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_j": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_k": [
+        0.03278688524590164,
+        0.012987012987012988,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_l": [
+        0.03278688524590164,
+        0.03896103896103896,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_m": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_n": [
+        0.04918032786885246,
+        0.06493506493506493,
+        0.04918032786885246
+    ],
+    "character_frequency_letters_o": [
+        0.08196721311475409,
+        0.05194805194805195,
+        0.08196721311475409
+    ],
+    "character_frequency_letters_p": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_r": [
+        0.03278688524590164,
+        0.025974025974025976,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_s": [
+        0.03278688524590164,
+        0.06493506493506493,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_t": [
+        0.06557377049180328,
+        0.11688311688311688,
+        0.06557377049180328
+    ],
+    "character_frequency_letters_u": [
+        0.06557377049180328,
+        0.05194805194805195,
+        0.06557377049180328
+    ],
+    "character_frequency_letters_v": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_w": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_x": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_y": [
+        0.01639344262295082,
+        0.012987012987012988,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_z": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_A": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_B": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_C": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_E": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_F": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_G": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_H": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_I": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "character_frequency_letters_J": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_K": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_L": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_M": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_N": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_P": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_Q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_R": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_S": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_T": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_U": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_V": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_W": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_X": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_Y": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_Z": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_1": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_2": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_4": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_5": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_6": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_7": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_!": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_\"": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_#": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_'": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_+": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_,": [
+        0.01639344262295082,
+        0.025974025974025976,
+        0.01639344262295082
+    ],
+    "character_frequency_special_characters_-": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_.": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "character_frequency_special_characters_/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_?": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters__": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_`": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_~": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_1": [
+        0.07142857142857142,
+        0.05555555555555555,
+        0.07142857142857142
+    ],
+    "word_length_distribution_2": [
+        0.21428571428571427,
+        0.16666666666666666,
+        0.21428571428571427
+    ],
+    "word_length_distribution_3": [
+        0.21428571428571427,
+        0.2222222222222222,
+        0.21428571428571427
+    ],
+    "word_length_distribution_4": [
+        0.07142857142857142,
+        0.1111111111111111,
+        0.07142857142857142
+    ],
+    "word_length_distribution_5": [
+        0.21428571428571427,
+        0.05555555555555555,
+        0.21428571428571427
+    ],
+    "word_length_distribution_6": [
+        0.07142857142857142,
+        0.0,
+        0.07142857142857142
+    ],
+    "word_length_distribution_7": [
+        0.07142857142857142,
+        0.2222222222222222,
+        0.07142857142857142
+    ],
+    "word_length_distribution_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_10": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_11": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_12": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_13": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_14": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_15": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_16": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_17": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_18": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_19": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_20": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "number_big_words": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "hapax_legomena": [
+        13,
+        13,
+        13
+    ],
+    "hapax_dislegomena": [
+        0,
+        1,
+        0
+    ],
+    "yules_k": [
+        0.0,
+        88.8888888888889,
+        0.0
+    ],
+    "brunets_w": [
+        53.908216766301585,
+        71.07532205119617,
+        53.908216766301585
+    ],
+    "honores_r": [
+        2639057331.0043416,
+        4046.5204610546325,
+        2639057331.0043416
+    ],
+    "average_number_characters_sentence": [
+        49.0,
+        62.0,
+        49.0
+    ],
+    "average_number_lowercase_letters_sentence": [
+        48.0,
+        59.0,
+        48.0
+    ],
+    "average_number_uppercase_letters_sentence": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "average_number_digits_sentence": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "average_number_words_sentence": [
+        13.0,
+        15.0,
+        13.0
+    ],
+    "punctuation_frequency_!": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_\"": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_#": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_'": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_+": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_,": [
+        0.01639344262295082,
+        0.025974025974025976,
+        0.01639344262295082
+    ],
+    "punctuation_frequency_-": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_.": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "punctuation_frequency_/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_?": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency__": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_`": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_~": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_!": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_\"": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_#": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_'": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_+": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_,": [
+        1.0,
+        2.0,
+        1.0
+    ],
+    "punctuation_frequency_sentence_-": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_.": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_?": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence__": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_`": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_~": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_1": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_2": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_4": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_5": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_6": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_7": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_10": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_11": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_12": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_13": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_14": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_15": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_16": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_17": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_18": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_19": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_20": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_1": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_2": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_4": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_5": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_6": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_7": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_10": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_11": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_12": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_13": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_14": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_15": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_16": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_17": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_18": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_19": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_20": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "uppercase_words": [
+        0.0,
+        0.06666666666666667,
+        0.0
+    ],
+    "uppercase_words_sentence": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "emoji_frequency_word_$:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_%)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_%-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_&-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_&:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_( '}{' )": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_('-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_((-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:|>*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-;|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(;<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(?:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^;0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^;o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_):": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_):<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_):{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_);<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*<|:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*\\0/*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_,-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_---'-;-{@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_--<--<@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_.-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_..###-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_..###:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0-8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:03": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0_o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_10q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_1337": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_143": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_1432": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_14aa41": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_182": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_187": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_2g2b4g": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_2g2bt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_2qt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_4col": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_4q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_5fs": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_86": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:'(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:')": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:'-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:'-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-))": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-,": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-.": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-||": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:?)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:?c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:s": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:c)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:P": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;-]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_</3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_<3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_<:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_<:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>.<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>;(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>_>^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_@:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_@>-->--": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_@}-;-'---": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_$:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_%)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_%-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_&-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_&:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_( '}{' )": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_('-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_((-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:|>*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-;|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(;<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(?:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^;0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^;o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_):": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_):<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_):{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_);<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*<|:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*\\0/*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_,-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_---'-;-{@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_--<--<@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_.-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_..###-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_..###:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0-8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:03": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0_o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_10q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_1337": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_143": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_1432": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_14aa41": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_182": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_187": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_2g2b4g": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_2g2bt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_2qt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_4col": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_4q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_5fs": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_86": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:'(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:')": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:'-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:'-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-))": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-,": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-.": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-||": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:?)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:?c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:s": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:c)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:P": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;-]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_</3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_<3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_<:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_<:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>.<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>;(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>_>^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_@:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_@>-->--": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_@}-;-'---": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "get_language": [
+        "EN",
+        "EN",
+        "EN"
+    ],
+    "all_capital_words": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "all_capital_words_sentence": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "type_token_ratio": [
+        1.0,
+        0.9333333333333333,
+        1.0
+    ],
+    "mean_word_frequency": [
+        1.0,
+        1.0714285714285714,
+        1.0
+    ],
+    "sichels_s": [
+        0.0,
+        0.07142857142857142,
+        0.0
+    ],
+    "sentiment_analysis_word_average": [
+        0.02692307692307692,
+        0.0,
+        0.02692307692307692
+    ],
+    "sentiment_analysis_sentence_average": [
+        0.35,
+        0.0,
+        0.35
+    ],
+    "user_id": [
+        2,
+        33,
+        999999
+    ]
+} (test.py:978)
+FAILED                                                                   [ 97%]
+test.py::test_drop PASSED                                                [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_feature_matrix ______________________________
+
+    def test_feature_matrix():
+        strings = ["method of dict looks up a key, and returns the value if found",
+                   "If not found, it returns a default, and also assigns that default to the key.",
+                   "method of dict looks up a key, and returns the value if found"]
+        user_ids = [2, 33, 999999,2, 33, 999999,2, 33, 999999]
+        ddict = matrix.feature_matrix(strings, user_ids)
+        json_dump = json.dumps(ddict, sort_keys=False, indent=4)
+        #Pretty print nested dictionary
+        mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
+>       assert ddict == {'character_frequency_letters_a': [0.04918032786885246,
+                                                           0.09090909090909091,
+                                                           0.05714285714285714],
+                         'character_frequency_letters_b': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_c': [0.01639344262295082, 0.0, 0.0],
+                         'character_frequency_letters_d': [0.06557377049180328,
+                                                           0.05194805194805195,
+                                                           0.02857142857142857],
+                         'character_frequency_letters_e': [0.08196721311475409,
+                                                           0.06493506493506493,
+                                                           0.08571428571428572],
+                         'character_frequency_letters_f': [0.04918032786885246,
+                                                           0.05194805194805195,
+                                                           0.02857142857142857],
+                         'character_frequency_letters_g': [0.0, 0.012987012987012988, 0.0],
+                         'character_frequency_letters_h': [0.03278688524590164,
+                                                           0.025974025974025976,
+                                                           0.08571428571428572],
+                         'character_frequency_letters_i': [0.03278688524590164,
+                                                           0.025974025974025976,
+                                                           0.08571428571428572],
+                         'character_frequency_letters_j': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_k': [0.03278688524590164,
+                                                           0.012987012987012988,
+                                                           0.0],
+                         'character_frequency_letters_l': [0.03278688524590164,
+                                                           0.03896103896103896,
+                                                           0.02857142857142857],
+                         'character_frequency_letters_m': [0.01639344262295082, 0.0, 0.0],
+                         'character_frequency_letters_n': [0.04918032786885246,
+                                                           0.06493506493506493,
+                                                           0.05714285714285714],
+                         'character_frequency_letters_o': [0.08196721311475409,
+                                                           0.05194805194805195,
+                                                           0.02857142857142857],
+                         'character_frequency_letters_p': [0.01639344262295082,
+                                                           0.0,
+                                                           0.05714285714285714],
+                         'character_frequency_letters_q': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_r': [0.03278688524590164,
+                                                           0.025974025974025976,
+                                                           0.05714285714285714],
+                         'character_frequency_letters_s': [0.03278688524590164,
+                                                           0.06493506493506493,
+                                                           0.08571428571428572],
+                         'character_frequency_letters_t': [0.06557377049180328,
+                                                           0.11688311688311688,
+                                                           0.08571428571428572],
+                         'character_frequency_letters_u': [0.06557377049180328,
+                                                           0.05194805194805195,
+                                                           0.0],
+                         'character_frequency_letters_v': [0.01639344262295082, 0.0, 0.0],
+                         'character_frequency_letters_w': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_x': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_y': [0.01639344262295082,
+                                                           0.012987012987012988,
+                                                           0.05714285714285714],
+                         'character_frequency_letters_z': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_A': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_B': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_C': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_D': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_E': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_F': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_G': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_H': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_I': [0.0, 0.012987012987012988, 0.0],
+                         'character_frequency_letters_J': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_K': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_L': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_M': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_N': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_O': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_P': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_Q': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_R': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_S': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_T': [0.0, 0.0, 0.02857142857142857],
+                         'character_frequency_letters_U': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_V': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_W': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_X': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_Y': [0.0, 0.0, 0.0],
+                         'character_frequency_letters_Z': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_0': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_1': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_2': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_3': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_4': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_5': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_6': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_7': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_8': [0.0, 0.0, 0.0],
+                         'character_frequency_digits_9': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_!': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_"': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_#': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_$': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_%': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_&': [0.0, 0.0, 0.0],
+                         "character_frequency_special_characters_'": [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_(': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_)': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_*': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_+': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_,': [0.01639344262295082,
+                                                                      0.025974025974025976,
+                                                                      0.0],
+                         'character_frequency_special_characters_-': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_.': [0.0, 0.012987012987012988, 0.0],
+                         'character_frequency_special_characters_/': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_:': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_;': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_<': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_=': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_>': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_?': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_@': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_[': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_\\': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_]': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_^': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters__': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_`': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_{': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_|': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_}': [0.0, 0.0, 0.0],
+                         'character_frequency_special_characters_~': [0.0, 0.0, 0.0],
+                         'word_length_distribution_0': [0.0, 0.0, 0.0],
+                         'word_length_distribution_1': [0.07142857142857142, 0.05555555555555555, 0.0],
+                         'word_length_distribution_2': [0.21428571428571427,
+                                                        0.16666666666666666,
+                                                        0.16666666666666666],
+                         'word_length_distribution_3': [0.21428571428571427, 0.2222222222222222, 0.0],
+                         'word_length_distribution_4': [0.07142857142857142,
+                                                        0.1111111111111111,
+                                                        0.3333333333333333],
+                         'word_length_distribution_5': [0.21428571428571427,
+                                                        0.05555555555555555,
+                                                        0.16666666666666666],
+                         'word_length_distribution_6': [0.07142857142857142, 0.0, 0.0],
+                         'word_length_distribution_7': [0.07142857142857142,
+                                                        0.2222222222222222,
+                                                        0.16666666666666666],
+                         'word_length_distribution_8': [0.0, 0.0, 0.16666666666666666],
+                         'word_length_distribution_9': [0.0, 0.0, 0.0],
+                         'word_length_distribution_10': [0.0, 0.0, 0.0],
+                         'word_length_distribution_11': [0.0, 0.0, 0.0],
+                         'word_length_distribution_12': [0.0, 0.0, 0.0],
+                         'word_length_distribution_13': [0.0, 0.0, 0.0],
+                         'word_length_distribution_14': [0.0, 0.0, 0.0],
+                         'word_length_distribution_15': [0.0, 0.0, 0.0],
+                         'word_length_distribution_16': [0.0, 0.0, 0.0],
+                         'word_length_distribution_17': [0.0, 0.0, 0.0],
+                         'word_length_distribution_18': [0.0, 0.0, 0.0],
+                         'word_length_distribution_19': [0.0, 0.0, 0.0],
+                         'word_length_distribution_20': [0.0, 0.0, 0.0],
+                         'number_big_words': [0.0, 0.0, 0.0],
+                         'hapax_legomena': [13, 13, 6],
+                         'hapax_dislegomena': [0, 1, 0],
+                         'yules_k': [0.0, 88.8888888888889, 0.0],
+                         'brunets_w': [53.908216766301585, 71.07532205119617, 11.455777410640666],
+                         'honores_r': [2639057331.0043416, 4046.5204610546325, 1791759470.171158],
+                         'average_number_characters_sentence': [49.0, 62.0, 30.0],
+                         'average_number_lowercase_letters_sentence': [48.0, 59.0, 29.0],
+                         'average_number_uppercase_letters_sentence': [0.0, 1.0, 1.0],
+                         'average_number_digits_sentence': [0.0, 0.0, 0.0],
+                         'average_number_words_sentence': [13.0, 15.0, 6.0],
+                         'punctuation_frequency_!': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_"': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_#': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_$': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_%': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_&': [0.0, 0.0, 0.0],
+                         "punctuation_frequency_'": [0.0, 0.0, 0.0],
+                         'punctuation_frequency_(': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_)': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_*': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_+': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_,': [0.01639344262295082, 0.025974025974025976, 0.0],
+                         'punctuation_frequency_-': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_.': [0.0, 0.012987012987012988, 0.0],
+                         'punctuation_frequency_/': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_:': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_;': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_<': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_=': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_>': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_?': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_@': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_[': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_\\': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_]': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_^': [0.0, 0.0, 0.0],
+                         'punctuation_frequency__': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_`': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_{': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_|': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_}': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_~': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_!': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_"': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_#': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_$': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_%': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_&': [0.0, 0.0, 0.0],
+                         "punctuation_frequency_sentence_'": [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_(': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_)': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_*': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_+': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_,': [1.0, 2.0, 0.0],
+                         'punctuation_frequency_sentence_-': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_.': [0.0, 1.0, 0.0],
+                         'punctuation_frequency_sentence_/': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_:': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_;': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_<': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_=': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_>': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_?': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_@': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_[': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_\\': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_]': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_^': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence__': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_`': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_{': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_|': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_}': [0.0, 0.0, 0.0],
+                         'punctuation_frequency_sentence_~': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_0': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_1': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_2': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_3': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_4': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_5': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_6': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_7': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_8': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_9': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_10': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_11': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_12': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_13': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_14': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_15': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_16': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_17': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_18': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_19': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_20': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_0': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_1': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_2': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_3': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_4': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_5': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_6': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_7': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_8': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_9': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_10': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_11': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_12': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_13': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_14': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_15': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_16': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_17': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_18': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_19': [0.0, 0.0, 0.0],
+                         'repeated_whitespace_sentence_20': [0.0, 0.0, 0.0],
+                         'uppercase_words': [0.0, 0.06666666666666667, 0.16666666666666666],
+                         'uppercase_words_sentence': [0.0, 1.0, 1.0],
+                         'emoji_frequency_word_$:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_%)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_%-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_&-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_&:': [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_( '}{' )": [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(%': [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_('-:": [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_(':": [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_((-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-%': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:0': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:O': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-:|>*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(-;|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(8': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(:0': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(:O': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(;<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(=': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(?:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(^:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(^;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(^;0': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(^;o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_(o:': [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_)':": [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_)-':": [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_)-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_)-:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_)-:{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_):': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_):<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_):{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_);<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*-;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*<|:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*\\0/*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_*^:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_,-:': [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_---'-;-{@": [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_--<--<@': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_.-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_..###-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_..###:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_/-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_/:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_/:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_/=': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_/^:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_/o:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0-8': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0-|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0:-3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0:03': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0;^)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_0_o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_10q': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_1337': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_143': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_1432': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_14aa41': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_182': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_187': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_2g2b4g': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_2g2bt': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_2qt': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_3:(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_3:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_3:-(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_3:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_4col': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_4q': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_5fs': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_8)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_8-d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_8-o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_86': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_8d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:###..': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:$': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:&': [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_:'(": [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_:')": [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_:'-(": [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_:'-)": [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-###..': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-&': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-))': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-,': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-.': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-[': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-c': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-||': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:-Þ': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:>': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:?)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:?c': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:@': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:l': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:s': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:[': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:^)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:^*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:^/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:^\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:^|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:c': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:c)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:o)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:o/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:o\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:o|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:P': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:}': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_:Þ': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;-*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;-]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_;^)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_</3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_<3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_<:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_<:-|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=-3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=-d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=-D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=l': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_=|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>.<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:-(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:[': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>:\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>;(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>;)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_>_>^': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_@:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_word_@>-->--': [0.0, 0.0, 0.0],
+                         "emoji_frequency_word_@}-;-'---": [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_$:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_%)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_%-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_&-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_&:': [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_( '}{' )": [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(%': [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_('-:": [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_(':": [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_((-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-%': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:0': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:O': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-:|>*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(-;|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(8': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(:0': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(:O': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(;<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(=': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(?:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(^:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(^;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(^;0': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(^;o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_(o:': [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_)':": [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_)-':": [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_)-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_)-:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_)-:{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_):': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_):<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_):{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_);<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*-;': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*<|:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*\\0/*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_*^:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_,-:': [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_---'-;-{@": [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_--<--<@': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_.-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_..###-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_..###:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_/-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_/:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_/:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_/=': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_/^:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_/o:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0-8': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0-|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0:-3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0:03': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0;^)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_0_o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_10q': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_1337': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_143': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_1432': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_14aa41': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_182': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_187': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_2g2b4g': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_2g2bt': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_2qt': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_3:(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_3:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_3:-(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_3:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_4col': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_4q': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_5fs': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_8)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_8-d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_8-o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_86': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_8d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:###..': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:$': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:&': [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_:'(": [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_:')": [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_:'-(": [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_:'-)": [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-###..': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-&': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-))': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-,': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-.': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-[': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-c': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-||': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:-Þ': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:>': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:?)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:?c': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:@': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:l': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:s': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:[': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:^)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:^*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:^/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:^\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:^|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:c': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:c)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:o)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:o/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:o\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:o|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:P': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:{': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:}': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_:Þ': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;-*': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;-]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_;^)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_</3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_<3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_<:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_<:-|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=-3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=-d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=-D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=3': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=d': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=D': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=l': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=]': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_=|': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>-:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>.<': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:-(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:-)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:/': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:o': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:p': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:[': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>:\\': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>;(': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>;)': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_>_>^': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_@:': [0.0, 0.0, 0.0],
+                         'emoji_frequency_sentence_@>-->--': [0.0, 0.0, 0.0],
+                         "emoji_frequency_sentence_@}-;-'---": [0.0, 0.0, 0.0],
+                         'get_language': ['EN', 'EN', 'EN'],
+                         'all_capital_words': [0.0, 0.0, 0.0],
+                         'all_capital_words_sentence': [0.0, 0.0, 0.0],
+                         'type_token_ratio': [1.0, 0.9333333333333333, 1.0],
+                         'mean_word_frequency': [1.0, 1.0714285714285714, 1.0],
+                         'sichels_s': [0.0, 0.07142857142857142, 0.0],
+                         'sentiment_analysis_word_average': [0.02692307692307692,
+                                                             0.0,
+                                                             0.2041666666666667],
+                         'sentiment_analysis_sentence_average': [0.35, 0.0, 1.225],
+                         'user_id': [2, 33, 999999]}, \
+            "test failed"
+E       AssertionError: test failed
+E       assert {'all_capital....0, 0.0], ...} == {'all_capital....0, 0.0], ...}
+E         Omitting 603 identical items, use -vv to show
+E         Differing items:
+E         {'character_frequency_letters_t': [0.06557377049180328, 0.11688311688311688, 0.06557377049180328]} != {'character_frequency_letters_t': [0.06557377049180328, 0.11688311688311688, 0.08571428571428572]}
+E         {'character_frequency_letters_p': [0.01639344262295082, 0.0, 0.01639344262295082]} != {'character_frequency_letters_p': [0.01639344262295082, 0.0, 0.05714285714285714]}
+E         {'character_frequency_letters_d': [0.06557377049180328, 0.05194805194805195, 0.06557377049180328]} != {'character_frequency_letters_d': [0.06557377...
+E         
+E         ...Full output truncated (2080 lines hidden), use '-vv' to show
+
+test.py:979: AssertionError
+------------------------------ Captured log call -------------------------------
+DEBUG    root:feature_matrix.py:87 Feature Matrix: 82052
+DEBUG    root:feature_matrix.py:87 Feature Matrix: 82052
+DEBUG    root:feature_matrix.py:87 Feature Matrix: 82052
+DEBUG    root:feature_matrix.py:324 Time taken = 4.434209108352661 seconds
+DEBUG    root:test.py:978 Feature Matrix: {
+    "character_frequency_letters_a": [
+        0.04918032786885246,
+        0.09090909090909091,
+        0.04918032786885246
+    ],
+    "character_frequency_letters_b": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_c": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_d": [
+        0.06557377049180328,
+        0.05194805194805195,
+        0.06557377049180328
+    ],
+    "character_frequency_letters_e": [
+        0.08196721311475409,
+        0.06493506493506493,
+        0.08196721311475409
+    ],
+    "character_frequency_letters_f": [
+        0.04918032786885246,
+        0.05194805194805195,
+        0.04918032786885246
+    ],
+    "character_frequency_letters_g": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "character_frequency_letters_h": [
+        0.03278688524590164,
+        0.025974025974025976,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_i": [
+        0.03278688524590164,
+        0.025974025974025976,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_j": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_k": [
+        0.03278688524590164,
+        0.012987012987012988,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_l": [
+        0.03278688524590164,
+        0.03896103896103896,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_m": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_n": [
+        0.04918032786885246,
+        0.06493506493506493,
+        0.04918032786885246
+    ],
+    "character_frequency_letters_o": [
+        0.08196721311475409,
+        0.05194805194805195,
+        0.08196721311475409
+    ],
+    "character_frequency_letters_p": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_r": [
+        0.03278688524590164,
+        0.025974025974025976,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_s": [
+        0.03278688524590164,
+        0.06493506493506493,
+        0.03278688524590164
+    ],
+    "character_frequency_letters_t": [
+        0.06557377049180328,
+        0.11688311688311688,
+        0.06557377049180328
+    ],
+    "character_frequency_letters_u": [
+        0.06557377049180328,
+        0.05194805194805195,
+        0.06557377049180328
+    ],
+    "character_frequency_letters_v": [
+        0.01639344262295082,
+        0.0,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_w": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_x": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_y": [
+        0.01639344262295082,
+        0.012987012987012988,
+        0.01639344262295082
+    ],
+    "character_frequency_letters_z": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_A": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_B": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_C": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_E": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_F": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_G": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_H": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_I": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "character_frequency_letters_J": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_K": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_L": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_M": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_N": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_P": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_Q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_R": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_S": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_T": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_U": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_V": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_W": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_X": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_Y": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_letters_Z": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_1": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_2": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_4": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_5": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_6": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_7": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_digits_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_!": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_\"": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_#": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_'": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_+": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_,": [
+        0.01639344262295082,
+        0.025974025974025976,
+        0.01639344262295082
+    ],
+    "character_frequency_special_characters_-": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_.": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "character_frequency_special_characters_/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_?": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters__": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_`": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "character_frequency_special_characters_~": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_1": [
+        0.07142857142857142,
+        0.05555555555555555,
+        0.07142857142857142
+    ],
+    "word_length_distribution_2": [
+        0.21428571428571427,
+        0.16666666666666666,
+        0.21428571428571427
+    ],
+    "word_length_distribution_3": [
+        0.21428571428571427,
+        0.2222222222222222,
+        0.21428571428571427
+    ],
+    "word_length_distribution_4": [
+        0.07142857142857142,
+        0.1111111111111111,
+        0.07142857142857142
+    ],
+    "word_length_distribution_5": [
+        0.21428571428571427,
+        0.05555555555555555,
+        0.21428571428571427
+    ],
+    "word_length_distribution_6": [
+        0.07142857142857142,
+        0.0,
+        0.07142857142857142
+    ],
+    "word_length_distribution_7": [
+        0.07142857142857142,
+        0.2222222222222222,
+        0.07142857142857142
+    ],
+    "word_length_distribution_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_10": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_11": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_12": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_13": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_14": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_15": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_16": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_17": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_18": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_19": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "word_length_distribution_20": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "number_big_words": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "hapax_legomena": [
+        13,
+        13,
+        13
+    ],
+    "hapax_dislegomena": [
+        0,
+        1,
+        0
+    ],
+    "yules_k": [
+        0.0,
+        88.8888888888889,
+        0.0
+    ],
+    "brunets_w": [
+        53.908216766301585,
+        71.07532205119617,
+        53.908216766301585
+    ],
+    "honores_r": [
+        2639057331.0043416,
+        4046.5204610546325,
+        2639057331.0043416
+    ],
+    "average_number_characters_sentence": [
+        49.0,
+        62.0,
+        49.0
+    ],
+    "average_number_lowercase_letters_sentence": [
+        48.0,
+        59.0,
+        48.0
+    ],
+    "average_number_uppercase_letters_sentence": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "average_number_digits_sentence": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "average_number_words_sentence": [
+        13.0,
+        15.0,
+        13.0
+    ],
+    "punctuation_frequency_!": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_\"": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_#": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_'": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_+": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_,": [
+        0.01639344262295082,
+        0.025974025974025976,
+        0.01639344262295082
+    ],
+    "punctuation_frequency_-": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_.": [
+        0.0,
+        0.012987012987012988,
+        0.0
+    ],
+    "punctuation_frequency_/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_?": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency__": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_`": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_~": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_!": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_\"": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_#": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_'": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_+": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_,": [
+        1.0,
+        2.0,
+        1.0
+    ],
+    "punctuation_frequency_sentence_-": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_.": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_?": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence__": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_`": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "punctuation_frequency_sentence_~": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_1": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_2": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_4": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_5": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_6": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_7": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_10": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_11": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_12": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_13": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_14": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_15": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_16": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_17": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_18": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_19": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_20": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_1": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_2": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_4": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_5": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_6": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_7": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_9": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_10": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_11": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_12": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_13": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_14": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_15": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_16": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_17": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_18": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_19": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "repeated_whitespace_sentence_20": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "uppercase_words": [
+        0.0,
+        0.06666666666666667,
+        0.0
+    ],
+    "uppercase_words_sentence": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "emoji_frequency_word_$:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_%)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_%-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_&-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_&:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_( '}{' )": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_('-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_((-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-:|>*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(-;|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(;<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(?:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^;0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(^;o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_(o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_)-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_):": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_):<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_):{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_);<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*<|:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*\\0/*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_*^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_,-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_---'-;-{@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_--<--<@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_.-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_..###-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_..###:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_/o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0-8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0:03": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_0_o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_10q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_1337": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_143": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_1432": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_14aa41": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_182": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_187": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_2g2b4g": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_2g2bt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_2qt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_3:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_4col": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_4q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_5fs": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_86": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_8d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:'(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:')": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:'-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:'-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-))": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-,": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-.": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-||": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:-\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:?)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:?c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:s": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:^|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:c)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:o|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:P": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_:\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;-]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_</3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_<3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_<:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_<:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_=|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>.<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>;(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_>_>^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_@:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_@>-->--": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_word_@}-;-'---": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_$:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_%)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_%-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_&-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_&:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_( '}{' )": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_('-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_((-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-%": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-:|>*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(-;|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(:O": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(;<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(?:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^;0": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(^;o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_(o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-':": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_)-:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_):": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_):<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_):{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_);<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*-;": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*<|:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*\\0/*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_*^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_,-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_---'-;-{@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_--<--<@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_.-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_..###-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_..###:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/=": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/^:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_/o:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0-8": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0:03": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_0_o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_10q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_1337": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_143": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_1432": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_14aa41": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_182": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_187": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_2g2b4g": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_2g2bt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_2qt": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_3:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_4col": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_4q": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_5fs": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_86": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_8d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:$": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:'(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:')": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:'-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:'-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-###..": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-&": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-))": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-,": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-.": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-||": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:-\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:>": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:?)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:?c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:@": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:s": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:^|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:c": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:c)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:o|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:P": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:{": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:}": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_:\u00de": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;-*": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;-]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_;^)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_</3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_<3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_<:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_<:-|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=-3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=-d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=-D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=3": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=d": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=D": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=l": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=]": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_=|": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>-:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>.<": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:-(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:-)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:/": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:o": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:p": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:[": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>:\\": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>;(": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>;)": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_>_>^": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_@:": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_@>-->--": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "emoji_frequency_sentence_@}-;-'---": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "get_language": [
+        "EN",
+        "EN",
+        "EN"
+    ],
+    "all_capital_words": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "all_capital_words_sentence": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "type_token_ratio": [
+        1.0,
+        0.9333333333333333,
+        1.0
+    ],
+    "mean_word_frequency": [
+        1.0,
+        1.0714285714285714,
+        1.0
+    ],
+    "sichels_s": [
+        0.0,
+        0.07142857142857142,
+        0.0
+    ],
+    "sentiment_analysis_word_average": [
+        0.02692307692307692,
+        0.0,
+        0.02692307692307692
+    ],
+    "sentiment_analysis_sentence_average": [
+        0.35,
+        0.0,
+        0.35
+    ],
+    "user_id": [
+        2,
+        33,
+        999999
+    ]
+}
+=============================== warnings summary ===============================
+../../../../usr/local/lib/python3.9/site-packages/cacheman/cachewrap.py:1
+  /usr/local/lib/python3.9/site-packages/cacheman/cachewrap.py:1: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+    from collections import MutableMapping
+
+../../../../usr/local/lib/python3.9/site-packages/past/builtins/misc.py:45
+  /usr/local/lib/python3.9/site-packages/past/builtins/misc.py:45: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+    from imp import reload
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+=========================== short test summary info ============================
+FAILED test.py::test_feature_matrix - AssertionError: test failed
+=================== 1 failed, 42 passed, 2 warnings in 7.13s ===================

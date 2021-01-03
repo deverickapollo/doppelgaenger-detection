@@ -970,8 +970,8 @@ def test_all_capital_words_sentence():
 def test_feature_matrix():
     strings = ["method of dict looks up a key, and returns the value if found",
                "If not found, it returns a default, and also assigns that default to the key.",
-               "method of dict looks up a key, and returns the value if found"]
-    user_ids = [2, 33, 999999,2, 33, 999999,2, 33, 999999]
+               "This is another friendly happy test", "hallo deutsch >;)"]
+    user_ids = [2, 33, 999999]
     ddict = matrix.feature_matrix(strings, user_ids)
     json_dump = json.dumps(ddict, sort_keys=False, indent=4)
     #Pretty print nested dictionary
