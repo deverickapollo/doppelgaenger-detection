@@ -85,45 +85,53 @@ def create_comment_table(conn):
                                 ); """
 	execute_sql(conn, sql_create_comment_table)
 
+# def create_stats_table(conn):
+# 	sql_create_stats_table = """ CREATE TABLE IF NOT EXISTS stats (
+# 									stat_id integer PRIMARY KEY,
+# 									character_frequency_letters integer,
+# 									character_frequency_digits integer,
+# 									character_frequency_special_characters integer,
+# 									character_frequency integer,
+# 									word_length_distribution integer,
+# 									word_frequency integer,
+# 									number_big_words integer,
+# 									hapax_legomena integer,
+# 									hapax_dislegomena integer,
+# 									yules_k integer,
+# 									brunets_w integer,
+# 									honores_r integer,
+# 									average_number_characters_sentence integer,
+# 									average_number_lowercase_letters_sentence integer,
+# 									average_number_uppercase_letters_sentence integer,
+# 									average_number_digits_sentence integer,
+# 									average_number_words_sentence integer,
+# 									total_number_words_sentence integer,
+# 									punctuation_frequency integer,
+# 									punctuation_frequency_sentence integer,
+# 									repeated_whitespace integer,
+# 									repeated_whitespace_sentence integer,
+# 									uppercase_words integer,
+# 									uppercase_words_sentence integer,
+# 									grammarCheck integer,
+# 									grammarCheck_sentence integer,
+# 									sentiment_analysis_word_average integer,
+# 									sentiment_analysis_sentence_average integer,
+# 									emoji_frequency_word integer,
+# 									emoji_frequency_sentence integer,
+# 									get_language integer,
+# 									all_capital_words integer,
+# 									all_capital_words_sentence integer,
+# 									type_token_ratio integer,
+# 									mean_word_frequency integer,
+# 									sichels_s integer,
+# 									FOREIGN KEY (stat_id) REFERENCES comment (comment_id)
+#                                 ); """
+# 	execute_sql(conn, sql_create_stats_table)
+
 def create_stats_table(conn):
 	sql_create_stats_table = """ CREATE TABLE IF NOT EXISTS stats (
 									stat_id integer PRIMARY KEY,
-									character_frequency_letters integer,
-									character_frequency_digits integer,
-									character_frequency_special_characters integer,
-									character_frequency integer,
-									word_length_distribution integer,
-									word_frequency integer,
-									number_big_words integer,
-									hapax_legomena integer,
-									hapax_dislegomena integer,
-									yules_k integer,
-									brunets_w integer,
-									honores_r integer,
-									average_number_characters_sentence integer,
-									average_number_lowercase_letters_sentence integer,
-									average_number_uppercase_letters_sentence integer,
-									average_number_digits_sentence integer,
-									average_number_words_sentence integer,
-									total_number_words_sentence integer,
-									punctuation_frequency integer,
-									punctuation_frequency_sentence integer,
-									repeated_whitespace integer,
-									repeated_whitespace_sentence integer,
-									uppercase_words integer,
-									uppercase_words_sentence integer,
-									grammarCheck integer,
-									grammarCheck_sentence integer,
-									sentiment_analysis_word_average integer,
-									sentiment_analysis_sentence_average integer,
-									emoji_frequency_word integer,
-									emoji_frequency_sentence integer,
-									get_language integer,
-									all_capital_words integer,
-									all_capital_words_sentence integer,
-									type_token_ratio integer,
-									mean_word_frequency integer,
-									sichels_s integer,
+									jsondump text,
 									FOREIGN KEY (stat_id) REFERENCES comment (comment_id)
                                 ); """
 	execute_sql(conn, sql_create_stats_table)
@@ -169,6 +177,13 @@ def insert_into_stats(conn, comment_id, statistics):
 				adapter["repeated_whitespace"], adapter["repeated_whitespace_sentence"], adapter["uppercase_words"], adapter["uppercase_words_sentence"], adapter["grammarCheck"],adapter["grammarCheck_sentence"],adapter["sentiment_analysis_word_average"],\
 				adapter["sentiment_analysis_sentence_average"], adapter["emoji_frequency_word"], adapter["emoji_frequency_sentence"], adapter["get_language"], adapter["all_capital_words"],adapter["all_capital_words_sentence"],adapter["type_token_ratio"],\
 				adapter["mean_word_frequency"], adapter["sichels_s"])
+	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
+
+def insert_stat_horrorshow(conn, comment_id, statistics):
+	sqlite_insert_with_param = """INSERT OR REPLACE INTO stats
+							(stat_id, jsondump) 
+							VALUES (?,?);"""
+	data_tuple =(comment_id, str(statistics))
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def insert_available_into_stats(conn, comment_id, statistics):
@@ -306,5 +321,9 @@ def drop_all(conn):
 	execute_sql(conn, 'DROP TABLE IF EXISTS user')
 	execute_sql(conn, 'DROP TABLE IF EXISTS article')
 	execute_sql(conn, 'DROP TABLE IF EXISTS stats')
-	conn.commit()
+	
 
+def check_table(conn,table):
+	sql_verify = """SELECT name FROM sqlite_master WHERE type='table' AND name=?;"""
+	data_tuple = (table,)
+	return execute_sql_param(conn,sql_verify,data_tuple)

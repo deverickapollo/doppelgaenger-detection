@@ -109,15 +109,24 @@ def test_insert_stat_for_comment():
         "sichels_s": 999999999
     }
     comment_id = 999999999
-    db.insert_into_stats(conn, comment_id, thisstat)
+    db.insert_stat_horrorshow(conn, comment_id, thisstat)
     conn.commit()
     # Pass comment_id to check for comment in database
-    cur = db.sql_check_stat_exist(conn, 999999999)
+    cur = db.sql_check_stat_exist(conn, comment_id)
     stat_exist = cur.fetchone()
     mylogger.log(logging.DEBUG, "Stat exist %s", stat_exist)
     assert stat_exist, "test failed"
     db.close_db_connection(conn)
 
+def test_verify_stat_nonexist():
+    database = r'database/dopplegaenger.db'
+    conn = db.create_connection(database)
+    # Pass comment_id to check for comment in database
+    cur = db.sql_check_stat_exist(conn, 989898989)
+    stat_exist = cur.fetchone()
+    mylogger.log(logging.DEBUG, "Stat does not exist %s", stat_exist)
+    assert stat_exist == None, "test failed"
+    db.close_db_connection(conn)
 
 def test_delete():
     database = r'database/dopplegaenger.db'
@@ -128,7 +137,6 @@ def test_delete():
     db.sql_delete_comments_by_comment_author_username(conn, username)
     db.sql_delete_userid(conn, 999999999)
     conn.commit()
-
     cur = db.sql_check_username_exist(conn, username)
     username_exist = cur.fetchone()
     mylogger.log(logging.DEBUG, "User %s has been removed ", username)
@@ -962,12 +970,12 @@ def test_all_capital_words_sentence():
 def test_feature_matrix():
     strings = ["method of dict looks up a key, and returns the value if found",
                "If not found, it returns a default, and also assigns that default to the key.",
-               "This is another friendly happy test", "hallo deutsch >;)"]
-    user_ids = [2, 33, 999999]
+               "method of dict looks up a key, and returns the value if found"]
+    user_ids = [2, 33, 999999,2, 33, 999999,2, 33, 999999]
     ddict = matrix.feature_matrix(strings, user_ids)
     json_dump = json.dumps(ddict, sort_keys=False, indent=4)
-    ##Pretty print nested dictionary
-    # mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
+    #Pretty print nested dictionary
+    mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
     assert ddict == {'character_frequency_letters_a': [0.04918032786885246,
                                                        0.09090909090909091,
                                                        0.05714285714285714],
@@ -1659,18 +1667,11 @@ def test_feature_matrix():
                      'user_id': [2, 33, 999999]}, \
         "test failed"
 
-##Grammar check included
-# assert ddict == {'character_frequency_letters': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), \
-#                 'O': (1, 0.058823529411764705), 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), 'i': (1, 0.058823529411764705), 's': \
-#                 (1, 0.058823529411764705), 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), \
-#                 'Y': (1, 0.058823529411764705)}, 'character_frequency_digits': {}, 'character_frequency_special_characters': {' ': (3, 0.17647058823529413)}, \
-#                 'character_frequency': {'S': (1, 0.058823529411764705), 'T': (2, 0.11764705882352941), 'R': (1, 0.058823529411764705), 'O': (1, 0.058823529411764705), \
-#                 'N': (1, 0.058823529411764705), 'G': (1, 0.058823529411764705), ' ': (3, 0.17647058823529413), 'i': (1, 0.058823529411764705), 's': (1, 0.058823529411764705), \
-#                 'H': (1, 0.058823529411764705), 'E': (2, 0.11764705882352941), 'K': (1, 0.058823529411764705), 'Y': (1, 0.058823529411764705)}, 'word_length_distribution': {6: 1, 2: 1, 3: 2}, \
-#                 'word_frequency': {'STRONG': 1, 'is': 1, 'THE': 1, 'KEY': 1}, 'number_big_words': (0, 0.0), 'hapax_legomena': (4, 1.0), 'hapax_dislegomena': (0, 0.0), 'yules_k': 0.0, 'brunets_w': 5.8100145317524445, 'honores_r': 1386294361.8495748, \
-#                 'average_number_characters_sentence': 14.0, 'average_number_lowercase_letters_sentence': 2.0, 'average_number_uppercase_letters_sentence': 12.0, 'average_number_digits_sentence': 0.0, \
-#                 'average_number_words_sentence': 4.0, 'total_number_words_sentence': {'STRONG is THE KEY': 4}, 'punctuation_frequency': {}, 'punctuation_frequency_sentence': {'STRONG is THE KEY': {}}, \
-#                 'repeated_whitespace': {}, 'repeated_whitespace_sentence': {'STRONG is THE KEY': {}}, 'uppercase_words': (0, 0.0), 'uppercase_words_sentence': {'STRONG is THE KEY': (0, 0.0)}, 'grammarCheck': ([], 0), \
-#                 'grammarCheck_sentence': {'STRONG is THE KEY': ([], 0)}, 'sentiment_analysis_word_average': 0.14375, 'sentiment_analysis_sentence_average': {'strong is the key': 0.14375}, 'emoji_frequency_word': {}, \
-#                 'emoji_frequency_sentence': {'STRONG is THE KEY': {}}, 'get_language': 'EN', 'all_capital_words': (3, 0.75), 'all_capital_words_sentence': {'STRONG is THE KEY': (3, 0.75)}, 'type_token_ratio': 1.0, 'mean_word_frequency': 1.0, 'sichels_s': 0.0}, \
-#                 "test failed"
+
+def test_drop():
+    # Database declaration and connection
+    database = r'database/dopplegaenger.db'
+    conn = db.create_connection(database)
+    drop_all(conn)
+    conn.commit()
+    assert check_table(conn,"user").fetchone() is None, "test failed"
