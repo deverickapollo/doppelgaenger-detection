@@ -1,12 +1,22 @@
 {
     "configurations": [
         {
-            "name": "Python: GuardianBot",
+            "name": "PyTest",
+            "type": "python",
+            "request": "launch",
+            "program": "test_dopplegaenger.py",
+            "stopOnEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "GuardianBot",
             "type": "python",
             "request": "launch",
             "program": "guardianbot.py",
             "console": "integratedTerminal",
-            "args": ["-r"]
+            "args": [
+                "-r"
+            ]
         }
     ]
 }
