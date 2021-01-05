@@ -79,14 +79,14 @@ def load_model(s):
     return pickle.loads(s)
 
 
-def final_decision(prob, treshold, mode):
-    if prob[mode] > treshold:
+def final_decision(prob, threshold, mode):
+    if prob[mode] > threshold:
         return True
     else:
         return False
 
 
-def dopplegeanger_detection(matrix, treshold, mode):
+def dopplegeanger_detection(matrix, threshold, mode):
     matrix = np.real(matrix)
     models = get_classifiers(matrix)
     print("The following rows are present in the feature matrix, each representing one comment. The last value of each row is the user id which identifies the author of the comment: ")
@@ -105,7 +105,7 @@ def dopplegeanger_detection(matrix, treshold, mode):
                 prob = predict_pairwise_probability_svc(models,[r, row])
                 print("Pairwise probality for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(j) + " [user id: " + str(r[-1]) + "]")
                 print(prob)
-                print("Final decision based on treshold " + str(treshold) + " and mode " + mode + ": " + str(final_decision(prob, float(treshold), mode)))
+                print("Final decision based on threshold " + str(threshold) + " and mode " + mode + ": " + str(final_decision(prob, float(threshold), mode)))
                 print()
             j +=1
         i += 1
