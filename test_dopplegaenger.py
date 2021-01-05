@@ -104,7 +104,7 @@ def test_insert_stat_for_comment():
         "sichels_s": 999999999
     }
     comment_id = 999999999
-    db.insert_stat_horrorshow(conn, comment_id, thisstat)
+    db.insert_stat_horror(conn, thisstat)
     conn.commit()
     # Pass comment_id to check for comment in database
     cur = db.sql_check_stat_exist(conn, comment_id)

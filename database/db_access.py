@@ -330,7 +330,6 @@ def drop_all(conn):
 	execute_sql(conn, 'DROP TABLE IF EXISTS article')
 	execute_sql(conn, 'DROP TABLE IF EXISTS stats')
 	
-
 def check_table(conn,table):
 	sql_verify = """SELECT name FROM sqlite_master WHERE type='table' AND name=?;"""
 	data_tuple = (table,)
