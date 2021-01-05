@@ -196,15 +196,20 @@ def main(spider="guardianSpider", log=False, size=0):
 		comment_id_bulk = [d[0] for d in datad]
 		comment_text_bulk = [d[1] for d in datad]
 		statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
-		# pc = pca.execute_pca(statistics)
-		# trainer.get_classifiers(pc)
+		logging.log(logging.INFO, "%s", statistics)
+		print(statistics)
+		pc = pca.execute_pca(statistics)
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
 		choice = input('Would you like to execute the dopplegaenger analysis as well?: ').lower()
 		if choice in yes:
-			#Return list of authors with possible dopplegaenger identities
 			#EndlessLoop
-			isnumerical()
+			threshold = isnumerical()
+			mode = input('Which mode would you like to use; average, multiplication, squaredaverage: ').lower()
+			#Return list of authors with possible dopplegaenger identities
+			modelist = set(['average', 'multiplication', 'squaredaverage'])
+			if mode in modelist:
+				trainer.dopplegeanger_detection(pc, threshold, mode)
 		elif choice in no:
 			pass
 		else:
@@ -217,14 +222,10 @@ def main(spider="guardianSpider", log=False, size=0):
 
 def isnumerical():
 	threshold = input('What is your expected threshold percentage?: ').lower()
-	results = []
-	if threshold.isnumeric():
-		#compare threshold value to 
-		pass	
-	else:
+	if threshold.isnumeric() is not True:
 		logging.log(logging.INFO, "Please only use numeric values")
 		isnumerical()
-	return results
+	return threshold
 
 if __name__== "__main__":
 	main()

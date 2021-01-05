@@ -17,6 +17,16 @@
             "args": [
                 "-r"
             ]
+        },
+        {
+            "name": "GuardianBot-PCA",
+            "type": "python",
+            "request": "launch",
+            "program": "guardianbot.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-f"
+            ]
         }
     ]
 }

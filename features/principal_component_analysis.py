@@ -1,5 +1,5 @@
 import numpy as np
-
+import sklearn.preprocessing as sklearn
 
 # transform a dictionary to a numpy array
 def get_numpy_array(dict):
@@ -15,7 +15,7 @@ def transpose_matrix(matrix):
 
 # normalize a matrixs columns to values between 0 and 1
 def normalize_matrix(matrix):
-    x_normed = matrix / matrix.max(axis=0)
+    x_normed = sklearn.normalize(matrix,axis=0)
     return x_normed
 
 

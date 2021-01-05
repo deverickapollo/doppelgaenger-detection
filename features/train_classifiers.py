@@ -10,12 +10,14 @@ import pandas as pd
 # input: feature matrix
 # output: dict(userid : classifier)
 def get_classifiers(matrix):
+
+    imgremoved = np.real(matrix)
     user_ids = set()
     classifiers = dict()
-    for list in matrix:
+    for list in imgremoved:
         user_ids.add(list[-1])
     for user_id in user_ids:
-        train_x, test_x, train_y, test_y = get_train_test_split(matrix, user_id)
+        train_x, test_x, train_y, test_y = get_train_test_split(imgremoved, user_id)
         classifiers[user_id] = train_classifier_svc(train_x, train_y)
     return classifiers
 

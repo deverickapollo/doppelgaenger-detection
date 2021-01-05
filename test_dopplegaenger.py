@@ -1,5 +1,7 @@
-import logging, database.db_access as db, features.feature_generation as feat, features.leetalpha as alpha, json, pytest, features.principal_component_analysis as pca
-import feature_matrix as feat, features.preprocessing as process
+import logging, database.db_access as db, features.feature_generation as feat, numpy as np
+import feature_matrix as fmatrix, features.leetalpha as alpha 
+import json, pytest, features.principal_component_analysis as pca
+
 from database.db_access import *
 
 # Debug Log
@@ -9,13 +11,6 @@ mylogger = logging.getLogger()
 raw_comment = "1. Here is sample /\\pple I3urger  23424, comment of language used to test 0 functions found in our feature generation file. L33t bcuz Le3t. 2. This is purely for test purposes  .  Test, Repeat. 1, 2 3 ,434, 4 "
 
 generator = feat.Feature_Generator(raw_comment)
-
-#test
-def test_py():
-    x = 5
-    y = 6
-    assert x + 1 == y, "test failed"
-
 
 def test_insert_and_verify_user():
     # Database declaration and connection
@@ -970,7 +965,7 @@ def test_feature_matrix():
                "If not found, it returns a default, and also assigns that default to the key.",
                "This is another friendly happy test", "hallo deutsch >;)"]
     user_ids = [2, 33, 999999]
-    ddict = feat.feature_matrix(strings, user_ids)
+    ddict = fmatrix.feature_matrix(strings, user_ids)
     # json_dump = json.dumps(ddict, sort_keys=False, indent=4)
     #Pretty print nested dictionary
     # mylogger.log(logging.DEBUG, "Feature Matrix: %s",  json_dump)
@@ -1669,16 +1664,28 @@ def test_feature_matrix():
 def test_matrix_in_bulk():
     database = r'database/dopplegaenger.db'
     conn = db.create_connection(database)
+
     cur_comments_and_id = db.sql_return_comments_users_hundred(conn)
     datad = cur_comments_and_id.fetchall()    
     comment_id_bulk = [d[0] for d in datad]
     comment_text_bulk = [d[1] for d in datad]
-    statistics = feat.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
-    # pc = pca.execute_pca(statistics)
-    # assert statistics ==  "", "test failed"
-    # print("hello")
+
+    statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
+    assert statistics, "test failed"
+    pc = pca.execute_pca(statistics)
+    assert statistics ==  "", "test failed"
+    print("hello")
 
 
+# def returnDatabase():
+#     database = r'database/dopplegaenger.db'
+#     conn = db.create_connection(database)
+#     cur = db.sql_check_comment_exist(conn, 999999999)
+#     comment_exist = cur.fetchall()
+#     mylogger.log(logging.DEBUG, "Comment exist %s", comment_exist)
+#     db.close_db_connection(conn)
+#     assert comment_exist, "test failed"
+    
 
 # def test_drop():
 #     # Database declaration and connection
