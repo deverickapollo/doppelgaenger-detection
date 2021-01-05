@@ -45,9 +45,10 @@ def get_most_principal_components(matrix_eig):
 # output: reduced feature matrix where each column represents a principal component
 def execute_pca(dict):
     matrix = get_numpy_array(dict)
-    matrix = transpose_matrix(matrix)
+    user_ids = matrix[-1][:,None]
+    matrix = transpose_matrix(matrix[:-1])
     matrix_norm = normalize_matrix(matrix)
     matrix_norm_cov = get_covariance_matrix(matrix_norm)
     matrix_norm_cov_eigen = get_eigen(matrix_norm_cov)
     matrix_reduced = matrix.dot(transpose_matrix(get_most_principal_components(matrix_norm_cov_eigen)))
-    return matrix_reduced
+    return np.append(matrix_reduced, user_ids, axis=1)
