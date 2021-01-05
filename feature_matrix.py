@@ -283,13 +283,13 @@ def run_cpu_tasks_in_parallel(tasks):
 def feature_matrix(s, u):
     vectors = []
 
+    #func31 is getlanguage. strings not useful for pca computation
     flist = [func1, func2, func3, func5, func7, \
              func8, func9, func10, func11, func12, func13, func14, \
              func15, func16, func17, func19, func20, func21, \
              func22, func23, func24, \
-             func29, func30, func31, func32, func33, func34, func35, func36]
-    ##Grammar functions are cpu intensive. Evaluate value proposition before adding. TODO Must also be added to DB
-    # func25,func26,
+             func29, func30,  func32, func33, func34, func35, func36]
+    ##Grammar functions are cpu intensive. Evaluate value proposition before adding. TODO Must also be added to DB  # func25,func26,
     flist2 = [func27, func28]   
     starttime = time.time()
     with mp.Pool(processes=cpu_count) as pool:
@@ -317,11 +317,11 @@ def feature_matrix(s, u):
             vectors.append(flatten_dict(matrix_dict))
         pool.close()
         pool.join()
-    # print("=========================================")
-    # print('Time taken = {} seconds'.format(time.time() - starttime))
-    # print("=========================================")
+        print("=========================================")
+        print('Time taken = {} seconds'.format(time.time() - starttime))
+        print("=========================================")
         logging.log(logging.DEBUG, 'Time taken = {} seconds'.format(time.time() - starttime))
-
+        logging.log(logging.DEBUG, merge_dicts(vectors))
         return merge_dicts(vectors)
 
 

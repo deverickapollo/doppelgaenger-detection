@@ -58,6 +58,7 @@ def predict_pairwise_probability_svc(models, feature_matrix):
         p = predict_probabilities_svc(models[line[-1]], [line[:-1]])
         predictions.append(p.get(feature_matrix[i%2][-1])[0])
         i += 1
+    #TODO Replace prints with logging
     print(predictions)
     pairwise_prob = dict(average = np.average(predictions),
                          multiplication = np.prod(predictions),

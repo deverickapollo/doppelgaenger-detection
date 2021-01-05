@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # Main for Dopplegaenger Detection Program
+import database.db_access as db
 from pprint import pprint
 
 from scrape_guardian import *
@@ -32,7 +33,6 @@ all_args.add_argument("-s", "--size", required=False, help="Output a specified n
 all_args.add_argument("-u", "--user", nargs=2, required=False, help="Requires username as first argument and max row count as second. Output a specified number of comments from a specific user to CLI.")
 all_args.add_argument("-m", "--mode", nargs="*", required=False, help="Starts Crawler with the specified pre-processing feature.")
 all_args.add_argument("-f", "--features", help="Start feature generation.", action="store_true")
-
 
 args = all_args.parse_args()
 
@@ -79,7 +79,7 @@ def main(spider="guardianSpider", log=False, size=0):
 	messaging_logger.addHandler(messaging_logger_file_handler)
 	#Debug Log
 	configure_logging(install_root_handler = False)
-	logging.basicConfig(filename='logs/webapp.log', level=logging.DEBUG, format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
+	# logging.basicConfig(filename='logs/webapp.log', level=logging.DEBUG, format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
 	settings = Settings()
 	os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
 	settings_module_path = os.environ['SCRAPY_SETTINGS_MODULE']
@@ -108,7 +108,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			create_article_table(conn_article)
 			create_user_table(conn_article)
 			create_comment_table(conn_article)
-			create_stats_table(conn_comments)
+			create_stats_table(conn_article)
 			runner = CrawlerRunner(settings)
 			runner.crawl(guardianSpider,connection=conn_article)
 			runner.crawl(commentSpider,connection=conn_comments)
@@ -188,45 +188,56 @@ def main(spider="guardianSpider", log=False, size=0):
 	if mode:
 		mode_execute(mode)
 	if args.features:
-		print("This program allows a user to generate features for a string or a set of strings")
-		print("")
-		print("Modes: ")
-		print("1 - Enter a comment id from the database and genereate a feature vector")
-		print("2 - Enter a username from the database and generate feature vectors for a specified number of his comments")
-		print("3 - Enter a string and generate a feature vector")
-		print("4 - Run full feature analysis")
-		x = input("Select Mode: ")
-		if x == "1":
-			comment_id = input("Enter comment id: ")
-			conn_comments.row_factory = sql.Row
-			cur = sql_return_comment_from_id(conn_comments, comment_id)
-			rows = cur.fetchall();
-			for row in rows:
-				pprint(matrix.feature_matrix(row['comment_text']), sort_dicts=False)
-				print("\n------\n")
-		if x == "2":
-			username = input("Enter username: ")
-			number = input("Enter number of comments: ")
-			conn_comments.row_factory = sql.Row
-			cur = sql_select_comments_from_user(conn_comments, username, number)
-			rows = cur.fetchall();
-			for row in rows:
-				pprint(matrix.feature_matrix(row['comment_text']), sort_dicts=False)
-				print("\n------\n")
-		if x == "3":
-			string = input("Enter string: ")
-			pprint(matrix.feature_matrix(string), sort_dicts=False)
-		if x == "4":
-			conn_comments.row_factory = sql.Row
-			cur = sql_select_all_comments(conn_comments)
-			rows = cur.fetchall()
-			llist = []
-			covariance = {}
-			#Here we will calculate the covariance for each the full database so we have a mean for each of the features
-			for row in rows:
-				llist.append(matrix.feature_vector(row['comment_text']))
-				pprint(row[0])
-				
+		# print("This program allows a user to generate features for a string or a set of strings")
+		# print("")
+		# print("Modes: ")
+		# print("1 - Enter a comment id from the database and genereate a feature vector")
+		# print("2 - Enter a username from the database and generate feature vectors for a specified number of his comments")
+		# print("3 - Enter a string and generate a feature vector")
+		# print("4 - Run full feature analysis")
+		# x = input("Select Mode: ")
+		# if x == "1":
+		# 	comment_id = input("Enter comment id: ")
+		# 	conn_comments.row_factory = sql.Row
+		# 	cur = sql_return_comment_from_id(conn_comments, comment_id)
+		# 	rows = cur.fetchall();
+		# 	for row in rows:
+		# 		pprint(matrix.feature_matrix(row['comment_text']), sort_dicts=False)
+		# 		print("\n------\n")
+		# if x == "2":
+		# 	username = input("Enter username: ")
+		# 	number = input("Enter number of comments: ")
+		# 	conn_comments.row_factory = sql.Row
+		# 	cur = sql_select_comments_from_user(conn_comments, username, number)
+		# 	rows = cur.fetchall();
+		# 	for row in rows:
+		# 		pprint(matrix.feature_matrix(row['comment_text']), sort_dicts=False)
+		# 		print("\n------\n")
+		# if x == "3":
+		# 	string = input("Enter string: ")
+		# 	pprint(matrix.feature_matrix(string), sort_dicts=False)
+		# if x == "4":
+		# 	conn_comments.row_factory = sql.Row
+		# 	cur = sql_select_all_comments(conn_comments)
+		# 	rows = cur.fetchall()
+		# 	llist = []
+		# 	covariance = {}
+		# 	#Here we will calculate the covariance for each the full database so we have a mean for each of the features
+		# 	for row in rows:
+		# 		llist.append(matrix.feature_vector(row['comment_text']))
+		# 		pprint(row[0])
+		logging.log(logging.INFO, "Now computing statistics")
+        conn = spider.connection
+        cur_comments = db.sql_select_all_comments(conn)
+        comment_text_bulk = cur_comments.fetchall()
+        cur_id = db.sql_select_all_id(conn)
+        comment_id_bulk = cur_id.fetchall()
+        statistics = feat.feature_matrix(comment_text_bulk,comment_id_bulk)
+        #TODO Pass dictionaries and symbol tables into Matrix
+        # logging.log(logging.INFO, "STATISTIC GENERATION COMPLETE")
+        #db.insert_stat_horror(conn, statistics)
+
+        conn.commit()
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)

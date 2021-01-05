@@ -10,5 +10,7 @@ __pycache__/
 
 misc/ids.txt
 DoppelDetect.egg-info/
-
+features/tmp/
+run.py
 .DS_Store
+misc/ids.txt

@@ -48,14 +48,13 @@ class commentPipeline(object):
         if result:
             comment_string = result[1]
         
-
         if result is not None and comment_string == adapter["comment_text"]:
             logging.log(logging.WARNING, "Comment already in database table: %s", item)
         elif 29 < len(adapter["comment_text"].split()) < 301:
-            curse = db.sql_check_username_exist(conn, adapter["comment_author_username"])
-            user_exist_fetch = curse.fetchone()
-            curse2 = db.sql_check_userid_exist(conn, adapter["comment_author_id"])
-            user_exist2_fetch = curse2.fetchone()
+            usernamecheck = db.sql_check_username_exist(conn, adapter["comment_author_username"])
+            user_exist_fetch = usernamecheck.fetchone()
+            useridcheck = db.sql_check_userid_exist(conn, adapter["comment_author_id"])
+            user_exist2_fetch = useridcheck.fetchone()
             logging.log(logging.INFO, "Username %s and ID %s to insert", adapter["comment_author_username"],adapter["comment_author_id"])
             if user_exist_fetch is not None and user_exist2_fetch is not None: 
                 logging.log(logging.INFO, "User %s with userid %s is already in the database", adapter["comment_author_username"],adapter["comment_author_id"])
@@ -72,11 +71,9 @@ class commentPipeline(object):
             total_comment_count += 1
             conn.commit()
             logging.log(logging.INFO, "Computing Comment Statistics on: %s", item)
-            #TODO Pass dictionaries and symbol tables into Matrix
-            statistics = feat.feature_matrix([comment_text],[comment_id])
-            # logging.log(logging.INFO, "Statistic stored: %s", statistics)
-            db.insert_stat_horrorshow(conn, comment_id, statistics)
-            conn.commit()
+
+
+
         else:
             logging.log(logging.WARNING, "Comment too long or too short: %s", item)
         return item
@@ -96,5 +93,20 @@ class commentPipeline(object):
 
         logging.log(logging.INFO, "Average Comment Length: %s", str(avg_comment_length))
         logging.log(logging.INFO, "Average Comment Per User: %s", str(comments_per_user))
+        #TODO create flag to toggle stat generation
+        logging.log(logging.INFO, "Now computing statistics")
+        
+        conn = spider.connection
+        cur_comments = db.sql_select_all_comments(conn)
+        comment_text_bulk = cur_comments.fetchall()
+        cur_id = db.sql_select_all_id(conn)
+        comment_id_bulk = cur_id.fetchall()
+        statistics = feat.feature_matrix(comment_text_bulk,comment_id_bulk)
+        #TODO Pass dictionaries and symbol tables into Matrix
+        # statistics = feat.feature_matrix([comment_text],[comment_id])
+        # logging.log(logging.INFO, "STATISTIC GENERATION COMPLETE")
+        #db.insert_stat_horror(conn, statistics)
+        conn.commit()
+
     def handle_error(self, e):
         logging.error('%s raised an error', e)

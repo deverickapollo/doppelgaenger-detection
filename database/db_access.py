@@ -130,9 +130,7 @@ def create_comment_table(conn):
 
 def create_stats_table(conn):
 	sql_create_stats_table = """ CREATE TABLE IF NOT EXISTS stats (
-									stat_id integer PRIMARY KEY,
 									jsondump text,
-									FOREIGN KEY (stat_id) REFERENCES comment (comment_id)
                                 ); """
 	execute_sql(conn, sql_create_stats_table)
 
@@ -184,6 +182,13 @@ def insert_stat_horrorshow(conn, comment_id, statistics):
 							(stat_id, jsondump) 
 							VALUES (?,?);"""
 	data_tuple =(comment_id, str(statistics))
+	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
+
+def insert_stat_horror(conn, statistics):
+	sqlite_insert_with_param = """INSERT OR REPLACE INTO stats
+							(jsondump) 
+							VALUES (?);"""
+	data_tuple =(str(statistics),)
 	execute_sql_param(conn, sqlite_insert_with_param, data_tuple)
 
 def insert_available_into_stats(conn, comment_id, statistics):
@@ -257,6 +262,10 @@ def sql_select_all_comments(conn):
 	sql_return_comment_query = """SELECT comment_text FROM comment;"""
 	return execute_sql(conn,sql_return_comment_query)
 
+def sql_select_all_id(conn):
+	sql_return_comment_query = """SELECT comment_id FROM comment;"""
+	return execute_sql(conn,sql_return_comment_query)
+
 def sql_select_all_users(conn):
 	sql_select_all_users_query = """SELECT username FROM user;"""
 	return execute_sql(conn, sql_select_all_users_query)
@@ -315,7 +324,7 @@ def sql_delete_comments_by_comment_author_username(conn, comment_author_username
 def sql_return_comments_users_hundred(conn):
 	sql_return_comments_users_hundred_query = """SELECT * FROM comment c JOIN ( SELECT comment_author_id FROM comment GROUP BY comment_author_id HAVING COUNT(*) > 99 ) b on c.comment_author_id = b.comment_author_id ORDER BY comment_author_id;"""
 	return execute_sql(conn, sql_return_comments_users_hundred_query)
-
+	
 def drop_all(conn):	
 	execute_sql(conn, 'DROP TABLE IF EXISTS comment')
 	execute_sql(conn, 'DROP TABLE IF EXISTS user')
