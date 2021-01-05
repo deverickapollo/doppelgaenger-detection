@@ -129,7 +129,7 @@ def create_comment_table(conn):
 
 def create_stats_table(conn):
 	sql_create_stats_table = """ CREATE TABLE IF NOT EXISTS stats (
-									jsondump text,
+									jsondump text
                                 ); """
 	execute_sql(conn, sql_create_stats_table)
 
