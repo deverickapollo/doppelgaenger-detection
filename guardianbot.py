@@ -206,14 +206,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			#EndlessLoop
 			isnumerical()
 		elif choice in no:
-			return False
+			pass
 		else:
 			logging.log(logging.INFO, "Please respond with 'yes' or 'no'")
         	#TODO Pass dictionaries and symbol tables into Matrix
         	# logging.log(logging.INFO, "STATISTIC GENERATION COMPLETE")
-    
-
-    
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
