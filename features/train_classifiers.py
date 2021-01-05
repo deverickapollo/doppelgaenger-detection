@@ -43,26 +43,25 @@ def train_classifier_svc(train_x, train_y):
 # predict probabilities for a feature vector
 # input: classifier model, feature matrix
 # output: probabilities for each class
-def predict_probabilities_svc(model, feature_matrix):
-    predict_y = pd.DataFrame(model.predict_proba(feature_matrix), columns=model.classes_)
+def predict_probabilities_svc(model, feature_vector):
+    predict_y = pd.DataFrame(model.predict_proba(feature_vector), columns=model.classes_)
     return predict_y
 
 
 # predict the pairwise probability for two feature vectors in a matrix
+# CAUTION: user_ids need to be different
 # input: classifier models, feature matrix with two feature vectors
 # output: pairwise probability dict(average, multiplication, squared_average)
-def predict_pairwise_probability_svc(models, feature_matrix):
+def predict_pairwise_probability_svc(models, feature_vectors):
     predictions = []
     i=1
-    for line in feature_matrix:
+    for line in feature_vectors:
         p = predict_probabilities_svc(models[line[-1]], [line[:-1]])
-        predictions.append(p.get(feature_matrix[i%2][-1])[0])
+        predictions.append(p.get(float(feature_vectors[i%2][-1]))[0])
         i += 1
-    #TODO Replace prints with logging
-    print(predictions)
     pairwise_prob = dict(average = np.average(predictions),
                          multiplication = np.prod(predictions),
-                         squared_average = np.average(np.square(predictions)))
+                         squaredaverage = np.average(np.square(predictions)))
     return pairwise_prob
 
 
@@ -78,3 +77,35 @@ def save_model(model):
 # output: model
 def load_model(s):
     return pickle.loads(s)
+
+
+def final_decision(prob, treshold, mode):
+    if prob[mode] > treshold:
+        return True
+    else:
+        return False
+
+
+def dopplegeanger_detection(matrix, treshold, mode):
+    models = get_classifiers(matrix)
+    print("The following rows are present in the feature matrix, each representing one comment. The last value of each row is the user id which identifies the author of the comment: ")
+    print()
+    i=0
+    for m in matrix:
+        print(str(i) + ": " + str(m))
+        i+=1
+    print()
+    print("")
+    i=0
+    for row in matrix:
+        j = 0
+        for r in matrix:
+            if row[-1] != r[-1]:
+                prob = predict_pairwise_probability_svc(models,[r, row])
+                print("Pairwise probality for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(j) + " [user id: " + str(r[-1]) + "]")
+                print(prob)
+                print("Final decision based on treshold " + str(treshold) + " and mode " + mode + ": " + str(final_decision(prob, treshold, mode)))
+                print()
+            j +=1
+        i += 1
+
