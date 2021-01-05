@@ -105,7 +105,7 @@ def dopplegeanger_detection(matrix, treshold, mode):
                 prob = predict_pairwise_probability_svc(models,[r, row])
                 print("Pairwise probality for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(j) + " [user id: " + str(r[-1]) + "]")
                 print(prob)
-                print("Final decision based on treshold " + str(treshold) + " and mode " + mode + ": " + str(final_decision(prob, int(treshold), mode)))
+                print("Final decision based on treshold " + str(treshold) + " and mode " + mode + ": " + str(final_decision(prob, float(treshold), mode)))
                 print()
             j +=1
         i += 1
