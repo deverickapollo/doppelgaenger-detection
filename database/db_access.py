@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # Helper Functions to communicate with local database
-import logging, flask
+import logging
 import sqlite3 as sql
 from flask import g, Flask
 from sqlite3 import Error
-import logging, flask
 from itemadapter import ItemAdapter
 
 app = Flask(__name__)
