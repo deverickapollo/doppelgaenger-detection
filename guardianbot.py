@@ -234,5 +234,8 @@ if __name__== "__main__":
 	time = (time.time() - start_time)
 	if time >= 120:
 		time = time//60
-	logging.log(logging.INFO, "--- %s seconds ---" % time)
-	print("--- %s seconds ---" % time)
+		logging.log(logging.INFO, "Program completed in --- %s minutes ---" % time)
+		print("Program completed in --- %s minutes ---" % time)
+	else:
+		logging.log(logging.INFO, "Program completed in --- %s seconds ---" % time)
+		print("Program completed in --- %s seconds ---" % time)
