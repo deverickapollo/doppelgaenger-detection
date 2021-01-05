@@ -193,7 +193,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		logging.log(logging.INFO, "Now computing statistics")
 		cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
 		datad = cur_comments_and_id.fetchall()    
-		comment_id_bulk = [d[0] for d in datad]
+		comment_id_bulk = [d[3] for d in datad]
 		comment_text_bulk = [d[1] for d in datad]
 		statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
 		logging.log(logging.INFO, "%s", statistics)
