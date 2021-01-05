@@ -195,9 +195,9 @@ def main(spider="guardianSpider", log=False, size=0):
 		datad = cur_comments_and_id.fetchall()    
 		comment_id_bulk = [d[3] for d in datad]
 		comment_text_bulk = [d[1] for d in datad]
-		statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
-		logging.log(logging.INFO, "%s", statistics)
-		print(statistics)
+		statistics = fmatrix.feature_matrix(comment_text_bulk[:200],comment_id_bulk[:200])
+		# logging.log(logging.INFO, "%s", statistics)
+		# print(statistics)
 		pc = pca.execute_pca(statistics)
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
@@ -220,10 +220,20 @@ def main(spider="guardianSpider", log=False, size=0):
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
 
+def is_number(n):
+    is_number = True
+    try:
+        num = float(n)
+        # check for "nan" floats
+        is_number = num == num  
+    except ValueError:
+        is_number = False
+    return is_number
+
 def isnumerical():
 	threshold = input('What is your expected threshold percentage?: ').lower()
-	if threshold.isnumeric() is not True:
-		logging.log(logging.INFO, "Please only use numeric values")
+	if is_number(threshold) is not True:
+		logging.log(logging.INFO, "Please only use decimal values(0-1)")
 		isnumerical()
 	return threshold
 
