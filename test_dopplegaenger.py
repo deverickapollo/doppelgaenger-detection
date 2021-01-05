@@ -1665,16 +1665,14 @@ def test_feature_matrix():
                      'user_id': [2, 33, 999999]}, \
         "test failed"
 
+
 def test_matrix_in_bulk():
     database = r'database/dopplegaenger.db'
     conn = db.create_connection(database)
     cur_comments_and_id = db.sql_return_comments_users_hundred(conn)
-    datad = cur_comments_and_id.fetchall()
-    comment_id_bulk = []
-    comment_text_bulk = []
-    for d in datad:
-        comment_id_bulk.append(d[0])
-        comment_text_bulk.append(d[1])
+    datad = cur_comments_and_id.fetchall()    
+    comment_id_bulk = [d[0] for d in datad]
+    comment_text_bulk = [d[1] for d in datad]
     statistics = feat.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
     # pc = pca.execute_pca(statistics)
     # assert statistics ==  "", "test failed"
