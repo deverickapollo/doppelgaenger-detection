@@ -19,7 +19,8 @@ Data persistance provided by sqlite3 database.
 - language_tool_python
 - numpy
 - wheel
-
+- scikit-learn
+- pandas
 ---
 ## Preinstallation venv setup: 
 
