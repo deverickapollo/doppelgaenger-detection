@@ -10,14 +10,12 @@ import pandas as pd
 # input: feature matrix
 # output: dict(userid : classifier)
 def get_classifiers(matrix):
-
-    imgremoved = np.real(matrix)
     user_ids = set()
     classifiers = dict()
-    for list in imgremoved:
+    for list in matrix:
         user_ids.add(list[-1])
     for user_id in user_ids:
-        train_x, test_x, train_y, test_y = get_train_test_split(imgremoved, user_id)
+        train_x, test_x, train_y, test_y = get_train_test_split(matrix, user_id)
         classifiers[user_id] = train_classifier_svc(train_x, train_y)
     return classifiers
 
@@ -89,6 +87,7 @@ def final_decision(prob, treshold, mode):
 
 
 def dopplegeanger_detection(matrix, treshold, mode):
+    matrix = np.real(matrix)
     models = get_classifiers(matrix)
     print("The following rows are present in the feature matrix, each representing one comment. The last value of each row is the user id which identifies the author of the comment: ")
     print()
