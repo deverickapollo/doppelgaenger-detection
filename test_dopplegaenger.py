@@ -1647,7 +1647,6 @@ def test_feature_matrix():
                      'emoji_frequency_sentence_@:': [0.0, 0.0, 0.0],
                      'emoji_frequency_sentence_@>-->--': [0.0, 0.0, 0.0],
                      "emoji_frequency_sentence_@}-;-'---": [0.0, 0.0, 0.0],
-                     'get_language': ['EN', 'EN', 'EN'],
                      'all_capital_words': [0.0, 0.0, 0.0],
                      'all_capital_words_sentence': [0.0, 0.0, 0.0],
                      'type_token_ratio': [1.0, 0.9333333333333333, 1.0],
@@ -1673,10 +1672,9 @@ def test_matrix_in_bulk():
     statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
     assert statistics, "test failed"
     pc = pca.execute_pca(statistics)
-    assert statistics ==  "", "test failed"
-    print("hello")
-
-
+    mylogger.log(logging.DEBUG, "pc: %s ", pc)
+    assert statistics, "test failed"
+    
 # def returnDatabase():
 #     database = r'database/dopplegaenger.db'
 #     conn = db.create_connection(database)
