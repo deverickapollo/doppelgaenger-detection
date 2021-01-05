@@ -1669,8 +1669,8 @@ def test_matrix_in_bulk():
     comment_text_bulk = [d[1] for d in datad]
 
     statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_id_bulk[:10])
-    pc = pca.execute_pca(statistics)
-    mylogger.log(logging.DEBUG, "pc: %s ", pc)
+    # pc = pca.execute_pca(statistics)
+    # mylogger.log(logging.DEBUG, "pc: %s ", pc)
     assert statistics, "test failed"
     
 # def returnDatabase():
