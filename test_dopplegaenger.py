@@ -64,6 +64,7 @@ def test_comment():
 def test_insert_stat_for_comment():
     database = r'database/dopplegaenger.db'
     conn = db.create_connection(database)
+    create_stats_table(conn)
     thisstat = {
         "character_frequency_letters": 999999999,
         "character_frequency_digits": 999999999,
@@ -1663,7 +1664,7 @@ def test_feature_matrix():
 def test_matrix_in_bulk():
     database = r'database/dopplegaenger.db'
     conn = db.create_connection(database)
-
+    create_stats_table(conn)
     cur_comments_and_id = db.sql_return_comments_users_hundred(conn)
     datad = cur_comments_and_id.fetchall()    
     comment_id_bulk = [d[0] for d in datad]
