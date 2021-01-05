@@ -315,9 +315,9 @@ def feature_matrix(s, u):
             vectors.append(flatten_dict(matrix_dict))
         pool.close()
         pool.join()
-        print("=========================================")
-        print('Time taken = {} seconds'.format(time.time() - starttime))
-        print("=========================================")
+        # print("=========================================")
+        # print('Time taken = {} seconds'.format(time.time() - starttime))
+        # print("=========================================")
         logging.log(logging.DEBUG, 'Time taken = {} seconds'.format(time.time() - starttime))
         return merge_dicts(vectors)
 
