@@ -93,20 +93,7 @@ class commentPipeline(object):
 
         logging.log(logging.INFO, "Average Comment Length: %s", str(avg_comment_length))
         logging.log(logging.INFO, "Average Comment Per User: %s", str(comments_per_user))
-        #TODO create flag to toggle stat generation
-        logging.log(logging.INFO, "Now computing statistics")
-        
-        conn = spider.connection
-        cur_comments = db.sql_select_all_comments(conn)
-        comment_text_bulk = cur_comments.fetchall()
-        cur_id = db.sql_select_all_id(conn)
-        comment_id_bulk = cur_id.fetchall()
-        statistics = feat.feature_matrix(comment_text_bulk,comment_id_bulk)
-        #TODO Pass dictionaries and symbol tables into Matrix
-        # statistics = feat.feature_matrix([comment_text],[comment_id])
-        # logging.log(logging.INFO, "STATISTIC GENERATION COMPLETE")
-        #db.insert_stat_horror(conn, statistics)
-        conn.commit()
+
 
     def handle_error(self, e):
         logging.error('%s raised an error', e)
