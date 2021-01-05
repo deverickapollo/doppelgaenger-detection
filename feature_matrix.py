@@ -293,8 +293,6 @@ def feature_matrix(s, u):
     flist2 = [func27, func28]   
     starttime = time.time()
     with mp.Pool(processes=cpu_count) as pool:
-        logging.log(logging.DEBUG, "s and u: %s %s",  s, u)
-        # mylogger.log(logging.DEBUG, "s and u: %s %s",  s, u)
         for string, user_id in zip(s, u):
             matrix = Feature_Generator(string)
             string_remove_stop_words = process.remove_stop_words(string)
@@ -321,7 +319,6 @@ def feature_matrix(s, u):
         print('Time taken = {} seconds'.format(time.time() - starttime))
         print("=========================================")
         logging.log(logging.DEBUG, 'Time taken = {} seconds'.format(time.time() - starttime))
-        logging.log(logging.DEBUG, merge_dicts(vectors))
         return merge_dicts(vectors)
 
 
