@@ -186,7 +186,7 @@ def main(spider="guardianSpider", log=False, size=0):
 				logging.log(logging.ERROR, "Fatal Error! Comment Table Not Accessible. Exiting!")
 		except sql.Error as error:
 			logging.log(logging.ERROR, "Fatal Error! Users Table Not Accessible. Exiting!")
-	#Use ForEach logic to execute multiple modes in succession.
+	#TODO Use ForEach logic to execute multiple modes in succession.
 	if mode:
 		mode_execute(mode)
 	if args.features:
@@ -195,9 +195,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		datad = cur_comments_and_id.fetchall()    
 		comment_id_bulk = [d[3] for d in datad]
 		comment_text_bulk = [d[1] for d in datad]
-		statistics = fmatrix.feature_matrix(comment_text_bulk[:200],comment_id_bulk[:200])
-		# logging.log(logging.INFO, "%s", statistics)
-		# print(statistics)
+		statistics = fmatrix.feature_matrix(comment_text_bulk[:400],comment_id_bulk[:400])
 		pc = pca.execute_pca(statistics)
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
@@ -215,7 +213,6 @@ def main(spider="guardianSpider", log=False, size=0):
 		else:
 			logging.log(logging.INFO, "Please respond with 'yes' or 'no'")
         	#TODO Pass dictionaries and symbol tables into Matrix
-        	# logging.log(logging.INFO, "STATISTIC GENERATION COMPLETE")
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
