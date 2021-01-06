@@ -90,23 +90,23 @@ def dopplegeanger_detection(matrix, threshold, mode):
     matrix = np.real(matrix)
     models = get_classifiers(matrix)
     print("The following rows are present in the feature matrix, each representing one comment. The last value of each row is the user id which identifies the author of the comment: ")
-    print()
-    i=0
-    for m in matrix:
-        print(str(i) + ": " + str(m))
-        i+=1
-    print()
-    print("")
+    print("Final decision based on threshold: " + str(threshold) + " and mode: " + mode +"\n")
+    # i=0
+    # for m in matrix:
+    #     print(str(i) + ": " + str(m))
+    #     i+=1
+    # print()
+    # print("")
     i=0
     for row in matrix:
         j = 0
         for r in matrix:
             if row[-1] != r[-1]:
                 prob = predict_pairwise_probability_svc(models,[r, row])
-                print("Pairwise probality for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(j) + " [user id: " + str(r[-1]) + "]")
-                print(prob)
-                print("Final decision based on threshold " + str(threshold) + " and mode " + mode + ": " + str(final_decision(prob, float(threshold), mode)))
-                print()
+                if final_decision(prob, float(threshold), mode) is True:
+                    print("Pairwise probability for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(j) + " [user id: " + str(r[-1]) + "]")
+                    print(prob)
+                    print("--------------------------------------------------------\n")
             j +=1
         i += 1
 
