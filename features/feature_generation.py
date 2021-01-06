@@ -7,6 +7,7 @@ from string import punctuation
 from fractions import Fraction
 
 
+
 class Feature_Generator:
     def __init__(self, string):
         self.string = string
@@ -16,7 +17,7 @@ class Feature_Generator:
         self.sentences                  = nltk.sent_tokenize(self.string)
         self.wordcount                  = self.count_words()
         self.language                   = self.get_language()
-
+        self.vocabsum                   = 0
         with open("misc/emojis/emoji_list", "r") as f:
             self.lines = f.read().splitlines()
             
@@ -691,14 +692,10 @@ class Feature_Generator:
 
     # get the vocabulary size for a string
     def vocabulary_size(self):
-        # string = string.lower()
-        vocab = set()
-        # words = nltk.word_tokenize(string)
-        words = self.word_tokens_lower
-        for word in words:
+        for word in self.word_tokens_lower:
             if not word in punctuation:
-                vocab.add(word)
-        return len(vocab)
+                self.vocabsum += 1
+        return self.vocabsum
 
 
     # get the mean word frequency
