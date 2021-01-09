@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
+from sklearn.metrics import brier_score_loss
 from sklearn.svm import SVC
 import pickle
 import pandas as pd
@@ -110,3 +111,43 @@ def dopplegeanger_detection(matrix, threshold, mode):
             j +=1
         i += 1
 
+
+# Part IV: Evaluation: Known number of Doppelgaengers
+# Task 1: Automated Threshold Metric and Statistical Measures
+
+# Brier Score:
+#
+# The Brier score measures the mean squared difference between the predicted probability and the actual outcome.
+# The Brier score always takes on a value between zero and one, since this is the largest possible difference between
+# a predicted probability (which must be between zero and one) and the actual outcome (which can take on values of
+# only 0 and 1). It can be decomposed is the sum of refinement loss and calibration loss.
+#
+# Formula: (1/N) * sum_{t=1}^N((ft-ot)^2)
+# N = the number of items you’re calculating a Brier score for.
+# ft is the forecast probability (i.e. 25% chance),
+# ot is the outcome (1 if it happened, 0 if it didn’t)
+#
+# Input: true targets (list), probabilities (list)
+# Output: brier score
+def brier_score(true_targets, probabilities):
+    return brier_score_loss(true_targets, probabilities)
+
+
+# Split user accounts artificially. Pads 9000 and 8000 before the original user ids.
+#
+# Input: feature matrix
+# Output: dict with two chunked splits for every user present in the feature matrix
+def split_user_accounts(matrix):
+    d = dict()
+    for row in matrix:
+        if row[-1] in d:
+            d[row[-1]].append(row)
+        else:
+            d[row[-1]] = [row]
+    for key in d:
+        d[key] = np.array_split(d[key], 2)
+        for row in d[key][1]:
+            row[-1] = float("9000" + str(row[-1]))
+        for row in d[key][0]:
+            row[-1] = float("8000" + str(row[-1]))
+    return d
