@@ -136,18 +136,16 @@ def brier_score(true_targets, probabilities):
 # Split user accounts artificially. Pads 9000 and 8000 before the original user ids.
 #
 # Input: feature matrix
-# Output: dict with two chunked splits for every user present in the feature matrix
+# Output: feature matrix with splitted user accounts
 def split_user_accounts(matrix):
-    d = dict()
+    i = 0
     for row in matrix:
-        if row[-1] in d:
-            d[row[-1]].append(row)
-        else:
-            d[row[-1]] = [row]
-    for key in d:
-        d[key] = np.array_split(d[key], 2)
-        for row in d[key][1]:
+        if i % 2 == 0:
             row[-1] = float("9000" + str(row[-1]))
-        for row in d[key][0]:
+        else:
             row[-1] = float("8000" + str(row[-1]))
-    return d
+        i += 1
+    return matrix
+
+
+
