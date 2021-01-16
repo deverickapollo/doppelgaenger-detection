@@ -41,6 +41,37 @@ def train_classifier_svc(train_x, train_y):
     return calibrated_model
 
 
+# get threshold
+def get_threshold(matrix):
+    matrix_split = split_user_accounts(matrix)
+    classifiers = get_classifiers(matrix_split)
+    d = dict(prob_doppel_pairs = [],
+             prob_non_doppel_pairs = [])
+    i = 0
+    for row in matrix_split:
+        j = 0
+        for r in matrix_split:
+            if row[-1] != r[-1]:
+                prob = predict_pairwise_probability_svc(classifiers,[r, row])
+                if is_doppel_pair(row, r):
+                    d["prob_doppel_pairs"].attend(prob)
+                else:
+                    d["prob_non_doppel_pairs"].attend(prob)
+            j += 1
+        i += 1
+    # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
+    threshold = 0
+    return threshold
+
+
+# determine wether two given feature vectors are a artificially created doppelgaenger pair
+def is_doppel_pair(vector1, vector2):
+    if str(vector1[-1])[4:] == str(vector2[-1])[4:]:
+        return True
+    else:
+        return False
+
+
 # predict probabilities for a feature vector
 # input: classifier model, feature matrix
 # output: probabilities for each class
