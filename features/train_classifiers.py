@@ -1,4 +1,6 @@
 import random
+from pprint import pprint
+
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import brier_score_loss
@@ -198,7 +200,7 @@ def is_doppel_pair(vector1, vector2):
 # Task 2: Known Number of Doppelgaengers
 
 # extract feature matrix for a number of comments for a number of users with a specified minimum text length
-def get_matrix_experiment_one(matrix, users, comments, text_length):
+def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
     experiment_matrix = []
     d = dict.fromkeys(matrix[:,-1],0)
     u = set()
@@ -213,10 +215,28 @@ def get_matrix_experiment_one(matrix, users, comments, text_length):
     return np.array(experiment_matrix)
 
 
+# extract feature matrices with three disjoint sets of features
+def get_matrix_experiment_two(matrix):
+    matrix = get_matrix_experiment_one(matrix)
+    user_ids = matrix[:,-1][:,None]
+    comment_ids = matrix[:,-2][:,None]
+    article_ids = matrix[:,-3][:,None]
+    text_lengths = matrix[:,-4][:,None]
+    matrices = np.array_split(matrix[:,:-4],3, axis=1)
+    list = []
+    for m in matrices:
+        m = np.append(m, text_lengths, axis=1)
+        m = np.append(m, article_ids, axis=1)
+        m = np.append(m, comment_ids,axis=1)
+        m = np.append(m, user_ids,axis=1)
+        list.append(m)
+    return list
+
+
 # Task 3: Comparison with Baseline
 
 # compute the euclidean distance between to vectors
-def get_euchlid(vector1, vector2):
+def get_euclid(vector1, vector2):
     return np.linalg.norm(np.array(vector1)-np.array(vector2))
 
 
@@ -233,7 +253,7 @@ def dopplegaenger_detection_euclid(matrix, threshold):
         j = 0
         for r in matrix:
             if row[-1] != r[-1]:
-                dist = get_euchlid(r[:-1], row[:-1])
+                dist = get_euclid(r[:-1], row[:-1])
                 if final_decision_euclid(dist, threshold) is True:
                     print("Euclidean Distance for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(
                         j) + " [user id: " + str(r[-1]) + "]")
@@ -241,6 +261,5 @@ def dopplegaenger_detection_euclid(matrix, threshold):
                     print("--------------------------------------------------------\n")
             j += 1
         i += 1
-
 
 
