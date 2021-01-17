@@ -201,12 +201,12 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		# comment first four lines of this block if feature matrix should be loaded from file
 		# comment last two lines of this block if feature matrix should be computed new
-		statistics = fmatrix.feature_matrix(comment_text_bulk[:100],comment_user_id_bulk[:100],comment_id_bulk[:100],comment_article_id_bulk[:100])
-		f = open("data.pkl", "wb")
-		pickle.dump(statistics, f)
-		f.close()
-		# f = open("data.pkl", "rb")
-		# statistics = pickle.load(f)
+		#statistics = fmatrix.feature_matrix(comment_text_bulk[:100],comment_user_id_bulk[:100],comment_id_bulk[:100],comment_article_id_bulk[:100])
+		#f = open("data.pkl", "wb")
+		#pickle.dump(statistics, f)
+		#f.close()
+		f = open("data.pkl", "rb")
+		statistics = pickle.load(f)
 
 		pc = pca.execute_pca(statistics)
 		yes = set(['yes','y', 'ye', ''])
