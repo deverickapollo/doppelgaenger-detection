@@ -195,6 +195,24 @@ def is_doppel_pair(vector1, vector2):
         return False
 
 
+# Task 2: Known Number of Doppelgaengers
+
+# extract feature matrix for a number of comments for a number of users with a specified minimum text length
+def get_matrix_experiment_one(matrix, users, comments, text_length):
+    experiment_matrix = []
+    d = dict.fromkeys(matrix[:,-1],0)
+    u = set()
+    for row in matrix:
+        if len(u) >= users:
+            break
+        if d[row[-1]] < comments:
+            if row[-4] >= text_length:
+                experiment_matrix.append(row)
+                d[row[-1]] += 1
+        u.add(row[-1])
+    return np.array(experiment_matrix)
+
+
 # Task 3: Comparison with Baseline
 
 # compute the euclidean distance between to vectors
