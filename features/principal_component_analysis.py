@@ -48,11 +48,13 @@ def execute_pca(dict):
     user_ids = matrix[-1][:,None]
     comment_ids = matrix[-2][:,None]
     article_ids = matrix[-3][:,None]
-    matrix = transpose_matrix(matrix[:-3])
+    text_lengths = matrix[-4][:,None]
+    matrix = transpose_matrix(matrix[:-4])
     matrix_norm = normalize_matrix(matrix)
     matrix_norm_cov = get_covariance_matrix(matrix_norm)
     matrix_norm_cov_eigen = get_eigen(matrix_norm_cov)
     matrix_reduced = matrix.dot(transpose_matrix(get_most_principal_components(matrix_norm_cov_eigen)))
+    matrix_reduced = np.append(matrix_reduced, text_lengths, axis=1)
     matrix_reduced = np.append(matrix_reduced, article_ids, axis=1)
     matrix_reduced = np.append(matrix_reduced, comment_ids, axis=1)
     matrix_reduced = np.append(matrix_reduced, user_ids, axis=1)

@@ -310,6 +310,7 @@ def feature_matrix(s, u, c, a):
 
             json_dump = json.dumps(matrix_dict, sort_keys=False, indent=4)
             # # print(json_dump)
+            matrix_dict["text_length"] = len(string)
             matrix_dict["article_id"] = hash(article_id)
             matrix_dict["comment_id"] = comment_id
             matrix_dict["user_id"] = user_id
