@@ -192,10 +192,13 @@ def main(spider="guardianSpider", log=False, size=0):
 	if args.features:
 		logging.log(logging.INFO, "Now computing statistics")
 		cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
-		datad = cur_comments_and_id.fetchall()    
-		comment_id_bulk = [d[3] for d in datad]
+		datad = cur_comments_and_id.fetchall()
+		comment_id_bulk = [d[0] for d in datad]
+		comment_article_id_bulk = [d[5] for d in datad]
+		comment_user_id_bulk = [d[3] for d in datad]
 		comment_text_bulk = [d[1] for d in datad]
-		statistics = fmatrix.feature_matrix(comment_text_bulk[:400],comment_id_bulk[:400])
+		statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_user_id_bulk[:10],comment_id_bulk[:10],comment_article_id_bulk[:10])
+		pprint(statistics, sort_dicts=False)
 		pc = pca.execute_pca(statistics)
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
