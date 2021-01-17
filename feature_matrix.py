@@ -279,8 +279,8 @@ def run_cpu_tasks_in_parallel(tasks):
         running_task.join()
 
 
-# generate a feature matrix for a list of strings and a list of user ids
-def feature_matrix(s, u):
+# generate a feature matrix for a list of strings, a list of article ids, a list of comment ids and a list of user ids
+def feature_matrix(s, u, c, a):
     vectors = []
 
     #func31 is getlanguage. strings not useful for pca computation
@@ -293,7 +293,7 @@ def feature_matrix(s, u):
     flist2 = [func27, func28]   
     starttime = time.time()
     with mp.Pool(processes=cpu_count) as pool:
-        for string, user_id in zip(s, u):
+        for string, user_id, comment_id, article_id in zip(s, u, c, a):
             matrix = Feature_Generator(string)
             string_remove_stop_words = process.remove_stop_words(string)
             string_lemmatize = process.lemmatize(string, matrix.language)
@@ -310,7 +310,8 @@ def feature_matrix(s, u):
 
             json_dump = json.dumps(matrix_dict, sort_keys=False, indent=4)
             # # print(json_dump)
-
+            matrix_dict["article_id"] = hash(article_id)
+            matrix_dict["comment_id"] = comment_id
             matrix_dict["user_id"] = user_id
             vectors.append(flatten_dict(matrix_dict))
         pool.close()
