@@ -1,10 +1,11 @@
-import numpy
+import random
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import brier_score_loss
 from sklearn.svm import SVC
 import pickle
 import pandas as pd
+
 
 
 # get the classifiers for every user present in the feature matrix
@@ -32,8 +33,8 @@ def get_train_test_split(matrix, user_id):
     test = np.array([list for list in matrix if list[-1] == user_id])
     print(train)
     print(test)
-    train_x, train_y = train[:, :-3], train[:, -1]
-    test_x, test_y = test[:, :-3], test[:, -1]
+    train_x, train_y = train[:, :-4], train[:, -1]
+    test_x, test_y = test[:, :-4], test[:, -1]
     return (train_x, test_x, train_y, test_y)
 
 
@@ -61,7 +62,7 @@ def predict_pairwise_probability_svc(models, feature_vectors):
     predictions = []
     i=1
     for line in feature_vectors:
-        p = predict_probabilities_svc(models[line[-1]], [line[:-3]])
+        p = predict_probabilities_svc(models[line[-1]], [line[:-4]])
         predictions.append(p.get(float(feature_vectors[i%2][-1]))[0])
         i += 1
     pairwise_prob = dict(average = np.average(predictions),
@@ -142,13 +143,24 @@ def brier_score(true_targets, probabilities):
 # Input: feature matrix
 # Output: feature matrix with splitted user accounts
 def split_user_accounts(matrix):
-    i = 0
-    for row in matrix:
-        if i % 2 == 0:
-            row[-1] = float("9000" + str(row[-1]))
-        else:
-            row[-1] = float("8000" + str(row[-1]))
-        i += 1
+    matrices = np.split(matrix, np.where(np.diff(matrix[:, -1]))[0] + 1)
+    for m in matrices:
+        np.random.shuffle(m)
+        A = set()
+        B = set()
+        for row in m:
+            if row[-3] in A:
+                row[-1] = float("9000" + str(row[-1]))
+            elif row[-3] in B:
+                row[-1] = float("8000" + str(row[-1]))
+            else:
+                k = random.randint(0, 1)
+                if k == 0:
+                    row[-1] = float("9000" + str(row[-1]))
+                    A.add(row[-3])
+                else:
+                    row[-1] = float("8000" + str(row[-1]))
+                    B.add(row[-3])
     return matrix
 
 
