@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # Main for Dopplegaenger Detection Program
+import pickle
+
 import database.db_access as db
 from pprint import pprint
 
@@ -197,8 +199,16 @@ def main(spider="guardianSpider", log=False, size=0):
 		comment_article_id_bulk = [d[5] for d in datad]
 		comment_user_id_bulk = [d[3] for d in datad]
 		comment_text_bulk = [d[1] for d in datad]
-		statistics = fmatrix.feature_matrix(comment_text_bulk[:10],comment_user_id_bulk[:10],comment_id_bulk[:10],comment_article_id_bulk[:10])
-		pprint(statistics, sort_dicts=False)
+
+		# comment first four lines of this block if feature matrix should be loaded from file
+		# comment last two lines of this block if feature matrix should be computed new
+		statistics = fmatrix.feature_matrix(comment_text_bulk[:10000],comment_user_id_bulk[:10000],comment_id_bulk[:10000],comment_article_id_bulk[:10000])
+		f = open("data.pkl", "wb")
+		pickle.dump(statistics, f)
+		f.close()
+		# f = open("data.pkl", "rb")
+		# statistics = pickle.load(f)
+
 		pc = pca.execute_pca(statistics)
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
