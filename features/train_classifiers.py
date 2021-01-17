@@ -93,7 +93,11 @@ def final_decision(prob, threshold, mode):
     else:
         return False
 
-
+# Doppelgaenger detection
+# compares every pair of comments by different users
+#
+# Input feature matrix
+# Output list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair)
 def dopplegeanger_detection(matrix, threshold, mode):
     matrix = np.real(matrix)
     models = get_classifiers(matrix)
@@ -106,17 +110,16 @@ def dopplegeanger_detection(matrix, threshold, mode):
     # print()
     # print("")
     i=0
+    results = []
     for row in matrix:
         j = 0
         for r in matrix:
             if row[-1] != r[-1]:
                 prob = predict_pairwise_probability_svc(models,[r, row])
-                if final_decision(prob, float(threshold), mode) is True:
-                    print("Pairwise probability for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(j) + " [user id: " + str(r[-1]) + "]")
-                    print(prob)
-                    print("--------------------------------------------------------\n")
+                results.append([final_decision(prob, float(threshold), mode), r[-1], r[-2], row[-1], row[-2], is_doppel_pair(r, row)])
             j +=1
         i += 1
+    return results
 
 
 # Part IV: Evaluation: Known number of Doppelgaengers
@@ -191,8 +194,11 @@ def get_threshold(matrix):
 
 # determine wether two given feature vectors are a artificially created doppelgaenger pair
 def is_doppel_pair(vector1, vector2):
-    if str(vector1[-1])[4:] == str(vector2[-1])[4:]:
-        return True
+    if ((str(vector1[-1])[:4] == "8000") and (str(vector2[-1])[:4] == "9000")) or ((str(vector2[-1])[:4] == "8000") or (str(vector1[-1])[:4] == "9000")):
+        if str(vector1[-1])[4:] == str(vector2[-1])[4:]:
+            return True
+        else:
+            return False
     else:
         return False
 
@@ -247,19 +253,22 @@ def final_decision_euclid(dist, threshold):
         return False
 
 
+# Doppelgaenger detection for euclid unsupervised
+# compares every pair of comments by different users
+#
+# Input feature matrix
+# Output list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair)
 def dopplegaenger_detection_euclid(matrix, threshold):
+    results = []
     i = 0
     for row in matrix:
         j = 0
         for r in matrix:
             if row[-1] != r[-1]:
-                dist = get_euclid(r[:-1], row[:-1])
-                if final_decision_euclid(dist, threshold) is True:
-                    print("Euclidean Distance for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(
-                        j) + " [user id: " + str(r[-1]) + "]")
-                    print(dist)
-                    print("--------------------------------------------------------\n")
+                dist = get_euclid(r[:-4], row[:-4])
+                results.append([final_decision_euclid(dist, threshold), r[-1], r[-2], row[-1], row[-2], is_doppel_pair(r, row)])
             j += 1
         i += 1
+    return results
 
 
