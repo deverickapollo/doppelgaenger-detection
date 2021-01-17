@@ -1,3 +1,4 @@
+import numpy
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import brier_score_loss
@@ -11,6 +12,7 @@ import pandas as pd
 # input: feature matrix
 # output: dict(userid : classifier)
 def get_classifiers(matrix):
+    print(matrix)
     user_ids = set()
     classifiers = dict()
     for list in matrix:
@@ -28,8 +30,10 @@ def get_classifiers(matrix):
 def get_train_test_split(matrix, user_id):
     train = np.array([list for list in matrix if list[-1] != user_id])
     test = np.array([list for list in matrix if list[-1] == user_id])
-    train_x, train_y = train[:, :-1], train[:, -1]
-    test_x, test_y = test[:, :-1], test[:, -1]
+    print(train)
+    print(test)
+    train_x, train_y = train[:, :-3], train[:, -1]
+    test_x, test_y = test[:, :-3], test[:, -1]
     return (train_x, test_x, train_y, test_y)
 
 
@@ -39,37 +43,6 @@ def train_classifier_svc(train_x, train_y):
     calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv=5)
     calibrated_model.fit(train_x, train_y)
     return calibrated_model
-
-
-# get threshold
-def get_threshold(matrix):
-    matrix_split = split_user_accounts(matrix)
-    classifiers = get_classifiers(matrix_split)
-    d = dict(prob_doppel_pairs = [],
-             prob_non_doppel_pairs = [])
-    i = 0
-    for row in matrix_split:
-        j = 0
-        for r in matrix_split:
-            if row[-1] != r[-1]:
-                prob = predict_pairwise_probability_svc(classifiers,[r, row])
-                if is_doppel_pair(row, r):
-                    d["prob_doppel_pairs"].attend(prob)
-                else:
-                    d["prob_non_doppel_pairs"].attend(prob)
-            j += 1
-        i += 1
-    # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
-    threshold = 0
-    return threshold
-
-
-# determine wether two given feature vectors are a artificially created doppelgaenger pair
-def is_doppel_pair(vector1, vector2):
-    if str(vector1[-1])[4:] == str(vector2[-1])[4:]:
-        return True
-    else:
-        return False
 
 
 # predict probabilities for a feature vector
@@ -88,7 +61,7 @@ def predict_pairwise_probability_svc(models, feature_vectors):
     predictions = []
     i=1
     for line in feature_vectors:
-        p = predict_probabilities_svc(models[line[-1]], [line[:-1]])
+        p = predict_probabilities_svc(models[line[-1]], [line[:-3]])
         predictions.append(p.get(float(feature_vectors[i%2][-1]))[0])
         i += 1
     pairwise_prob = dict(average = np.average(predictions),
@@ -177,6 +150,67 @@ def split_user_accounts(matrix):
             row[-1] = float("8000" + str(row[-1]))
         i += 1
     return matrix
+
+
+# get threshold
+def get_threshold(matrix):
+    matrix_split = split_user_accounts(matrix)
+    classifiers = get_classifiers(matrix_split)
+    d = dict(prob_doppel_pairs = [],
+             prob_non_doppel_pairs = [])
+    i = 0
+    for row in matrix_split:
+        j = 0
+        for r in matrix_split:
+            if row[-1] != r[-1]:
+                prob = predict_pairwise_probability_svc(classifiers,[r, row])
+                if is_doppel_pair(row, r):
+                    d["prob_doppel_pairs"].attend(prob)
+                else:
+                    d["prob_non_doppel_pairs"].attend(prob)
+            j += 1
+        i += 1
+    # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
+    threshold = 0
+    return threshold
+
+
+# determine wether two given feature vectors are a artificially created doppelgaenger pair
+def is_doppel_pair(vector1, vector2):
+    if str(vector1[-1])[4:] == str(vector2[-1])[4:]:
+        return True
+    else:
+        return False
+
+
+# Task 3: Comparison with Baseline
+
+# compute the euclidean distance between to vectors
+def get_euchlid(vector1, vector2):
+    return np.linalg.norm(np.array(vector1)-np.array(vector2))
+
+
+def final_decision_euclid(dist, threshold):
+    if dist < threshold:
+        return True
+    else:
+        return False
+
+
+def dopplegaenger_detection_euclid(matrix, threshold):
+    i = 0
+    for row in matrix:
+        j = 0
+        for r in matrix:
+            if row[-1] != r[-1]:
+                dist = get_euchlid(r[:-1], row[:-1])
+                if final_decision_euclid(dist, threshold) is True:
+                    print("Euclidean Distance for row " + str(i) + " [user id: " + str(row[-1]) + "] and row " + str(
+                        j) + " [user id: " + str(r[-1]) + "]")
+                    print(dist)
+                    print("--------------------------------------------------------\n")
+            j += 1
+        i += 1
 
 
 
