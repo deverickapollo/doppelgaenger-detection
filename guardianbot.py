@@ -222,7 +222,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			#Return list of authors with possible dopplegaenger identities
 			modelist = set(['average', 'multiplication', 'squaredaverage'])
 			if mode in modelist:
-				r = trainer.dopplegeanger_detection(pc[:-2], mode)
+				r = trainer.dopplegeanger_detection(pc, mode)
 				for row in r:
 					print(row)
 			else:

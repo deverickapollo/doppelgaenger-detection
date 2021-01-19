@@ -219,7 +219,7 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
     temp = []
     prior = [matrix[0][-1]]
     for row in matrix:
-        if len(u) >= users-1:
+        if len(u) >= users:
             break
         if d[row[-1]] < comments:
             if (row[-4] >= text_length) and (row[-1] == prior):
