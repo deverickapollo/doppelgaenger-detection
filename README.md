@@ -21,6 +21,7 @@ Data persistance provided by sqlite3 database.
 - wheel
 - scikit-learn
 - pandas
+- matplotlib
 ---
 ## Preinstallation venv setup: 
 

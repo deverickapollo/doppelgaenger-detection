@@ -26,7 +26,7 @@ class PreInstallCommand(install):
     def run(self):
         check_call("python3 -m pip install --upgrade pip".split())
         check_call("brew reinstall hunspell".split())
-        check_call("python3 -m pip install cyhunspell pandas language_tool_python spacy scrapy itemadapter wheel numpy Twisted flask timeloop pytz nltk coverage scikit-learn".split())
+        check_call("python3 -m pip install cyhunspell pandas language_tool_python spacy scrapy itemadapter wheel numpy Twisted flask timeloop pytz nltk coverage scikit-learn matplotlib".split())
         subprocess_cmd("python3 -m spacy download de_core_news_sm && python3 -m spacy download en_core_web_sm && python3 -m spacy download fr_core_news_sm && python3 -m spacy download es_core_news_sm")
         subprocess_cmd("python3 -m nltk.downloader punkt && python3 -m nltk.downloader stopwords && python3 -m nltk.downloader averaged_perceptron_tagger")
         install.run(self)
