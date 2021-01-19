@@ -201,7 +201,8 @@ def get_threshold(matrix_split, mode, classifiers):
     print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
     print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
     print("==================")
-    threshold = np.average(d["prob_doppel_pairs"])
+    threshold = np.average(d["prob_doppel_pairs"]) + np.average(d["prob_non_doppel_pairs"]) / 2
+    
     return threshold
 
 
