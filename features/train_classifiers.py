@@ -190,6 +190,7 @@ def get_threshold(matrix_split, mode, classifiers):
             s.add(row[-2])
             if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
                 prob = predict_pairwise_probability_svc(classifiers,[r, row])
+                pairs_comment_ids_compared.append(s)
                 if is_doppel_pair(row, r):
                     d["prob_doppel_pairs"].append(prob[mode])
                 else:
