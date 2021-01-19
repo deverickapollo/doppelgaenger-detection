@@ -250,7 +250,7 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 1
 		print("\n===== Executing Task 2 a) Experiment 1 =====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=250)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=250)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
 		results = []
@@ -260,8 +260,8 @@ def main(spider="guardianSpider", log=False, size=0):
 		false_negatives = 0
 
 		for emsk in expirment_matrix_split_kfold:
+			print("==== Executing Three Fold Cross Valication")
 			r = trainer.dopplegeanger_detection(emsk, mode)
-			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -274,13 +274,13 @@ def main(spider="guardianSpider", log=False, size=0):
 	
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=500)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
 		results = []
 		for emsk in expirment_matrix_split_kfold:
+			print("==== Executing Three Fold Cross Valication")
 			r = trainer.dopplegeanger_detection(emsk, mode)
-			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -293,13 +293,13 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 3
 		print("\n===== Executing Task 2 a) Experiment 3 =====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
 		results = []
 		for emsk in expirment_matrix_split_kfold:
+			print("==== Executing Three Fold Cross Valication")
 			r = trainer.dopplegeanger_detection(emsk, mode)
-			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -319,8 +319,8 @@ def main(spider="guardianSpider", log=False, size=0):
 			exm_split_kfold = trainer.k_fold_cross_validation(exm_split, 3)
 			results = []
 			for emsk in exm_split_kfold:
+				print("==== Executing Three Fold Cross Valication")
 				r = trainer.dopplegeanger_detection(emsk, mode)
-				# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 				results.append(r)
 			results = np.concatenate(results, axis=0)
 			tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -331,6 +331,38 @@ def main(spider="guardianSpider", log=False, size=0):
 			pickle.dump([results, tfpn], f)
 			f.close()
 			i += 1
+
+		## Task 3 a)
+		print("\n===== Executing Task 3 a) =====")
+		threshold_euclid = input('Select threshold for Euclid: ')
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		r = trainer.dopplegaenger_detection_euclid(expirment_matrix_split, threshold=float(threshold_euclid))
+		tfpn = trainer.get_number_true_false_positive_negative(r)
+		print("Total numbers true/false positives/negatives: ")
+		print(tfpn)
+		f = open("3a_experiment.pkl", "wb")
+		pickle.dump([r, tfpn], f)
+		f.close()
+
+		## Task 3 b)
+		print("\n===== Executing Task 3 b)====")
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		results = []
+		for emsk in expirment_matrix_split_kfold:
+			print("==== Executing Three Fold Cross Valication")
+			threshold = trainer.get_optimal_distance_euclid(emsk[0])
+			r = trainer.dopplegaenger_detection_euclid(emsk[1], threshold)
+			results.append(r)
+		results = np.concatenate(results, axis=0)
+		tfpn = trainer.get_number_true_false_positive_negative(results)
+		print("Total numbers true/false positives/negatives: ")
+		print(tfpn)
+		f = open("3b_experiment.pkl", "wb")
+		pickle.dump([results, tfpn], f)
+		f.close()
 
 
 	# TODO Pass dictionaries and symbol tables into Matrix
