@@ -33,8 +33,8 @@ def get_classifiers(matrix):
 def get_train_test_split(matrix, user_id):
     train = np.array([list for list in matrix if list[-1] != user_id])
     test = np.array([list for list in matrix if list[-1] == user_id])
-    print(train)
-    print(test)
+    print(len(train))
+    print(len(test))
     train_x, train_y = train[:, :-4], train[:, -1]
     test_x, test_y = test[:, :-4], test[:, -1]
     return (train_x, test_x, train_y, test_y)
@@ -150,19 +150,25 @@ def split_user_accounts(matrix):
         np.random.shuffle(m)
         A = set()
         B = set()
+        i=0
         for row in m:
-            if row[-3] in A:
+            if i%2 == 1:
                 row[-1] = float("9000" + str(row[-1]))
-            elif row[-3] in B:
-                row[-1] = float("8000" + str(row[-1]))
             else:
-                k = random.randint(0, 1)
-                if k == 0:
-                    row[-1] = float("9000" + str(row[-1]))
-                    A.add(row[-3])
-                else:
-                    row[-1] = float("8000" + str(row[-1]))
-                    B.add(row[-3])
+                row[-1] = float("8000" + str(row[-1]))
+            i += 1
+            # if row[-3] in A:
+            #     row[-1] = float("9000" + str(row[-1]))
+            # elif row[-3] in B:
+            #     row[-1] = float("8000" + str(row[-1]))
+            # else:
+            #     k = random.randint(0, 1)
+            #     if k == 0:
+            #         row[-1] = float("9000" + str(row[-1]))
+            #         A.add(row[-3])
+            #     else:
+            #         row[-1] = float("8000" + str(row[-1]))
+            #         B.add(row[-3])
     return matrix
 
 
@@ -210,14 +216,14 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
     temp = []
     prior = [matrix[0][-1]]
     for row in matrix:
-        if len(u) >= users:
+        if len(u) >= users-1:
             break
         if d[row[-1]] < comments:
-            if row[-4] >= text_length:
+            if (row[-4] >= text_length) and (row[-1] == prior):
                 temp.append(row)
                 d[row[-1]] += 1
         if (prior != row[-1]) and (len(temp) == comments):
-            u.add(row[-1])
+            u.add(prior)
             for r in temp:
                 experiment_matrix.append(r)
             temp = []
