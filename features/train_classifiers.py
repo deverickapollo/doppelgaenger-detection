@@ -2,6 +2,8 @@ import random
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import brier_score_loss
+from sklearn.datasets import make_classification
+from sklearn.model_selection import StratifiedKFold
 from sklearn.svm import SVC
 import pickle
 import pandas as pd
@@ -97,9 +99,8 @@ def final_decision(prob, threshold, mode):
 # Input feature matrix
 # Output list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair)
 def dopplegeanger_detection(matrix, mode):
-    matrix = np.real(matrix)
-    models = get_classifiers(matrix)
-    threshold = get_threshold(matrix,mode, models)
+    models = get_classifiers(matrix[0])
+    threshold = get_threshold(matrix[0],mode, models)
     # i=0
     # for m in matrix:
     #     print(str(i) + ": " + str(m))
@@ -108,9 +109,9 @@ def dopplegeanger_detection(matrix, mode):
     # print("")
     results = []
     pairs_comment_ids_compared = []
-    for row in matrix:
+    for row in matrix[1]:
         j = 0
-        for r in matrix:
+        for r in matrix[1]:
             s = set()
             s.add(r[-2])
             s.add(row[-2])
@@ -304,5 +305,17 @@ def is_true_false_positive_negative(final_decision, is_doppel_pair):
         return "true_negative"
     elif (final_decision == False) and (is_doppel_pair == True):
         return "false_negative"
+
+
+def k_fold_cross_validation(matrix, k):
+    kfold = StratifiedKFold(n_splits=k, shuffle=True, random_state=1)
+    r = []
+    # enumerate the splits and summarize the distributions
+    for train_ix, test_ix in kfold.split(matrix, matrix[:,-1]):
+        # select rows
+        train, test = matrix[train_ix], matrix[test_ix]
+        r.append([train, test])
+    return r
+
 
 

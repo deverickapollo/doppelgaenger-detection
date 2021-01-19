@@ -209,9 +209,10 @@ def main(spider="guardianSpider", log=False, size=0):
 		f = open("data.pkl", "rb")
 		statistics = pickle.load(f)
 		pc = pca.execute_pca(statistics)
-		pc = trainer.get_matrix_experiment_one(pc, users=10, text_length=500)
+		pc = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
 
 		pc = trainer.split_user_accounts(pc)
+		pcs =  trainer.k_fold_cross_validation(pc, 3)
 
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
@@ -221,11 +222,14 @@ def main(spider="guardianSpider", log=False, size=0):
 			mode = input('Which mode would you like to use; average, multiplication, squaredaverage: ').lower()
 			#Return list of authors with possible dopplegaenger identities
 			modelist = set(['average', 'multiplication', 'squaredaverage'])
+			results= []
 			if mode in modelist:
-				r = trainer.dopplegeanger_detection(pc, mode)
-				#r = trainer.dopplegaenger_detection_euclid(pc, 1)
-				for row in r:
-					print(row)
+				for p in pcs:
+					r = trainer.dopplegeanger_detection(p, mode)
+					#r = trainer.dopplegaenger_detection_euclid(pc, 1)
+					results.append(r)
+					for row in r:
+						print(row)
 			else:
 				logging.log(logging.INFO, "Please select either: average, multiplication, squaredaverage")
 		elif choice in no:
