@@ -209,7 +209,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		f = open("data.pkl", "rb")
 		statistics = pickle.load(f)
 		pc = pca.execute_pca(statistics)
-		pc = trainer.get_matrix_experiment_one(pc, users=60)
+		pc = trainer.get_matrix_experiment_one(pc, users=10, text_length=500)
 
 		pc = trainer.split_user_accounts(pc)
 
@@ -223,6 +223,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			modelist = set(['average', 'multiplication', 'squaredaverage'])
 			if mode in modelist:
 				r = trainer.dopplegeanger_detection(pc, mode)
+				#r = trainer.dopplegaenger_detection_euclid(pc, 1)
 				for row in r:
 					print(row)
 			else:

@@ -99,7 +99,7 @@ def final_decision(prob, threshold, mode):
 def dopplegeanger_detection(matrix, mode):
     matrix = np.real(matrix)
     models = get_classifiers(matrix)
-    threshold = get_threshold(matrix,mode)
+    threshold = get_threshold(matrix,mode, models)
     # i=0
     # for m in matrix:
     #     print(str(i) + ": " + str(m))
@@ -117,7 +117,9 @@ def dopplegeanger_detection(matrix, mode):
             if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
                 prob = predict_pairwise_probability_svc(models,[r, row])
                 pairs_comment_ids_compared.append(s)
-                results.append([final_decision(prob, float(threshold), mode), r[-1], r[-2], row[-1], row[-2], prob, is_doppel_pair(r, row)])
+                decision = final_decision(prob, threshold, mode)
+                is_doppel = is_doppel_pair(r, row)
+                results.append([decision, r[-1], r[-2], row[-1], row[-2], prob, is_doppel, is_true_false_positive_negative(decision, is_doppel)])
     return results
 
 
@@ -175,9 +177,9 @@ def split_user_accounts(matrix):
 
 
 # get threshold
-def get_threshold(matrix_split, mode):
+def get_threshold(matrix_split, mode, classifiers):
     # matrix_split = split_user_accounts(matrix)
-    classifiers = get_classifiers(matrix_split)
+    # classifiers = get_classifiers(matrix_split)
     d = dict(prob_doppel_pairs = [],
              prob_non_doppel_pairs = [])
     i = 0
@@ -187,14 +189,17 @@ def get_threshold(matrix_split, mode):
             if row[-1] != r[-1]:
                 prob = predict_pairwise_probability_svc(classifiers,[r, row])
                 if is_doppel_pair(row, r):
-                    d["prob_doppel_pairs"].attend(prob)
+                    d["prob_doppel_pairs"].append(prob[mode])
                 else:
-                    d["prob_non_doppel_pairs"].attend(prob)
+                    d["prob_non_doppel_pairs"].append(prob[mode])
             j += 1
         i += 1
     # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
-
-    threshold = 0
+    print("==================")
+    print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
+    print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
+    print("==================")
+    threshold = np.average(d["prob_doppel_pairs"])
     return threshold
 
 
@@ -284,7 +289,19 @@ def dopplegaenger_detection_euclid(matrix, threshold):
             if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
                 dist = get_euclid(r[:-4], row[:-4])
                 pairs_comment_ids_compared.append(s)
-                results.append([final_decision_euclid(dist, threshold), r[-1], r[-2], row[-1], row[-2], dist, is_doppel_pair(r, row)])
+                decision = final_decision_euclid(dist, threshold)
+                is_doppel = is_doppel_pair(r, row)
+                results.append([decision, r[-1], r[-2], row[-1], row[-2], dist, is_doppel, is_true_false_positive_negative(decision, is_doppel)])
     return results
+
+def is_true_false_positive_negative(final_decision, is_doppel_pair):
+    if (final_decision == True) and (is_doppel_pair == True):
+        return "true_positive"
+    elif (final_decision == True) and (is_doppel_pair == False):
+        return "false_positive"
+    elif (final_decision == False) and (is_doppel_pair == False):
+        return "true_negative"
+    elif (final_decision == False) and (is_doppel_pair == True):
+        return "false_negative"
 
 
