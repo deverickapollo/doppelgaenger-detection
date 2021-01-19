@@ -106,14 +106,17 @@ def dopplegeanger_detection(matrix, threshold, mode):
     # print()
     # print("")
     results = []
-    pairs_comment_ids_compared = set()
+    pairs_comment_ids_compared = []
     for row in matrix:
         j = 0
         for r in matrix:
-            if (row[-1] != r[-1]) and (set(r[-2], row[-2]) not in pairs_comment_ids_compared):
+            s = set()
+            s.add(r[-2])
+            s.add(row[-2])
+            if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
                 prob = predict_pairwise_probability_svc(models,[r, row])
-                pairs_comment_ids_compared.add(set(r[-2], row[-2]))
-                results.append([final_decision(prob, float(threshold), mode), r[-1], r[-2], row[-1], row[-2], is_doppel_pair(r, row)])
+                pairs_comment_ids_compared.append(s)
+                results.append([final_decision(prob, float(threshold), mode), r[-1], r[-2], row[-1], row[-2], prob, is_doppel_pair(r, row)])
     return results
 
 
@@ -270,13 +273,16 @@ def final_decision_euclid(dist, threshold):
 # Output list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair)
 def dopplegaenger_detection_euclid(matrix, threshold):
     results = []
-    pairs_comment_ids_compared = set()
+    pairs_comment_ids_compared = []
     for row in matrix:
         for r in matrix:
-            if (row[-1] != r[-1]) and (set(r[-2], row[-2])not in pairs_comment_ids_compared):
+            s = set()
+            s.add(r[-2])
+            s.add(row[-2])
+            if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
                 dist = get_euclid(r[:-4], row[:-4])
-                pairs_comment_ids_compared.add(set(r[-2], row[-2]))
-                results.append([final_decision_euclid(dist, threshold), r[-1], r[-2], row[-1], row[-2], is_doppel_pair(r, row)])
+                pairs_comment_ids_compared.append(s)
+                results.append([final_decision_euclid(dist, threshold), r[-1], r[-2], row[-1], row[-2], dist, is_doppel_pair(r, row)])
     return results
 
 

@@ -210,7 +210,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		statistics = pickle.load(f)
 
 		pc = pca.execute_pca(statistics)
-		pc = trainer.get_matrix_experiment_one(pc)
+		pc = trainer.get_matrix_experiment_one(pc, users=60)
 
 		pc = trainer.split_user_accounts(pc)
 
