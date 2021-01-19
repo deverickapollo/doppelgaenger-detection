@@ -208,7 +208,6 @@ def main(spider="guardianSpider", log=False, size=0):
 		#f.close()
 		f = open("data.pkl", "rb")
 		statistics = pickle.load(f)
-
 		pc = pca.execute_pca(statistics)
 		pc = trainer.get_matrix_experiment_one(pc, users=60)
 
@@ -218,15 +217,16 @@ def main(spider="guardianSpider", log=False, size=0):
 		no = set(['no','n'])
 		choice = input('Would you like to execute the dopplegaenger analysis as well?: ').lower()
 		if choice in yes:
-			#EndlessLoop
-			threshold = isnumerical()
+			#EndlessLoop until value submitted	
 			mode = input('Which mode would you like to use; average, multiplication, squaredaverage: ').lower()
 			#Return list of authors with possible dopplegaenger identities
 			modelist = set(['average', 'multiplication', 'squaredaverage'])
 			if mode in modelist:
-				r = trainer.dopplegeanger_detection(pc[:-2], threshold, mode)
+				r = trainer.dopplegeanger_detection(pc[:-2], mode)
 				for row in r:
 					print(row)
+			else:
+				logging.log(logging.INFO, "Please select either: average, multiplication, squaredaverage")
 		elif choice in no:
 			pass
 		else:

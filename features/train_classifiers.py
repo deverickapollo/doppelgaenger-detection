@@ -96,9 +96,10 @@ def final_decision(prob, threshold, mode):
 #
 # Input feature matrix
 # Output list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair)
-def dopplegeanger_detection(matrix, threshold, mode):
+def dopplegeanger_detection(matrix, mode):
     matrix = np.real(matrix)
     models = get_classifiers(matrix)
+    threshold = get_threshold(matrix,mode)
     # i=0
     # for m in matrix:
     #     print(str(i) + ": " + str(m))
@@ -144,7 +145,7 @@ def brier_score(true_targets, probabilities):
 # Split user accounts artificially. Pads 9000 and 8000 before the original user ids.
 #
 # Input: feature matrix
-# Output: feature matrix with splitted user accounts
+# Output: feature matrix with split user accounts
 def split_user_accounts(matrix):
     matrices = np.split(matrix, np.where(np.diff(matrix[:, -1]))[0] + 1)
     for m in matrices:
@@ -174,8 +175,8 @@ def split_user_accounts(matrix):
 
 
 # get threshold
-def get_threshold(matrix):
-    matrix_split = split_user_accounts(matrix)
+def get_threshold(matrix_split, mode):
+    # matrix_split = split_user_accounts(matrix)
     classifiers = get_classifiers(matrix_split)
     d = dict(prob_doppel_pairs = [],
              prob_non_doppel_pairs = [])
@@ -192,6 +193,7 @@ def get_threshold(matrix):
             j += 1
         i += 1
     # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
+
     threshold = 0
     return threshold
 
