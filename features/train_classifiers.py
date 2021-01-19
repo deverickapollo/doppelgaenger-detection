@@ -253,7 +253,7 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
 
 # extract feature matrices with three disjoint sets of features
 def get_matrix_experiment_two(matrix):
-    matrix = get_matrix_experiment_one(matrix, users=4)
+    matrix = get_matrix_experiment_one(matrix, users=10)
     user_ids = matrix[:,-1][:,None]
     comment_ids = matrix[:,-2][:,None]
     article_ids = matrix[:,-3][:,None]
@@ -303,6 +303,33 @@ def dopplegaenger_detection_euclid(matrix, threshold):
                 is_doppel = is_doppel_pair(r, row)
                 results.append([decision, r[-1], r[-2], row[-1], row[-2], dist, is_doppel, is_true_false_positive_negative(decision, is_doppel)])
     return results
+
+# get optimal distance euclid
+def get_optimal_distance_euclid(matrix_split):
+    # matrix_split = split_user_accounts(matrix)
+    # classifiers = get_classifiers(matrix_split)
+    d = dict(dist_doppel_pairs = [],
+             dist_non_doppel_pairs = [])
+    pairs_comment_ids_compared = []
+    for row in matrix_split:
+        for r in matrix_split:
+            s = set()
+            s.add(r[-2])
+            s.add(row[-2])
+            if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
+                dist = get_euclid(r[:-4], row[:-4])
+                pairs_comment_ids_compared.append(s)
+                if is_doppel_pair(row, r):
+                    d["dist_doppel_pairs"].append(dist)
+                else:
+                    d["dist_non_doppel_pairs"].append(dist)
+    # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
+    print("==================")
+    print("Average Distance Doppelgaenger Pairs: " + str(np.average(d["dist_doppel_pairs"])))
+    print("Average Distance Non Doppelgaenger Pairs: " + str(np.average(d["dist_non_doppel_pairs"])))
+    print("==================")
+    threshold = (np.average(d["dist_doppel_pairs"]) + np.average(d["dist_non_doppel_pairs"])) / 2
+    return threshold
 
 
 def is_true_false_positive_negative(final_decision, is_doppel_pair):
