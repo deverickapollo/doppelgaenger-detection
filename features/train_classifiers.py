@@ -101,24 +101,21 @@ def final_decision(prob, threshold, mode):
 def dopplegeanger_detection(matrix, threshold, mode):
     matrix = np.real(matrix)
     models = get_classifiers(matrix)
-    print("The following rows are present in the feature matrix, each representing one comment. The last value of each row is the user id which identifies the author of the comment: ")
-    print("Final decision based on threshold: " + str(threshold) + " and mode: " + mode +"\n")
     # i=0
     # for m in matrix:
     #     print(str(i) + ": " + str(m))
     #     i+=1
     # print()
     # print("")
-    i=0
     results = []
+    pairs_comment_ids_compared = set()
     for row in matrix:
         j = 0
         for r in matrix:
-            if row[-1] != r[-1]:
+            if (row[-1] != r[-1]) and (set(r[-2], row[-2]) not in pairs_comment_ids_compared):
                 prob = predict_pairwise_probability_svc(models,[r, row])
+                pairs_comment_ids_compared.add(set(r[-2], row[-2]))
                 results.append([final_decision(prob, float(threshold), mode), r[-1], r[-2], row[-1], row[-2], is_doppel_pair(r, row)])
-            j +=1
-        i += 1
     return results
 
 
@@ -260,15 +257,13 @@ def final_decision_euclid(dist, threshold):
 # Output list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair)
 def dopplegaenger_detection_euclid(matrix, threshold):
     results = []
-    i = 0
+    pairs_comment_ids_compared = set()
     for row in matrix:
-        j = 0
         for r in matrix:
-            if row[-1] != r[-1]:
+            if (row[-1] != r[-1]) and (set(r[-2], row[-2])not in pairs_comment_ids_compared):
                 dist = get_euclid(r[:-4], row[:-4])
+                pairs_comment_ids_compared.add(set(r[-2], row[-2]))
                 results.append([final_decision_euclid(dist, threshold), r[-1], r[-2], row[-1], row[-2], is_doppel_pair(r, row)])
-            j += 1
-        i += 1
     return results
 
 
