@@ -263,11 +263,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			results.append(r)
 			for row in r:
 				print(row)
+			print("Total numbers true/false positives/negatives: ")
+			print(trainer.get_number_true_false_positive_negative(r))
 		f = open("2a_experiment_1.pkl", "wb")
 		pickle.dump(results, f)
 		f.close()
-		print("Total numbers true/false positives/negatives: ")
-		print(trainer.get_number_true_false_positive_negative(results))
 
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
@@ -281,11 +281,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			results.append(r)
 			for row in r:
 				print(row)
+			print("Total numbers true/false positives/negatives: ")
+			print(trainer.get_number_true_false_positive_negative(r))
 		f = open("2a_experiment_2.pkl", "wb")
 		pickle.dump(results, f)
 		f.close()
-		print("Total numbers true/false positives/negatives: ")
-		print(trainer.get_number_true_false_positive_negative(results))
 
 		## Task 2 a) Experiment 3
 		print("\n===== Executing Task 2 a) Experiment 3 =====")
@@ -299,11 +299,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			results.append(r)
 			for row in r:
 				print(row)
+			print("Total numbers true/false positives/negatives: ")
+			print(trainer.get_number_true_false_positive_negative(r))
 		f = open("2a_experiment_3.pkl", "wb")
 		pickle.dump(results, f)
 		f.close()
-		print("Total numbers true/false positives/negatives: ")
-		print(trainer.get_number_true_false_positive_negative(results))
 
 		## Task 2 b) Experiment 1-3
 		expirment_matrices = trainer.get_matrix_experiment_two(pc)
@@ -319,12 +319,12 @@ def main(spider="guardianSpider", log=False, size=0):
 				results.append(r)
 				for row in r:
 					print(row)
+				print("Total numbers true/false positives/negatives: ")
+				print(trainer.get_number_true_false_positive_negative(r))
 			f = open("2b_experiment_" + str(i) + ".pkl", "wb")
 			pickle.dump(results, f)
 			f.close()
 			i += 1
-			print("Total numbers true/false positives/negatives: ")
-			print(trainer.get_number_true_false_positive_negative(results))
 
 
 	# TODO Pass dictionaries and symbol tables into Matrix
