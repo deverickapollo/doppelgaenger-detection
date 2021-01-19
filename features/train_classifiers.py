@@ -201,8 +201,7 @@ def get_threshold(matrix_split, mode, classifiers):
     print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
     print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
     print("==================")
-    threshold = np.average(d["prob_doppel_pairs"]) + np.average(d["prob_non_doppel_pairs"]) / 2
-    
+    threshold = (np.average(d["prob_doppel_pairs"]) + np.average(d["prob_non_doppel_pairs"])) / 2
     return threshold
 
 
@@ -246,7 +245,7 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
 
 # extract feature matrices with three disjoint sets of features
 def get_matrix_experiment_two(matrix):
-    matrix = get_matrix_experiment_one(matrix, users=8)
+    matrix = get_matrix_experiment_one(matrix, users=4)
     user_ids = matrix[:,-1][:,None]
     comment_ids = matrix[:,-2][:,None]
     article_ids = matrix[:,-3][:,None]
@@ -297,6 +296,7 @@ def dopplegaenger_detection_euclid(matrix, threshold):
                 results.append([decision, r[-1], r[-2], row[-1], row[-2], dist, is_doppel, is_true_false_positive_negative(decision, is_doppel)])
     return results
 
+
 def is_true_false_positive_negative(final_decision, is_doppel_pair):
     if (final_decision == True) and (is_doppel_pair == True):
         return "true_positive"
@@ -306,6 +306,13 @@ def is_true_false_positive_negative(final_decision, is_doppel_pair):
         return "true_negative"
     elif (final_decision == False) and (is_doppel_pair == True):
         return "false_negative"
+
+
+def get_number_true_false_positive_negative(results):
+    d = dict.fromkeys(["true_positive", "false_positive", "true_negative", "false_negative"], 0)
+    for row in results:
+        d[row[-1]] += 1
+    return d
 
 
 def k_fold_cross_validation(matrix, k):
