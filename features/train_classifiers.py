@@ -246,7 +246,7 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
 
 # extract feature matrices with three disjoint sets of features
 def get_matrix_experiment_two(matrix):
-    matrix = get_matrix_experiment_one(matrix)
+    matrix = get_matrix_experiment_one(matrix, users=8)
     user_ids = matrix[:,-1][:,None]
     comment_ids = matrix[:,-2][:,None]
     article_ids = matrix[:,-3][:,None]

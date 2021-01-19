@@ -37,6 +37,8 @@ all_args.add_argument("-s", "--size", required=False, help="Output a specified n
 all_args.add_argument("-u", "--user", nargs=2, required=False, help="Requires username as first argument and max row count as second. Output a specified number of comments from a specific user to CLI.")
 all_args.add_argument("-m", "--mode", nargs="*", required=False, help="Starts Crawler with the specified pre-processing feature.")
 all_args.add_argument("-f", "--features", help="Start PCA task and optional dopplegaenger analysis", action="store_true")
+all_args.add_argument("-e", "--experiments", help="Run the experiments from the fourth tash sheet", action="store_true")
+
 
 args = all_args.parse_args()
 
@@ -209,7 +211,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		f = open("data.pkl", "rb")
 		statistics = pickle.load(f)
 		pc = pca.execute_pca(statistics)
-		pc = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
+		pc = trainer.get_matrix_experiment_one(pc, users=10, text_length=500)
 
 		pc = trainer.split_user_accounts(pc)
 		pcs =  trainer.k_fold_cross_validation(pc, 3)
@@ -237,6 +239,83 @@ def main(spider="guardianSpider", log=False, size=0):
 		else:
 			logging.log(logging.INFO, "Please respond with 'yes' or 'no'")
         	#TODO Pass dictionaries and symbol tables into Matrix
+	if args.experiments:
+		f = open("data.pkl", "rb")
+		statistics = pickle.load(f)
+		pc = pca.execute_pca(statistics)
+
+		mode = input('Which mode would you like to use; average, multiplication, squaredaverage: ').lower()
+		modelist = set(['average', 'multiplication', 'squaredaverage'])
+
+		## Task 2 a) Experiment 1
+		print("\n===== Executing Task 2 a) Experiment 1 =====")
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=8, text_length=250)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		results = []
+		for emsk in expirment_matrix_split_kfold:
+			r = trainer.dopplegeanger_detection(emsk, mode)
+			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
+			results.append(r)
+			for row in r:
+				print(row)
+		f = open("2a_experiment_1.pkl", "wb")
+		pickle.dump(results, f)
+		f.close()
+
+		## Task 2 a) Experiment 2
+		print("\n===== Executing Task 2 a) Experiment 2 =====")
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=8, text_length=500)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		results = []
+		for emsk in expirment_matrix_split_kfold:
+			r = trainer.dopplegeanger_detection(emsk, mode)
+			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
+			results.append(r)
+			for row in r:
+				print(row)
+		f = open("2a_experiment_2.pkl", "wb")
+		pickle.dump(results, f)
+		f.close()
+
+		## Task 2 a) Experiment 3
+		print("\n===== Executing Task 2 a) Experiment 3 =====")
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=8, text_length=750)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		results = []
+		for emsk in expirment_matrix_split_kfold:
+			r = trainer.dopplegeanger_detection(emsk, mode)
+			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
+			results.append(r)
+			for row in r:
+				print(row)
+		f = open("2a_experiment_3.pkl", "wb")
+		pickle.dump(results, f)
+		f.close()
+
+		## Task 2 b) Experiment 1-3
+		expirment_matrices = trainer.get_matrix_experiment_two(pc)
+		i = 1
+		for exm in expirment_matrices:
+			print("\n===== Executing Task 2 b) Experiment " + str(i) + " =====")
+			exm_split = trainer.split_user_accounts(exm)
+			exm_split_kfold = trainer.k_fold_cross_validation(exm_split, 3)
+			results = []
+			for emsk in exm_split_kfold:
+				r = trainer.dopplegeanger_detection(emsk, mode)
+				# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
+				results.append(r)
+				for row in r:
+					print(row)
+			f = open("2b_experiment_" + str(i) + ".pkl", "wb")
+			pickle.dump(results, f)
+			f.close()
+			i += 1
+
+
+	# TODO Pass dictionaries and symbol tables into Matrix
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
