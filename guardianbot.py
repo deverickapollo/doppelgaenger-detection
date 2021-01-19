@@ -212,7 +212,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		f = open("data.pkl", "rb")
 		statistics = pickle.load(f)
 		pc = pca.execute_pca(statistics)
-		pc = trainer.get_matrix_experiment_one(pc, users=10, text_length=500)
+		pc = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
 
 		pc = trainer.split_user_accounts(pc)
 		pcs =  trainer.k_fold_cross_validation(pc, 3)
@@ -258,6 +258,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		false_positives = 0
 		true_negatives = 0
 		false_negatives = 0
+
 		for emsk in expirment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
@@ -266,10 +267,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
+		trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"],"yellow", "Experiment 1")
 		f = open("2a_experiment_1.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
-
+	
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
 		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
@@ -284,6 +286,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
+		trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"], "red", "Experiment 2")
 		f = open("2a_experiment_2.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
@@ -302,6 +305,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
+		trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"], "orange", "Experiment 3")
 		f = open("2a_experiment_3.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
@@ -322,6 +326,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			tfpn = trainer.get_number_true_false_positive_negative(results)
 			print("Total numbers true/false positives/negatives: ")
 			print(tfpn)
+			trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"], "darkblue", "Experiment 2b")
 			f = open("2b_experiment_" + str(i) + ".pkl", "wb")
 			pickle.dump([results, tfpn], f)
 			f.close()
