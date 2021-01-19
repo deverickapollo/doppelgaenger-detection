@@ -223,7 +223,7 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
             temp = []
         elif (prior != row[-1]) and (len(temp) != comments):
             temp = []
-        prior = row[]
+        prior = row[-1]
     return np.array(experiment_matrix)
 
 
