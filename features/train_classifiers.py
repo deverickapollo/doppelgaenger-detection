@@ -207,14 +207,23 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
     experiment_matrix = []
     d = dict.fromkeys(matrix[:,-1],0)
     u = set()
+    temp = []
+    prior = [matrix[0][-1]]
     for row in matrix:
         if len(u) >= users:
             break
         if d[row[-1]] < comments:
             if row[-4] >= text_length:
-                experiment_matrix.append(row)
+                temp.append(row)
                 d[row[-1]] += 1
-        u.add(row[-1])
+        if (prior != row[-1]) and (len(temp) == comments):
+            u.add(row[-1])
+            for r in temp:
+                experiment_matrix.append(r)
+            temp = []
+        elif (prior != row[-1]) and (len(temp) != comments):
+            temp = []
+        prior = row[]
     return np.array(experiment_matrix)
 
 
