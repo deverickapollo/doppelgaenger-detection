@@ -20,6 +20,7 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.settings import Settings
 
+import numpy as np
 import time
 
 start_time = time.time()
@@ -261,12 +262,12 @@ def main(spider="guardianSpider", log=False, size=0):
 			r = trainer.dopplegeanger_detection(emsk, mode)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
-			for row in r:
-				print(row)
-			print("Total numbers true/false positives/negatives: ")
-			print(trainer.get_number_true_false_positive_negative(r))
+		results = np.concatenate(results, axis=0)
+		tfpn = trainer.get_number_true_false_positive_negative(results)
+		print("Total numbers true/false positives/negatives: ")
+		print(tfpn)
 		f = open("2a_experiment_1.pkl", "wb")
-		pickle.dump(results, f)
+		pickle.dump([results, tfpn], f)
 		f.close()
 
 		## Task 2 a) Experiment 2
@@ -279,12 +280,12 @@ def main(spider="guardianSpider", log=False, size=0):
 			r = trainer.dopplegeanger_detection(emsk, mode)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
-			for row in r:
-				print(row)
-			print("Total numbers true/false positives/negatives: ")
-			print(trainer.get_number_true_false_positive_negative(r))
+		results = np.concatenate(results, axis=0)
+		tfpn = trainer.get_number_true_false_positive_negative(results)
+		print("Total numbers true/false positives/negatives: ")
+		print(tfpn)
 		f = open("2a_experiment_2.pkl", "wb")
-		pickle.dump(results, f)
+		pickle.dump([results, tfpn], f)
 		f.close()
 
 		## Task 2 a) Experiment 3
@@ -297,12 +298,12 @@ def main(spider="guardianSpider", log=False, size=0):
 			r = trainer.dopplegeanger_detection(emsk, mode)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
-			for row in r:
-				print(row)
-			print("Total numbers true/false positives/negatives: ")
-			print(trainer.get_number_true_false_positive_negative(r))
+		results = np.concatenate(results, axis=0)
+		tfpn = trainer.get_number_true_false_positive_negative(results)
+		print("Total numbers true/false positives/negatives: ")
+		print(tfpn)
 		f = open("2a_experiment_3.pkl", "wb")
-		pickle.dump(results, f)
+		pickle.dump([results, tfpn], f)
 		f.close()
 
 		## Task 2 b) Experiment 1-3
@@ -317,12 +318,12 @@ def main(spider="guardianSpider", log=False, size=0):
 				r = trainer.dopplegeanger_detection(emsk, mode)
 				# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 				results.append(r)
-				for row in r:
-					print(row)
-				print("Total numbers true/false positives/negatives: ")
-				print(trainer.get_number_true_false_positive_negative(r))
+			results = np.concatenate(results, axis=0)
+			tfpn = trainer.get_number_true_false_positive_negative(results)
+			print("Total numbers true/false positives/negatives: ")
+			print(tfpn)
 			f = open("2b_experiment_" + str(i) + ".pkl", "wb")
-			pickle.dump(results, f)
+			pickle.dump([results, tfpn], f)
 			f.close()
 			i += 1
 
