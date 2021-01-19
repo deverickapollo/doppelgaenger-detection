@@ -58,5 +58,5 @@ def execute_pca(dict):
     matrix_reduced = np.append(matrix_reduced, article_ids, axis=1)
     matrix_reduced = np.append(matrix_reduced, comment_ids, axis=1)
     matrix_reduced = np.append(matrix_reduced, user_ids, axis=1)
-    return matrix_reduced
+    return matrix_reduced.real
 
