@@ -182,18 +182,18 @@ def get_threshold(matrix_split, mode, classifiers):
     # classifiers = get_classifiers(matrix_split)
     d = dict(prob_doppel_pairs = [],
              prob_non_doppel_pairs = [])
-    i = 0
+    pairs_comment_ids_compared = []
     for row in matrix_split:
-        j = 0
         for r in matrix_split:
-            if row[-1] != r[-1]:
+            s = set()
+            s.add(r[-2])
+            s.add(row[-2])
+            if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
                 prob = predict_pairwise_probability_svc(classifiers,[r, row])
                 if is_doppel_pair(row, r):
                     d["prob_doppel_pairs"].append(prob[mode])
                 else:
                     d["prob_non_doppel_pairs"].append(prob[mode])
-            j += 1
-        i += 1
     # TODO: compute an appropriate threshold for every mode (average, multiplication, squaredaverage)
     print("==================")
     print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
