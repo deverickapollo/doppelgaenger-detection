@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import brier_score_loss
 from sklearn.datasets import make_classification
@@ -9,14 +10,14 @@ from sklearn.svm import SVC
 import pickle
 import pandas as pd
 
-def plot_roc_curve(fpr, tpr):
-    plt.plot(fpr, tpr, color='orange', label='ROC')
+def plot_roc_curve(fpr, tpr, color, label):
+    plt.plot(fpr, tpr, color=color, label=label)
     plt.plot([0, 1], [0, 1], color='darkblue', linestyle='--')
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend()
-    plt.show()
+    plt.savefig('ROC.png')
 
 # get the classifiers for every user present in the feature matrix
 # last column of the feature matrix has to be the user id
