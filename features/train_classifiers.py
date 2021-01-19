@@ -1,6 +1,4 @@
 import random
-from pprint import pprint
-
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import brier_score_loss
@@ -15,14 +13,16 @@ import pandas as pd
 # input: feature matrix
 # output: dict(userid : classifier)
 def get_classifiers(matrix):
-    print(matrix)
     user_ids = set()
     classifiers = dict()
     for list in matrix:
         user_ids.add(list[-1])
+    i = 1
     for user_id in user_ids:
         train_x, test_x, train_y, test_y = get_train_test_split(matrix, user_id)
+        print("Training classifier for user " + str(user_id) + " (" + str(i) + "/" + str(len(user_ids)) + ")")
         classifiers[user_id] = train_classifier_svc(train_x, train_y)
+        i += 1
     return classifiers
 
 
@@ -33,8 +33,6 @@ def get_classifiers(matrix):
 def get_train_test_split(matrix, user_id):
     train = np.array([list for list in matrix if list[-1] != user_id])
     test = np.array([list for list in matrix if list[-1] == user_id])
-    print(len(train))
-    print(len(test))
     train_x, train_y = train[:, :-4], train[:, -1]
     test_x, test_y = test[:, :-4], test[:, -1]
     return (train_x, test_x, train_y, test_y)

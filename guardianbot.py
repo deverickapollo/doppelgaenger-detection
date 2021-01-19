@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # Main for Dopplegaenger Detection Program
 import pickle
+from datetime import datetime
 
 import database.db_access as db
 from pprint import pprint
@@ -209,6 +210,10 @@ def main(spider="guardianSpider", log=False, size=0):
 		statistics = pickle.load(f)
 
 		pc = pca.execute_pca(statistics)
+		pc = trainer.get_matrix_experiment_one(pc)
+
+		pc = trainer.split_user_accounts(pc)
+
 		yes = set(['yes','y', 'ye', ''])
 		no = set(['no','n'])
 		choice = input('Would you like to execute the dopplegaenger analysis as well?: ').lower()
@@ -219,7 +224,9 @@ def main(spider="guardianSpider", log=False, size=0):
 			#Return list of authors with possible dopplegaenger identities
 			modelist = set(['average', 'multiplication', 'squaredaverage'])
 			if mode in modelist:
-				trainer.dopplegeanger_detection(pc, threshold, mode)
+				r = trainer.dopplegeanger_detection(pc[:-2], threshold, mode)
+				for row in r:
+					print(row)
 		elif choice in no:
 			pass
 		else:
