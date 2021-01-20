@@ -7,8 +7,15 @@ from sklearn.metrics import brier_score_loss
 from sklearn.datasets import make_classification
 from sklearn.model_selection import StratifiedKFold
 from sklearn.svm import SVC
+import seaborn as sns
 import pickle
 import pandas as pd
+
+# create a PdfPages object
+pdf = PdfPages('heatmaps.pdf')
+
+# define here the dimension of your figure
+fig = plt.figure()
 
 def plot_roc_curve(fpr, tpr, color, label):
     plt.plot(fpr, tpr, color=color, label=label)
@@ -18,6 +25,18 @@ def plot_roc_curve(fpr, tpr, color, label):
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend()
     plt.savefig('ROC.png')
+
+def plot_heatmap(cm):
+    #Plot the matrix
+    # sns.heatmap(cm, annot=True, fmt = ".2%", cmap="Spectral")
+    sns.heatmap(cm/np.sum(cm), annot=True, fmt = ".2%", cmap="Spectral")
+
+    pdf.savefig(fig)
+    plt.close()
+   
+
+def closepdf():
+    pdf.close()
 
 # get the classifiers for every user present in the feature matrix
 # last column of the feature matrix has to be the user id
@@ -254,7 +273,7 @@ def get_matrix_experiment_one(matrix, users=60, comments=20, text_length=250):
 
 # extract feature matrices with three disjoint sets of features
 def get_matrix_experiment_two(matrix):
-    matrix = get_matrix_experiment_one(matrix, users=10)
+    matrix = get_matrix_experiment_one(matrix, users=4)
     user_ids = matrix[:,-1][:,None]
     comment_ids = matrix[:,-2][:,None]
     article_ids = matrix[:,-3][:,None]

@@ -22,6 +22,7 @@ Data persistance provided by sqlite3 database.
 - scikit-learn
 - pandas
 - matplotlib
+- seaborn
 ---
 ## Preinstallation venv setup: 
 
