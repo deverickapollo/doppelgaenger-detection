@@ -73,12 +73,13 @@ optional arguments:
   
   -u [USER ...], --user [USER ...]
                         Output a specified number of comments from a specific user to CLI.
-
+  -f                    Start PCA task and optional dopplegaenger analysis
+  -e                    Run Sample Experiments
 Modes Available:
   - char          character-level
   - vocab         vocabulary-richness
   - sentence      sentence-level   
-  - leet          letspeak-based
+  - leet          leetspeak-based
   - white         whitespace and punctuation
   - content       content-based
   - idio          Idiosyncratic

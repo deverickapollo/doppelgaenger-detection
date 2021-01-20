@@ -14,7 +14,8 @@ import pandas as pd
 # create a PdfPages object
 pdf = PdfPages('heatmaps.pdf')
 
-
+# model serialization
+# input: false positive rate, true positive rate, color, and label
 def plot_roc_curve(fpr, tpr, color, label):
     fig = plt.figure()
     plt.plot(fpr, tpr, color=color, label=label)
@@ -24,6 +25,8 @@ def plot_roc_curve(fpr, tpr, color, label):
     plt.legend()
     plt.savefig('ROC.png')
 
+# Plot confusion matrix to a heatmap and save to file
+# input: confusion matrix object and title 
 def plot_heatmap(cm, title):
     #Plot the matrix
     # sns.heatmap(cm, annot=True, fmt = ".2%", cmap="Spectral")
@@ -36,11 +39,10 @@ def plot_heatmap(cm, title):
     ax.yaxis.set_ticklabels(['True', 'False']) 
     pdf.savefig(fig)
 
+# close open file and figure
 def closepdf():
     plt.close()
     pdf.close()
-
-
 
 # get the classifiers for every user present in the feature matrix
 # last column of the feature matrix has to be the user id
@@ -106,7 +108,7 @@ def predict_pairwise_probability_svc(models, feature_vectors):
 
 
 # model serialization
-# innput: model
+# input: model
 # output: serialized model
 def save_model(model):
     return pickle.dumps(model)
