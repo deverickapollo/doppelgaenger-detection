@@ -16,6 +16,7 @@ pdf = PdfPages('heatmaps.pdf')
 
 
 
+<<<<<<< HEAD
 ############################
 #### SVM Classification ####
 ############################
@@ -102,6 +103,19 @@ def final_decision(prob, threshold, mode):
         return True
     else:
         return False
+=======
+def plot_heatmap(cm, title):
+    #Plot the matrix
+    # sns.heatmap(cm, annot=True, fmt = ".2%", cmap="Spectral")
+    fig = plt.figure()
+    ax = sns.heatmap(cm/np.sum(cm), annot=True, fmt = ".2%", cmap="Spectral")
+    ax.set(title=title,
+      xlabel="Actual",
+      ylabel="Predicted",)
+    ax.xaxis.set_ticklabels(['True', 'False'])
+    ax.yaxis.set_ticklabels(['True', 'False']) 
+    pdf.savefig(fig)
+>>>>>>> 8d65e2a4f5a86fcbd2300b15623b1e7d6fcebd2d
 
 
 
