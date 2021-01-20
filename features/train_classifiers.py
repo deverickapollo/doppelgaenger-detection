@@ -32,7 +32,8 @@ def plot_heatmap(cm, title):
     ax.set(title=title,
       xlabel="Actual",
       ylabel="Predicted",)
- 
+    ax.xaxis.set_ticklabels(['True', 'False'])
+    ax.yaxis.set_ticklabels(['True', 'False']) 
     pdf.savefig(fig)
 
 def closepdf():
