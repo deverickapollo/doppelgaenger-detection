@@ -14,29 +14,28 @@ import pandas as pd
 # create a PdfPages object
 pdf = PdfPages('heatmaps.pdf')
 
-# define here the dimension of your figure
-fig = plt.figure()
 
 def plot_roc_curve(fpr, tpr, color, label):
+    fig = plt.figure()
     plt.plot(fpr, tpr, color=color, label=label)
     plt.plot([0, 1], [0, 1], color='darkblue', linestyle='--')
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
-    plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend()
     plt.savefig('ROC.png')
 
 def plot_heatmap(cm):
     #Plot the matrix
     # sns.heatmap(cm, annot=True, fmt = ".2%", cmap="Spectral")
+    fig = plt.figure()
     sns.heatmap(cm/np.sum(cm), annot=True, fmt = ".2%", cmap="Spectral")
-
     pdf.savefig(fig)
-    plt.close()
-   
 
 def closepdf():
+    plt.close()
     pdf.close()
+
+
 
 # get the classifiers for every user present in the feature matrix
 # last column of the feature matrix has to be the user id

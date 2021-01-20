@@ -9,7 +9,6 @@ from pprint import pprint
 from scrape_guardian import *
 from database.db_access import *
 import logging, os, argparse, features.feature_generation as feat
-import feature_matrix as fmatrix
 import features.principal_component_analysis as pca, features.train_classifiers as trainer
 
 from logging import FileHandler
@@ -250,87 +249,88 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 1
 		print("\n===== Executing Task 2 a) Experiment 1 =====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=250)
-		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
-		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=250)
+		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
+		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
-		true_positives = 0
-		false_positives = 0
-		true_negatives = 0
-		false_negatives = 0
 
-		for emsk in expirment_matrix_split_kfold:
-			print("==== Executing Three Fold Cross Valication")
+		for emsk in experiment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode)
+			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
-		trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"],"yellow", "Experiment 1")
+		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
+		trainer.plot_heatmap(cm)
 		f = open("2a_experiment_1.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
 	
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=500)
-		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
-		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
+		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
+		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
-		for emsk in expirment_matrix_split_kfold:
-			print("==== Executing Three Fold Cross Valication")
+		for emsk in experiment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode)
+			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
-		trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"], "red", "Experiment 2")
+		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
+		trainer.plot_heatmap(cm)
 		f = open("2a_experiment_2.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
 
 		## Task 2 a) Experiment 3
 		print("\n===== Executing Task 2 a) Experiment 3 =====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
-		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
-		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
+		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
+		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
-		for emsk in expirment_matrix_split_kfold:
-			print("==== Executing Three Fold Cross Valication")
+		for emsk in experiment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode)
+			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
-		trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"], "orange", "Experiment 3")
+		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
+		trainer.plot_heatmap(cm)		
 		f = open("2a_experiment_3.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
 
 		## Task 2 b) Experiment 1-3
-		expirment_matrices = trainer.get_matrix_experiment_two(pc)
+		experiment_matrices = trainer.get_matrix_experiment_two(pc)
 		i = 1
-		for exm in expirment_matrices:
+		for exm in experiment_matrices:
 			print("\n===== Executing Task 2 b) Experiment " + str(i) + " =====")
 			exm_split = trainer.split_user_accounts(exm)
 			exm_split_kfold = trainer.k_fold_cross_validation(exm_split, 3)
 			results = []
 			for emsk in exm_split_kfold:
-				print("==== Executing Three Fold Cross Valication")
 				r = trainer.dopplegeanger_detection(emsk, mode)
+				# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 				results.append(r)
 			results = np.concatenate(results, axis=0)
 			tfpn = trainer.get_number_true_false_positive_negative(results)
 			print("Total numbers true/false positives/negatives: ")
 			print(tfpn)
-			trainer.plot_roc_curve(tfpn["false_positive_rate"],tfpn["true_positive_rate"], "darkblue", "Experiment 2b")
+			cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
+			trainer.plot_heatmap(cm)			
 			f = open("2b_experiment_" + str(i) + ".pkl", "wb")
 			pickle.dump([results, tfpn], f)
 			f.close()
 			i += 1
+
 
 		## Task 3 a)
 		print("\n===== Executing Task 3 a) =====")
@@ -341,10 +341,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		tfpn = trainer.get_number_true_false_positive_negative(r)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
+		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
+		trainer.plot_heatmap(cm)	
 		f = open("3a_experiment.pkl", "wb")
 		pickle.dump([r, tfpn], f)
 		f.close()
-
 		## Task 3 b)
 		print("\n===== Executing Task 3 b)====")
 		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
@@ -360,11 +361,13 @@ def main(spider="guardianSpider", log=False, size=0):
 		tfpn = trainer.get_number_true_false_positive_negative(results)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
+		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
+		trainer.plot_heatmap(cm)	
 		f = open("3b_experiment.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
-
-
+		#Close writing to PDF after calling plot_heatmap
+		trainer.closepdf()
 	# TODO Pass dictionaries and symbol tables into Matrix
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
