@@ -14,9 +14,6 @@ import pandas as pd
 # create a PdfPages object
 pdf = PdfPages('heatmaps.pdf')
 
-
-
-<<<<<<< HEAD
 ############################
 #### SVM Classification ####
 ############################
@@ -103,7 +100,21 @@ def final_decision(prob, threshold, mode):
         return True
     else:
         return False
-=======
+
+
+# model serialization
+# input: false positive rate, true positive rate, color, and label
+def plot_roc_curve(fpr, tpr, color, label):
+    fig = plt.figure()
+    plt.plot(fpr, tpr, color=color, label=label)
+    plt.plot([0, 1], [0, 1], color='darkblue', linestyle='--')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.legend()
+    plt.savefig('ROC.png')
+
+# Plot confusion matrix to a heatmap and save to file
+# input: confusion matrix object and title 
 def plot_heatmap(cm, title):
     #Plot the matrix
     # sns.heatmap(cm, annot=True, fmt = ".2%", cmap="Spectral")
@@ -115,13 +126,16 @@ def plot_heatmap(cm, title):
     ax.xaxis.set_ticklabels(['True', 'False'])
     ax.yaxis.set_ticklabels(['True', 'False']) 
     pdf.savefig(fig)
->>>>>>> 8d65e2a4f5a86fcbd2300b15623b1e7d6fcebd2d
-
 
 
 ############################
 ###### SVM Training ########
 ############################
+
+# close open file and figure
+def closepdf():
+    plt.close()
+    pdf.close()
 
 # get the classifiers for every user present in the feature matrix
 # last column of the feature matrix has to be the user id
@@ -162,8 +176,8 @@ def train_classifier_svc(train_x, train_y):
     return calibrated_model
 
 # model serialization
-#
-# innput: model
+
+# input: model
 # output: serialized model
 def save_model(model):
     return pickle.dumps(model)
