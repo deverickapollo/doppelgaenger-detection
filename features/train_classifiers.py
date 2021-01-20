@@ -24,11 +24,15 @@ def plot_roc_curve(fpr, tpr, color, label):
     plt.legend()
     plt.savefig('ROC.png')
 
-def plot_heatmap(cm):
+def plot_heatmap(cm, title):
     #Plot the matrix
     # sns.heatmap(cm, annot=True, fmt = ".2%", cmap="Spectral")
     fig = plt.figure()
-    sns.heatmap(cm/np.sum(cm), annot=True, fmt = ".2%", cmap="Spectral")
+    ax = sns.heatmap(cm/np.sum(cm), annot=True, fmt = ".2%", cmap="Spectral")
+    ax.set(title=title,
+      xlabel="Actual",
+      ylabel="Predicted",)
+ 
     pdf.savefig(fig)
 
 def closepdf():

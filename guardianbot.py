@@ -263,7 +263,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
 		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-		trainer.plot_heatmap(cm)
+		trainer.plot_heatmap(cm,"Task 2a ex1")
 		f = open("2a_experiment_1.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
@@ -283,7 +283,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
 		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-		trainer.plot_heatmap(cm)
+		trainer.plot_heatmap(cm,"Task 2 ex 2")
 		f = open("2a_experiment_2.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
@@ -303,7 +303,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
 		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-		trainer.plot_heatmap(cm)		
+		trainer.plot_heatmap(cm,"Task 2a ex 3")		
 		f = open("2a_experiment_3.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
@@ -325,7 +325,8 @@ def main(spider="guardianSpider", log=False, size=0):
 			print("Total numbers true/false positives/negatives: ")
 			print(tfpn)
 			cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-			trainer.plot_heatmap(cm)			
+			title = "Task 2b ex " + str(i)
+			trainer.plot_heatmap(cm,title)			
 			f = open("2b_experiment_" + str(i) + ".pkl", "wb")
 			pickle.dump([results, tfpn], f)
 			f.close()
@@ -342,7 +343,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
 		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-		trainer.plot_heatmap(cm)	
+		trainer.plot_heatmap(cm,"Task 3a")	
 		f = open("3a_experiment.pkl", "wb")
 		pickle.dump([r, tfpn], f)
 		f.close()
@@ -362,7 +363,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
 		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-		trainer.plot_heatmap(cm)	
+		trainer.plot_heatmap(cm,"Task 3b")	
 		f = open("3b_experiment.pkl", "wb")
 		pickle.dump([results, tfpn], f)
 		f.close()
