@@ -249,7 +249,7 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 1
 		print("\n===== Executing Task 2 a) Experiment 1 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=250)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=250)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
@@ -270,7 +270,7 @@ def main(spider="guardianSpider", log=False, size=0):
 	
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=500)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
@@ -290,7 +290,7 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 3
 		print("\n===== Executing Task 2 a) Experiment 3 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=750)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
@@ -336,12 +336,13 @@ def main(spider="guardianSpider", log=False, size=0):
 		## Task 3 a)
 		print("\n===== Executing Task 3 a) =====")
 		threshold_euclid = input('Select threshold for Euclid: ')
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=750)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		r = trainer.dopplegaenger_detection_euclid(expirment_matrix_split, threshold=float(threshold_euclid))
 		tfpn = trainer.get_number_true_false_positive_negative(r)
 		print("Total numbers true/false positives/negatives: ")
 		print(tfpn)
+		print(len(r))
 		cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
 		trainer.plot_heatmap(cm,"Task 3a")	
 		f = open("3a_experiment.pkl", "wb")
@@ -349,7 +350,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		f.close()
 		## Task 3 b)
 		print("\n===== Executing Task 3 b)====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=10, text_length=750)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=750)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
 		results = []
