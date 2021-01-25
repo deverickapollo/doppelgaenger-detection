@@ -244,12 +244,12 @@ def main(spider="guardianSpider", log=False, size=0):
 		statistics = pickle.load(f)
 		pc = pca.execute_pca(statistics)
 
-		mode = input('Which mode would you like to use; average, multiplication, squaredaverage: ').lower()
-		modelist = set(['average', 'multiplication', 'squaredaverage'])
+		mode = input('Which mode would you like to use to compute the pairwise probability; average, multiplication, squaredaverage: ').lower()
+		model = input('Which machine learning model would you like to use; svc, randomforest, knearestneighbors: ').lower()
 
 		## Task 2 a) Experiment 1
 		print("\n===== Executing Task 2 a) Experiment 1 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=250)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=250)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
@@ -270,7 +270,7 @@ def main(spider="guardianSpider", log=False, size=0):
 	
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=500)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
@@ -290,7 +290,7 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 3
 		print("\n===== Executing Task 2 a) Experiment 3 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=750)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
@@ -336,7 +336,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		## Task 3 a)
 		print("\n===== Executing Task 3 a) =====")
 		threshold_euclid = input('Select threshold for Euclid: ')
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=750)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		r = trainer.dopplegaenger_detection_euclid(expirment_matrix_split, threshold=float(threshold_euclid))
 		tfpn = trainer.get_number_true_false_positive_negative(r)
@@ -348,9 +348,10 @@ def main(spider="guardianSpider", log=False, size=0):
 		f = open("3a_experiment.pkl", "wb")
 		pickle.dump([r, tfpn], f)
 		f.close()
+
 		## Task 3 b)
 		print("\n===== Executing Task 3 b)====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=60, text_length=750)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
 		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
 		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
 		results = []
