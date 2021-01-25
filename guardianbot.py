@@ -246,17 +246,19 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		mode = input('Which mode would you like to use to compute the pairwise probability; average, multiplication, squaredaverage: ').lower()
 		model = input('Which machine learning model would you like to use; svc, randomforest, knearestneighbors: ').lower()
+		split_mode = input('Which split mode would you like to use; i, ii, iii, iv: ').lower()
+
+		users = 10
 
 		## Task 2 a) Experiment 1
 		print("\n===== Executing Task 2 a) Experiment 1 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=250)
-		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=250)
+		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix, split_mode)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
 
 		for emsk in experiment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode, model)
-			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -270,13 +272,12 @@ def main(spider="guardianSpider", log=False, size=0):
 	
 		## Task 2 a) Experiment 2
 		print("\n===== Executing Task 2 a) Experiment 2 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=500)
-		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=500)
+		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix, split_mode)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
 		for emsk in experiment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode, model)
-			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -290,13 +291,12 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 2 a) Experiment 3
 		print("\n===== Executing Task 2 a) Experiment 3 =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
-		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix, split_mode)
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
 		for emsk in experiment_matrix_split_kfold:
 			r = trainer.dopplegeanger_detection(emsk, mode, model)
-			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
 		tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -313,12 +313,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		i = 1
 		for exm in experiment_matrices:
 			print("\n===== Executing Task 2 b) Experiment " + str(i) + " =====")
-			exm_split = trainer.split_user_accounts(exm)
+			exm_split = trainer.split_user_accounts(exm, split_mode)
 			exm_split_kfold = trainer.k_fold_cross_validation(exm_split, 3)
 			results = []
 			for emsk in exm_split_kfold:
 				r = trainer.dopplegeanger_detection(emsk, mode, model)
-				# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 				results.append(r)
 			results = np.concatenate(results, axis=0)
 			tfpn = trainer.get_number_true_false_positive_negative(results)
@@ -336,8 +335,8 @@ def main(spider="guardianSpider", log=False, size=0):
 		## Task 3 a)
 		print("\n===== Executing Task 3 a) =====")
 		threshold_euclid = input('Select threshold for Euclid: ')
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
-		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix, split_mode)
 		r = trainer.dopplegaenger_detection_euclid(expirment_matrix_split, threshold=float(threshold_euclid))
 		tfpn = trainer.get_number_true_false_positive_negative(r)
 		print("Total numbers true/false positives/negatives: ")
@@ -351,8 +350,8 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 3 b)
 		print("\n===== Executing Task 3 b)====")
-		expirment_matrix = trainer.get_matrix_experiment_one(pc, users=4, text_length=750)
-		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix)
+		expirment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+		expirment_matrix_split = trainer.split_user_accounts(expirment_matrix, split_mode)
 		expirment_matrix_split_kfold = trainer.k_fold_cross_validation(expirment_matrix_split, 3)
 		results = []
 		for emsk in expirment_matrix_split_kfold:

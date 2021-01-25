@@ -375,34 +375,50 @@ def load_model(s):
 
 # Split user accounts artificially. Pads 9000 and 8000 before the original user ids.
 #
-# Input: feature matrix
+# Input: feature matrix, split mode
 # Output: feature matrix with split user accounts
-def split_user_accounts(matrix):
+def split_user_accounts(matrix, split_mode="iv"):
     matrices = np.split(matrix, np.where(np.diff(matrix[:, -1]))[0] + 1)
-    for m in matrices:
-        np.random.shuffle(m)
-        A = set()
-        B = set()
-        i=0
-        for row in m:
-            if i%2 == 1:
+
+    if split_mode == "i":
+        return matrix
+    elif split_mode == "ii":
+        number = random.randint(0, len(matrices)-1)
+        np.random.shuffle(matrices[number])
+        i = 0
+        for row in matrices[number]:
+            if i % 2 == 1:
                 row[-1] = float("9000" + str(row[-1]))
             else:
                 row[-1] = float("8000" + str(row[-1]))
             i += 1
-            # if row[-3] in A:
-            #     row[-1] = float("9000" + str(row[-1]))
-            # elif row[-3] in B:
-            #     row[-1] = float("8000" + str(row[-1]))
-            # else:
-            #     k = random.randint(0, 1)
-            #     if k == 0:
-            #         row[-1] = float("9000" + str(row[-1]))
-            #         A.add(row[-3])
-            #     else:
-            #         row[-1] = float("8000" + str(row[-1]))
-            #         B.add(row[-3])
-    return matrix
+        return matrix
+    elif split_mode == "iii":
+        number = random.uniform(0.25, 0.75)
+        number = len(matrices)*number
+        number = int(round(number))
+        numbers = random.sample(range(0, len(matrices)-1), number)
+        for n in numbers:
+            np.random.shuffle(matrices[n])
+            i = 0
+            for row in matrices[n]:
+                if i % 2 == 1:
+                    row[-1] = float("9000" + str(row[-1]))
+                else:
+                    row[-1] = float("8000" + str(row[-1]))
+                i += 1
+        return matrix
+    elif split_mode == "iv":
+        for m in matrices:
+            np.random.shuffle(m)
+            i=0
+            for row in m:
+                if i%2 == 1:
+                    row[-1] = float("9000" + str(row[-1]))
+                else:
+                    row[-1] = float("8000" + str(row[-1]))
+                i += 1
+        return matrix
 
 # Brier Score:
 #
