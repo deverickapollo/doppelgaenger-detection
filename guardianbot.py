@@ -255,7 +255,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		results = []
 
 		for emsk in experiment_matrix_split_kfold:
-			r = trainer.dopplegeanger_detection(emsk, mode)
+			r = trainer.dopplegeanger_detection(emsk, mode, model)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
@@ -275,7 +275,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
 		for emsk in experiment_matrix_split_kfold:
-			r = trainer.dopplegeanger_detection(emsk, mode)
+			r = trainer.dopplegeanger_detection(emsk, mode, model)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
@@ -295,7 +295,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		experiment_matrix_split_kfold = trainer.k_fold_cross_validation(experiment_matrix_split, 3)
 		results = []
 		for emsk in experiment_matrix_split_kfold:
-			r = trainer.dopplegeanger_detection(emsk, mode)
+			r = trainer.dopplegeanger_detection(emsk, mode, model)
 			# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 			results.append(r)
 		results = np.concatenate(results, axis=0)
@@ -317,7 +317,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			exm_split_kfold = trainer.k_fold_cross_validation(exm_split, 3)
 			results = []
 			for emsk in exm_split_kfold:
-				r = trainer.dopplegeanger_detection(emsk, mode)
+				r = trainer.dopplegeanger_detection(emsk, mode, model)
 				# r = trainer.dopplegaenger_detection_euclid(emsk, 1)
 				results.append(r)
 			results = np.concatenate(results, axis=0)

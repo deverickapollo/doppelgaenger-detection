@@ -25,7 +25,8 @@ pdf = PdfPages('heatmaps.pdf')
 #
 # Input: feature matrix, mode
 # Output: list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair, classification true/false positive/negative)
-def dopplegeanger_detection(matrix, mode, model="svc"):
+def dopplegeanger_detection(matrix, mode, model):
+    print(model)
     models = get_classifiers(matrix[0], model)
     threshold = get_threshold(matrix[0],mode, models)
     results = []
@@ -114,7 +115,7 @@ def final_decision(prob, threshold, mode):
 #
 # input: feature matrix
 # output: dict(userid : classifier)
-def get_classifiers(matrix, machine_learning_model="svc"):
+def get_classifiers(matrix, machine_learning_model):
     user_ids = set()
     classifiers = dict()
     for list in matrix:
@@ -123,7 +124,7 @@ def get_classifiers(matrix, machine_learning_model="svc"):
     for user_id in user_ids:
         train_x, test_x, train_y, test_y = get_train_test_split(matrix, user_id)
         print("Training classifier for user " + str(user_id) + " (" + str(i) + "/" + str(len(user_ids)) + ")")
-        classifiers[user_id] = select_machine_learning_model("knearestneighbors", train_x, train_y)
+        classifiers[user_id] = select_machine_learning_model(machine_learning_model, train_x, train_y)
         i += 1
     return classifiers
 
