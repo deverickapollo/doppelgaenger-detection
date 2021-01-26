@@ -1,4 +1,6 @@
 import random
+from pprint import pprint
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
@@ -26,7 +28,6 @@ pdf = PdfPages('heatmaps.pdf')
 # Input: feature matrix, mode
 # Output: list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair, classification true/false positive/negative)
 def dopplegeanger_detection(matrix, mode, model):
-    print(model)
     models = get_classifiers(matrix[0], model)
     threshold = get_threshold(matrix[0],mode, models)
     results = []
@@ -65,11 +66,35 @@ def get_threshold(matrix_split, mode, classifiers):
                     d["prob_doppel_pairs"].append(prob[mode])
                 else:
                     d["prob_non_doppel_pairs"].append(prob[mode])
+    min_doppel = min(min(d["prob_doppel_pairs"]), min(d["prob_non_doppel_pairs"]))
+    max_doppel = max(max(d["prob_doppel_pairs"]), max(d["prob_non_doppel_pairs"]))
+    thresholds = np.linspace(min_doppel+0.0001,max_doppel-0.0001,100)
+    f1_scores = dict.fromkeys(thresholds)
+    for t in thresholds:
+        tp = 0
+        fp = 0
+        fn = 0
+        for prob in d["prob_doppel_pairs"]:
+            if prob > t:
+                tp += 1
+            else:
+                fn += 1
+        for prob in d["prob_non_doppel_pairs"]:
+            if prob > t:
+                fp += 1
+        precision = (tp) / (tp + fp)
+        recall = (tp) / (tp + fn)
+        if precision != 0 or recall != 0:
+            f1_score = 2 * ((precision * recall) / (precision + recall))
+        else:
+            f1_score = 0
+        f1_scores[t] = f1_score
+    threshold = max(f1_scores, key=f1_scores.get)
     print("==================")
     print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
     print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
+    print("Selected Threshold by maximizing F1 Score: " + str(threshold))
     print("==================")
-    threshold = (np.average(d["prob_doppel_pairs"]) + np.average(d["prob_non_doppel_pairs"])) / 2
     return threshold
 
 # predict probabilities for a feature vector

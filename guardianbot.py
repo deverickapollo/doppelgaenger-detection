@@ -248,7 +248,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		model = input('Which machine learning model would you like to use; svc, randomforest, knearestneighbors: ').lower()
 		split_mode = input('Which split mode would you like to use; i, ii, iii, iv: ').lower()
 
-		users = 10
+		users = 5
 
 		## Task 2 a) Experiment 1
 		print("\n===== Executing Task 2 a) Experiment 1 =====")
