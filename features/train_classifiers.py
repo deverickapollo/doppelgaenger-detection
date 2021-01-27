@@ -27,9 +27,8 @@ pdf = PdfPages('heatmaps.pdf')
 #
 # Input: feature matrix, mode
 # Output: list with tuples(final decision, user id A, comment id A, user id B, comment id B, is artificial doppelgaenger pair, classification true/false positive/negative)
-def dopplegeanger_detection(matrix, mode, model):
-    models = get_classifiers(matrix[0], model)
-    threshold = get_threshold(matrix[0],mode, models)
+def dopplegeanger_detection(matrix, mode, classifiers):
+    threshold = get_threshold(matrix[0], mode, classifiers)
     results = []
     pairs_comment_ids_compared = []
     for row in matrix[1]:
@@ -39,7 +38,7 @@ def dopplegeanger_detection(matrix, mode, model):
             s.add(r[-2])
             s.add(row[-2])
             if (row[-1] != r[-1]) and (s not in pairs_comment_ids_compared):
-                prob = predict_pairwise_probability(models,[r, row])
+                prob = predict_pairwise_probability(classifiers,[r, row])
                 pairs_comment_ids_compared.append(s)
                 decision = final_decision(prob, threshold, mode)
                 is_doppel = is_doppel_pair(r, row)
@@ -66,8 +65,8 @@ def get_threshold(matrix_split, mode, classifiers):
                     d["prob_doppel_pairs"].append(prob[mode])
                 else:
                     d["prob_non_doppel_pairs"].append(prob[mode])
-    min_doppel = min(min(d["prob_doppel_pairs"]), min(d["prob_non_doppel_pairs"]))
-    max_doppel = max(max(d["prob_doppel_pairs"]), max(d["prob_non_doppel_pairs"]))
+    min_doppel = min(min(d["prob_doppel_pairs"], default=0), min(d["prob_non_doppel_pairs"], default=0))
+    max_doppel = max(max(d["prob_doppel_pairs"], default=0), max(d["prob_non_doppel_pairs"], default=0))
     thresholds = np.linspace(min_doppel+0.0001,max_doppel-0.0001,100)
     f1_scores = dict.fromkeys(thresholds)
     for t in thresholds:
@@ -82,12 +81,18 @@ def get_threshold(matrix_split, mode, classifiers):
         for prob in d["prob_non_doppel_pairs"]:
             if prob > t:
                 fp += 1
-        precision = (tp) / (tp + fp)
-        recall = (tp) / (tp + fn)
-        if precision != 0 or recall != 0:
-            f1_score = 2 * ((precision * recall) / (precision + recall))
+
+        if (tp + fp) == 0:
+            precision = 1
         else:
-            f1_score = 0
+            precision = (tp) / (tp + fp)
+
+        if (tp + fn) == 0:
+            recall = 1
+        else:
+            recall = (tp) / (tp + fn)
+
+        f1_score = 2 * ((precision * recall) / (precision + recall))
         f1_scores[t] = f1_score
     threshold = max(f1_scores, key=f1_scores.get)
     print("==================")
