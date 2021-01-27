@@ -63,8 +63,11 @@ def get_threshold(matrix_split, mode, classifiers):
                 pairs_comment_ids_compared.append(s)
                 if is_doppel_pair(row, r):
                     d["prob_doppel_pairs"].append(prob[mode])
+                    #print(str(row[-1]) + "   " + str(r[-1]) + "   " + str(prob[mode]))
                 else:
                     d["prob_non_doppel_pairs"].append(prob[mode])
+                    #print(str(row[-1]) + "   " + str(r[-1]) + "   " + str(prob[mode]))
+
     min_doppel = min(min(d["prob_doppel_pairs"], default=0), min(d["prob_non_doppel_pairs"], default=0))
     max_doppel = max(max(d["prob_doppel_pairs"], default=0), max(d["prob_non_doppel_pairs"], default=0))
     thresholds = np.linspace(min_doppel+0.0001,max_doppel-0.0001,100)
@@ -82,15 +85,13 @@ def get_threshold(matrix_split, mode, classifiers):
             if prob > t:
                 fp += 1
 
-        if (tp + fp) == 0:
-            precision = 1
-        else:
-            precision = (tp) / (tp + fp)
+        precision = (tp) / (tp + fp)
+        if precision == 0:
+            precision = 0.0001
 
-        if (tp + fn) == 0:
-            recall = 1
-        else:
-            recall = (tp) / (tp + fn)
+        recall = (tp) / (tp + fn)
+        if recall == 0:
+            recall = 0.0001
 
         f1_score = 2 * ((precision * recall) / (precision + recall))
         f1_scores[t] = f1_score

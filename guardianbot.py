@@ -248,11 +248,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		model = input('Which machine learning model would you like to use; svc, randomforest, knearestneighbors: ').lower()
 		split_modes = ["ii", "iii", "iv"]
 
-		users = 6
+		users = 10
 
-		## Task 1 a) Experiment 2-4 (50 users)
+		## Task 1 a) Experiment 2-4 (x users)
 		print("\n===== Executing Experiments based on Heuristic 1 a) =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=250)
+		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
 		experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
 		classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
@@ -272,11 +272,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			print(tfpn)
 			cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
 			trainer.plot_heatmap(cm,"Task 2a ex1")
-			f = open("experiment_heuristic_1a_-_users_50_-_split_mode_" + split_mode + ".pkl", "wb")
+			f = open("experiment_heuristic_1a_-_" + str(model) + "_-_users_" + str(users) + "_-_split_mode_" + split_mode + ".pkl", "wb")
 			pickle.dump([results, tfpn], f)
 			f.close()
 
-		## Task 1 b) Experiment 2-4 (50 users)
+		## Task 1 b) Experiment 2-4 (x users)
 		print("\n===== Executing Experiments based on Heuristic 1 b) =====")
 		for split_mode_train in split_modes:
 			split_modes_test = split_modes.copy()
@@ -295,11 +295,11 @@ def main(spider="guardianSpider", log=False, size=0):
 				print(tfpn)
 				cm = [[tfpn["true_positive"], tfpn["false_positive"]], [tfpn["false_negative"], tfpn["true_negative"]]]
 				trainer.plot_heatmap(cm, "Task 2a ex1")
-				f = open("experiment_heuristic_1b_-_users_50_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl", "wb")
+				f = open("experiment_heuristic_1b_-_" + str(model) + "_-_users_" + str(users) + "_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl", "wb")
 				pickle.dump([results, tfpn], f)
 				f.close()
 
-		## Task 1 c) Experiment 2-4 (50 users)
+		## Task 1 c) Experiment 2-4 (x users)
 		print("\n===== Executing Experiments based on Heuristic 1 c) =====")
 		for split_mode_train in split_modes:
 			for split_mode_test in split_modes:
@@ -316,7 +316,7 @@ def main(spider="guardianSpider", log=False, size=0):
 				print(tfpn)
 				cm = [[tfpn["true_positive"], tfpn["false_positive"]], [tfpn["false_negative"], tfpn["true_negative"]]]
 				trainer.plot_heatmap(cm, "Task 2a ex1")
-				f = open("experiment_heuristic_1c_-_users_50_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl", "wb")
+				f = open("experiment_heuristic_1c_-_" + str(model) + "_-_users_" + str(users) + "_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl", "wb")
 				pickle.dump([results, tfpn], f)
 				f.close()
 
