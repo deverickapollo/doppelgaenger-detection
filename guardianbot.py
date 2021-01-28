@@ -245,10 +245,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		pc = pca.execute_pca(statistics)
 
 		mode = input('Which mode would you like to use to compute the pairwise probability; average, multiplication, squaredaverage: ').lower()
-		split_modes_list = ["ii", "iii", "iv"]
+		split_modes_list = ["ii", "iii", "iv"] # ["i", "ii", "iii", "iv"]
 		models_list = ["svc", "randomforest", "knearestneighbors"]
-		users_list = [4]
+		users_list = [4] # [50, 100]
 
+		## Task 1-2
 		for model in models_list:
 			for users in users_list:
 				print("\n== Executing Experiments: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
@@ -332,6 +333,69 @@ def main(spider="guardianSpider", log=False, size=0):
 								 "wb")
 						pickle.dump([results, tfpn], f)
 						f.close()
+
+		## Task 3
+		users_list_2 = [4,5] #[25, 50, 75, 100]
+		comments_list_2 = [15, 20 ]#[5, 10, 15, 20, 25]
+		split_mode_2 = "iv"
+		users2 = 5 #100
+		for model in models_list:
+			for users in users_list_2:
+				start = time.process_time()
+				print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
+
+				experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
+				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
+				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
+				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
+
+				results = []
+				for emsk in experiment_matrix_kfold:
+					train = trainer.split_user_accounts(emsk[0].copy(), split_mode_2)
+					test = trainer.split_user_accounts(emsk[1].copy(), split_mode_2)
+					r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+					results.append(r)
+				results = np.concatenate(results, axis=0)
+				tfpn = trainer.get_number_true_false_positive_negative(results)
+				print("Total numbers true/false positives/negatives: ")
+				print(tfpn)
+				time_passed = time.process_time() - start
+				print("Process time passed: " + str(time_passed))
+				f = open("misc/experiment_results/performance_measurement_3a_-_" + str(model) + "_-_users_" + str(
+					users) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
+				pickle.dump(time_passed, f)
+				f.close()
+
+		for model in models_list:
+			for comments in comments_list_2:
+				start = time.process_time()
+				print("\n== Executing Performance Measurements for Task 3b: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
+
+				experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=750)
+				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
+				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
+				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
+				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
+
+				results = []
+				for emsk in experiment_matrix_kfold:
+					train = trainer.split_user_accounts(emsk[0].copy(), split_mode_2)
+					test = trainer.split_user_accounts(emsk[1].copy(), split_mode_2)
+					r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+					results.append(r)
+				results = np.concatenate(results, axis=0)
+				tfpn = trainer.get_number_true_false_positive_negative(results)
+				print("Total numbers true/false positives/negatives: ")
+				print(tfpn)
+				time_passed = time.process_time() - start
+				print("Process time passed: " + str(time_passed))
+				f = open("misc/experiment_results/performance_measurement_3b_-_" + str(model) + "_-_users_" + str(
+					users2) + "_-_comments_" + str(comments) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
+				pickle.dump(time_passed, f)
+				f.close()
+
+
 
 	# ## Task 2 a) Experiment 1
 		# print("\n===== Executing Task 2 a) Experiment 1 =====")
