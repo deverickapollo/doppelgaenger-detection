@@ -10,6 +10,7 @@ from scrape_guardian import *
 from database.db_access import *
 import logging, os, argparse, features.feature_generation as feat
 import features.principal_component_analysis as pca, features.train_classifiers as trainer
+import feature_matrix as fmatrix
 
 from logging import FileHandler
 from logging import Formatter
@@ -260,7 +261,7 @@ def main(spider="guardianSpider", log=False, size=0):
 				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
 				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
 
-				## Task 1 a) Experiment 2-4 (x users)
+				#### Heuristic 1 a) Experiment 2-4
 				print("\n==== Executing Experiments based on Heuristic 1 a) ====")
 				for split_mode in split_modes_list:
 					print("\n====== Executing Experiment: Split Mode " + split_mode + " ======")
@@ -282,7 +283,7 @@ def main(spider="guardianSpider", log=False, size=0):
 					pickle.dump([results, tfpn], f)
 					f.close()
 
-				## Task 1 b) Experiment 2-4 (x users)
+				#### Heuristic 1 b) Experiment 2-4
 				print("\n==== Executing Experiments based on Heuristic 1 b) ====")
 				for split_mode_train in split_modes_list:
 					split_modes_test = split_modes_list.copy()
@@ -309,7 +310,7 @@ def main(spider="guardianSpider", log=False, size=0):
 						pickle.dump([results, tfpn], f)
 						f.close()
 
-				## Task 1 c) Experiment 2-4 (x users)
+				#### Heuristic 1 c) Experiment 2-4
 				print("\n==== Executing Experiments based on Heuristic 1 c) ====")
 				for split_mode_train in split_modes_list:
 					for split_mode_test in split_modes_list:
@@ -334,13 +335,22 @@ def main(spider="guardianSpider", log=False, size=0):
 						pickle.dump([results, tfpn], f)
 						f.close()
 
+
+
 		## Task 3
 		users_list_2 = [4,5] #[25, 50, 75, 100]
 		comments_list_2 = [15, 20 ]#[5, 10, 15, 20, 25]
 		split_mode_2 = "iv"
 		users2 = 5 #100
+
+		#### Task 3a
+		###### Performance Doppelgaenger Detection
 		for model in models_list:
 			for users in users_list_2:
+
+				# TODO: start memory usage measurement
+				memory = 0
+
 				start = time.process_time()
 				print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 
@@ -362,13 +372,49 @@ def main(spider="guardianSpider", log=False, size=0):
 				print(tfpn)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
-				f = open("misc/experiment_results/performance_measurement_3a_-_" + str(model) + "_-_users_" + str(
+
+				memory = 0
+				# TODO: end memory usage measurement and save via pickle
+
+				f = open("misc/experiment_results/performance_measurement_3a_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(
 					users) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
-				pickle.dump(time_passed, f)
+				pickle.dump([time_passed, memory], f)
 				f.close()
 
+		###### Performance Feature Extraction
+		for users in users_list_2:
+
+			# TODO: start memory usage measurement
+			memory = 0
+
+			start = time.process_time()
+			cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
+			datad = cur_comments_and_id.fetchall()
+			comment_id_bulk = [d[0] for d in datad]
+			comment_article_id_bulk = [d[5] for d in datad]
+			comment_user_id_bulk = [d[3] for d in datad]
+			comment_text_bulk = [d[1] for d in datad]
+			statistics = fmatrix.feature_matrix(comment_text_bulk[:users*20],comment_user_id_bulk[:users*20],comment_id_bulk[:users*20],comment_article_id_bulk[:users*20])
+			pc = pca.execute_pca(statistics)
+			time_passed = time.process_time() - start
+
+			memory = 0
+			# TODO: end memory usage measurement and save via pickle
+
+			f = open("misc/experiment_results/performance_measurement_3a_feature_extraction_-_users_" + str(
+				users) + ".pkl", "wb")
+			pickle.dump([time_passed, memory], f)
+			f.close()
+
+
+		#### Task 3b
+		###### Performance Doppelgaenger Detection
 		for model in models_list:
 			for comments in comments_list_2:
+
+				# TODO: start memory usage measurement
+				memory = 0
+
 				start = time.process_time()
 				print("\n== Executing Performance Measurements for Task 3b: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
 
@@ -390,10 +436,39 @@ def main(spider="guardianSpider", log=False, size=0):
 				print(tfpn)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
-				f = open("misc/experiment_results/performance_measurement_3b_-_" + str(model) + "_-_users_" + str(
+
+				memory = 0
+				# TODO: end memory usage measurement and save via pickle
+
+				f = open("misc/experiment_results/performance_measurement_3b_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(
 					users2) + "_-_comments_" + str(comments) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
-				pickle.dump(time_passed, f)
+				pickle.dump([time_passed, memory], f)
 				f.close()
+
+		###### Performance Feature Extraction
+		for comments in comments_list_2:
+
+			# TODO: start memory usage measurement
+			memory = 0
+
+			start = time.process_time()
+			cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
+			datad = cur_comments_and_id.fetchall()
+			comment_id_bulk = [d[0] for d in datad]
+			comment_article_id_bulk = [d[5] for d in datad]
+			comment_user_id_bulk = [d[3] for d in datad]
+			comment_text_bulk = [d[1] for d in datad]
+			statistics = fmatrix.feature_matrix(comment_text_bulk[:comments*100],comment_user_id_bulk[:comments*100],comment_id_bulk[:comments*100],comment_article_id_bulk[:comments*100])
+			pc = pca.execute_pca(statistics)
+			time_passed = time.process_time() - start
+
+			memory = 0
+			# TODO: end memory usage measurement and save via pickle
+
+			f = open("misc/experiment_results/performance_measurement_3b_feature_extraction_-_users_" + str(
+				users) + ".pkl", "wb")
+			pickle.dump([time_passed, memory], f)
+			f.close()
 
 
 
