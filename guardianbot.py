@@ -245,83 +245,95 @@ def main(spider="guardianSpider", log=False, size=0):
 		pc = pca.execute_pca(statistics)
 
 		mode = input('Which mode would you like to use to compute the pairwise probability; average, multiplication, squaredaverage: ').lower()
-		model = input('Which machine learning model would you like to use; svc, randomforest, knearestneighbors: ').lower()
-		split_modes = ["ii", "iii", "iv"]
+		split_modes_list = ["ii", "iii", "iv"]
+		models_list = ["svc", "randomforest", "knearestneighbors"]
+		users_list = [4]
 
-		users = 10
+		for model in models_list:
+			for users in users_list:
+				print("\n== Executing Experiments: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 
-		## Task 1 a) Experiment 2-4 (x users)
-		print("\n===== Executing Experiments based on Heuristic 1 a) =====")
-		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
-		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
-		experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
-		classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
-		experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
+				experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
+				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
+				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
+				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
 
-		for split_mode in split_modes:
-			print("\n=== Executing Experiment: 50 Users; Split Mode " + split_mode + " ===")
-			results = []
-			for emsk in experiment_matrix_kfold:
-				train = trainer.split_user_accounts(emsk[0].copy(), split_mode)
-				test = trainer.split_user_accounts(emsk[1].copy(), split_mode)
-				r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
-				results.append(r)
-			results = np.concatenate(results, axis=0)
-			tfpn = trainer.get_number_true_false_positive_negative(results)
-			print("Total numbers true/false positives/negatives: ")
-			print(tfpn)
-			cm = [[tfpn["true_positive"],tfpn["false_positive"]],[tfpn["false_negative"],tfpn["true_negative"]]]
-			trainer.plot_heatmap(cm,"Task 2a ex1")
-			f = open("experiment_heuristic_1a_-_" + str(model) + "_-_users_" + str(users) + "_-_split_mode_" + split_mode + ".pkl", "wb")
-			pickle.dump([results, tfpn], f)
-			f.close()
+				## Task 1 a) Experiment 2-4 (x users)
+				print("\n==== Executing Experiments based on Heuristic 1 a) ====")
+				for split_mode in split_modes_list:
+					print("\n====== Executing Experiment: Split Mode " + split_mode + " ======")
+					results = []
+					for emsk in experiment_matrix_kfold:
+						train = trainer.split_user_accounts(emsk[0].copy(), split_mode)
+						test = trainer.split_user_accounts(emsk[1].copy(), split_mode)
+						r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+						results.append(r)
+					results = np.concatenate(results, axis=0)
+					tfpn = trainer.get_number_true_false_positive_negative(results)
+					print("Total numbers true/false positives/negatives: ")
+					print(tfpn)
+					cm = [[tfpn["true_positive"], tfpn["false_positive"]],
+						  [tfpn["false_negative"], tfpn["true_negative"]]]
+					trainer.plot_heatmap(cm, "Task 2a ex1")
+					f = open("misc/experiment_results/experiment_heuristic_1a_-_" + str(model) + "_-_users_" + str(
+						users) + "_-_split_mode_" + split_mode + ".pkl", "wb")
+					pickle.dump([results, tfpn], f)
+					f.close()
 
-		## Task 1 b) Experiment 2-4 (x users)
-		print("\n===== Executing Experiments based on Heuristic 1 b) =====")
-		for split_mode_train in split_modes:
-			split_modes_test = split_modes.copy()
-			split_modes_test.remove(split_mode_train)
-			for split_mode_test in split_modes_test:
-				print("\n=== Executing Experiment: 50 Users; Split Mode Training: " + split_mode_train + "; Split Mode Testing: " + split_mode_test + " ===")
-				results = []
-				for emsk in experiment_matrix_kfold:
-					train = trainer.split_user_accounts(emsk[0].copy(), split_mode_train)
-					test = trainer.split_user_accounts(emsk[1].copy(), split_mode_test)
-					r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
-					results.append(r)
-				results = np.concatenate(results, axis=0)
-				tfpn = trainer.get_number_true_false_positive_negative(results)
-				print("Total numbers true/false positives/negatives: ")
-				print(tfpn)
-				cm = [[tfpn["true_positive"], tfpn["false_positive"]], [tfpn["false_negative"], tfpn["true_negative"]]]
-				trainer.plot_heatmap(cm, "Task 2a ex1")
-				f = open("experiment_heuristic_1b_-_" + str(model) + "_-_users_" + str(users) + "_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl", "wb")
-				pickle.dump([results, tfpn], f)
-				f.close()
+				## Task 1 b) Experiment 2-4 (x users)
+				print("\n==== Executing Experiments based on Heuristic 1 b) ====")
+				for split_mode_train in split_modes_list:
+					split_modes_test = split_modes_list.copy()
+					split_modes_test.remove(split_mode_train)
+					for split_mode_test in split_modes_test:
+						print(
+							"\n====== Executing Experiment: Split Mode Training: " + split_mode_train + "; Split Mode Testing: " + split_mode_test + " ======")
+						results = []
+						for emsk in experiment_matrix_kfold:
+							train = trainer.split_user_accounts(emsk[0].copy(), split_mode_train)
+							test = trainer.split_user_accounts(emsk[1].copy(), split_mode_test)
+							r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+							results.append(r)
+						results = np.concatenate(results, axis=0)
+						tfpn = trainer.get_number_true_false_positive_negative(results)
+						print("Total numbers true/false positives/negatives: ")
+						print(tfpn)
+						cm = [[tfpn["true_positive"], tfpn["false_positive"]],
+							  [tfpn["false_negative"], tfpn["true_negative"]]]
+						trainer.plot_heatmap(cm, "Task 2a ex1")
+						f = open("misc/experiment_results/experiment_heuristic_1b_-_" + str(model) + "_-_users_" + str(
+							users) + "_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl",
+								 "wb")
+						pickle.dump([results, tfpn], f)
+						f.close()
 
-		## Task 1 c) Experiment 2-4 (x users)
-		print("\n===== Executing Experiments based on Heuristic 1 c) =====")
-		for split_mode_train in split_modes:
-			for split_mode_test in split_modes:
-				print("\n=== Executing Experiment: 50 Users; Split Mode Training: " + split_mode_train + "; Split Mode Testing: " + split_mode_test + " ===")
-				results = []
-				for emsk in experiment_matrix_kfold:
-					train = trainer.split_user_accounts(emsk[0].copy(), split_mode_train)
-					test = trainer.split_user_accounts(emsk[1].copy(), split_mode_test)
-					r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
-					results.append(r)
-				results = np.concatenate(results, axis=0)
-				tfpn = trainer.get_number_true_false_positive_negative(results)
-				print("Total numbers true/false positives/negatives: ")
-				print(tfpn)
-				cm = [[tfpn["true_positive"], tfpn["false_positive"]], [tfpn["false_negative"], tfpn["true_negative"]]]
-				trainer.plot_heatmap(cm, "Task 2a ex1")
-				f = open("experiment_heuristic_1c_-_" + str(model) + "_-_users_" + str(users) + "_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl", "wb")
-				pickle.dump([results, tfpn], f)
-				f.close()
+				## Task 1 c) Experiment 2-4 (x users)
+				print("\n==== Executing Experiments based on Heuristic 1 c) ====")
+				for split_mode_train in split_modes_list:
+					for split_mode_test in split_modes_list:
+						print(
+							"\n====== Executing Experiment: Split Mode Training: " + split_mode_train + "; Split Mode Testing: " + split_mode_test + " ======")
+						results = []
+						for emsk in experiment_matrix_kfold:
+							train = trainer.split_user_accounts(emsk[0].copy(), split_mode_train)
+							test = trainer.split_user_accounts(emsk[1].copy(), split_mode_test)
+							r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+							results.append(r)
+						results = np.concatenate(results, axis=0)
+						tfpn = trainer.get_number_true_false_positive_negative(results)
+						print("Total numbers true/false positives/negatives: ")
+						print(tfpn)
+						cm = [[tfpn["true_positive"], tfpn["false_positive"]],
+							  [tfpn["false_negative"], tfpn["true_negative"]]]
+						trainer.plot_heatmap(cm, "Task 2a ex1")
+						f = open("misc/experiment_results/experiment_heuristic_1c_-_" + str(model) + "_-_users_" + str(
+							users) + "_-_split_mode_train_" + split_mode_train + "_-_split_mode_test_" + split_mode_test + ".pkl",
+								 "wb")
+						pickle.dump([results, tfpn], f)
+						f.close()
 
-
-		# ## Task 2 a) Experiment 1
+	# ## Task 2 a) Experiment 1
 		# print("\n===== Executing Task 2 a) Experiment 1 =====")
 		# experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=250)
 		# experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())

@@ -314,10 +314,10 @@ def get_number_true_false_positive_negative(results):
     d = dict.fromkeys(["true_positive", "false_positive", "true_negative", "false_negative"], 0)
     for row in results:
         d[row[-1]] += 1
-    d["true_positive_rate"] = d["true_positive"] / (d["true_positive"] + d["false_negative"])
-    d["false_positive_rate"] = d["false_positive"] / (d["false_positive"] + d["true_negative"])
-    d["true_negative_rate"] = d["true_negative"] / (d["true_negative"] + d["false_negative"])
-    d["false_negative_rate"] = d["false_negative"] / (d["false_negative"] + d["true_positive"])
+    #d["true_positive_rate"] = d["true_positive"] / (d["true_positive"] + d["false_negative"])
+    #d["false_positive_rate"] = d["false_positive"] / (d["false_positive"] + d["true_negative"])
+    #d["true_negative_rate"] = d["true_negative"] / (d["true_negative"] + d["false_negative"])
+    #d["false_negative_rate"] = d["false_negative"] / (d["false_negative"] + d["true_positive"])
     return d
 
 # Apply k fold cross validation and return k train / test matrices
