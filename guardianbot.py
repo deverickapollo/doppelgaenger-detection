@@ -15,6 +15,7 @@ import feature_matrix as fmatrix
 from logging import FileHandler
 from logging import Formatter
 from memory_profiler import memory_usage
+from memory_profiler import profile
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -102,7 +103,7 @@ def func2(conn_article,datad,users):
 	comment_text_bulk = [d[1] for d in datad]
 	statistics = fmatrix.feature_matrix(comment_text_bulk[:users*20],comment_user_id_bulk[:users*20],comment_id_bulk[:users*20],comment_article_id_bulk[:users*20])
 	pc_measurement = pca.execute_pca(statistics)
-	
+
 @profile
 def func3(pc,users2,comments,model,split_mode_2,mode):
 	experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=750)
