@@ -15,7 +15,6 @@ import feature_matrix as fmatrix
 from logging import FileHandler
 from logging import Formatter
 from memory_profiler import memory_usage
-from memory_profiler import profile
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -45,7 +44,7 @@ all_args.add_argument("-e", "--experiments", help="Run the experiments from the 
 
 args = all_args.parse_args()
 
-#Report Log 
+#Report Log
 LOG_FORMAT = (
 	"%(message)s "
 )
@@ -76,7 +75,7 @@ def mode_execute(mode):
 def func1(pc,users,model,split_mode_2,mode):
 	print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 
-	experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+	experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=250)
 	experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
 	experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
 	classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
@@ -94,7 +93,7 @@ def func1(pc,users,model,split_mode_2,mode):
 	print(tfpn)
 
 @profile
-def func2(conn_article,datad,users):
+def func2(conn_article,users):
 	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
 	datad = cur_comments_and_id.fetchall()
 	comment_id_bulk = [d[0] for d in datad]
@@ -106,7 +105,7 @@ def func2(conn_article,datad,users):
 
 @profile
 def func3(pc,users2,comments,model,split_mode_2,mode):
-	experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=750)
+	experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=250)
 	experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
 	experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
 	classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
@@ -124,7 +123,7 @@ def func3(pc,users2,comments,model,split_mode_2,mode):
 	print(tfpn)
 
 @profile
-def func4(conn_article,datad,comments):
+def func4(conn_article,comments):
 	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
 	datad = cur_comments_and_id.fetchall()
 	comment_id_bulk = [d[0] for d in datad]
@@ -183,7 +182,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			runner = CrawlerRunner(settings)
 			runner.crawl(guardianSpider,connection=conn_article)
 			runner.crawl(commentSpider,connection=conn_comments)
-			d = runner.join() 
+			d = runner.join()
 			d.addBoth(lambda _: reactor.stop())
 			reactor.run()  # the script will block here until the crawling is finished
 		else:
@@ -222,7 +221,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			#Returns a dictionary cursor instead of tuple
 			conn_comments.row_factory = sql.Row
 			cursor = sql_select_all_users(conn_comments)
-			rows_user = cursor.fetchall(); 
+			rows_user = cursor.fetchall();
 			for user in rows_user:
 				print("Next User: ", user['username'])
 				print("--------------------------------------------------")
@@ -285,7 +284,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		no = set(['no','n'])
 		choice = input('Would you like to execute the dopplegaenger analysis as well?: ').lower()
 		if choice in yes:
-			#EndlessLoop until value submitted	
+			#EndlessLoop until value submitted
 			mode = input('Which mode would you like to use; average, multiplication, squaredaverage: ').lower()
 			#Return list of authors with possible dopplegaenger identities
 			modelist = set(['average', 'multiplication', 'squaredaverage'])
@@ -313,14 +312,14 @@ def main(spider="guardianSpider", log=False, size=0):
 		split_modes_list = ["i", "ii", "iii", "iv"]
 		split_modes_list_bc = ["ii", "iii", "iv"]
 		models_list = ["svc", "randomforest", "knearestneighbors"]
-		users_list = [4] # [50, 100]
+		users_list = [50, 100]
 
 		## Task 1-2
 		for model in models_list:
 			for users in users_list:
 				print("\n== Executing Experiments: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 
-				experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+				experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=250)
 				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
 				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
 				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
@@ -405,18 +404,17 @@ def main(spider="guardianSpider", log=False, size=0):
 
 
 		## Task 3
-		users_list_2 = [4,5] #[25, 50, 75, 100]
-		comments_list_2 = [5]#[5, 10, 15, 20, 25]
+		users_list_2 = [25, 50, 75, 100]
+		comments_list_2 = [10, 15, 20, 25]
 		split_mode_2 = "iv"
-		users2 = 5 #100
+		users2 = 100
 
 		#### Task 3a
 		###### Performance Doppelgaenger Detection
 		for model in models_list:
 			for users in users_list_2:
-				print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
+				print("\n== Executing Performance Measurements for Task 3a Doppelgaenger Detection: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 				start = time.process_time()
-				# memory = memory_usage(func1,pc,users,model,split_mode_2,mode)
 				func1(pc,users,model,split_mode_2,mode)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
@@ -427,9 +425,10 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		###### Performance Feature Extraction
 		for users in users_list_2:
+			print(
+				"\n== Executing Performance Measurements for Task 3a Feature Extraction: " + str(users) + " Users ==\n")
 			start = time.process_time()
-			# memory = memory_usage(func2,conn_article, datad,users)
-			func2(conn_article, datad,users)
+			func2(conn_article,users)
 			time_passed = time.process_time() - start
 
 			f = open("misc/experiment_results/performance_measurement_3a_feature_extraction_-_users_" + str(
@@ -443,8 +442,7 @@ def main(spider="guardianSpider", log=False, size=0):
 		for model in models_list:
 			for comments in comments_list_2:
 				start = time.process_time()
-				print("\n== Executing Performance Measurements for Task 3b: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
-				# memory = memory_usage(func3,pc,users2,comments,model,split_mode_2,mode)
+				print("\n== Executing Performance Measurements for Task 3b Doppelgaenger Detection: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
 				func3(pc,users2,comments,model,split_mode_2,mode)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
@@ -456,9 +454,10 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		###### Performance Feature Extraction
 		for comments in comments_list_2:
+			print(
+				"\n== Executing Performance Measurements for Task 3b Feature Extraction: " + str(comments) + " Comments ==\n")
 			start = time.process_time()
-			# memory = memory_usage(func4,conn_article,datad,comments)
-			func4(conn_article,datad,comments)
+			func4(conn_article,comments)
 			time_passed = time.process_time() - start
 			f = open("misc/experiment_results/performance_measurement_3b_feature_extraction_-_users_" + str(
 				users) + ".pkl", "wb")
