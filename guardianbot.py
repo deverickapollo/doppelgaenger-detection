@@ -71,7 +71,7 @@ def mode_execute(mode):
 	#Returns a dictionary
 	return switcher.get(mode)(text)
 
-
+@profile
 def func1(pc,users,model,split_mode_2,mode):
 	print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 
@@ -92,6 +92,7 @@ def func1(pc,users,model,split_mode_2,mode):
 	print("Total numbers true/false positives/negatives: ")
 	print(tfpn)
 
+@profile
 def func2(conn_article,datad,users):
 	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
 	datad = cur_comments_and_id.fetchall()
@@ -101,7 +102,8 @@ def func2(conn_article,datad,users):
 	comment_text_bulk = [d[1] for d in datad]
 	statistics = fmatrix.feature_matrix(comment_text_bulk[:users*20],comment_user_id_bulk[:users*20],comment_id_bulk[:users*20],comment_article_id_bulk[:users*20])
 	pc_measurement = pca.execute_pca(statistics)
-
+	
+@profile
 def func3(pc,users2,comments,model,split_mode_2,mode):
 	experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=750)
 	experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
@@ -120,6 +122,7 @@ def func3(pc,users2,comments,model,split_mode_2,mode):
 	print("Total numbers true/false positives/negatives: ")
 	print(tfpn)
 
+@profile
 def func4(conn_article,datad,comments):
 	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
 	datad = cur_comments_and_id.fetchall()
@@ -412,23 +415,25 @@ def main(spider="guardianSpider", log=False, size=0):
 			for users in users_list_2:
 				print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 				start = time.process_time()
-				memory = memory_usage(func1,pc,users,model,split_mode_2,mode)
+				# memory = memory_usage(func1,pc,users,model,split_mode_2,mode)
+				func1(pc,users,model,split_mode_2,mode)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
 				f = open("misc/experiment_results/performance_measurement_3a_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(
 					users) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
-				pickle.dump([time_passed, memory], f)
+				pickle.dump([time_passed], f)
 				f.close()
 
 		###### Performance Feature Extraction
 		for users in users_list_2:
 			start = time.process_time()
-			memory = memory_usage(func2,conn_article, datad,users)
+			# memory = memory_usage(func2,conn_article, datad,users)
+			func2(conn_article, datad,users)
 			time_passed = time.process_time() - start
 
 			f = open("misc/experiment_results/performance_measurement_3a_feature_extraction_-_users_" + str(
 				users) + ".pkl", "wb")
-			pickle.dump([time_passed, memory], f)
+			pickle.dump([time_passed], f)
 			f.close()
 
 
@@ -438,23 +443,25 @@ def main(spider="guardianSpider", log=False, size=0):
 			for comments in comments_list_2:
 				start = time.process_time()
 				print("\n== Executing Performance Measurements for Task 3b: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
-				memory = memory_usage(func3,pc,users2,comments,model,split_mode_2,mode)
+				# memory = memory_usage(func3,pc,users2,comments,model,split_mode_2,mode)
+				func3(pc,users2,comments,model,split_mode_2,mode)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
 
 				f = open("misc/experiment_results/performance_measurement_3b_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(
 					users2) + "_-_comments_" + str(comments) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
-				pickle.dump([time_passed, memory], f)
+				pickle.dump([time_passed], f)
 				f.close()
 
 		###### Performance Feature Extraction
 		for comments in comments_list_2:
 			start = time.process_time()
-			memory = memory_usage(func4,conn_article,datad,comments)
+			# memory = memory_usage(func4,conn_article,datad,comments)
+			func4(conn_article,datad,comments)
 			time_passed = time.process_time() - start
 			f = open("misc/experiment_results/performance_measurement_3b_feature_extraction_-_users_" + str(
 				users) + ".pkl", "wb")
-			pickle.dump([time_passed, memory], f)
+			pickle.dump([time_passed], f)
 			f.close()
 
 
