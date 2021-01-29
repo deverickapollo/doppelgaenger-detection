@@ -14,6 +14,7 @@ import feature_matrix as fmatrix
 
 from logging import FileHandler
 from logging import Formatter
+from memory_profiler import memory_usage
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -69,6 +70,65 @@ def mode_execute(mode):
 	}
 	#Returns a dictionary
 	return switcher.get(mode)(text)
+
+
+def func1(pc,users,model,split_mode_2):
+	print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
+
+	experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+	experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
+	experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
+	classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
+	experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
+
+	results = []
+	for emsk in experiment_matrix_kfold:
+		train = trainer.split_user_accounts(emsk[0].copy(), split_mode_2)
+		test = trainer.split_user_accounts(emsk[1].copy(), split_mode_2)
+		r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+		results.append(r)
+	results = np.concatenate(results, axis=0)
+	tfpn = trainer.get_number_true_false_positive_negative(results)
+	print("Total numbers true/false positives/negatives: ")
+	print(tfpn)
+
+def func2(conn_article,datad,users):
+	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
+	datad = cur_comments_and_id.fetchall()
+	comment_id_bulk = [d[0] for d in datad]
+	comment_article_id_bulk = [d[5] for d in datad]
+	comment_user_id_bulk = [d[3] for d in datad]
+	comment_text_bulk = [d[1] for d in datad]
+	statistics = fmatrix.feature_matrix(comment_text_bulk[:users*20],comment_user_id_bulk[:users*20],comment_id_bulk[:users*20],comment_article_id_bulk[:users*20])
+	pc_measurement = pca.execute_pca(statistics)
+
+def func3(pc,users2,comments,model,split_mode_2,mode):
+	experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=750)
+	experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
+	experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
+	classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
+	experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
+
+	results = []
+	for emsk in experiment_matrix_kfold:
+		train = trainer.split_user_accounts(emsk[0].copy(), split_mode_2)
+		test = trainer.split_user_accounts(emsk[1].copy(), split_mode_2)
+		r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
+		results.append(r)
+	results = np.concatenate(results, axis=0)
+	tfpn = trainer.get_number_true_false_positive_negative(results)
+	print("Total numbers true/false positives/negatives: ")
+	print(tfpn)
+
+def func4(conn_article,datad,comments):
+	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
+	datad = cur_comments_and_id.fetchall()
+	comment_id_bulk = [d[0] for d in datad]
+	comment_article_id_bulk = [d[5] for d in datad]
+	comment_user_id_bulk = [d[3] for d in datad]
+	comment_text_bulk = [d[1] for d in datad]
+	statistics = fmatrix.feature_matrix(comment_text_bulk[:comments*100],comment_user_id_bulk[:comments*100],comment_id_bulk[:comments*100],comment_article_id_bulk[:comments*100])
+	pc_measurement = pca.execute_pca(statistics)
 
 def main(spider="guardianSpider", log=False, size=0):
 	#Database declaration and connection
@@ -347,35 +407,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		###### Performance Doppelgaenger Detection
 		for model in models_list:
 			for users in users_list_2:
-
-				# TODO: start memory usage measurement
-				memory = 0
-
-				start = time.process_time()
 				print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
-
-				experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
-				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
-				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
-				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
-				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
-
-				results = []
-				for emsk in experiment_matrix_kfold:
-					train = trainer.split_user_accounts(emsk[0].copy(), split_mode_2)
-					test = trainer.split_user_accounts(emsk[1].copy(), split_mode_2)
-					r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
-					results.append(r)
-				results = np.concatenate(results, axis=0)
-				tfpn = trainer.get_number_true_false_positive_negative(results)
-				print("Total numbers true/false positives/negatives: ")
-				print(tfpn)
+				start = time.process_time()
+				memory = memory_usage(func1,pc,users,model,split_mode_2)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
-
-				memory = 0
-				# TODO: end memory usage measurement and save via pickle
-
 				f = open("misc/experiment_results/performance_measurement_3a_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(
 					users) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
 				pickle.dump([time_passed, memory], f)
@@ -383,23 +419,9 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		###### Performance Feature Extraction
 		for users in users_list_2:
-
-			# TODO: start memory usage measurement
-			memory = 0
-
 			start = time.process_time()
-			cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
-			datad = cur_comments_and_id.fetchall()
-			comment_id_bulk = [d[0] for d in datad]
-			comment_article_id_bulk = [d[5] for d in datad]
-			comment_user_id_bulk = [d[3] for d in datad]
-			comment_text_bulk = [d[1] for d in datad]
-			statistics = fmatrix.feature_matrix(comment_text_bulk[:users*20],comment_user_id_bulk[:users*20],comment_id_bulk[:users*20],comment_article_id_bulk[:users*20])
-			pc_measurement = pca.execute_pca(statistics)
+			memory = memory_usage(func2,conn_article, datad,users)
 			time_passed = time.process_time() - start
-
-			memory = 0
-			# TODO: end memory usage measurement and save via pickle
 
 			f = open("misc/experiment_results/performance_measurement_3a_feature_extraction_-_users_" + str(
 				users) + ".pkl", "wb")
@@ -411,34 +433,11 @@ def main(spider="guardianSpider", log=False, size=0):
 		###### Performance Doppelgaenger Detection
 		for model in models_list:
 			for comments in comments_list_2:
-
-				# TODO: start memory usage measurement
-				memory = 0
-
 				start = time.process_time()
 				print("\n== Executing Performance Measurements for Task 3b: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
-
-				experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=750)
-				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
-				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
-				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
-				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
-
-				results = []
-				for emsk in experiment_matrix_kfold:
-					train = trainer.split_user_accounts(emsk[0].copy(), split_mode_2)
-					test = trainer.split_user_accounts(emsk[1].copy(), split_mode_2)
-					r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
-					results.append(r)
-				results = np.concatenate(results, axis=0)
-				tfpn = trainer.get_number_true_false_positive_negative(results)
-				print("Total numbers true/false positives/negatives: ")
-				print(tfpn)
+				memory = memory_usage(func3,pc,users2,comments,model,split_mode_2,mode)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
-
-				memory = 0
-				# TODO: end memory usage measurement and save via pickle
 
 				f = open("misc/experiment_results/performance_measurement_3b_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(
 					users2) + "_-_comments_" + str(comments) + "_-_split_mode_" + split_mode_2 + ".pkl", "wb")
@@ -447,24 +446,9 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		###### Performance Feature Extraction
 		for comments in comments_list_2:
-
-			# TODO: start memory usage measurement
-			memory = 0
-
 			start = time.process_time()
-			cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
-			datad = cur_comments_and_id.fetchall()
-			comment_id_bulk = [d[0] for d in datad]
-			comment_article_id_bulk = [d[5] for d in datad]
-			comment_user_id_bulk = [d[3] for d in datad]
-			comment_text_bulk = [d[1] for d in datad]
-			statistics = fmatrix.feature_matrix(comment_text_bulk[:comments*100],comment_user_id_bulk[:comments*100],comment_id_bulk[:comments*100],comment_article_id_bulk[:comments*100])
-			pc_measurement = pca.execute_pca(statistics)
+			memory = memory_usage(func4,conn_article,datad,comments)
 			time_passed = time.process_time() - start
-
-			memory = 0
-			# TODO: end memory usage measurement and save via pickle
-
 			f = open("misc/experiment_results/performance_measurement_3b_feature_extraction_-_users_" + str(
 				users) + ".pkl", "wb")
 			pickle.dump([time_passed, memory], f)
