@@ -2,8 +2,7 @@
 # Main for Dopplegaenger Detection Program
 import pickle
 from datetime import datetime
-from random import random
-
+import random
 import database.db_access as db
 from pprint import pprint
 
@@ -73,7 +72,7 @@ def mode_execute(mode):
 	return switcher.get(mode)(text)
 
 
-def func1(pc,users,model,split_mode_2):
+def func1(pc,users,model,split_mode_2,mode):
 	print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 
 	experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
@@ -307,7 +306,8 @@ def main(spider="guardianSpider", log=False, size=0):
 		pc = pca.execute_pca(statistics)
 
 		mode = input('Which mode would you like to use to compute the pairwise probability; average, multiplication, squaredaverage: ').lower()
-		split_modes_list = ["ii", "iii", "iv"] # ["i", "ii", "iii", "iv"]
+		split_modes_list = ["i", "ii", "iii", "iv"]
+		split_modes_list_bc = ["ii", "iii", "iv"]
 		models_list = ["svc", "randomforest", "knearestneighbors"]
 		users_list = [4] # [50, 100]
 
@@ -347,14 +347,16 @@ def main(spider="guardianSpider", log=False, size=0):
 				#### Heuristic 1 b) Experiment 2-4
 				print("\n==== Executing Experiments based on Heuristic 1 b) ====")
 				for split_mode in split_modes_list:
-					split_modes_train = split_modes_list.copy()
-					split_modes_train.remove(split_mode)
+					split_modes_train = split_modes_list_bc.copy()
+					if split_mode in split_modes_train:
+						split_modes_train.remove(split_mode)
 
 					print(
 						"\n====== Executing Experiment: Split Mode Testing: " + split_mode + " ======")
 					results = []
 					for emsk in experiment_matrix_kfold:
-						train = trainer.split_user_accounts(emsk[0].copy(), random.choice(split_modes_train))
+						split_mode_train = random.choice(split_modes_train)
+						train = trainer.split_user_accounts(emsk[0].copy(), split_mode_train)
 						test = trainer.split_user_accounts(emsk[1].copy(), split_mode)
 						r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
 						results.append(r)
@@ -374,10 +376,12 @@ def main(spider="guardianSpider", log=False, size=0):
 				#### Heuristic 1 c) Experiment 2-4
 				print("\n==== Executing Experiments based on Heuristic 1 c) ====")
 				for split_mode in split_modes_list:
+					split_modes_train = split_modes_list_bc.copy()
 					print("\n====== Executing Experiment: Split Mode Testing: " + split_mode + " ======")
 					results = []
 					for emsk in experiment_matrix_kfold:
-						train = trainer.split_user_accounts(emsk[0].copy(), random.choice(split_modes_list))
+						split_mode_train = random.choice(split_modes_train)
+						train = trainer.split_user_accounts(emsk[0].copy(), split_mode_train)
 						test = trainer.split_user_accounts(emsk[1].copy(), split_mode)
 						r = trainer.dopplegeanger_detection([train, test], mode, classifiers)
 						results.append(r)
@@ -398,7 +402,7 @@ def main(spider="guardianSpider", log=False, size=0):
 
 		## Task 3
 		users_list_2 = [4,5] #[25, 50, 75, 100]
-		comments_list_2 = [15, 20 ]#[5, 10, 15, 20, 25]
+		comments_list_2 = [5]#[5, 10, 15, 20, 25]
 		split_mode_2 = "iv"
 		users2 = 5 #100
 
@@ -408,7 +412,7 @@ def main(spider="guardianSpider", log=False, size=0):
 			for users in users_list_2:
 				print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
 				start = time.process_time()
-				memory = memory_usage(func1,pc,users,model,split_mode_2)
+				memory = memory_usage(func1,pc,users,model,split_mode_2,mode)
 				time_passed = time.process_time() - start
 				print("Process time passed: " + str(time_passed))
 				f = open("misc/experiment_results/performance_measurement_3a_doppelgaenger_detection_-_" + str(model) + "_-_users_" + str(

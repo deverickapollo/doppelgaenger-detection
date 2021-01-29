@@ -68,40 +68,49 @@ def get_threshold(matrix_split, mode, classifiers):
                     d["prob_non_doppel_pairs"].append(prob[mode])
                     #print(str(row[-1]) + "   " + str(r[-1]) + "   " + str(prob[mode]))
 
-    min_doppel = min(min(d["prob_doppel_pairs"], default=0), min(d["prob_non_doppel_pairs"], default=0))
-    max_doppel = max(max(d["prob_doppel_pairs"], default=0), max(d["prob_non_doppel_pairs"], default=0))
-    thresholds = np.linspace(min_doppel+0.0001,max_doppel-0.0001,100)
-    f1_scores = dict.fromkeys(thresholds)
-    for t in thresholds:
-        tp = 0
-        fp = 0
-        fn = 0
-        for prob in d["prob_doppel_pairs"]:
-            if prob > t:
-                tp += 1
-            else:
-                fn += 1
-        for prob in d["prob_non_doppel_pairs"]:
-            if prob > t:
-                fp += 1
+    if len(d["prob_doppel_pairs"]) == 0:
+        threshold = max(d["prob_non_doppel_pairs"]) + 0.1
+        print("Average Probability Doppelgaenger Pairs: -")
+        print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
+        print("Selected Threshold by identifying no False Positives: " + str(threshold))
+        print("========")
+        return threshold
+    else:
+        min_doppel = min(min(d["prob_doppel_pairs"], default=0), min(d["prob_non_doppel_pairs"], default=0))
+        max_doppel = max(max(d["prob_doppel_pairs"], default=0), max(d["prob_non_doppel_pairs"], default=0))
+        thresholds = np.linspace(min_doppel + 0.0001, max_doppel - 0.0001, 100)
+        f1_scores = dict.fromkeys(thresholds)
+        for t in thresholds:
+            tp = 0
+            fp = 0
+            fn = 0
+            for prob in d["prob_doppel_pairs"]:
+                if prob > t:
+                    tp += 1
+                else:
+                    fn += 1
+            for prob in d["prob_non_doppel_pairs"]:
+                if prob > t:
+                    fp += 1
 
-        precision = (tp) / (tp + fp)
-        if precision == 0:
-            precision = 0.0001
+            precision = (tp) / (tp + fp)
+            if precision == 0:
+                precision = 0.0001
 
-        recall = (tp) / (tp + fn)
-        if recall == 0:
-            recall = 0.0001
+            recall = (tp) / (tp + fn)
+            if recall == 0:
+                recall = 0.0001
 
-        f1_score = 2 * ((precision * recall) / (precision + recall))
-        f1_scores[t] = f1_score
-    threshold = max(f1_scores, key=f1_scores.get)
-    print("==================")
-    print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
-    print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
-    print("Selected Threshold by maximizing F1 Score: " + str(threshold))
-    print("==================")
-    return threshold
+            f1_score = 2 * ((precision * recall) / (precision + recall))
+            f1_scores[t] = f1_score
+        threshold = max(f1_scores, key=f1_scores.get)
+        print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
+        print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
+        print("Selected Threshold by maximizing F1 Score: " + str(threshold))
+        print("========")
+        return threshold
+
+
 
 # predict probabilities for a feature vector
 #
