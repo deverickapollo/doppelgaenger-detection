@@ -70,10 +70,10 @@ def get_threshold(matrix_split, mode, classifiers):
 
     if len(d["prob_doppel_pairs"]) == 0:
         threshold = max(d["prob_non_doppel_pairs"]) + 0.1
-        print("Average Probability Doppelgaenger Pairs: -")
-        print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
-        print("Selected Threshold by identifying no False Positives: " + str(threshold))
-        print("========")
+        #print("Average Probability Doppelgaenger Pairs: -")
+        #print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
+        #print("Selected Threshold by identifying no False Positives: " + str(threshold))
+        #print("========")
         return threshold
     else:
         min_doppel = min(min(d["prob_doppel_pairs"], default=0), min(d["prob_non_doppel_pairs"], default=0))
@@ -104,10 +104,10 @@ def get_threshold(matrix_split, mode, classifiers):
             f1_score = 2 * ((precision * recall) / (precision + recall))
             f1_scores[t] = f1_score
         threshold = max(f1_scores, key=f1_scores.get)
-        print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
-        print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
-        print("Selected Threshold by maximizing F1 Score: " + str(threshold))
-        print("========")
+        #print("Average Probability Doppelgaenger Pairs: " + str(np.average(d["prob_doppel_pairs"])))
+        #print("Average Probability Non Doppelgaenger Pairs: " + str(np.average(d["prob_non_doppel_pairs"])))
+        #print("Selected Threshold by maximizing F1 Score: " + str(threshold))
+        #print("========")
         return threshold
 
 
