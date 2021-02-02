@@ -124,5 +124,3 @@ def show_all_plots(users):
         plt.setp(axn[:, 0], ylabel='Predicted')
         plt.show()
         plt.close()
-
-show_all_plots(10)

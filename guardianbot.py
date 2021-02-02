@@ -12,10 +12,11 @@ from database.db_access import *
 import logging, os, argparse, features.feature_generation as feat
 import features.principal_component_analysis as pca, features.train_classifiers as trainer
 import feature_matrix as fmatrix
+import experiment_plotter as plot
 
 from logging import FileHandler
 from logging import Formatter
-from memory_profiler import memory_usage
+from memory_profiler import memory_usage, profile
 
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -24,6 +25,7 @@ from scrapy.settings import Settings
 
 import numpy as np
 import time
+
 
 start_time = time.time()
 
@@ -40,7 +42,10 @@ all_args.add_argument("-s", "--size", required=False, help="Output a specified n
 all_args.add_argument("-u", "--user", nargs=2, required=False, help="Requires username as first argument and max row count as second. Output a specified number of comments from a specific user to CLI.")
 all_args.add_argument("-m", "--mode", nargs="*", required=False, help="Starts Crawler with the specified pre-processing feature.")
 all_args.add_argument("-f", "--features", help="Start PCA task and optional dopplegaenger analysis", action="store_true")
-all_args.add_argument("-e", "--experiments", help="Run the experiments from the fourth tash sheet", action="store_true")
+all_args.add_argument("-e", "--experiments", help="Run the experiments from the fifth task sheet", action="store_true")
+all_args.add_argument("-p", "--plot", help="Plot the experiments from the fifth task sheet", action="store_true")
+
+
 
 
 args = all_args.parse_args()
@@ -368,6 +373,11 @@ def main(spider="guardianSpider", log=False, size=0):
 			pass
 		else:
 			logging.log(logging.INFO, "Please respond with 'yes' or 'no'")
+	if args.plot:
+		print("This mode plots the experiment results from task sheet 5. There are plots available for 5, 10, 20, 50 and 100 Users.")
+		users = int(input('Enter user number: '))
+		plot.show_all_plots(users)
+
 	if args.experiments:
 		f = open("data_large.pkl", "rb")
 		statistics = pickle.load(f)
