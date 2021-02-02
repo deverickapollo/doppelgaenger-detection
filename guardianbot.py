@@ -72,6 +72,8 @@ def mode_execute(mode):
 	#Returns a dictionary
 	return switcher.get(mode)(text)
 
+
+# Execute Classification for Performance Measurement
 @profile
 def classification_users(pc,users,model,split_mode_2,mode):
 	print("\n== Executing Performance Measurements for Task 3a: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
@@ -93,6 +95,7 @@ def classification_users(pc,users,model,split_mode_2,mode):
 	print("Total numbers true/false positives/negatives: ")
 	print(tfpn)
 
+# Execute Feature Extraction for Performance Measurement
 @profile
 def feature_extraction_users(conn_article,users):
 	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
@@ -104,6 +107,7 @@ def feature_extraction_users(conn_article,users):
 	statistics = fmatrix.feature_matrix(comment_text_bulk[:users*20],comment_user_id_bulk[:users*20],comment_id_bulk[:users*20],comment_article_id_bulk[:users*20])
 	pc_measurement = pca.execute_pca(statistics)
 
+# Execute Classification for Performance Measurement
 @profile
 def classification_comments(pc,users2,comments,model,split_mode_2,mode):
 	experiment_matrix = trainer.get_matrix_experiment_one(pc, users2, comments=comments, text_length=250)
@@ -123,6 +127,7 @@ def classification_comments(pc,users2,comments,model,split_mode_2,mode):
 	print("Total numbers true/false positives/negatives: ")
 	print(tfpn)
 
+# Execute Feature Extraction for Performance Measurement
 @profile
 def feature_extraction_comments(conn_article,comments):
 	cur_comments_and_id = db.sql_return_comments_users_hundred(conn_article)
@@ -134,8 +139,8 @@ def feature_extraction_comments(conn_article,comments):
 	statistics = fmatrix.feature_matrix(comment_text_bulk[:comments*8],comment_user_id_bulk[:comments*8],comment_id_bulk[:comments*8],comment_article_id_bulk[:comments*8])
 	pc_measurement = pca.execute_pca(statistics)
 
+# Execute Experiment based on Heuristic 1c and save results
 def heuristic_1a(split_mode, experiment_matrix_kfold, mode, classifiers, model, users):
-	#print("\n====== Executing Experiment: Split Mode " + split_mode + " ======")
 	results = []
 	for emsk in experiment_matrix_kfold:
 		train = trainer.split_user_accounts(emsk[0].copy(), split_mode)
@@ -146,19 +151,16 @@ def heuristic_1a(split_mode, experiment_matrix_kfold, mode, classifiers, model, 
 	tfpn = trainer.get_number_true_false_positive_negative(results)
 	print("Total numbers true/false positives/negatives for Heuristic 1a, " + str(users) + " Users, " + str(split_mode) + " Testing Split, " + str(model) + ": ")
 	print(tfpn)
-	#cm = [[tfpn["true_positive"], tfpn["false_positive"]],
-	#	  [tfpn["false_negative"], tfpn["true_negative"]]]
-	#trainer.plot_heatmap(cm, "Task 2a ex1")
 	f = open("misc/experiment_results/experiment_heuristic_1a_-_" + str(model) + "_-_users_" + str(
 		users) + "_-_split_mode_" + split_mode + "_-_" + str(datetime.now()) + ".pkl", "wb")
 	pickle.dump([results, tfpn], f)
 	f.close()
 
+# Execute Experiment based on Heuristic 1b and save results
 def heuristic_1b(split_mode, experiment_matrix_kfold, mode, classifiers, model, users, split_modes_list_bc):
 	split_modes_train = split_modes_list_bc.copy()
 	if split_mode in split_modes_train:
 		split_modes_train.remove(split_mode)
-	#print("\n====== Executing Experiment: Split Mode Testing: " + split_mode + " ======")
 	results = []
 	for emsk in experiment_matrix_kfold:
 		split_mode_train = random.choice(split_modes_train)
@@ -170,18 +172,15 @@ def heuristic_1b(split_mode, experiment_matrix_kfold, mode, classifiers, model, 
 	tfpn = trainer.get_number_true_false_positive_negative(results)
 	print("Total numbers true/false positives/negatives for Heuristic 1b, " + str(users) + " Users, " + str(split_mode) + " Testing Split, " + str(model) + ": ")
 	print(tfpn)
-	#cm = [[tfpn["true_positive"], tfpn["false_positive"]],
-	#	  [tfpn["false_negative"], tfpn["true_negative"]]]
-	#trainer.plot_heatmap(cm, "Task 2a ex1")
 	f = open("misc/experiment_results/experiment_heuristic_1b_-_" + str(model) + "_-_users_" + str(
 		users) + "_-_split_mode_test_" + split_mode + "_-_" + str(datetime.now()) + ".pkl",
 			 "wb")
 	pickle.dump([results, tfpn], f)
 	f.close()
 
+# Execute Experiment based on Heuristic 1c and save results
 def heuristic_1c(split_mode, experiment_matrix_kfold, mode, classifiers, model, users, split_modes_list_bc):
 	split_modes_train = split_modes_list_bc.copy()
-	#print("\n====== Executing Experiment: Split Mode Testing: " + split_mode + " ======")
 	results = []
 	for emsk in experiment_matrix_kfold:
 		split_mode_train = random.choice(split_modes_train)
@@ -193,9 +192,6 @@ def heuristic_1c(split_mode, experiment_matrix_kfold, mode, classifiers, model, 
 	tfpn = trainer.get_number_true_false_positive_negative(results)
 	print("Total numbers true/false positives/negatives for Heuristic 1c, " + str(users) + " Users, " + str(split_mode) + " Testing Split, " + str(model) + ": ")
 	print(tfpn)
-	#cm = [[tfpn["true_positive"], tfpn["false_positive"]],
-	#	  [tfpn["false_negative"], tfpn["true_negative"]]]
-	#trainer.plot_heatmap(cm, "Task 2a ex1")
 	f = open("misc/experiment_results/experiment_heuristic_1c_-_" + str(model) + "_-_users_" + str(
 		users) + "_-_split_mode_test_" + split_mode + "_-_" + str(datetime.now()) + ".pkl",
 			 "wb")
@@ -372,7 +368,6 @@ def main(spider="guardianSpider", log=False, size=0):
 			pass
 		else:
 			logging.log(logging.INFO, "Please respond with 'yes' or 'no'")
-        	#TODO Pass dictionaries and symbol tables into Matrix
 	if args.experiments:
 		f = open("data_large.pkl", "rb")
 		statistics = pickle.load(f)
@@ -381,65 +376,54 @@ def main(spider="guardianSpider", log=False, size=0):
 		mode = input('Which mode would you like to use to compute the pairwise probability; average, multiplication, squaredaverage: ').lower()
 		split_modes_list = ["i", "ii", "iii", "iv"]
 		split_modes_list_bc = ["ii", "iii", "iv"]
-		models_list = ["randomforest", "knearestneighbors"]
-		users_list = [20] #[50, 100]
+		models_list = ["svc", "randomforest", "knearestneighbors"]
+		users_list = [50, 100]
 
-		# ## Task 1-2
-		# for model in models_list:
-		# 	for users in users_list:
-		# 		#print("\n== Executing Experiments: Machine Learning Model: " + str(model) + "; " + str(users) + " Users ==\n")
-		#
-		# 		experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=250)
-		# 		experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
-		# 		experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
-		# 		classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
-		# 		experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
-		#
-		# 		#### Heuristic 1 a) Experiment 2-4
-		# 		#print("\n==== Executing Experiments based on Heuristic 1 a) ====")
-		# 		jobs = []
-		# 		for split_mode in split_modes_list:
-		# 			p = multiprocessing.Process(target=heuristic_1a, args=(split_mode,experiment_matrix_kfold,mode,classifiers,model,users,))
-		# 			jobs.append(p)
-		# 			p.start()
-		#
-		#
-		# 		#### Heuristic 1 b) Experiment 2-4
-		# 		#print("\n==== Executing Experiments based on Heuristic 1 b) ====")
-		# 		for split_mode in split_modes_list:
-		# 			p = multiprocessing.Process(target=heuristic_1b, args=(
-		# 			split_mode, experiment_matrix_kfold, mode, classifiers, model, users,split_modes_list_bc,))
-		# 			jobs.append(p)
-		# 			p.start()
-		#
-		#
-		# 		#### Heuristic 1 c) Experiment 2-4
-		# 		#print("\n==== Executing Experiments based on Heuristic 1 c) ====")
-		# 		for split_mode in split_modes_list:
-		# 			p = multiprocessing.Process(target=heuristic_1c, args=(
-		# 			split_mode, experiment_matrix_kfold, mode, classifiers, model, users,split_modes_list_bc,))
-		# 			jobs.append(p)
-		# 			p.start()
+		jobs = []
 
+		## Task 1-2
+		for model in models_list:
+			for users in users_list:
+				experiment_matrix = trainer.get_matrix_experiment_one(pc, users, text_length=750)
+				experiment_matrix_split = trainer.split_user_accounts(experiment_matrix.copy())
+				experiment_matrix_combined_training = np.append(experiment_matrix, experiment_matrix_split, axis=0)
+				classifiers = trainer.get_classifiers(experiment_matrix_combined_training, model)
+				experiment_matrix_kfold = trainer.k_fold_cross_validation(experiment_matrix, 3)
 
+				#### Heuristic 1 a) Experiment 1-4
+				for split_mode in split_modes_list:
+					p = multiprocessing.Process(target=heuristic_1a, args=(split_mode,experiment_matrix_kfold,mode,classifiers,model,users,))
+					jobs.append(p)
+					p.start()
+
+				#### Heuristic 1 b) Experiment 1-4
+				for split_mode in split_modes_list:
+					p = multiprocessing.Process(target=heuristic_1b, args=(
+					split_mode, experiment_matrix_kfold, mode, classifiers, model, users,split_modes_list_bc,))
+					jobs.append(p)
+					p.start()
+
+				#### Heuristic 1 c) Experiment 1-4
+				for split_mode in split_modes_list:
+					p = multiprocessing.Process(target=heuristic_1c, args=(
+					split_mode, experiment_matrix_kfold, mode, classifiers, model, users,split_modes_list_bc,))
+					jobs.append(p)
+					p.start()
 
 
 		## Task 3
-		users_list_2 = [20,30,40,50]
+		users_list_2 = [25,50,75,100]
 		comments_list_2 = [10, 15, 20, 25]
 		split_mode_2 = "iv"
-		models_list_2 = ["randomforest", "knearestneighbors"]
 		users2 = 50
 
+		#### Task 3a
+		###### Performance Feature Extraction
+		for users in users_list_2:
+			print(
+				"\n== Executing Performance Measurements for Task 3a Feature Extraction: " + str(users) + " Users ==\n")
+			feature_extraction_users(conn_article,users)
 
-		# #### Task 3a
-		# ###### Performance Feature Extraction
-		# for users in users_list_2:
-		# 	print(
-		# 		"\n== Executing Performance Measurements for Task 3a Feature Extraction: " + str(users) + " Users ==\n")
-		# 	feature_extraction_users(conn_article,users)
-
-		#
 		###### Performance Doppelgaenger Detection
 		for model in models_list:
 			for users in users_list_2:
@@ -448,26 +432,23 @@ def main(spider="guardianSpider", log=False, size=0):
 							model) + "; " + str(users) + " Users ==\n")
 					classification_users(pc,users,model,split_mode_2,mode)
 
-
-
 		#### Task 3b
 		###### Performance Feature Extraction
-		# for comments in comments_list_2:
-		# 	print(
-		# 		"\n== Executing Performance Measurements for Task 3b Feature Extraction: " + str(comments) + " Comments ==\n")
-		# 	feature_extraction_comments(conn_article,comments)
+		for comments in comments_list_2:
+			print(
+				"\n== Executing Performance Measurements for Task 3b Feature Extraction: " + str(comments) + " Comments ==\n")
+			feature_extraction_comments(conn_article,comments)
 
-		#
-		# ###### Performance Doppelgaenger Detection
-		# for model in models_list:
-		# 	for comments in comments_list_2:
-		# 			print("\n== Executing Performance Measurements for Task 3b Doppelgaenger Detection: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
-		# 			classification_comments(pc,users2,comments,model,split_mode_2,mode)
-
+		###### Performance Doppelgaenger Detection
+		for model in models_list:
+			for comments in comments_list_2:
+					print("\n== Executing Performance Measurements for Task 3b Doppelgaenger Detection: Machine Learning Model: " + str(model) + "; " + str(users2) + " Users; " + str(comments) + " comments ==\n")
+					classification_comments(pc,users2,comments,model,split_mode_2,mode)
 
 
 
 
+	#### OLD EXPERIMENTS FROM PRIOR TASK SHEET BELOW
 
 	# ## Task 2 a) Experiment 1
 		# print("\n===== Executing Task 2 a) Experiment 1 =====")
@@ -597,7 +578,6 @@ def main(spider="guardianSpider", log=False, size=0):
 		# f.close()
 		# #Close writing to PDF after calling plot_heatmap
 		# trainer.closepdf()
-	# TODO Pass dictionaries and symbol tables into Matrix
 	close_db_connection(conn_article)
 	close_db_connection(conn_comments)
 	close_db_connection(conn_user)
